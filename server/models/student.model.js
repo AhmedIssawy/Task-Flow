@@ -7,8 +7,12 @@ const studentSchema = new mongoose.Schema(
       required: true,
       unique: true,
       default: function () {
-        return this._id.toString();
+        return `STU-${Date.now()}`;
       },
+    },
+    password: {
+      type: String,
+      required: true,
     },
     name: {
       type: String,
@@ -18,6 +22,11 @@ const studentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "University",
       required: true,
+    },
+    role: {
+      type: String,
+      required: true,
+      default: "student",
     },
     email: {
       type: String,

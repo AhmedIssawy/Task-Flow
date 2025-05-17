@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
-  "author": "",
+  "author": "Ahmed Issawy",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -11,10 +11,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.2"
   },
   "devDependencies": {

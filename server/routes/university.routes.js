@@ -10,9 +10,9 @@ import {
 
 const router = Router();
 
-router.route("/all").get(getAllUniversities);
-
 router.route("/").get(getUniversitiesPage).post(createUniversity);
+
+router.route("/all").get(getAllUniversities);
 
 router.route("/:universityId").get(getUniversityById);
 
