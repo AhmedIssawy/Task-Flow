@@ -1,0 +1,190 @@
+/* All styles are now handled by Tailwind CSS. This file is deprecated. */
+/* If you need custom styles, add them to your Tailwind config or use @apply in a Tailwind CSS file. */
+
+:root {
+  --color-bg: #000;
+  --color-text: #fff;
+  --color-dark: #111;
+  --color-border: #444;
+  /* add more semantic variables as needed */
+}
+ body {
+  font-family: 'Tahoma', 'Arial', sans-serif; /* consider 'Noto Sans Arabic' */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+   margin: 0;
+   direction: rtl;
+ }
+
+.navbar {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+   padding-block: 1rem;
+   padding-inline: 2rem;
+   background-color: var(--color-dark);
+ }
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.nav-icons a {
+  display: inline-block;
+   margin: 0 0.5rem;
+   color: #fff;
+   text-decoration: none;
+ }
+
+.nav-icons a:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s, outline 0.2s;
+}
+
+.button:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.button:hover {
+  filter: brightness(1.1);
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.explore {
+  background-color: #444;
+  color: #fff;
+}
+
+.join {
+  background-color: #fff;
+  color: #000;
+}
+
+.trusted-by {
+  font-size: 0.9rem;
+}
+
+.cta-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  background-color: #111;
+  flex-wrap: wrap;
+}
+
+.cta-box, .enterprise-box {
+  border: 1px solid #444;
+  padding: 1.5rem;
+  flex: 1 1 300px;
+  max-width: 300px;
+}
+
+.start-btn, .explore-enterprise {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.plan-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #ccc;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.plan-link:hover,
+.plan-link:focus {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: #222;
+  padding: 2rem;
+  color: #aaa;
+  text-align: center;
+}
+
+.footer-cols {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  gap: 2rem;
+}
+
+.footer-cols div {
+  min-width: 120px;
+}
+
+.footer-note {
+  font-size: 0.8rem;
+}
+
+.login-btn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.login-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
