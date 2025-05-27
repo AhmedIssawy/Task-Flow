@@ -23,7 +23,7 @@ const StudentDetailsPage = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-8 space-y-6">
+      <div className="max-w-4xl mx-auto px-6 py-8 space-y-6 bg-slate-50 dark:bg-slate-900">
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-6 w-40" />
         <Skeleton className="h-6 w-full" />
@@ -34,25 +34,26 @@ const StudentDetailsPage = () => {
 
   if (isError || !student) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-8">
-        <p className="text-red-500 text-lg">Failed to load student details.</p>
+      <div className="flex flex-col justify-center items-center h-64 text-center">
+        <p className="text-xl text-red-600">Failed to load student details.</p>
+        <p className="text-md text-muted-foreground mt-2">Please check the student ID or try again later.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-8 space-y-8">
-      <div className="space-y-1">
-        <h1 className="text-3xl font-semibold">{student.name}</h1>
+    <div className="max-w-4xl mx-auto px-6 py-8 space-y-8 bg-slate-50 dark:bg-slate-900">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight">{student.name}</h1>
         <p className="text-muted-foreground text-sm">{student.email}</p>
         <Badge variant="outline" className="mt-2">
           University ID: {student?.universityId?.name ?? "N/A"}
         </Badge>
       </div>
 
-      <Card>
+      <Card className="border">
         <CardContent className="p-6 space-y-2">
-          <p className="text-lg font-medium">Courses</p>
+          <p className="text-lg font-medium mb-3">Courses</p>
           {student?.courses?.length > 0 ? (
             <ul className="list-disc pl-5 space-y-1 text-sm">
               {student?.courses.map((course: string, index: number) => (
@@ -60,7 +61,7 @@ const StudentDetailsPage = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground italic">
               No courses enrolled.
             </p>
           )}

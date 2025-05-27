@@ -29,6 +29,7 @@ const StudentsPage = () => {
           key={i}
           variant={i === currentPage ? "default" : "ghost"}
           onClick={() => setPage(i)}
+          className="px-3 py-2"
         >
           {i}
         </Button>
@@ -39,26 +40,26 @@ const StudentsPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <h1 className="text-2xl font-semibold mb-4">Students</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-slate-50 dark:bg-slate-900">
+      <h1 className="text-3xl font-semibold mb-8">Students</h1>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="flex justify-center items-center h-64"><p className="text-lg">Loading...</p></div>
       ) : isError ? (
-        <p className="text-red-500">Failed to load students.</p>
+        <div className="flex justify-center items-center h-64"><p className="text-lg text-red-600">Failed to load students. Please try again later.</p></div>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {students.map((student: Student) => (
-              <Card key={student._id} className="relative">
+              <Card key={student._id} className="relative hover:shadow-md transition-shadow duration-200">
                 <div
-                  className="absolute top-2 right-2 w-5 h-5 rounded-full bg-blue-500 cursor-pointer"
+                  className="absolute top-2 right-2 w-6 h-6 rounded-full bg-blue-500 cursor-pointer hover:bg-blue-600"
                   onClick={() =>
                     router.push(`/universities/${student.universityId?._id ?? "*"}`)
                   }
                   title="Go to University"
                 />
-                <CardContent className="space-y-2 p-4">
+                <CardContent className="space-y-3 p-6">
                   <p className="text-lg font-medium">{student.name}</p>
                   <p className="text-sm text-muted-foreground">{student.email}</p>
                   <p className="text-sm text-muted-foreground">
@@ -67,7 +68,7 @@ const StudentsPage = () => {
                   <Button
                     onClick={() => router.push(`/students/${student._id}`)}
                     variant="outline"
-                    className="mt-2"
+                    className="mt-4"
                   >
                     View Details
                   </Button>
@@ -76,11 +77,12 @@ const StudentsPage = () => {
             ))}
           </div>
 
-          <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button
               variant="ghost"
               disabled={currentPage === 1}
               onClick={() => setPage((p) => Math.max(p - 1, 1))}
+              className="px-4 py-2"
             >
               Previous
             </Button>
@@ -91,6 +93,7 @@ const StudentsPage = () => {
               variant="ghost"
               disabled={currentPage === totalPages}
               onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              className="px-4 py-2"
             >
               Next
             </Button>
