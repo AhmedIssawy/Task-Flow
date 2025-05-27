@@ -1,8 +1,8 @@
 import { useGetStudentsPageQuery } from "@/app/api/studentApiSlice";
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { useRouter } from 'next/router';
 import type { Student } from "@/types/StudentType";
 
 const StudentsPage = () => {
@@ -11,7 +11,7 @@ const StudentsPage = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const students = data?.students ?? [];
   const currentPage = Number(data?.currentPage ?? page);
@@ -54,7 +54,7 @@ const StudentsPage = () => {
                 <div
                   className="absolute top-2 right-2 w-5 h-5 rounded-full bg-blue-500 cursor-pointer"
                   onClick={() =>
-                    navigate(`/universities/${student.universityId?._id ?? "*"}`)
+                    router.push(`/universities/${student.universityId?._id ?? "*"}`)
                   }
                   title="Go to University"
                 />
@@ -65,7 +65,7 @@ const StudentsPage = () => {
                     University: {student.universityId?.name ?? "*"}
                   </p>
                   <Button
-                    onClick={() => navigate(`/students/${student._id}`)}
+                    onClick={() => router.push(`/students/${student._id}`)}
                     variant="outline"
                     className="mt-2"
                   >

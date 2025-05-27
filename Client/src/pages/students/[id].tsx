@@ -1,16 +1,21 @@
 import { useGetStudentByIdQuery } from "@/app/api/studentApiSlice";
-import { useParams, useNavigate } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { useRouter } from 'next/router';
+import { Card, CardContent } from "@/Components/ui/card";
+import { Badge } from "@/Components/ui/badge";
+import { Skeleton } from "@/Components/ui/skeleton";
+import { Button } from "@/Components/ui/button";
 import { useMemo } from "react";
 
 const StudentDetailsPage = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const { id } = router.query;
+  // Ensure id is a string for the query, or skip if not available/valid
+  // For simplicity, we'll cast to string, assuming id will be available.
+  // A more robust solution would use router.isReady and skip the query if id is not yet available.
+  const studentId = Array.isArray(id) ? id[0] : id;
 
-  const { data, isLoading, isError } = useGetStudentByIdQuery(id!, {
+  const { data, isLoading, isError } = useGetStudentByIdQuery(studentId!, {
+    skip: !studentId, // Skip query if studentId is not yet available
     refetchOnMountOrArgChange: true,
   });
 
@@ -62,7 +67,7 @@ const StudentDetailsPage = () => {
         </CardContent>
       </Card>
 
-      <Button variant="outline" onClick={() => navigate(-1)}>
+      <Button variant="outline" onClick={() => router.back()}>
         Go Back
       </Button>
     </div>
