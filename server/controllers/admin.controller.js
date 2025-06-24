@@ -6,7 +6,14 @@ import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
 
 const createStudent = asyncHandler(async (req, res) => {
-  const { name, email, courses = [], universityId, password, lang = "en" } = req.body;
+  const {
+    name,
+    email,
+    courses = [],
+    universityId,
+    password,
+    lang = "en",
+  } = req.body;
 
   const existingStudent = await Student.findOne({ email });
   if (existingStudent) {
@@ -38,6 +45,39 @@ const createStudent = asyncHandler(async (req, res) => {
   });
 });
 
+const getAdminById = asyncHandler(async (req, res) => {
+  const { id, lang = "en" } = req.body;
+  const admin = await Admin.findOne({ id }).lean();
+  if (!admin) {
+    let message = "Admin not found";
+    if (lang === "ar") message = "المسؤول غير موجود";
+
+    return res.status(404).json({
+      message,
+    });
+  }
+  const { password, ...response } = admin;
+
+  message = "Admin found successfully";
+  if (lang === "ar") message = "تم العثور على المسؤول";
+
+  res.status(200).json({
+    message,
+    admin: response,
+  });
+});
+
+const getPageOfAdmins = asyncHandler(async (req, res) => {
+  const { page = 1, lang = "en" } = req.query;
+  const admins = await Admin.find()
+    .skip((page - 1) * 40)
+    .limit(40)
+    .lean();
+  res.status(200).json({
+    admins,
+    total: admins.length,
+  });
+});
 const createAdmin = asyncHandler(async (req, res) => {
   const { password, name, lang = "en" } = req.body;
   if (!password) {
@@ -293,4 +333,6 @@ export {
   updateAdmin,
   deleteAdmin,
   updateUniversity,
+  getAdminById,
+  getPageOfAdmins,
 };
