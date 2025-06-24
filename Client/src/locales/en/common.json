@@ -162,6 +162,244 @@
       "description": "Task Flow is the all-in-one academic operations management platform designed to streamline workflows, enhance collaboration, and drive success for students, teachers, and administrators.",
       "startbutton": "Get Started Free",
       "demobutton": "Request a demo"
+    },
+    "keyfeatures": {
+      "title": "Key Features",
+      "subtitle": "Streamline Your Academic Operations",
+      "description": "Task Flow offers a comprehensive suite of tools to manage every aspect of your academic operations, from course management to communication.",
+      "features": {
+        "courses": {
+          "title": "Courses",
+          "description": "Manage courses, materials, and resources in one central hub."
+        },
+        "assignments": {
+          "title": "Assignments",
+          "description": "Create, distribute, and grade assignments efficiently."
+        },
+        "scheduling": {
+          "title": "Scheduling",
+          "description": "Streamline scheduling for classes, meetings, and events."
+        },
+        "collaboration": {
+          "title": "Collaboration",
+          "description": "Foster collaboration among students, teachers, and staff."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "Gain insights into performance with comprehensive analytics."
+        },
+        "communication": {
+          "title": "Communication",
+          "description": "Facilitate seamless communication across the academic community."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Benefits for Everyone",
+      "subtitle": "Empowering Students, Teachers, and Administrators",
+      "description": "Task Flow provides tailored solutions to meet the unique needs of each member of the academic community.",
+      "users": {
+        "students": {
+          "title": "For Students",
+          "description": "Stay organized, manage assignments, and collaborate effectively with peers."
+        },
+        "teachers": {
+          "title": "For Teachers",
+          "description": "Simplify course management, grading, and communication with students."
+        },
+        "administrators": {
+          "title": "For Administrators",
+          "description": "Gain insights into performance, streamline workflows, and improve overall efficiency."
+        }
+      }
+    },
+    "about": {
+      "title": "Who We Are",
+      "description1": "Task Flow is a global leader in higher education, dedicated to empowering students to create positive change in the world.",
+      "description2": "Our mission is to inspire innovation, foster diversity, and cultivate excellence in every learner.",
+      "button": "Discover More",
+      "pillars": {
+        "excellence": {
+          "title": "Academic Excellence",
+          "description": "Over 130 years of shaping leaders and innovators."
+        },
+        "community": {
+          "title": "Diverse Community",
+          "description": "Students and faculty from 85+ countries."
+        },
+        "perspective": {
+          "title": "Global Perspective",
+          "description": "A curriculum designed for a connected world."
+        },
+        "impact": {
+          "title": "Recognized Impact",
+          "description": "Award-winning programs and research."
+        }
+      }
+    },
+    "programs": {
+      "title": "Academic Programs",
+      "description": "Discover world-class programs designed to challenge, inspire, and prepare you for success in your chosen field. Our comprehensive curriculum combines theoretical knowledge with practical application.",
+      "button": "View All Programs",
+      "schools": {
+        "sciences": {
+          "title": "School of Sciences",
+          "description": "Cutting-edge research in biology, chemistry, physics, and environmental sciences.",
+          "courses": {
+            "biology": "Biology",
+            "chemistry": "Chemistry",
+            "physics": "Physics",
+            "environmental": "Environmental Science"
+          }
+        },
+        "engineering": {
+          "title": "School of Engineering",
+          "description": "Innovation-driven programs in various engineering disciplines.",
+          "courses": {
+            "computer": "Computer Engineering",
+            "mechanical": "Mechanical",
+            "electrical": "Electrical",
+            "civil": "Civil"
+          }
+        },
+        "business": {
+          "title": "School of Business",
+          "description": "Preparing future leaders with comprehensive business education.",
+          "courses": {
+            "mba": "MBA",
+            "finance": "Finance",
+            "marketing": "Marketing",
+            "international": "International Business"
+          }
+        },
+        "arts": {
+          "title": "School of Arts",
+          "description": "Creative programs fostering artistic expression and cultural understanding.",
+          "courses": {
+            "finearts": "Fine Arts",
+            "music": "Music",
+            "theater": "Theater",
+            "writing": "Creative Writing"
+          }
+        },
+        "medicine": {
+          "title": "School of Medicine",
+          "description": "World-class medical education and healthcare research programs.",
+          "courses": {
+            "medicine": "Medicine",
+            "nursing": "Nursing",
+            "publichealth": "Public Health",
+            "biomedical": "Biomedical Sciences"
+          }
+        },
+        "technology": {
+          "title": "School of Technology",
+          "description": "Advanced programs in computer science and information technology.",
+          "courses": {
+            "computerscience": "Computer Science",
+            "datascience": "Data Science",
+            "cybersecurity": "Cybersecurity",
+            "aiml": "AI/ML"
+          }
+        }
+      }
+    },
+    "news": {
+      "title": "News & Events",
+      "description": "Stay updated with the latest developments, achievements, and upcoming events from our vibrant university community.",
+      "readMore": "Read More",
+      "latestNews": {
+        "title": "Latest News",
+        "viewAll": "View All News"
+      },
+      "newsItems": {
+        "research": {
+          "category": "Research",
+          "title": "Breakthrough in Renewable Energy Research",
+          "excerpt": "Our engineering team develops innovative solar panel technology that increases efficiency by 40%.",
+          "date": "June 5, 2025",
+          "readTime": "5 min read"
+        },
+        "achievement": {
+          "category": "Achievement",
+          "title": "International Recognition for Medical Program",
+          "excerpt": "Enterprise University's medical school receives top ranking in global healthcare education survey.",
+          "date": "June 3, 2025",
+          "readTime": "3 min read"
+        },
+        "event": {
+          "category": "Event",
+          "title": "Annual Innovation Summit 2025",
+          "excerpt": "Join us for three days of cutting-edge presentations, workshops, and networking opportunities.",
+          "date": "June 1, 2025",
+          "readTime": "2 min read"
+        },
+        "community": {
+          "category": "Community",
+          "title": "Student Volunteer Initiative Reaches 10,000 Hours",
+          "excerpt": "Our students have contributed over 10,000 hours of community service this academic year.",
+          "date": "May 30, 2025",
+          "readTime": "4 min read"
+        }
+      },
+      "upcomingEvents": {
+        "title": "Upcoming Events",
+        "viewAll": "View All Events",
+        "graduation": {
+          "date": "Jun 15",
+          "title": "Graduation Ceremony 2025",
+          "time": "10:00 AM",
+          "location": "University Stadium"
+        },
+        "symposium": {
+          "date": "Jun 20",
+          "title": "Summer Research Symposium",
+          "time": "2:00 PM",
+          "location": "Academic Center"
+        },
+        "alumni": {
+          "date": "Jun 25",
+          "title": "Alumni Networking Event",
+          "time": "6:00 PM",
+          "location": "Grand Hall"
+        }
+      },
+      "stats": {
+        "title": "This Month",
+        "newStudents": {
+          "value": "1,200",
+          "label": "New Students"
+        },
+        "researchPapers": {
+          "value": "45",
+          "label": "Research Papers"
+        },
+        "campusEvents": {
+          "value": "23",
+          "label": "Campus Events"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Begin Your Journey?",
+      "description": "Join thousands of students who are already transforming their futures through exceptional education and groundbreaking research opportunities.",
+      "cards": {
+        "current": {
+          "title": "Current Students",
+          "description": "Access your student portal to view courses, grades, schedules, and connect with your academic community.",
+          "button": "Sign In to Portal"
+        },
+        "prospective": {
+          "title": "Prospective Students",
+          "description": "Explore our academic programs, campus life, and application process. Start your journey to academic excellence today.",
+          "button": "Explore Programs"
+        }
+      },
+      "help": {
+        "text": "Have questions? Our admissions team is here to help.",
+        "contactButton": "Contact Admissions",
+        "tourButton": "Schedule Campus Tour"
+      }
     }
   }
 }
