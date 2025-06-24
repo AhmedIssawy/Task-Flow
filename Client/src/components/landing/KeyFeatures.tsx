@@ -15,60 +15,58 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 
 const KeyFeatures = () => {
+  const { t } = useTranslation();
+  
   const features = [
     {
       icon: <BookOpen />,
-      title: "Courses",
-      description:
-        "Manage courses, materials, and resources in one central hub.",
+      title: t("pages.keyfeatures.features.courses.title"),
+      description: t("pages.keyfeatures.features.courses.description"),
     },
     {
       icon: <File />,
-      title: "Assignments",
-      description: "Create, distribute, and grade assignments efficiently.",
+      title: t("pages.keyfeatures.features.assignments.title"),
+      description: t("pages.keyfeatures.features.assignments.description"),
     },
     {
       icon: <Calendar />,
-      title: "Scheduling",
-      description: "Streamline scheduling for classes, meetings, and events.",
+      title: t("pages.keyfeatures.features.scheduling.title"),
+      description: t("pages.keyfeatures.features.scheduling.description"),
     },
     {
       icon: <Users />,
-      title: "Collaboration",
-      description: "Foster collaboration among students, teachers, and staff.",
+      title: t("pages.keyfeatures.features.collaboration.title"),
+      description: t("pages.keyfeatures.features.collaboration.description"),
     },
     {
       icon: <ChartSpline />,
-      title: "Analytics",
-      description:
-        "Gain insights into performance with comprehensive analytics.",
+      title: t("pages.keyfeatures.features.analytics.title"),
+      description: t("pages.keyfeatures.features.analytics.description"),
     },
     {
       icon: <MessageCircleMore />,
-      title: "Communication",
-      description:
-        "Facilitate seamless communication across the academic community.",
+      title: t("pages.keyfeatures.features.communication.title"),
+      description: t("pages.keyfeatures.features.communication.description"),
     },
   ];
 
   return (
     <section id="features" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 className="text-5xl font-black pb-20">Key Features</h3>
+        <h3 className="text-5xl font-black pb-20">{t("pages.keyfeatures.title")}</h3>
         <div className="flex flex-col gap-10">
           <h2 className="text-6xl font-black">
-            Streamline Your Academic Operations
+            {t("pages.keyfeatures.subtitle")}
           </h2>
           <p className="text-2xl font-normal">
-            Task Flow offers a comprehensive suite of tools to manage every
-            aspect of your academic operations, from course management to
-            communication.
+            {t("pages.keyfeatures.description")}
           </p>
           <div className="flex gap-10">
-            {features.map((feature) => (
-              <Card className="w-[176px]">
+            {features.map((feature, index) => (
+              <Card key={index} className="w-[176px]">
                 <CardHeader className="flex flex-col gap-2">
                   <CardTitle>{feature.icon}</CardTitle>
                   <CardTitle>{feature.title}</CardTitle>

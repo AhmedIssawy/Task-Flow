@@ -1,17 +1,20 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Users, BookOpen } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const CTASection = () => {
+    const { t } = useTranslation();
+    
     return (
         <section className="py-20 bg-theme text-theme relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="text-center mb-12">
                     <h2 className="text-5xl font-black mb-6">
-                        Ready to Begin Your Journey?
+                        {t("pages.cta.title")}
                     </h2>
                     <p className="text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                        Join thousands of students who are already transforming their futures through exceptional education and groundbreaking research opportunities.
+                        {t("pages.cta.description")}
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
@@ -19,9 +22,9 @@ export const CTASection = () => {
                         <div className="bg-main/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                             <Users className="h-8 w-8 text-main" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4">Current Students</h3>
+                        <h3 className="text-2xl font-bold mb-4">{t("pages.cta.cards.current.title")}</h3>
                         <p className="text-gray-600 mb-6">
-                            Access your student portal to view courses, grades, schedules, and connect with your academic community.
+                            {t("pages.cta.cards.current.description")}
                         </p>
                         <Button
                             asChild
@@ -29,7 +32,7 @@ export const CTASection = () => {
                             className="bg-primary hover:bg-primary-hover text-white font-semibold rounded"
                         >
                             <Link href="/login" className="flex items-center gap-2">
-                                Sign In to Portal
+                                {t("pages.cta.cards.current.button")}
                                 <ArrowRight className="h-5 w-5" />
                             </Link>
                         </Button>
@@ -38,9 +41,9 @@ export const CTASection = () => {
                         <div className="bg-main/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                             <BookOpen className="h-8 w-8 text-main" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-4">Prospective Students</h3>
+                        <h3 className="text-2xl font-bold mb-4">{t("pages.cta.cards.prospective.title")}</h3>
                         <p className="text-gray-600 mb-6">
-                            Explore our academic programs, campus life, and application process. Start your journey to academic excellence today.
+                            {t("pages.cta.cards.prospective.description")}
                         </p>
                         <Button
                             asChild
@@ -48,7 +51,7 @@ export const CTASection = () => {
                             className="bg-primary hover:bg-primary-hover font-semibold rounded"
                         >
                             <Link href="#programs" className="flex items-center gap-2">
-                                Explore Programs
+                                {t("pages.cta.cards.prospective.button")}
                                 <ArrowRight className="h-5 w-5" />
                             </Link>
                         </Button>
@@ -56,18 +59,18 @@ export const CTASection = () => {
                 </div>
                 <div className="text-center">
                     <p className="text-gray-500 mb-6 text-lg">
-                        Have questions? Our admissions team is here to help.
+                        {t("pages.cta.help.text")}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             className=" bg-primary hover:bg-primary-hover  font-semibold rounded"
                         >
-                            Contact Admissions
+                            {t("pages.cta.help.contactButton")}
                         </Button>
                         <Button
                             className="bg-primary hover:bg-primary-hover font-semibold rounded"
                         >
-                            Schedule Campus Tour
+                            {t("pages.cta.help.tourButton")}
                         </Button>
                     </div>
                 </div>

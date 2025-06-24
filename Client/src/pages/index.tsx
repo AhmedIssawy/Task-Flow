@@ -36,17 +36,17 @@ export default function IndexPage() {
   };
 
   return (
-    <div className="min-h-screen bg-theme text-theme p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <Header />
-        <HeroSection />
-        <KeyFeatures />
-        <Benefits />
-        <AboutSection />
-        <ProgramsSection />
-        <NewsSection />
-        <CTASection />
-      </div>
+    <div className="min-h-screen bg-theme text-theme">
+    <div className="max-w-7xl mx-auto space-y-6">
+      <Header />
+      <HeroSection />
+      <KeyFeatures />
+      <Benefits />
+      <AboutSection />
+      <ProgramsSection />
+      <NewsSection />
+      <CTASection />
+  </div>
     </div>
   );
 }

@@ -1,28 +1,31 @@
 import Image from 'next/image';
 import { GraduationCap, Users, Globe, Award } from 'lucide-react';
 import { Button } from '../ui/button';
+import { useTranslation } from 'react-i18next';
 
 export const AboutSection = () => {
+    const { t } = useTranslation();
+    
     const pillars = [
         {
             icon: <GraduationCap className="h-7 w-7 text-blue-600" />,
-            title: 'Academic Excellence',
-            desc: 'Over 130 years of shaping leaders and innovators.'
+            title: t('pages.about.pillars.excellence.title'),
+            desc: t('pages.about.pillars.excellence.description')
         },
         {
             icon: <Users className="h-7 w-7 text-green-600" />,
-            title: 'Diverse Community',
-            desc: 'Students and faculty from 85+ countries.'
+            title: t('pages.about.pillars.community.title'),
+            desc: t('pages.about.pillars.community.description')
         },
         {
             icon: <Globe className="h-7 w-7 text-purple-600" />,
-            title: 'Global Perspective',
-            desc: 'A curriculum designed for a connected world.'
+            title: t('pages.about.pillars.perspective.title'),
+            desc: t('pages.about.pillars.perspective.description')
         },
         {
             icon: <Award className="h-7 w-7 text-orange-600" />,
-            title: 'Recognized Impact',
-            desc: 'Award-winning programs and research.'
+            title: t('pages.about.pillars.impact.title'),
+            desc: t('pages.about.pillars.impact.description')
         },
     ];
 
@@ -44,12 +47,12 @@ export const AboutSection = () => {
                 <div className="flex-1 w-full max-w-xl">
                     <div className="bg-theme backdrop-blur-lg rounded-3xl shadow-2xl p-10 flex flex-col gap-8">
                         <div>
-                            <h2 className="text-5xl font-black mb-4 ">Who We Are</h2>
+                            <h2 className="text-5xl font-black mb-4 ">{t('pages.about.title')}</h2>
                             <p className="text-xl  mb-2">
-                                Task Flow is a global leader in higher education, dedicated to empowering students to create positive change in the world.
+                                {t('pages.about.description1')}
                             </p>
                             <p className="text-lg ">
-                                Our mission is to inspire innovation, foster diversity, and cultivate excellence in every learner.
+                                {t('pages.about.description2')}
                             </p>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-6">
@@ -63,7 +66,7 @@ export const AboutSection = () => {
                         </div>
                         <div className="flex justify-center pt-2">
                             <Button className="bg-primary hover:bg-primary-hover px-8 py-3 text-lg font-bold rounded-full shadow-md">
-                                Discover More
+                                {t('pages.about.button')}
                             </Button>
                         </div>
                     </div>
