@@ -46,7 +46,8 @@ const createStudent = asyncHandler(async (req, res) => {
 });
 
 const getAdminById = asyncHandler(async (req, res) => {
-  const { id, lang = "en" } = req.body;
+  const { lang = "en" } = req.body;
+  const { id } = req.params;
   const admin = await Admin.findOne({ id }).lean();
   if (!admin) {
     let message = "Admin not found";
