@@ -1,5 +1,5 @@
 import Student from "../models/student.model.js";
-import University from "../models/university.model.js";
+import mongoose from "mongoose";
 
 import asyncHandler from "express-async-handler";
 
@@ -177,23 +177,28 @@ const updateStudent = asyncHandler(async (req, res) => {
 });
 
 const deleteStudent = asyncHandler(async (req, res) => {
-  const { lang = "en" } = req.body;
+  const lang = req?.body?.lang || req?.query?.lang || "en";
+
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({
+      message: lang === "ar" ? "معرّف غير صالح" : "Invalid student ID",
+    });
+  }
 
   const student = await Student.findByIdAndDelete(req.params.id);
 
   if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
     return res.status(404).json({
-      message,
+      message: lang === "ar" ? "الطالب غير موجود" : "Student not found",
     });
   }
 
-  let message = "Student has been removed permanently";
-  if (lang === "ar") message = "تم حذف الطالب نهائياً";
-
-  res.status(200).json({ message });
+  res.status(200).json({
+    message:
+      lang === "ar"
+        ? "تم حذف الطالب نهائياً"
+        : "Student has been removed permanently",
+  });
 });
 
 export {

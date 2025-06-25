@@ -5,6 +5,7 @@ import {
   // getAllStudents,
   getStudentsPage,
   getStudentById,
+  deleteStudent,
   
 } from "../controllers/student.controller.js";
 
@@ -15,6 +16,7 @@ import authinticate from "../middlewares/authintication.middleware.js";
 import {
   validateObjectId,
 } from "../middlewares/validation.middleware.js";
+import authorize from "../middlewares/authorization.middleware.js";
 
 const router = Router();
 
@@ -28,5 +30,6 @@ router.route("/:universityId");
 router
   .route("/:id")
   .get(validateObjectId, authinticate, getStudentById)
+  .delete(authinticate, authorize (["admin", "super-admin"]), deleteStudent)
 
 export default router;
