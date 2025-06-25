@@ -20,6 +20,11 @@ const courseSchema = new mongoose.Schema(
         ref: "Teacher",
       },
     ],
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,

@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import Student from "../models/student.model.js";
 import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
+import College from "../models/college.model.js";
 
 const createStudent = asyncHandler(async (req, res) => {
   const {
@@ -48,7 +49,8 @@ const createStudent = asyncHandler(async (req, res) => {
 const getAdminById = asyncHandler(async (req, res) => {
   const lang = req?.body?.lang || req?.query?.lang || "en";
   const { id } = req.params;
-  const admin = await Admin.findOne({ id }).lean();
+  const admin = await Admin.findOne({ id }).select("-password").lean();
+
   let message = "";
   if (!admin) {
     let message = "Admin not found";
@@ -72,6 +74,7 @@ const getAdminById = asyncHandler(async (req, res) => {
 const getPageOfAdmins = asyncHandler(async (req, res) => {
   const { page = 1, lang = "en" } = req.query;
   const admins = await Admin.find()
+    .select("-password")
     .skip((page - 1) * 40)
     .limit(40)
     .lean();
@@ -327,6 +330,45 @@ const updateUniversity = asyncHandler(async (req, res) => {
   });
 });
 
+const createCollege = asyncHandler(async (req, res) => {
+  const {
+    name,
+    address,
+    phone,
+    email,
+    location,
+    description,
+    website,
+    establishedYear,
+    logo,
+    universityId,
+  } = req.body;
+
+  // Check if College with same email exists
+  const existingCollege = await College.findOne({ email });
+  if (existingCollege) {
+    return res.status(400).json({
+      message: "College already exists, please use a different email",
+    });
+  }
+
+  // Create College
+  const college = await College.create({
+    name,
+    address,
+    phone,
+    email,
+    location,
+    description,
+    website,
+    establishedYear,
+    logo,
+    universityId,
+  });
+
+  res.status(201).json(college);
+});
+
 export {
   createStudent,
   createAdmin,
@@ -337,4 +379,5 @@ export {
   updateUniversity,
   getAdminById,
   getPageOfAdmins,
+  createCollege,
 };

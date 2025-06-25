@@ -12,6 +12,8 @@ import universityRoutes from "./routes/university.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import teacherRoutes from "./routes/teacher.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
+import departmentsRoutes from "./routes/department.routes.js";
+import collegesRoutes from "./routes/college.routes.js";
 
 const app = express();
 
@@ -33,6 +35,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/universities", universityRoutes);
 app.use("/api/teachers", teacherRoutes);
+app.use("/api", collegesRoutes)
+app.use("/api", departmentsRoutes);
 app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
