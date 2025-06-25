@@ -17,19 +17,12 @@ export const AuthInitializer = () => {
                 if (storedToken && storedUser) {
                     const user = JSON.parse(storedUser)
 
-                    // Validate the token is not expired (mock validation)
-                    // In a real app, you would validate with the server
-                    if (storedToken.startsWith('mock-jwt-token-')) {
-                        dispatch(setCredentials({
-                            user,
-                            token: storedToken
-                        }))
-                    } else {
-                        // Token is invalid, clear storage
-                        localStorage.removeItem('token')
-                        localStorage.removeItem('user')
-                        dispatch(clearAuth())
-                    }
+                    // For real API, we would validate the token with the server
+                    // For now, just restore the stored credentials
+                    dispatch(setCredentials({
+                        user,
+                        token: storedToken
+                    }))
                 }
             } catch (error) {
                 // If there's an error parsing stored data, clear it

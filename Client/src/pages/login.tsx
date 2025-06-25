@@ -22,8 +22,8 @@ import { useLoginMutation } from "@/store/api/authApiSlice";
 
 // Login form validation schema
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  userId: z.string().min(1, "User ID is required"),
+  password: z.string().min(1, "Password is required"),
   rememberMe: z.boolean().optional(),
 });
 
@@ -49,11 +49,10 @@ const LoginPage: React.FC = () => {
       router.push("/");
     }
   }, [isAuthenticated, router]);
-
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await login({
-        email: data.email,
+        userId: data.userId,
         password: data.password,
       }).unwrap();
 
@@ -69,31 +68,10 @@ const LoginPage: React.FC = () => {
         TEACHER: "/teacher",
         ADMIN: "/admin",
         SUPER_ADMIN: "/superadmin",
-      };
-
-      const redirectPath = rolePaths[result.user.role] || "/";
+      }; const redirectPath = rolePaths[result.user.role] || "/";
       router.push(redirectPath);
     } catch (err) {
       console.error("Login failed:", err);
-    }
-  };
-
-  const handleDemoLogin = (role: string) => {
-    const demoCredentials = {
-      STUDENT: { email: "student@uni.edu", password: "password" },
-      TEACHER: { email: "teacher@uni.edu", password: "password" },
-      ADMIN: { email: "admin@uni.edu", password: "password" },
-      SUPER_ADMIN: { email: "superadmin@system.com", password: "password" },
-    };
-
-    const credentials = demoCredentials[role as keyof typeof demoCredentials];
-    if (credentials) {
-      handleSubmit(() =>
-        onSubmit({
-          ...credentials,
-          rememberMe: false,
-        })
-      )();
     }
   };
 
@@ -141,22 +119,21 @@ const LoginPage: React.FC = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Email Field */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">              {/* User ID Field */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="font-body">
-                  {t("auth.email")}
+                <Label htmlFor="userId" className="font-body">
+                  {t("auth.userId")}
                 </Label>
                 <Input
-                  id="email"
-                  type="email"
-                  {...register("email")}
+                  id="userId"
+                  type="text"
+                  {...register("userId")}
                   className="font-body"
                   placeholder="student@uni.edu"
                 />
-                {errors.email && (
+                {errors.userId && (
                   <p className="text-sm text-red-500 font-body">
-                    {errors.email.message}
+                    {errors.userId.message}
                   </p>
                 )}
               </div>
@@ -182,65 +159,20 @@ const LoginPage: React.FC = () => {
               {error && (
                 <div className="text-red-500 text-sm text-center font-body">
                   {"data" in error &&
-                  error.data &&
-                  typeof error.data === "object" &&
-                  "message" in error.data
+                    error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
                     ? (error.data as { message: string }).message
                     : "Login failed"}
                 </div>
               )}
-              {/* Submit Button */}
-              <Button
+              {/* Submit Button */}              <Button
                 type="submit"
                 className="w-full font-body"
                 disabled={isLoading}
               >
                 {isLoading ? t("auth.loggingIn") : t("auth.loginButton")}
               </Button>
-              {/* Demo Login Buttons */}
-              <div className="space-y-2">
-                <p className="text-sm text-center text-theme/60 font-body">
-                  {t("auth.demoCredentials")}
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDemoLogin("STUDENT")}
-                    className="font-body"
-                  >
-                    {t("roles.student")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDemoLogin("TEACHER")}
-                    className="font-body"
-                  >
-                    {t("roles.teacher")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDemoLogin("ADMIN")}
-                    className="font-body"
-                  >
-                    {t("roles.admin")}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDemoLogin("SUPER_ADMIN")}
-                    className="font-body"
-                  >
-                    {t("roles.super_admin")}
-                  </Button>
-                </div>
-              </div>
             </form>
           </CardContent>
         </Card>
