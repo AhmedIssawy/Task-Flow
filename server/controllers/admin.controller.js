@@ -1,50 +1,10 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 // Models
-import Student from "../models/student.model.js";
 import Admin from "../models/admin.model.js";
-import Teacher from "../models/teacher.model.js";
-import College from "../models/college.model.js";
 
-const createStudent = asyncHandler(async (req, res) => {
-  const {
-    name,
-    email,
-    courses = [],
-    universityId,
-    password,
-    lang = "en",
-  } = req.body;
 
-  const existingStudent = await Student.findOne({ email });
-  if (existingStudent) {
-    let message = "Student already exists, please use a different email";
-    if (lang === "ar")
-      message = "الطالب موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
 
-    return res.status(400).json({
-      message,
-    });
-  }
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const student = await Student.create({
-    name,
-    email,
-    courses,
-    universityId,
-    password: hashedPassword,
-  });
-
-  let message = "Student created successfully";
-
-  if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
-
-  res.status(201).json({
-    message,
-    student,
-  });
-});
 
 const getAdminById = asyncHandler(async (req, res) => {
   const lang = req?.body?.lang || req?.query?.lang || "en";
@@ -112,114 +72,6 @@ const createAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-const createTeacher = asyncHandler(async (req, res) => {
-  const {
-    name,
-    email,
-    courses = [],
-    phone,
-    address,
-    password,
-    universityId,
-    role,
-    lang = "en",
-  } = req.body;
-
-  const existingTeacher = await Teacher.findOne({ email });
-  if (existingTeacher) {
-    let message = "Teacher already exists, please use a different email";
-    if (lang === "ar")
-      message = "المعلم موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-
-    return res.status(400).json({
-      message,
-    });
-  }
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  const teacher = await Teacher.create({
-    name,
-    email,
-    courses,
-    phone,
-    address,
-    password: hashedPassword,
-    universityId,
-    role,
-  });
-
-  const {
-    password: _password,
-    phone: _phone,
-    ...response
-  } = teacher.toObject();
-
-  let message = "Teacher created successfully";
-  if (lang === "ar") message = "تم إنشاء المعلم بنجاح";
-
-  res.status(201).json({
-    message,
-    teacher: response,
-  });
-});
-
-const updateTeacher = asyncHandler(async (req, res) => {
-  const {
-    id,
-    _id,
-    name,
-    email,
-    courses,
-    phone,
-    address,
-    password,
-    role,
-    lang = "en",
-  } = req.body;
-
-  if (!id && !_id) {
-    let message = "Teacher 'id' or '_id' is required";
-    if (lang === "ar") message = "معرف المعلم 'id' أو '_id' مطلوب";
-
-    return res.status(400).json({ message });
-  }
-
-  const updateData = {};
-
-  if (name) updateData.name = name;
-  if (email) updateData.email = email;
-  if (courses) updateData.courses = courses;
-  if (phone) updateData.phone = phone;
-  if (address) updateData.address = address;
-  if (role) updateData.role = role;
-  if (password) updateData.password = await bcrypt.hash(password, 10);
-
-  const teacher = id
-    ? await Teacher.findOneAndUpdate({ id }, updateData, { new: true })
-    : await Teacher.findByIdAndUpdate(_id, updateData, { new: true });
-
-  if (!teacher) {
-    let message = "Teacher not found";
-    if (lang === "ar") message = "المعلم غير موجود";
-
-    return res.status(404).json({ message });
-  }
-
-  const {
-    password: _password,
-    phone: _phone,
-    ...response
-  } = teacher.toObject();
-
-  let message = "Teacher updated successfully";
-  if (lang === "ar") message = "تم تحديث المعلم بنجاح";
-
-  res.status(200).json({
-    message,
-    teacher: response,
-  });
-});
-
 const updateAdmin = asyncHandler(async (req, res) => {
   const { id, name, password, lang = "en" } = req.body;
 
@@ -276,108 +128,12 @@ const deleteAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-const updateUniversity = asyncHandler(async (req, res) => {
-  const {
-    id,
-    name,
-    address,
-    phone,
-    email,
-    location,
-    description,
-    website,
-    establishedYear,
-    logo,
-    lang = "en",
-  } = req.body;
 
-  if (!id) {
-    let message = "University ID is required";
-    if (lang === "ar") message = "معرف الجامعة مطلوب";
-
-    return res.status(400).json({ message });
-  }
-
-  const updateData = {};
-
-  if (name) updateData.name = name;
-  if (address) updateData.address = address;
-  if (phone) updateData.phone = phone;
-  if (email) updateData.email = email;
-  if (location) updateData.location = location;
-  if (description) updateData.description = description;
-  if (website) updateData.website = website;
-  if (establishedYear) updateData.establishedYear = establishedYear;
-  if (logo) updateData.logo = logo;
-
-  const university = await University.findByIdAndUpdate(id, updateData, {
-    new: true,
-  });
-
-  if (!university) {
-    let message = "University not found";
-    if (lang === "ar") message = "الجامعة غير موجودة";
-
-    return res.status(404).json({ message });
-  }
-
-  let message = "University updated successfully";
-  if (lang === "ar") message = "تم تحديث الجامعة بنجاح";
-
-  res.status(200).json({
-    message,
-    university,
-  });
-});
-
-const createCollege = asyncHandler(async (req, res) => {
-  const {
-    name,
-    address,
-    phone,
-    email,
-    location,
-    description,
-    website,
-    establishedYear,
-    logo,
-    universityId,
-  } = req.body;
-
-  // Check if College with same email exists
-  const existingCollege = await College.findOne({ email });
-  if (existingCollege) {
-    return res.status(400).json({
-      message: "College already exists, please use a different email",
-    });
-  }
-
-  // Create College
-  const college = await College.create({
-    name,
-    address,
-    phone,
-    email,
-    location,
-    description,
-    website,
-    establishedYear,
-    logo,
-    universityId,
-  });
-
-  res.status(201).json(college);
-});
 
 export {
-  createStudent,
   createAdmin,
-  createTeacher,
-  updateTeacher,
   updateAdmin,
   deleteAdmin,
-  updateUniversity,
   getAdminById,
   getPageOfAdmins,
-  createCollege,
 };

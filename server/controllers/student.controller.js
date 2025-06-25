@@ -8,43 +8,83 @@ import asyncHandler from "express-async-handler";
 //   res.status(200).json(students);
 // });
 
-const registerStudentToUniversity = asyncHandler(async (req, res) => {
-  const { studentId, universityId, lang = "en" } = req.body;
+const createStudent = asyncHandler(async (req, res) => {
+  const {
+    name,
+    email,
+    courses = [],
+    universityId,
+    password,
+    lang = "en",
+  } = req.body;
 
-  if (!studentId || !universityId) {
-    let message = "Please provide a student ID and university ID";
-    if (lang === "ar") message = "يرجى تقديم معرف الطالب ومعرف الجامعة";
+  const existingStudent = await Student.findOne({ email });
+  if (existingStudent) {
+    let message = "Student already exists, please use a different email";
+    if (lang === "ar")
+      message = "الطالب موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
 
     return res.status(400).json({
       message,
     });
   }
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const student = await Student.findById(studentId);
-  if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
+  const student = await Student.create({
+    name,
+    email,
+    courses,
+    universityId,
+    password: hashedPassword,
+  });
 
-    return res.status(404).json({
-      message,
-    });
-  }
+  let message = "Student created successfully";
 
-  const university = await University.findById(universityId);
-  if (!university) {
-    let message = "University not found";
-    if (lang === "ar") message = "الجامعة غير موجودة";
+  if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
 
-    return res.status(404).json({
-      message,
-    });
-  }
-
-  student.universityId = university._id;
-  await student.save();
-
-  res.status(200).json(student);
+  res.status(201).json({
+    message,
+    student,
+  });
 });
+
+// const registerStudentToUniversity = asyncHandler(async (req, res) => {
+//   const { studentId, universityId, lang = "en" } = req.body;
+
+//   if (!studentId || !universityId) {
+//     let message = "Please provide a student ID and university ID";
+//     if (lang === "ar") message = "يرجى تقديم معرف الطالب ومعرف الجامعة";
+
+//     return res.status(400).json({
+//       message,
+//     });
+//   }
+
+//   const student = await Student.findById(studentId);
+//   if (!student) {
+//     let message = "Student not found";
+//     if (lang === "ar") message = "الطالب غير موجود";
+
+//     return res.status(404).json({
+//       message,
+//     });
+//   }
+
+//   const university = await University.findById(universityId);
+//   if (!university) {
+//     let message = "University not found";
+//     if (lang === "ar") message = "الجامعة غير موجودة";
+
+//     return res.status(404).json({
+//       message,
+//     });
+//   }
+
+//   student.universityId = university._id;
+//   await student.save();
+
+//   res.status(200).json(student);
+// });
 
 const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
   const { universityId } = req.params;
@@ -116,12 +156,13 @@ const getStudentById = asyncHandler(async (req, res) => {
 
 const updateStudent = asyncHandler(async (req, res) => {
   const { lang = "en", ...updates } = req.body;
+  const { id } = req.params;
 
   const updatedStudent = await Student.findByIdAndUpdate(
-    req.params.id,
+    id,
     { $set: updates },
     { new: true, runValidators: true }
-  );
+  ).select("-password");
 
   if (!updatedStudent) {
     let message = "Student not found";
@@ -158,7 +199,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
 export {
   // createStudent,
   // getAllStudents,
-  registerStudentToUniversity,
+  // registerStudentToUniversity,
+  createStudent,
   getStudentsPageOfUniversity,
   getAllStudentsOfUniversity,
   getStudentsPage,

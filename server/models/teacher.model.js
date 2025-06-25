@@ -40,6 +40,16 @@ const teacherSchema = new mongoose.Schema(
       ref: "University",
       required: true,
     },
+    collegeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "College",
+      required: true,
+    },
+    departmentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
     role: {
       type: String,
       enum: ["doctor", "assistant", "teacher"],

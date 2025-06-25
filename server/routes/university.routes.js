@@ -15,7 +15,7 @@ import {
 } from "../controllers/college.controller.js";
 import { validateUniversityId } from "../middlewares/validation.middleware.js";
 import authinticate from "../middlewares/authintication.middleware.js";
-import { createCollege } from "../controllers/admin.controller.js";
+import { createCollege } from "../controllers/college.controller.js";
 import {
   getDepartmentById,
   getDepartmentsPage,
@@ -50,5 +50,7 @@ router
 router
   .route("/:universityId/colleges/:collegeId/departments/:departmentId")
   .get(getDepartmentById);
+
+router.get("/:universityId/colleges/:collegeId/departments/:departmentId/teachers", getTeachersPageOfUniversity)
 
 export default router;

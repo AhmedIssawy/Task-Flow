@@ -15,11 +15,8 @@ import {
 router.route("/").get(getDepartmentsPage);
 
 router
-  .route("/:collegeId")
-  .get(getDepartmentById)
+  .route("/admin/:universityId/:collegeId")
   .post(authinticate, authorize(["admin", "super-admin"]), createDepartment)
   .patch(authinticate, authorize(["admin", "super-admin"]), updateDepartment)
-  .delete(authinticate, authorize(["admin", "super-admin"]), deleteDepartment);
-
 
 export default router;
