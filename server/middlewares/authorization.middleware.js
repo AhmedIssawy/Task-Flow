@@ -9,7 +9,7 @@ const authorize = (allowedRoles) => {
     if (!allowedRoles.includes(user.role)) {
       return res.status(403).json({ message: "Forbidden" });
     }
-    console.log("Authorized user:", user.id, "with role:", user.role);
+    // console.log("Authorized user:", user.id, "with role:", user.role);
     
     next();
   };

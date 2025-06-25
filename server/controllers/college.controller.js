@@ -49,4 +49,43 @@ const updateCollege = asyncHandler(async (req, res) => {
   res.status(200).json(college);
 });
 
-export { getCollegesPage, getCollegeById, updateCollege };
+const createCollege = asyncHandler(async (req, res) => {
+  const {
+    name,
+    address,
+    phone,
+    email,
+    location,
+    description,
+    website,
+    establishedYear,
+    logo,
+    universityId,
+  } = req.body;
+
+  // Check if College with same email exists
+  const existingCollege = await College.findOne({ email });
+  if (existingCollege) {
+    return res.status(400).json({
+      message: "College already exists, please use a different email",
+    });
+  }
+
+  // Create College
+  const college = await College.create({
+    name,
+    address,
+    phone,
+    email,
+    location,
+    description,
+    website,
+    establishedYear,
+    logo,
+    universityId,
+  });
+
+  res.status(201).json(college);
+});
+
+export { getCollegesPage, getCollegeById, updateCollege, createCollege };

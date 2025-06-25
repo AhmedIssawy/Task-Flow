@@ -5,18 +5,15 @@ import {
   // getAllStudents,
   getStudentsPage,
   getStudentById,
-  updateStudent,
-  deleteStudent,
+  
 } from "../controllers/student.controller.js";
 
 // Middlewares
 import authinticate from "../middlewares/authintication.middleware.js";
-import authorize from "../middlewares/authorization.middleware.js";
 
 // Validators
 import {
   validateObjectId,
-  validateStudentUpdateData,
 } from "../middlewares/validation.middleware.js";
 
 const router = Router();
@@ -31,12 +28,5 @@ router.route("/:universityId");
 router
   .route("/:id")
   .get(validateObjectId, authinticate, getStudentById)
-  .patch(
-    authorize(["Admin"]),
-    validateObjectId,
-    validateStudentUpdateData,
-    updateStudent
-  )
-  .delete(authinticate, authorize(["admin"]), deleteStudent);
 
 export default router;

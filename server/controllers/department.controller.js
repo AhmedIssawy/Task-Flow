@@ -2,29 +2,56 @@ import Department from "../models/department.model.js";
 import asyncHandler from "express-async-handler";
 
 const createDepartment = asyncHandler(async (req, res) => {
-  const { name, description, collegeId, lang = "en" } = req.body;
-
-  // Check for duplicate department name in the same college
-  const existing = await Department.findOne({
+  const {
     name,
-    collegeId,
-  });
-  if (existing) {
-    let message = "Department already exists in this college";
-    if (lang === "ar") message = "القسم موجود بالفعل في هذه الكلية";
+    description,
+    phone,
+    email,
+    location,
+    establishedYear,
+    lang = "en",
+  } = req.body;
 
+  const { collegeId, universityId } = req.params;
+
+  // التحقق من الحقول المطلوبة
+  if (!name || !description || !phone || !email || !location || !collegeId || !universityId || !establishedYear) {
     return res.status(400).json({
-      message,
+      message: lang === "ar" ? "جميع الحقول مطلوبة" : "All fields are required",
     });
   }
-  // Create new Department
+
+  // تحقق من تكرار الاسم في نفس الكلية
+  const existingByName = await Department.findOne({ name, collegeId });
+  if (existingByName) {
+    return res.status(400).json({
+      message: lang === "ar" ? "القسم موجود بالفعل في هذه الكلية" : "Department already exists in this college",
+    });
+  }
+
+  // تحقق من تكرار البريد الإلكتروني
+  const existingByEmail = await Department.findOne({ email });
+  if (existingByEmail) {
+    return res.status(400).json({
+      message: lang === "ar" ? "البريد الإلكتروني مستخدم بالفعل" : "Email is already in use",
+    });
+  }
+
+  // إنشاء القسم
   const department = await Department.create({
     name,
     description,
+    phone,
+    email,
+    location,
     collegeId,
+    universityId,
+    establishedYear,
   });
-  return res.status(201).json(department);
+
+  res.status(201).json(department);
 });
+
 
 const getDepartmentsPage = asyncHandler(async (req, res) => {
   const { collegeId } = req.params;
@@ -64,7 +91,7 @@ const updateDepartment = asyncHandler(async (req, res) => {
 
   if (!department) {
     let message = "Department not found";
-    if (lang === "ar") message = "الأقسام غير موجوده";
+    if (lang === "ar") message = "القسم غير موجود";
 
     return res.status(404).json({ message });
   }

@@ -108,7 +108,7 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
 });
 
 const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
-  const { universityId } = req.params;
+  const { universityId, collegeId, departmentId } = req.params;
   const { page = 1, limit = 40, lang = "en" } = req.query;
 
   const university = await University.findById(universityId)
@@ -139,24 +139,62 @@ const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
   });
 });
 
+
 const updateUniversity = asyncHandler(async (req, res) => {
-  const { id, ...updateData } = req.body;
+  const {
+    id,
+    name,
+    address,
+    phone,
+    email,
+    location,
+    description,
+    website,
+    establishedYear,
+    logo,
+    lang = "en",
+  } = req.body;
 
   if (!id) {
-    return res.status(400).json({ message: "University ID is required" });
+    let message = "University ID is required";
+    if (lang === "ar") message = "معرف الجامعة مطلوب";
+
+    return res.status(400).json({ message });
   }
+
+  const updateData = {};
+
+  if (name) updateData.name = name;
+  if (address) updateData.address = address;
+  if (phone) updateData.phone = phone;
+  if (email) updateData.email = email;
+  if (location) updateData.location = location;
+  if (description) updateData.description = description;
+  if (website) updateData.website = website;
+  if (establishedYear) updateData.establishedYear = establishedYear;
+  if (logo) updateData.logo = logo;
 
   const university = await University.findByIdAndUpdate(id, updateData, {
     new: true,
-    runValidators: true,
   });
 
   if (!university) {
-    return res.status(404).json({ message: "University not found" });
+    let message = "University not found";
+    if (lang === "ar") message = "الجامعة غير موجودة";
+
+    return res.status(404).json({ message });
   }
 
-  res.status(200).json(university);
+  let message = "University updated successfully";
+  if (lang === "ar") message = "تم تحديث الجامعة بنجاح";
+
+  res.status(200).json({
+    message,
+    university,
+  });
 });
+
+
 
 export {
   createUniversity,

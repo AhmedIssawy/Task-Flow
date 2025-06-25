@@ -1,10 +1,13 @@
 import Teacher from "../models/teacher.model.js";
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcrypt";
+import Course from "../models/course.model.js";
 
 const getPageOfTeachers = asyncHandler(async (req, res) => {
   const { page = 1, lang = "en" } = req.query;
 
   const teachers = await Teacher.find()
+    .select("-password")
     .populate("courses")
     .skip((page - 1) * 40)
     .lean();
@@ -25,9 +28,10 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
 
 const getTeacherById = asyncHandler(async (req, res) => {
   const { teacherId } = req.params;
-  const { lang = "en" } = req.query;
-
-  const teacher = await Teacher.findById(teacherId).populate("courses");
+  let lang = req?.body?.lang || req?.query?.lang || "en";
+  const teacher = await Teacher.findOne({ id: teacherId })
+    .select("-password")
+    .populate("courses");
 
   if (!teacher) {
     let message = "Teacher not found";
@@ -41,4 +45,160 @@ const getTeacherById = asyncHandler(async (req, res) => {
   res.status(200).json(teacher);
 });
 
-export { getPageOfTeachers, getTeacherById };
+const createTeacher = asyncHandler(async (req, res) => {
+  const {
+    name,
+    email,
+    courses = [],
+    phone,
+    address,
+    password,
+    universityId,
+    departmentId,
+    collegeId,
+    role = "teacher",
+    lang = "en",
+  } = req.body;
+
+  // التحقق من الحقول المطلوبة
+  if (
+    !name ||
+    !email ||
+    !phone ||
+    !address ||
+    !password ||
+    !universityId ||
+    !collegeId ||
+    !departmentId
+  ) {
+    let message = "All fields are required";
+    if (lang === "ar") message = "جميع الحقول مطلوبة";
+
+    return res.status(400).json({ message });
+  }
+
+  // التحقق من البريد الإلكتروني إذا كان موجود مسبقًا
+  const existingTeacher = await Teacher.findOne({ email });
+  if (existingTeacher) {
+    let message = "Teacher already exists, please use a different email";
+    if (lang === "ar")
+      message = "المعلم موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
+
+    return res.status(400).json({ message });
+  }
+
+  // تشفير كلمة المرور
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // إنشاء المعلم
+  const teacher = await Teacher.create({
+    name,
+    email,
+    courses,
+    phone,
+    address,
+    password: hashedPassword,
+    universityId,
+    departmentId,
+    collegeId,
+    role,
+  });
+
+  // إخفاء كلمة المرور من الرد
+  const { password: _password, ...response } = teacher.toObject();
+
+  let message = "Teacher created successfully";
+  if (lang === "ar") message = "تم إنشاء المعلم بنجاح";
+
+  res.status(201).json({
+    message,
+    teacher: response,
+  });
+});
+
+const updateTeacher = asyncHandler(async (req, res) => {
+  const {
+    _id,
+    name,
+    email,
+    courses,
+    phone,
+    address,
+    password,
+    role,
+    lang = "en",
+  } = req.body;
+
+  const { id } = req.params;
+
+  if (!id && !_id) {
+    let message = "Teacher 'id' or '_id' is required";
+    if (lang === "ar") message = "معرف المعلم 'id' أو '_id' مطلوب";
+
+    return res.status(400).json({ message });
+  }
+
+  const updateData = {};
+
+  if (name) updateData.name = name;
+  if (email) updateData.email = email;
+  if (courses) updateData.courses = courses;
+  if (phone) updateData.phone = phone;
+  if (address) updateData.address = address;
+  if (role) updateData.role = role;
+  if (password) updateData.password = await bcrypt.hash(password, 10);
+
+  const teacher = id
+    ? await Teacher.findOneAndUpdate({ id }, updateData, { new: true })
+    : await Teacher.findByIdAndUpdate(_id, updateData, { new: true });
+
+  if (!teacher) {
+    let message = "Teacher not found";
+    if (lang === "ar") message = "المعلم غير موجود";
+
+    return res.status(404).json({ message });
+  }
+
+  const {
+    password: _password,
+    phone: _phone,
+    ...response
+  } = teacher.toObject();
+
+  let message = "Teacher updated successfully";
+  if (lang === "ar") message = "تم تحديث المعلم بنجاح";
+
+  res.status(200).json({
+    message,
+    teacher: response,
+  });
+});
+
+const deleteTeacher = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { lang = "en", _id = "" } = req.body;
+  if (!id && !_id) {
+    let message = "Teacher 'id' or '_id' is required";
+    if (lang === "ar") message = "معرف المعلم 'id' أو '_id' مطلوب";
+
+    return res.status(400).json({ message });
+  }
+
+  const teacher = id
+    ? await Teacher.findOneAndDelete({ id })
+    : await Teacher.findByIdAndDelete(_id);
+
+  let message = "Teacher deleted successfully";
+  if (lang === "ar") message = "تم حذف المعلم بنجاح";
+  res.status(200).json({
+    message,
+  });
+});
+
+export {
+  getPageOfTeachers,
+  getTeacherById,
+  createTeacher,
+  updateTeacher,
+  deleteTeacher,
+};
