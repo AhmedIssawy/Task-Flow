@@ -2,7 +2,7 @@
 import type { User } from '@/store/slices/authSlice'
 
 interface LoginCredentials {
-    email: string
+    userId: string
     password: string
 }
 
@@ -70,11 +70,11 @@ export const mockLogin = async (credentials: LoginCredentials): Promise<LoginRes
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1000))
 
-    const { email, password } = credentials
+    const { userId, password } = credentials
 
     // Check if user exists and password is correct (all demo passwords are "password")
-    if (mockUsers[email] && password === 'password') {
-        const user = mockUsers[email]
+    if (mockUsers[userId] && password === 'password') {
+        const user = mockUsers[userId]
         const token = `mock-jwt-token-${user.id}-${Date.now()}`
         const refreshToken = `mock-refresh-token-${user.id}-${Date.now()}`
 

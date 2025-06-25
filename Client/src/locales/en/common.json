@@ -68,6 +68,7 @@
     "logout": "Logout",
     "register": "Register",
     "email": "Email",
+    "userId": "User ID",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "forgotPassword": "Forgot Password?",
@@ -82,7 +83,6 @@
     "registrationSuccess": "Account created successfully",
     "passwordResetSent": "Password reset email sent",
     "loginRequired": "Please log in to continue",
-    "demoCredentials": "Quick Demo Login:",
     "getStarted": "Get Started"
   },
   "roles": {
