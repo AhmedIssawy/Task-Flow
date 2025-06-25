@@ -53,12 +53,18 @@ export interface UpdateCourseRequest {
 // =======================================================================
 
 export interface Student {
+    _id: string
     id: string
     name: string
     email: string
     phone?: string
-    universityId: string
+    universityId: string | {
+        _id: string
+        name: string
+    }
     courses: string[]
+    role: string
+    password?: string
     createdAt: string
     updatedAt: string
 }
