@@ -8,14 +8,32 @@ import { LoginRequest, LoginResponse } from '@/types/api'
  * 🔗 Method: POST
  * 📍 URL: /api/auth/login
  * 📤 Body: LoginRequest { userId: string, password: string }
- * 📥 Response: LoginResponse { message: string, role: string, data: { _id: string, name: string, id: string } }
- * 🎯 Authenticate user and return user data with role
+ * 📥 Response: LoginResponse { message: string, role: string, token?: string, data: { _id: string, name: string, id: string } }
+ * 🎯 Authenticate user and return user data with role from API
  */
-export const loginUser = (credentials: LoginRequest): Promise<AxiosResponse<LoginResponse>> => {
+export const loginUser = async (credentials: LoginRequest): Promise<AxiosResponse<LoginResponse>> => {
     // Transform userId to id for backend compatibility
     const backendPayload = {
         id: credentials.userId,
         password: credentials.password
     }
-    return axiosInstance.post('/auth/login', backendPayload)
+
+    console.log('📡 Sending login request to API:', {
+        url: '/auth/login',
+        payload: { ...backendPayload, password: '[HIDDEN]' }
+    });
+
+    try {
+        const response = await axiosInstance.post('/auth/login', backendPayload);
+        console.log('📡 API Response received:', {
+            status: response.status,
+            role: response.data.role,
+            message: response.data.message,
+            userData: response.data.data
+        });
+        return response;
+    } catch (error) {
+        console.error('📡 API Request failed:', error);
+        throw error;
+    }
 }

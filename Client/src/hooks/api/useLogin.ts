@@ -25,16 +25,27 @@ export const useLoginMutation = (): UseMutationResult<
 > => {
     return useMutation({
         mutationKey: ['auth', 'login'],
-        mutationFn: loginUser,
+        mutationFn: (credentials: LoginRequest) => {
+            console.log('🚀 Making API call to login with:', credentials);
+            return loginUser(credentials);
+        },
         onSuccess: (response: AxiosResponse<LoginResponse>) => {
-            // Save role to localStorage for further usage
-            localStorage.setItem('userRole', response.data.role)
-            // Optionally save user data
-            localStorage.setItem('userData', JSON.stringify(response.data.data))
+            console.log('✅ Login API Success:', response.data);
+            console.log('🎭 Role from API:', response.data.role);
+
+            // Save role to localStorage for persistence
+            localStorage.setItem('userRole', response.data.role);
+            localStorage.setItem('userData', JSON.stringify(response.data.data));
+
+            // Also save the token if it exists in the response
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+            }
         },
         onError: (error: AxiosError<LoginErrorResponse>) => {
-            console.error('Login failed:', error.response?.data?.message || error.message)
+            console.error('❌ Login API Error:', error.response?.data?.message || error.message);
+            console.error('🔍 Full Error:', error);
         },
-        retry: 1, // Retry once on failure
+        retry: 1,
     })
 }

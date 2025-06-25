@@ -1,135 +1,218 @@
-/*
-📘 API + React Query Integration Plan - High-Performance Architecture for 32 Endpoints
-By Ahmed (LMS Project) - Updated for Performance & Caching
+*
+📘 Comprehensive API & Frontend Architecture Guide for LMS Project
+By Ahmed - Performance-Optimized & Scalable Version
 
 🎯 Goal:
-This architecture handles 32 endpoints (GET, POST, PATCH, DELETE) with maximum performance using:
-- Axios for HTTP requests with interceptors
-- React Query (TanStack Query) v5 for superior caching and performance
-- Optimistic updates and background refetching
-- Structured folder design for separation of concerns
+This document provides a complete architectural plan and implementation map for a Learning Management System (LMS) frontend. It covers 27 endpoints, a high-performance data-fetching strategy using React Query and Axios, and a robust role-based access control (RBAC) system.
+
+=======================================================================
+🏛️ SECTION 1: CORE ARCHITECTURE PRINCIPLES
+=======================================================================
+
+This architecture ensures separation of concerns, scalability, and maximum performance.
 
 -----------------------------------------------------------------------
-📁 ENHANCED FOLDER STRUCTURE:
+📁 1.1 Enhanced Folder Structure
 
 - lib/
   - axios/
-    - axiosInstance.ts         // Configured Axios instance with auth
+    - axiosInstance.ts      // Centralized, configured Axios instance with interceptors
   - api/
-    - <resource>.api.ts        // Pure Axios logic per resource
+    - <resource>.api.ts     // Pure Axios request functions per resource (e.g., courses.api.ts)
+  - permissions.ts          // Core logic for role-based permissions
 - hooks/
   - api/
-    - use<Resource>.ts         // React Query wrappers per resource
+    - use<Resource>.ts      // React Query hooks per resource (e.g., useCourses.ts)
+  - useAuth.ts              // Hook to get current user's auth status and role
+  - useCan.ts               // Hook to check user permissions for specific actions
 - types/
-  - api.ts                     // All API types and interfaces
+  - api.ts                  // All API-related TypeScript types and interfaces
+- components/
+  - shared/
+    - wrappers/
+      - CanAccess.tsx       // Wrapper component to conditionally render UI based on permissions
 
 -----------------------------------------------------------------------
-🧱 1. Axios Instance (lib/axios/axiosInstance.ts)
+🧱 1.2 Axios Instance (lib/axios/axiosInstance.ts)
 
-- Centralize API base URL (http://localhost:5000/api)
-- Request interceptor: Auto-attach token from localStorage/cookies
-- Response interceptor: Handle 401 errors, refresh tokens
-- Error handling: Standardized error format
-- Timeout configuration and retry logic
+- **Centralization**: A single instance for all API calls (e.g., `baseURL: http://localhost:5000/api`).
+- **Request Interceptor**: Automatically attaches the auth token to headers.
+- **Response Interceptor**: Handles global errors like 401 Unauthorized for token refresh or logout.
+- **Configuration**: Standardized timeout, headers, and error formatting.
 
 -----------------------------------------------------------------------
-📌 2. API Layer Format (lib/api/*.api.ts)
+📌 1.3 API Layer (lib/api/*.api.ts)
 
-- One file per resource (e.g., courses.api.ts, students.api.ts)
-- Contains raw Axios functions only (no React code)
-- Expose functions for: getAll, getById, create, update, delete
-- Function names must be descriptive and consistent
-- Return AxiosResponse<T> for proper typing
+- **Purpose**: Contains raw, framework-agnostic Axios functions.
+- **Structure**: One file per resource (e.g., `courses.api.ts`, `students.api.ts`).
+- **Rules**:
+  - Exposes functions like `getAllCourses`, `getCourseById`, `createCourse`.
+  - No React code or hooks are allowed in this layer.
+  - Functions return the full Axios promise: `Promise<AxiosResponse<T>>`.
 
-Example:
 ```typescript
-// lib/api/courses.api.ts
+// Example: lib/api/courses.api.ts
+import { axiosInstance } from '@/lib/axios/axiosInstance';
+import { Course, PaginatedResponse, CoursesQueryParams } from '@/types/api';
+import { AxiosResponse } from 'axios';
+
 export const getAllCourses = (params?: CoursesQueryParams): Promise<AxiosResponse<PaginatedResponse<Course>>> => {
-  return axiosInstance.get('/courses', { params })
+  return axiosInstance.get('/courses', { params });
+};
+.
+Text
+🪝 1.4 React Query Hooks Layer (hooks/api/use<Resource>.ts)
+Purpose: Wraps API functions with React Query's useQuery and useMutation.
+Structure: One file per resource, corresponding to the API layer (e.g., useCourses.ts).
+Key Features:
+useQuery: For GET requests, with strategic caching, staleTime, and select for data transformation.
+useMutation: For POST, PATCH, DELETE, handling optimistic updates and cache invalidation.
+Query Keys: A structured key system for precise cache control.
+Generated typescript
+// Example: hooks/api/useCourses.ts
+import * as coursesApi from '@/lib/api/courses.api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+// Structured Query Keys
+const courseKeys = {
+  all: ['courses'] as const,
+  lists: (params: any) => [...courseKeys.all, 'list', params] as const,
+  details: (id: string) => [...courseKeys.all, 'detail', id] as const,
+};
+
+// Hook for fetching a list of courses
+export const useCoursesQuery = (params: any) => {
+  return useQuery({
+    queryKey: courseKeys.lists(params),
+    queryFn: () => coursesApi.getAllCourses(params),
+    select: (data) => data.data, // Automatically extract data
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+};
+
+// Hook for creating a course
+export const useCreateCourseMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (newCourseData) => coursesApi.createCourse(newCourseData),
+    onSuccess: () => {
+      // Invalidate all queries that start with ['courses', 'list']
+      queryClient.invalidateQueries({ queryKey: courseKeys.lists({}) });
+    },
+    // Optional: Add optimistic updates here
+  });
+};
+.
+TypeScript
+⚡ 1.5 Global QueryClient Configuration
+Set up performance-optimized defaults for your entire application in your main _app.tsx or layout component.
+Generated typescript
+// Example: _app.tsx or main component
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,       // 5 minutes
+      cacheTime: 15 * 60 * 1000,      // 15 minutes (longer than staleTime)
+      refetchOnWindowFocus: false,    // Prevents unnecessary refetches
+      retry: 2,                       // Retry failed queries twice
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
-```
+.
+TypeScript
+=======================================================================
+🔐 SECTION 2: ROLE-BASED ACCESS CONTROL (RBAC)
+This system provides a clean, scalable way to manage frontend UI and actions based on user roles.
+✅ 2.1 Core Permission Logic (lib/permissions.ts)
+A central function maps roles to their allowed actions.
+Generated typescript
+type Role = 'student' | 'teacher' | 'admin' | 'super-admin';
+type Action = 'view' | 'create' | 'edit' | 'delete' | 'manage-users';
 
------------------------------------------------------------------------
-🔁 3. React Query Hooks Layer (hooks/api/use<Resource>.ts)
+const rolePermissions: Record<Role, Action[]> = {
+  student: ['view'],
+  teacher: ['view', 'create', 'edit'],
+  admin: ['view', 'create', 'edit', 'delete'],
+  'super-admin': ['view', 'create', 'edit', 'delete', 'manage-users'],
+};
 
-- One file per resource (e.g., useCourses.ts, useStudents.ts)
-- Import corresponding functions from lib/api/
-- useQuery for GET operations with advanced caching
-- useMutation for POST, PATCH, DELETE with optimistic updates
-- Proper queryKey structure for cache management
-- Invalidate queries after mutations using queryClient.invalidateQueries()
+export function can(role: Role, action: Action): boolean {
+  if (!role) return false;
+  return rolePermissions[role]?.includes(action) ?? false;
+}
+.
+TypeScript
+✅ 2.2 Auth & Permission Hooks (hooks/useAuth.ts & hooks/useCan.ts)
+These hooks provide easy access to the user's role and permission status.
+Generated typescript
+// hooks/useAuth.ts
+import Cookies from 'js-cookie';
+export function useAuth() {
+  const role = Cookies.get('role') as Role; // Assume role is stored in a cookie
+  return { role, isAuthenticated: !!Cookies.get('token') };
+}
 
-Advanced Features:
-- staleTime: 5 minutes for relatively static data
-- cacheTime: 10 minutes for memory optimization
-- refetchOnWindowFocus: false for better UX
-- retry: 3 attempts with exponential backoff
-- Optimistic updates for immediate UI feedback
+// hooks/useCan.ts
+import { useAuth } from './useAuth';
+import { can } from '@/lib/permissions';
+import { Action } from '@/lib/permissions';
 
------------------------------------------------------------------------
-📌 4. Performance & Caching Rules:
+export function useCan(action: Action) {
+  const { role } = useAuth();
+  return can(role, action);
+}
+.
+TypeScript
+✅ 2.3 UI Wrapper Component (components/shared/wrappers/CanAccess.tsx)
+Conditionally render components without cluttering your JSX with logic.
+Generated typescript
+import { ReactNode } from 'react';
+import { useCan } from '@/hooks/useCan';
+import { Action } from '@/lib/permissions';
 
-- ✅ Use queryKey arrays: ['courses', 'list', { page, search }] for precise cache control
-- ✅ Implement staleTime based on data frequency (5min for static, 30sec for dynamic)
-- ✅ Enable background refetching for fresh data without loading states
-- ✅ Use select option to transform data and prevent unnecessary re-renders
-- ✅ Implement optimistic updates for immediate UI feedback
-- ✅ Prefetch related data using queryClient.prefetchQuery()
-- ✅ Use infinite queries for pagination performance
-- ✅ Set up dependent queries using enabled option
-- ❌ Do NOT use Axios directly inside React components
-- ✅ Always wrap app with QueryClientProvider in _app.tsx
-- ✅ Configure queryClient with performance-optimized defaults
-- ✅ Use React Query Devtools for cache inspection
+export function CanAccess({ action, children }: { action: Action; children: ReactNode }) {
+  const isAllowed = useCan(action);
+  return isAllowed ? <>{children}</> : null;
+}
 
------------------------------------------------------------------------
-📦 ENDPOINT TEMPLATES (High Performance Pattern):
-
-For each resource, implement:
-- GET List   → useQuery with pagination, filtering, background refetch
-- GET By ID  → useQuery with longer staleTime, select for data transformation  
-- POST       → useMutation with optimistic updates, automatic cache invalidation
-- PATCH      → useMutation with optimistic updates, precise cache updates
-- DELETE     → useMutation with optimistic updates, cache removal
-
------------------------------------------------------------------------
-🚀 Performance Optimizations:
-
-1. **Query Keys Structure**:
-   ```typescript
-   const queryKeys = {
-     courses: ['courses'] as const,
-     coursesList: (params: CoursesQueryParams) => [...queryKeys.courses, 'list', params] as const,
-     courseDetail: (id: string) => [...queryKeys.courses, 'detail', id] as const,
-   }
-   ```
-
-2. **QueryClient Configuration**:
-   ```typescript
-   const queryClient = new QueryClient({
-     defaultOptions: {
-       queries: {
-         staleTime: 5 * 60 * 1000, // 5 minutes
-         cacheTime: 10 * 60 * 1000, // 10 minutes
-         refetchOnWindowFocus: false,
-         retry: 3,
-       },
-       mutations: {
-         retry: 1,
-       },
-     },
-   })
-   ```
-
------------------------------------------------------------------------
-🧠 Architecture Benefits:
-
-- **Superior Performance**: Background refetching, optimistic updates
-- **Intelligent Caching**: Automatic cache management with precise invalidation
-- **Better UX**: Loading states, error boundaries, optimistic updates
-- **Developer Experience**: DevTools, TypeScript integration, predictable patterns
-- **Scalability**: 32 endpoints with consistent patterns
-- **Memory Efficiency**: Automatic cache cleanup and garbage collection
-
-END OF ENHANCED INSTRUCTIONS ✅
+// Usage Example:
+<CanAccess action="edit">
+  <EditButton />
+</CanAccess>
+.
+TypeScript
+=======================================================================
+📊 SECTION 3: ARCHITECTURE SUMMARY & BENEFITS
+Total Endpoints Documented: 27
+Endpoint Breakdown:
+Courses: 5 (Full CRUD + List)
+Students: 5 (Full CRUD + List)
+Teachers: 5 (Full CRUD + List)
+Admin: 4 (CRUD without delete)
+Universities: 5 (Full CRUD + List)
+Colleges: 5 (Full CRUD + List)
+Departments: 2 (Read-only)
+🚀 Key Benefits:
+Superior Performance: Achieved through intelligent caching, staleTime, background refetching, and optimistic updates.
+Enhanced User Experience (UX): Instant UI feedback from mutations, minimal loading states, and robust error handling.
+Improved Developer Experience (DX): Predictable state management, clear separation of concerns, TypeScript safety, and powerful DevTools for debugging.
+Scalability & Maintainability: The pattern-based approach makes adding or modifying endpoints simple and consistent across the application.
+Memory Efficiency: React Query's automatic garbage collection cleans up unused cache data, preventing memory leaks.
+Robustness: Global error handling, request interceptors, and built-in retry mechanisms create a more resilient application.
+END OF COMPREHENSIVE GUIDE ✅
 */

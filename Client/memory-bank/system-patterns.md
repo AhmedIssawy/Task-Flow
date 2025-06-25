@@ -1,52 +1,116 @@
 # System Patterns - Unified Router Architecture
 
-## Core Design Patterns
+## ✅ Implemented Core Design Patterns
 
-### Unified Router Pattern
+### ✅ Unified Router Pattern (IMPLEMENTED)
 
 ```typescript
-// Single router handling all users with role-based content control
+// ✅ IMPLEMENTED: Single router handling all users with role-based content control
 const GlobalRouter: React.FC = () => {
-  const { user } = useAuth();
   const router = useRouter();
-
-  // All roles can access same pages, content control handled internally
-  return <Component {...pageProps} />;
-};
-```
-
-### Protected Route Pattern
-
-```typescript
-// Simplified to auth check + preferences only
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const currentUser = useAppSelector(selectCurrentUser);
 
   useEffect(() => {
-    // 1. Check authentication
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
+    // Only handle routing for authenticated users
+    if (!isAuthenticated || !currentUser) return;
+
+    const currentPath = router.pathname;
+    const userRole = currentUser.role;
+
+    // Redirect from login page to user's default page after authentication
+    if (currentPath === "/login") {
+      const defaultRoute =
+        routes.roleMap[userRole as keyof typeof routes.roleMap];
+      if (defaultRoute) {
+        router.replace(defaultRoute);
+      }
       return;
     }
 
-    // 2. Restore preferences
-    const theme = localStorage.getItem("theme");
-    const language = localStorage.getItem("language");
+    // Check if the current route is allowed for this user's role
+    const allowedRoutes =
+      routes.protected[userRole as keyof typeof routes.protected] || [];
+    const isRouteAllowed = allowedRoutes.some((route) =>
+      currentPath.startsWith(route.replace("/*", "").replace("*", ""))
+    );
 
-    if (theme) applyTheme(theme);
-    if (language) applyLanguage(language);
+    // If route is not allowed, redirect to user's default page
+    if (!isRouteAllowed) {
+      const defaultRoute =
+        routes.roleMap[userRole as keyof typeof routes.roleMap];
+      if (defaultRoute && currentPath !== defaultRoute) {
+        router.replace(defaultRoute);
+      }
+    }
+  }, [router.pathname, isAuthenticated, currentUser, router]);
 
-    setIsAuthenticated(true);
-  }, []);
-
-  return isAuthenticated ? children : <LoadingSpinner />;
+  return <>{children}</>;
 };
 ```
 
-### Role-Based Content Pattern
+### ✅ Protected Route Pattern (IMPLEMENTED)
+
+```typescript
+// ✅ IMPLEMENTED: Authentication check + preferences restoration
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const initializeAuth = async () => {
+      try {
+        // 1. Check authentication token
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          if (router.pathname !== "/login" && router.pathname !== "/") {
+            router.replace("/login");
+          }
+          setIsInitialized(true);
+          return;
+        }
+
+        // 2. Restore user preferences
+        const savedTheme = localStorage.getItem("theme");
+        const savedLanguage = localStorage.getItem("language");
+
+        if (savedTheme) {
+          dispatch(setTheme(savedTheme as "light" | "dark"));
+          document.documentElement.className = savedTheme;
+        }
+
+        if (savedLanguage) {
+          dispatch(setLanguage(savedLanguage as "en" | "ar"));
+          document.documentElement.dir = savedLanguage === "ar" ? "rtl" : "ltr";
+        }
+
+        // 3. Validate token and load user
+        const userData = await validateTokenAndGetUser(token);
+        dispatch(setCredentials({ user: userData, token }));
+
+        setIsInitialized(true);
+      } catch (error) {
+        localStorage.removeItem("authToken");
+        router.replace("/login");
+        setIsInitialized(true);
+      }
+    };
+
+    initializeAuth();
+  }, [dispatch, router]);
+
+  if (!isInitialized) {
+    return <LoadingSpinner />;
+  }
+
+  return <>{children}</>;
+};
+```
+
+### ✅ Role-Based Content Pattern (IMPLEMENTED)
 
 ```typescript
 // Pages control content visibility, not router
