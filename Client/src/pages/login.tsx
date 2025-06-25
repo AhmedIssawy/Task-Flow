@@ -15,10 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-// import { LanguageSwitcher } from '@/components/ui/language-switcher'
-import { useAppSelector } from "@/store/hooks";
-import { selectIsAuthenticated } from "@/store/slices/authSlice";
-import { useLoginMutation } from "@/store/api/authApiSlice";
+import { useLoginMutation } from "@/hooks/api/useLogin";
+import { toast } from "react-hot-toast";
 
 // Login form validation schema
 const loginSchema = z.object({
@@ -32,8 +30,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const [login, { isLoading, error }] = useLoginMutation();
+  const { mutate: login, isPending: isLoading, error } = useLoginMutation();
 
   const {
     register,
@@ -43,36 +40,28 @@ const LoginPage: React.FC = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  // Redirect if already authenticated
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    }
-  }, [isAuthenticated, router]);
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      const result = await login({
+    login(
+      {
         userId: data.userId,
         password: data.password,
-      }).unwrap();
+      },
+      {
+        onSuccess: (response) => {
+          toast.success("Login successful!");
 
-      // Store in localStorage if remember me is checked
-      if (data.rememberMe) {
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
+          // Role is already saved to localStorage by the hook
+          console.log("Login successful:", response.data);
+
+          // You can add redirect logic here if needed
+          // For now, we're only handling the login without redirects as requested
+        },
+        onError: (error) => {
+          const errorMessage = error.response?.data?.message || "Login failed";
+          toast.error(errorMessage);
+        },
       }
-
-      // Redirect based on user role
-      const rolePaths = {
-        STUDENT: "/student",
-        TEACHER: "/teacher",
-        ADMIN: "/admin",
-        SUPER_ADMIN: "/superadmin",
-      }; const redirectPath = rolePaths[result.user.role] || "/";
-      router.push(redirectPath);
-    } catch (err) {
-      console.error("Login failed:", err);
-    }
+    );
   };
 
   return (
@@ -154,19 +143,14 @@ const LoginPage: React.FC = () => {
                     {errors.password.message}
                   </p>
                 )}
-              </div>
-              {/* Error Message */}{" "}
+              </div>              {/* Error Message */}
               {error && (
                 <div className="text-red-500 text-sm text-center font-body">
-                  {"data" in error &&
-                    error.data &&
-                    typeof error.data === "object" &&
-                    "message" in error.data
-                    ? (error.data as { message: string }).message
-                    : "Login failed"}
+                  {error.response?.data?.message || "Login failed"}
                 </div>
               )}
-              {/* Submit Button */}              <Button
+              {/* Submit Button */}
+              <Button
                 type="submit"
                 className="w-full font-body"
                 disabled={isLoading}
