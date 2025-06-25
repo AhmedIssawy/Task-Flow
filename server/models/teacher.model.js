@@ -29,7 +29,7 @@ const teacherSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      default: () => "TEACHER-" + Date.now().toString(),
+      default: () => "TEACHER-" + Date.now().toString().slice(9),
     },
     password: {
       type: String,

@@ -19,12 +19,12 @@ const authintication = async (req, res, next) => {
     if (decoded.role == "student") Model = Student;
     else if (decoded.role == "teacher") Model = Teacher;
     else Model = Admin;
-    console.log("Decoded token:", decoded._id);
+    // console.log("Decoded token:", decoded._id);
     
     const user = await Model.findById(decoded._id);
 
     req.user = user;
-    console.log("Authenticated user:", user);
+    // console.log("Authenticated user:", user);
     next();
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized!" });

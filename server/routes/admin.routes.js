@@ -5,7 +5,6 @@ import authorize from "../middlewares/authorization.middleware.js";
 import {
   createStudent,
   createAdmin,
-  updateUniversity,
 } from "../controllers/admin.controller.js";
 import {
   getAdminById,
@@ -14,11 +13,16 @@ import {
   updateAdmin,
   deleteAdmin,
   getPageOfAdmins,
+  createCollege,
 } from "../controllers/admin.controller.js";
+import { createUniversity, updateUniversity } from "../controllers/university.controller.js";
+import { updateCollege } from "../controllers/college.controller.js";
 
 const router = Router();
 
-router.route("/").get(authinticate, authorize(["super-admin"]), getPageOfAdmins);
+router
+  .route("/")
+  .get(authinticate, authorize(["super-admin"]), getPageOfAdmins);
 
 router
   .route("/admin")
@@ -40,6 +44,12 @@ router
 
 router
   .route("/university")
+  .post(authinticate, authorize(["super-admin"]), createUniversity)
   .patch(authinticate, authorize(["admin", "super-admin"]), updateUniversity);
+
+router
+  .route("/university/college")
+  .post(authinticate, authorize(["admin", "super-admin"]), createCollege)
+  .patch(authinticate, authorize(["admin", "super-admin"]), updateCollege);
 
 export default router;

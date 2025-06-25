@@ -1,10 +1,17 @@
 import mongoose from "mongoose";
+import locationSchema from "./schema/location.schema.js";
 
 const universitySchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
+    },
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => `UNI-${this.name}-${Date.now().slice(9)}`,
     },
     address: {
       type: String,
@@ -19,15 +26,8 @@ const universitySchema = new mongoose.Schema(
       required: true,
     },
     location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
+      type: locationSchema,
+      required: true,
     },
     colleges: [
       {
@@ -39,12 +39,6 @@ const universitySchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Student",
-      },
-    ],
-    courses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
       },
     ],
     teachers: [

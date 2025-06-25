@@ -1,9 +1,6 @@
-import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import Student from "../models/student.model.js";
-import Course from "../models/course.model.js";
 import University from "../models/university.model.js";
-import Teacher from "../models/teacher.model.js";
 
 const createUniversity = asyncHandler(async (req, res) => {
   const {
@@ -19,75 +16,18 @@ const createUniversity = asyncHandler(async (req, res) => {
     lang = "en",
   } = req.body;
 
-  if (
-    !name ||
-    !address ||
-    !phone ||
-    !email ||
-    !location ||
-    !description ||
-    !establishedYear ||
-    !logo
-  ) {
-    let message = "Missing required fields";
-    if (lang === "ar") message = "الحقول المطلوبة مفقودة";
-
+  // Check for duplicate email
+  const existing = await University.findOne({ email });
+  if (existing) {
     return res.status(400).json({
-      message,
+      message:
+        lang === "ar"
+          ? "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف"
+          : "University already exists, please use a different email",
     });
   }
 
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    let message = "Invalid email address";
-    if (lang === "ar") message = "عنوان بريد إلكتروني غير صحيح";
-
-    return res.status(400).json({
-      message,
-    });
-  }
-
-  if (name.length < 2 || name.length > 50) {
-    let message = "Name must be between 2 and 50 characters";
-    if (lang === "ar") message = "يجب أن يكون الاسم بين 2 و 50 حرفاً";
-
-    return res.status(400).json({
-      message,
-    });
-  }
-
-  // Validate GeoJSON location
-  if (
-    typeof location !== "object" ||
-    location.type !== "Point" ||
-    !Array.isArray(location.coordinates) ||
-    location.coordinates.length !== 2 ||
-    typeof location.coordinates[0] !== "number" ||
-    typeof location.coordinates[1] !== "number"
-  ) {
-    let message =
-      "Invalid GeoJSON location. Must include type 'Point' and coordinates [lng, lat]";
-    if (lang === "ar")
-      message =
-        "موقع GeoJSON غير صحيح. يجب أن يتضمن النوع 'Point' والإحداثيات [lng, lat]";
-
-    return res.status(400).json({
-      message,
-    });
-  }
-
-  const existingUniversity = await University.findOne({ email });
-  if (existingUniversity) {
-    let message = "University already exists, please use a different email";
-    if (lang === "ar")
-      message = "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-
-    return res.status(400).json({
-      message,
-    });
-  }
-
+  // Create new University
   const university = await University.create({
     name,
     address,
@@ -100,14 +40,14 @@ const createUniversity = asyncHandler(async (req, res) => {
     logo,
   });
 
-  res.status(201).json(university);
+  return res.status(201).json(university);
 });
 
 const getUniversityById = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { universityId } = req.params;
   const { lang = "en" } = req.query;
 
-  const university = await University.findById(id)
+  const university = await University.findById(universityId)
     .select("-createdAt -updatedAt")
     .lean();
 
@@ -199,10 +139,30 @@ const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
   });
 });
 
+const updateUniversity = asyncHandler(async (req, res) => {
+  const { id, ...updateData } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ message: "University ID is required" });
+  }
+
+  const university = await University.findByIdAndUpdate(id, updateData, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!university) {
+    return res.status(404).json({ message: "University not found" });
+  }
+
+  res.status(200).json(university);
+});
+
 export {
   createUniversity,
   getUniversityById,
   getUniversitiesPage,
   getStudentsPageOfUniversity,
   getTeachersPageOfUniversity,
+  updateUniversity,
 };

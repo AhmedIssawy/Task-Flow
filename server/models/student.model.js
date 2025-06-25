@@ -6,7 +6,7 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      default: () => `STU-${Date.now()}`,
+      default: () => `STU-${Date.now().toString().slice(9)}`,
     },
     password: {
       type: String,
