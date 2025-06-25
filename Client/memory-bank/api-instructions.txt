@@ -1,0 +1,135 @@
+/*
+📘 API + React Query Integration Plan - High-Performance Architecture for 32 Endpoints
+By Ahmed (LMS Project) - Updated for Performance & Caching
+
+🎯 Goal:
+This architecture handles 32 endpoints (GET, POST, PATCH, DELETE) with maximum performance using:
+- Axios for HTTP requests with interceptors
+- React Query (TanStack Query) v5 for superior caching and performance
+- Optimistic updates and background refetching
+- Structured folder design for separation of concerns
+
+-----------------------------------------------------------------------
+📁 ENHANCED FOLDER STRUCTURE:
+
+- lib/
+  - axios/
+    - axiosInstance.ts         // Configured Axios instance with auth
+  - api/
+    - <resource>.api.ts        // Pure Axios logic per resource
+- hooks/
+  - api/
+    - use<Resource>.ts         // React Query wrappers per resource
+- types/
+  - api.ts                     // All API types and interfaces
+
+-----------------------------------------------------------------------
+🧱 1. Axios Instance (lib/axios/axiosInstance.ts)
+
+- Centralize API base URL (http://localhost:5000/api)
+- Request interceptor: Auto-attach token from localStorage/cookies
+- Response interceptor: Handle 401 errors, refresh tokens
+- Error handling: Standardized error format
+- Timeout configuration and retry logic
+
+-----------------------------------------------------------------------
+📌 2. API Layer Format (lib/api/*.api.ts)
+
+- One file per resource (e.g., courses.api.ts, students.api.ts)
+- Contains raw Axios functions only (no React code)
+- Expose functions for: getAll, getById, create, update, delete
+- Function names must be descriptive and consistent
+- Return AxiosResponse<T> for proper typing
+
+Example:
+```typescript
+// lib/api/courses.api.ts
+export const getAllCourses = (params?: CoursesQueryParams): Promise<AxiosResponse<PaginatedResponse<Course>>> => {
+  return axiosInstance.get('/courses', { params })
+}
+```
+
+-----------------------------------------------------------------------
+🔁 3. React Query Hooks Layer (hooks/api/use<Resource>.ts)
+
+- One file per resource (e.g., useCourses.ts, useStudents.ts)
+- Import corresponding functions from lib/api/
+- useQuery for GET operations with advanced caching
+- useMutation for POST, PATCH, DELETE with optimistic updates
+- Proper queryKey structure for cache management
+- Invalidate queries after mutations using queryClient.invalidateQueries()
+
+Advanced Features:
+- staleTime: 5 minutes for relatively static data
+- cacheTime: 10 minutes for memory optimization
+- refetchOnWindowFocus: false for better UX
+- retry: 3 attempts with exponential backoff
+- Optimistic updates for immediate UI feedback
+
+-----------------------------------------------------------------------
+📌 4. Performance & Caching Rules:
+
+- ✅ Use queryKey arrays: ['courses', 'list', { page, search }] for precise cache control
+- ✅ Implement staleTime based on data frequency (5min for static, 30sec for dynamic)
+- ✅ Enable background refetching for fresh data without loading states
+- ✅ Use select option to transform data and prevent unnecessary re-renders
+- ✅ Implement optimistic updates for immediate UI feedback
+- ✅ Prefetch related data using queryClient.prefetchQuery()
+- ✅ Use infinite queries for pagination performance
+- ✅ Set up dependent queries using enabled option
+- ❌ Do NOT use Axios directly inside React components
+- ✅ Always wrap app with QueryClientProvider in _app.tsx
+- ✅ Configure queryClient with performance-optimized defaults
+- ✅ Use React Query Devtools for cache inspection
+
+-----------------------------------------------------------------------
+📦 ENDPOINT TEMPLATES (High Performance Pattern):
+
+For each resource, implement:
+- GET List   → useQuery with pagination, filtering, background refetch
+- GET By ID  → useQuery with longer staleTime, select for data transformation  
+- POST       → useMutation with optimistic updates, automatic cache invalidation
+- PATCH      → useMutation with optimistic updates, precise cache updates
+- DELETE     → useMutation with optimistic updates, cache removal
+
+-----------------------------------------------------------------------
+🚀 Performance Optimizations:
+
+1. **Query Keys Structure**:
+   ```typescript
+   const queryKeys = {
+     courses: ['courses'] as const,
+     coursesList: (params: CoursesQueryParams) => [...queryKeys.courses, 'list', params] as const,
+     courseDetail: (id: string) => [...queryKeys.courses, 'detail', id] as const,
+   }
+   ```
+
+2. **QueryClient Configuration**:
+   ```typescript
+   const queryClient = new QueryClient({
+     defaultOptions: {
+       queries: {
+         staleTime: 5 * 60 * 1000, // 5 minutes
+         cacheTime: 10 * 60 * 1000, // 10 minutes
+         refetchOnWindowFocus: false,
+         retry: 3,
+       },
+       mutations: {
+         retry: 1,
+       },
+     },
+   })
+   ```
+
+-----------------------------------------------------------------------
+🧠 Architecture Benefits:
+
+- **Superior Performance**: Background refetching, optimistic updates
+- **Intelligent Caching**: Automatic cache management with precise invalidation
+- **Better UX**: Loading states, error boundaries, optimistic updates
+- **Developer Experience**: DevTools, TypeScript integration, predictable patterns
+- **Scalability**: 32 endpoints with consistent patterns
+- **Memory Efficiency**: Automatic cache cleanup and garbage collection
+
+END OF ENHANCED INSTRUCTIONS ✅
+*/
