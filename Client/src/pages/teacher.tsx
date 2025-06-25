@@ -6,6 +6,25 @@ import { selectCurrentLanguage } from '@/store/slices/languageSlice'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
+// Mock data for Teacher Dashboard
+const mockData = {
+    courses: [
+        { id: 1, name: 'Advanced Mathematics', students: 28, assignments: 5, avgGrade: 'B+' },
+        { id: 2, name: 'Calculus I', students: 35, assignments: 3, avgGrade: 'A-' },
+        { id: 3, name: 'Statistics', students: 22, assignments: 4, avgGrade: 'B' },
+    ],
+    students: [
+        { id: 1, name: 'Alice Johnson', course: 'Advanced Mathematics', grade: 'A', attendance: '95%' },
+        { id: 2, name: 'Bob Smith', course: 'Calculus I', grade: 'B+', attendance: '88%' },
+        { id: 3, name: 'Carol Davis', course: 'Statistics', grade: 'A-', attendance: '92%' },
+    ],
+    pendingGrades: [
+        { id: 1, assignment: 'Midterm Exam', course: 'Advanced Mathematics', submissions: 28 },
+        { id: 2, assignment: 'Project 2', course: 'Calculus I', submissions: 32 },
+        { id: 3, assignment: 'Quiz 3', course: 'Statistics', submissions: 20 },
+    ]
+}
+
 export default function TeacherPage() {
     const currentUser = useAppSelector(selectCurrentUser)
     const currentTheme = useAppSelector(selectCurrentTheme)
@@ -28,19 +47,29 @@ export default function TeacherPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Teacher-Specific View */}
                     {userRole === 'TEACHER' && (
-                        <>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="font-body">My Courses</CardTitle>
-                                    <CardDescription>Manage your teaching courses</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        Create and manage course content, assignments, and student progress.
-                                    </p>
-                                    <Button variant="outline" size="sm">Manage Courses</Button>
-                                </CardContent>
-                            </Card>
+                        <>                            <Card>
+                            <CardHeader>
+                                <CardTitle className="font-body">My Courses</CardTitle>
+                                <CardDescription>Manage your teaching courses</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-3 mb-4">
+                                    {mockData.courses.map(course => (
+                                        <div key={course.id} className="flex items-center justify-between p-3 border rounded-lg">
+                                            <div>
+                                                <h4 className="font-semibold text-sm">{course.name}</h4>
+                                                <p className="text-xs text-theme/70">{course.students} students • {course.assignments} assignments</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-sm font-semibold">Avg: {course.avgGrade}</p>
+                                                <Button variant="outline" size="sm">Manage</Button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Button size="sm">Create New Course</Button>
+                            </CardContent>
+                        </Card>
 
                             <Card>
                                 <CardHeader>
@@ -48,10 +77,21 @@ export default function TeacherPage() {
                                     <CardDescription>View and manage your students</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        Monitor student enrollment, progress, and communication.
-                                    </p>
-                                    <Button variant="outline" size="sm">View Students</Button>
+                                    <div className="space-y-3 mb-4">
+                                        {mockData.students.map(student => (
+                                            <div key={student.id} className="flex items-center justify-between p-3 border rounded-lg">
+                                                <div>
+                                                    <h4 className="font-semibold text-sm">{student.name}</h4>
+                                                    <p className="text-xs text-theme/70">{student.course}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-sm font-semibold">{student.grade}</p>
+                                                    <p className="text-xs text-theme/70">{student.attendance}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <Button variant="outline" size="sm">View All Students</Button>
                                 </CardContent>
                             </Card>
 
@@ -61,10 +101,21 @@ export default function TeacherPage() {
                                     <CardDescription>Create and grade assignments</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        Create assignments, set deadlines, and grade submissions.
-                                    </p>
-                                    <Button variant="outline" size="sm">Manage Assignments</Button>
+                                    <div className="space-y-3 mb-4">
+                                        {mockData.pendingGrades.map(grade => (
+                                            <div key={grade.id} className="p-3 border rounded-lg">
+                                                <div className="flex items-center justify-between">
+                                                    <h4 className="font-semibold text-sm">{grade.assignment}</h4>
+                                                    <span className="px-2 py-1 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded text-xs">
+                                                        Pending
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-theme/70 mt-1">{grade.course}</p>
+                                                <p className="text-xs text-theme/50">{grade.submissions} submissions to grade</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <Button variant="outline" size="sm">Grade Assignments</Button>
                                 </CardContent>
                             </Card>
                         </>
@@ -173,10 +224,9 @@ export default function TeacherPage() {
                                 onClick={() => window.location.href = '/admin'}
                             >
                                 Admin Page
-                            </Button>
-                            <Button
+                            </Button>                            <Button
                                 variant="outline"
-                                onClick={() => window.location.href = '/superadmin'}
+                                onClick={() => window.location.href = '/admins'}
                             >
                                 Super Admin
                             </Button>

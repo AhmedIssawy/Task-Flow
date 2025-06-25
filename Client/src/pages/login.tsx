@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useAppDispatch } from "@/store/hooks";
+import { setCredentials } from "@/store/slices/authSlice";
 import {
   Card,
   CardHeader,
@@ -30,6 +32,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { mutate: login, isPending: isLoading, error } = useLoginMutation();
 
   const {
@@ -39,7 +42,6 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
-
   const onSubmit = async (data: LoginFormData) => {
     login(
       {
@@ -48,13 +50,64 @@ const LoginPage: React.FC = () => {
       },
       {
         onSuccess: (response) => {
+          // Log the full API response for debugging
+          console.log("🚀 API Response:", response.data);
+          console.log("🎭 Role from API:", response.data.role);
+          console.log("👤 User data from API:", response.data.data);
+
           toast.success("Login successful!");
 
-          // Role is already saved to localStorage by the hook
-          console.log("Login successful:", response.data);
+          // Get role directly from API response - NO hardcoding
+          const apiRole = response.data.role;
 
-          // You can add redirect logic here if needed
-          // For now, we're only handling the login without redirects as requested
+          if (!apiRole) {
+            toast.error("Role not received from API");
+            console.error("❌ No role found in API response:", response.data);
+            return;
+          }
+
+          // Convert API role format to internal format
+          const convertRole = (role: string) => {
+            const roleMap: Record<string, 'STUDENT' | 'TEACHER' | 'ADMIN' | 'SUPER_ADMIN'> = {
+              'super-admin': 'SUPER_ADMIN',
+              'admin': 'ADMIN',
+              'teacher': 'TEACHER',
+              'student': 'STUDENT'
+            };
+            return roleMap[role] || 'STUDENT';
+          };
+
+          const internalRole = convertRole(apiRole);
+          console.log("🔄 Role conversion:", { apiRole, internalRole });
+
+          // Create user object from API response data
+          const userData = {
+            id: response.data.data.id || response.data.data._id,
+            email: data.userId,
+            name: response.data.data.name,
+            role: internalRole,
+            profileData: {}
+          };
+
+          // Save to Redux store
+          dispatch(setCredentials({
+            user: userData,
+            token: 'auth-token' // Update with actual token when available
+          }));
+
+          // Role-based redirection using API role (not hardcoded)
+          const redirectMap: Record<string, string> = {
+            'super-admin': '/admins',
+            'admin': '/admin',
+            'teacher': '/teacher',
+            'student': '/student'
+          };
+
+          const redirectPath = redirectMap[apiRole] || '/student';
+          console.log("🎯 Redirecting to:", redirectPath, "based on API role:", apiRole);
+
+          // Redirect after successful login
+          router.push(redirectPath);
         },
         onError: (error) => {
           const errorMessage = error.response?.data?.message || "Login failed";

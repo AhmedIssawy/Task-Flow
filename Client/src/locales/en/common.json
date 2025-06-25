@@ -5,6 +5,7 @@
     "welcome": "Welcome to Task-Flow"
   },
   "common": {
+    "brandName": "Task-Flow LMS",
     "testPage": "Infrastructure Test Page",
     "controls": "Controls",
     "testFeatures": "Test Redux, Theme, and Language features",
@@ -400,6 +401,34 @@
         "contactButton": "Contact Admissions",
         "tourButton": "Schedule Campus Tour"
       }
+    },
+    "footer": {
+      "description": "Empowering education through innovative learning management solutions. Transform your teaching and learning experience with our comprehensive platform.",
+      "quickLinks": {
+        "title": "Quick Links",
+        "about": "About",
+        "programs": "Programs",
+        "features": "Features",
+        "news": "News",
+        "login": "Login"
+      },
+      "academic": {
+        "title": "Academic",
+        "programs": "Academic Programs",
+        "admissions": "Admissions",
+        "calendar": "Academic Calendar",
+        "library": "Library",
+        "resources": "Resources"
+      },
+      "support": {
+        "title": "Support",
+        "help": "Help Center",
+        "contact": "Contact Us",
+        "faq": "FAQ",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service"
+      },
+      "copyright": "All rights reserved."
     }
   }
 }

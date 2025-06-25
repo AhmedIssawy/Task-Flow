@@ -6,6 +6,25 @@ import { selectCurrentLanguage } from '@/store/slices/languageSlice'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
+// Mock data for Student Dashboard
+const mockData = {
+    courses: [
+        { id: 1, name: 'Advanced Mathematics', instructor: 'Dr. Smith', progress: 85, grade: 'A-' },
+        { id: 2, name: 'Computer Science 101', instructor: 'Prof. Johnson', progress: 72, grade: 'B+' },
+        { id: 3, name: 'Physics Laboratory', instructor: 'Dr. Brown', progress: 90, grade: 'A' },
+    ],
+    assignments: [
+        { id: 1, title: 'Calculus Problem Set 3', course: 'Advanced Mathematics', dueDate: '2025-06-30', status: 'pending' },
+        { id: 2, title: 'Programming Project', course: 'Computer Science 101', dueDate: '2025-07-05', status: 'submitted' },
+        { id: 3, title: 'Lab Report 2', course: 'Physics Laboratory', dueDate: '2025-06-28', status: 'overdue' },
+    ],
+    grades: {
+        overall: 'B+',
+        gpa: 3.5,
+        totalCredits: 18
+    }
+}
+
 export default function StudentPage() {
     const currentUser = useAppSelector(selectCurrentUser)
     const currentTheme = useAppSelector(selectCurrentTheme)
@@ -28,19 +47,29 @@ export default function StudentPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Student-Specific View */}
                     {userRole === 'STUDENT' && (
-                        <>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="font-body">My Courses</CardTitle>
-                                    <CardDescription>View and manage your enrolled courses</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        You have access to view your enrolled courses, assignments, and grades.
-                                    </p>
-                                    <Button variant="outline" size="sm">View Courses</Button>
-                                </CardContent>
-                            </Card>
+                        <>                            <Card>
+                            <CardHeader>
+                                <CardTitle className="font-body">My Courses</CardTitle>
+                                <CardDescription>View and manage your enrolled courses</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-3 mb-4">
+                                    {mockData.courses.map(course => (
+                                        <div key={course.id} className="flex items-center justify-between p-3 border rounded-lg">
+                                            <div>
+                                                <h4 className="font-semibold text-sm">{course.name}</h4>
+                                                <p className="text-xs text-theme/70">{course.instructor}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-sm font-semibold">{course.progress}%</p>
+                                                <p className="text-xs text-theme/70">{course.grade}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Button variant="outline" size="sm">View All Courses</Button>
+                            </CardContent>
+                        </Card>
 
                             <Card>
                                 <CardHeader>
@@ -48,10 +77,24 @@ export default function StudentPage() {
                                     <CardDescription>Track your assignments and deadlines</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        Submit assignments and track your progress.
-                                    </p>
-                                    <Button variant="outline" size="sm">View Assignments</Button>
+                                    <div className="space-y-3 mb-4">
+                                        {mockData.assignments.map(assignment => (
+                                            <div key={assignment.id} className="p-3 border rounded-lg">
+                                                <div className="flex items-center justify-between">
+                                                    <h4 className="font-semibold text-sm">{assignment.title}</h4>
+                                                    <span className={`px-2 py-1 rounded text-xs ${assignment.status === 'submitted' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                                                            assignment.status === 'overdue' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
+                                                                'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                                                        }`}>
+                                                        {assignment.status}
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-theme/70 mt-1">{assignment.course}</p>
+                                                <p className="text-xs text-theme/50">Due: {assignment.dueDate}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <Button variant="outline" size="sm">View All Assignments</Button>
                                 </CardContent>
                             </Card>
 
@@ -61,10 +104,23 @@ export default function StudentPage() {
                                     <CardDescription>View your academic performance</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="font-body text-sm text-theme/70 mb-4">
-                                        Check your grades and feedback from instructors.
-                                    </p>
-                                    <Button variant="outline" size="sm">View Grades</Button>
+                                    <div className="space-y-3 mb-4">
+                                        <div className="grid grid-cols-3 gap-4 text-center">
+                                            <div>
+                                                <p className="text-2xl font-bold text-primary">{mockData.grades.overall}</p>
+                                                <p className="text-xs text-theme/70">Overall Grade</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-2xl font-bold text-primary">{mockData.grades.gpa}</p>
+                                                <p className="text-xs text-theme/70">GPA</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-2xl font-bold text-primary">{mockData.grades.totalCredits}</p>
+                                                <p className="text-xs text-theme/70">Credits</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Button variant="outline" size="sm">View Detailed Grades</Button>
                                 </CardContent>
                             </Card>
                         </>
@@ -194,10 +250,9 @@ export default function StudentPage() {
                                 onClick={() => window.location.href = '/admin'}
                             >
                                 Admin Page
-                            </Button>
-                            <Button
+                            </Button>                            <Button
                                 variant="outline"
-                                onClick={() => window.location.href = '/superadmin'}
+                                onClick={() => window.location.href = '/admins'}
                             >
                                 Super Admin
                             </Button>

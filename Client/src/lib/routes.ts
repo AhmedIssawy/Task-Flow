@@ -9,14 +9,12 @@ export const routes = {    // Public routes accessible without authentication
         '/_error',
         '/404',
         '/500'
-    ],
-
-    // Role-based route mapping
+    ],    // Role-based route mapping
     roleMap: {
         STUDENT: '/student',
         TEACHER: '/teacher',
         ADMIN: '/admin',
-        SUPER_ADMIN: '/superadmin'
+        SUPER_ADMIN: '/admins'
     },
 
     // Protected routes by role
@@ -47,16 +45,15 @@ export const routes = {    // Public routes accessible without authentication
             '/admin/reports',
             '/admin/settings',
             '/admin/profile'
-        ],
-        SUPER_ADMIN: [
-            '/superadmin/*',
-            '/superadmin/dashboard',
-            '/superadmin/institutions',
-            '/superadmin/admins',
-            '/superadmin/system',
-            '/superadmin/analytics',
-            '/superadmin/settings',
-            '/superadmin/profile'
+        ], SUPER_ADMIN: [
+            '/admins/*',
+            '/admins/dashboard',
+            '/admins/institutions',
+            '/admins/admins',
+            '/admins/system',
+            '/admins/analytics',
+            '/admins/settings',
+            '/admins/profile'
         ]
     },
 
@@ -87,15 +84,14 @@ export const routes = {    // Public routes accessible without authentication
             { label: 'Reports', href: '/admin/reports', icon: 'BarChart' },
             { label: 'Settings', href: '/admin/settings', icon: 'Settings' },
             { label: 'Profile', href: '/admin/profile', icon: 'User' }
-        ],
-        SUPER_ADMIN: [
-            { label: 'Dashboard', href: '/superadmin', icon: 'Home' },
-            { label: 'Institutions', href: '/superadmin/institutions', icon: 'Building2' },
-            { label: 'Admins', href: '/superadmin/admins', icon: 'UserCog' },
-            { label: 'System', href: '/superadmin/system', icon: 'Server' },
-            { label: 'Analytics', href: '/superadmin/analytics', icon: 'TrendingUp' },
-            { label: 'Settings', href: '/superadmin/settings', icon: 'Settings' },
-            { label: 'Profile', href: '/superadmin/profile', icon: 'User' }
+        ], SUPER_ADMIN: [
+            { label: 'Dashboard', href: '/admins', icon: 'Home' },
+            { label: 'Institutions', href: '/admins/institutions', icon: 'Building2' },
+            { label: 'Admins', href: '/admins/admins', icon: 'UserCog' },
+            { label: 'System', href: '/admins/system', icon: 'Server' },
+            { label: 'Analytics', href: '/admins/analytics', icon: 'TrendingUp' },
+            { label: 'Settings', href: '/admins/settings', icon: 'Settings' },
+            { label: 'Profile', href: '/admins/profile', icon: 'User' }
         ]
     }
 }

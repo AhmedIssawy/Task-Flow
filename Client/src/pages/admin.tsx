@@ -1,6 +1,27 @@
 import React from 'react';
-import { useAppSelector } from '../store/hooks';
-import { selectCurrentUser } from '../store/slices/authSlice';
+import { useAppSelector } from '@/store/hooks'
+import { selectCurrentUser } from '@/store/slices/authSlice'
+import { Button } from '@/components/ui/button'
+
+// Mock data for Admin Dashboard
+const mockData = {
+    users: [
+        { id: 1, name: 'Dr. Smith', role: 'TEACHER', department: 'Mathematics', status: 'Active' },
+        { id: 2, name: 'Alice Johnson', role: 'STUDENT', department: 'Computer Science', status: 'Active' },
+        { id: 3, name: 'Prof. Brown', role: 'TEACHER', department: 'Physics', status: 'Active' },
+    ],
+    courses: [
+        { id: 1, name: 'Advanced Mathematics', instructor: 'Dr. Smith', students: 28, status: 'Active' },
+        { id: 2, name: 'Computer Science 101', instructor: 'Prof. Johnson', students: 35, status: 'Active' },
+        { id: 3, name: 'Physics Laboratory', instructor: 'Dr. Brown', students: 22, status: 'Active' },
+    ],
+    systemStats: {
+        totalUsers: 1245,
+        totalTeachers: 48,
+        totalStudents: 1180,
+        totalCourses: 156,
+    }
+}
 
 // Unified Admin Page - All roles can access, content varies by permission
 const AdminPage: React.FC = () => {
@@ -26,24 +47,32 @@ const AdminPage: React.FC = () => {
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                                 Admin Dashboard
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                                    <h3 className="font-medium text-blue-900 dark:text-blue-100">User Management</h3>
-                                    <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
-                                        Manage students and teachers
-                                    </p>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">                                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                                <h3 className="font-medium text-blue-900 dark:text-blue-100">User Management</h3>
+                                <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                                    Manage {mockData.systemStats.totalUsers} users ({mockData.systemStats.totalTeachers} teachers, {mockData.systemStats.totalStudents} students)
+                                </p>
+                                <div className="mt-2">
+                                    <Button variant="outline" size="sm">Manage Users</Button>
                                 </div>
+                            </div>
                                 <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
                                     <h3 className="font-medium text-green-900 dark:text-green-100">Course Management</h3>
                                     <p className="text-sm text-green-700 dark:text-green-300 mt-1">
-                                        Oversee courses and assignments
+                                        Oversee {mockData.systemStats.totalCourses} courses and assignments
                                     </p>
+                                    <div className="mt-2">
+                                        <Button variant="outline" size="sm">Manage Courses</Button>
+                                    </div>
                                 </div>
                                 <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
                                     <h3 className="font-medium text-purple-900 dark:text-purple-100">System Settings</h3>
                                     <p className="text-sm text-purple-700 dark:text-purple-300 mt-1">
-                                        Configure system preferences
+                                        Configure system preferences and policies
                                     </p>
+                                    <div className="mt-2">
+                                        <Button variant="outline" size="sm">System Settings</Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -281,10 +281,12 @@ export interface LoginRequest {
 export interface LoginResponse {
     message: string
     role: 'super-admin' | 'admin' | 'student' | 'teacher'
+    token?: string  // Optional token field
     data: {
         _id: string
         name: string
         id: string
+        email?: string  // Optional email field
     }
 }
 
