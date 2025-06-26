@@ -4,48 +4,37 @@ import {
   validateName,
   validatePhone,
   validateObjectId,
+  validateAddress,
   formatValidationResult,
   pickAllowedFields,
 } from "./common.validator.js";
 
-const validateStudentId = (studentId) => {
-  if (!studentId || typeof studentId !== "string" || studentId.trim() === "") {
-    return "Student ID is required";
+const validateTeacherId = (teacherId) => {
+  if (!teacherId || typeof teacherId !== "string" || teacherId.trim() === "") {
+    return "Teacher ID is required";
   }
   return null;
 };
 
-// const validateStudentRole = (role) => {
-//   if (!role) {
-//     return null; 
-//   }
-  
-//   const validRoles "student"];
-//   if (!validRoles.includes(role)) {
-//     return "false";
-//   }
-//   return null;
-// };
-
-const validateStudentRole = (role) => {
+const validateTeacherRole = (role) => {
   if (!role) {
     return null; 
   }
   
-  const validRoles = ["student", "super-student"];
+  const validRoles = ["doctor", "assistant", "teacher"];
   if (!validRoles.includes(role)) {
-    return "Role must be either 'student' or 'super-student'";
+    return "Role must be either 'doctor', 'assistant', or 'teacher'";
   }
   
   return null;
 };
 
-export const validateStudentLogin = (data) => {
+export const validateTeacherLogin = (data) => {
   const errors = {};
 
-  const studentIdError = validateStudentId(data.studentId);
-  if (studentIdError) {
-    errors.studentId = studentIdError;
+  const teacherIdError = validateTeacherId(data.teacherId);
+  if (teacherIdError) {
+    errors.teacherId = teacherIdError;
   }
 
   const passwordError = validatePassword(data.password);
@@ -53,12 +42,13 @@ export const validateStudentLogin = (data) => {
     errors.password = passwordError;
   }
 
-  const allowedFields = ["studentId", "password"];
+  // Only allow teacherId and password
+  const allowedFields = ["teacherId", "password"];
   const filteredData = pickAllowedFields(data, allowedFields);
   return formatValidationResult(errors, filteredData);
 };
 
-export const validateStudentRegistration = (data) => {
+export const validateTeacherRegistration = (data) => {
   const errors = {};
 
   const nameError = validateName(data.name, "Name");
@@ -71,6 +61,16 @@ export const validateStudentRegistration = (data) => {
     errors.email = emailError;
   }
 
+  const phoneError = validatePhone(data.phone);
+  if (phoneError) {
+    errors.phone = phoneError;
+  }
+
+  const addressError = validateAddress(data.address);
+  if (addressError) {
+    errors.address = addressError;
+  }
+
   const passwordError = validatePassword(data.password);
   if (passwordError) {
     errors.password = passwordError;
@@ -81,26 +81,32 @@ export const validateStudentRegistration = (data) => {
     errors.universityId = universityIdError;
   }
 
-  if (data.phone) {
-    const phoneError = validatePhone(data.phone);
-    if (phoneError) {
-      errors.phone = phoneError;
-    }
+  const collegeIdError = validateObjectId(data.collegeId, "College ID");
+  if (collegeIdError) {
+    errors.collegeId = collegeIdError;
+  }
+
+  const departmentIdError = validateObjectId(data.departmentId, "Department ID");
+  if (departmentIdError) {
+    errors.departmentId = departmentIdError;
   }
 
   if (data.role) {
-    const roleError = validateStudentRole(data.role);
+    const roleError = validateTeacherRole(data.role);
     if (roleError) {
       errors.role = roleError;
     }
   }
 
-  const allowedFields = ["name", "email", "password", "universityId", "phone", "role"];
+  // Only allow whitelisted fields
+  const allowedFields = [
+    "name", "email", "phone", "address", "password", "universityId", "collegeId", "departmentId", "role"
+  ];
   const filteredData = pickAllowedFields(data, allowedFields);
   return formatValidationResult(errors, filteredData);
 };
 
-export const validateStudentUpdate = (data) => {
+export const validateTeacherUpdate = (data) => {
   const errors = {};
 
   if (data.name !== undefined) {
@@ -124,8 +130,15 @@ export const validateStudentUpdate = (data) => {
     }
   }
 
+  if (data.address !== undefined) {
+    const addressError = validateAddress(data.address);
+    if (addressError) {
+      errors.address = addressError;
+    }
+  }
+
   if (data.role !== undefined) {
-    const roleError = validateStudentRole(data.role);
+    const roleError = validateTeacherRole(data.role);
     if (roleError) {
       errors.role = roleError;
     }
@@ -138,6 +151,20 @@ export const validateStudentUpdate = (data) => {
     }
   }
 
+  if (data.collegeId !== undefined) {
+    const collegeIdError = validateObjectId(data.collegeId, "College ID");
+    if (collegeIdError) {
+      errors.collegeId = collegeIdError;
+    }
+  }
+
+  if (data.departmentId !== undefined) {
+    const departmentIdError = validateObjectId(data.departmentId, "Department ID");
+    if (departmentIdError) {
+      errors.departmentId = departmentIdError;
+    }
+  }
+
   if (data.courses !== undefined && Array.isArray(data.courses)) {
     for (let i = 0; i < data.courses.length; i++) {
       const courseError = validateObjectId(data.courses[i], `Course ID at index ${i}`);
@@ -147,21 +174,21 @@ export const validateStudentUpdate = (data) => {
     }
   }
 
-  const allowedFields = ["name", "email", "phone", "role", "universityId", "courses"];
+  const allowedFields = [
+    "name", "email", "phone", "address", "role", "universityId", "collegeId", "departmentId", "courses"
+  ];
   const filteredData = pickAllowedFields(data, allowedFields);
   return formatValidationResult(errors, filteredData);
 };
 
-export const validateStudentIdParam = (studentId) => {
+export const validateTeacherIdParam = (teacherId) => {
   const errors = {};
   
-  const idError = validateStudentId(studentId);
+  const idError = validateTeacherId(teacherId);
   if (idError) {
-    errors.studentId = idError;
+    errors.teacherId = idError;
   }
 
-  const filteredData = { studentId };
+  const filteredData = { teacherId };
   return formatValidationResult(errors, filteredData);
-};
-
-export { validatePassword };
+}; 
