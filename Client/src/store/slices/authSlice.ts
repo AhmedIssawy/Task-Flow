@@ -28,38 +28,47 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setCredentials: (
-      state,
-      action: PayloadAction<{ user: User; token: string }>
-    ) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isAuthenticated = true;
-      state.error = null;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-    clearAuth: (state) => {
-      state.user = null;
-      state.token = null;
-      state.isAuthenticated = false;
-      state.error = null;
-    },
-    updateProfile: (state, action: PayloadAction<Partial<User>>) => {
-      if (state.user) {
-        state.user = { ...state.user, ...action.payload };
-      }
-    },
-    setAuthInitialized: (state) => {
-      state.isAuthInitialized = true;
+    name: 'auth',
+    initialState,
+    reducers: {
+        setCredentials: (state, action: PayloadAction<{ user: User; token: string }>) => {
+            state.user = action.payload.user
+            state.token = action.payload.token
+            state.isAuthenticated = true
+            state.error = null
+            
+            // Persist to sessionStorage when credentials are set
+            if (typeof window !== 'undefined') {
+                sessionStorage.setItem('token', action.payload.token)
+                sessionStorage.setItem('user', JSON.stringify(action.payload.user))
+                sessionStorage.setItem('userRole', action.payload.user.role.toLowerCase())
+            }
+        },
+        setLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload
+        },
+        setError: (state, action: PayloadAction<string>) => {
+            state.error = action.payload
+            state.isLoading = false
+        },
+        clearAuth: (state) => {
+            state.user = null
+            state.token = null
+            state.isAuthenticated = false
+            state.error = null
+            
+            // Clear sessionStorage when auth is cleared
+            if (typeof window !== 'undefined') {
+                sessionStorage.removeItem('token')
+                sessionStorage.removeItem('user')
+                sessionStorage.removeItem('userRole')
+            }
+        },
+        updateProfile: (state, action: PayloadAction<Partial<User>>) => {
+            if (state.user) {
+                state.user = { ...state.user, ...action.payload }
+            }
+        },
     },
   },
 });
