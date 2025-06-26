@@ -56,7 +56,7 @@ export const AboutSection = () => {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
                         {pillars.map((pillar, i) => (
-                            <div key={i} className="flex flex-col items-center text-center gap-2">
+                            <div key={i} className="flex flex-col items-center gap-2">
                                 <div className="mb-1">{pillar.icon}</div>
                                 <div className="font-bold text-sm sm:text-base lg:text-lg">{pillar.title}</div>
                                 <div className="text-xs sm:text-sm">{pillar.desc}</div>

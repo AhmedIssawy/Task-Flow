@@ -29,23 +29,23 @@ const Benefits = () => {
     },
   ];
   return (
-    <section id="features" className="py-16 sm:py-20 bg-background">
+    <section id="features" className="py-16 sm:py-20 bg-background px-10 lg:px-[unset]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 className="text-3xl sm:text-4xl md:text-5xl font-black pb-12 sm:pb-16 lg:pb-20 text-center sm:text-left">{t("pages.benefits.title")}</h3>
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-black pb-12 sm:pb-16 lg:pb-20 sm:text-left">{t("pages.benefits.title")}</h3>
         <div className="flex flex-col gap-8 sm:gap-10">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center sm:text-left">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black sm:text-left">
             {t("pages.benefits.subtitle")}
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl font-normal text-center sm:text-left max-w-4xl">
+          <p className="text-lg sm:text-xl md:text-2xl font-normal sm:text-left max-w-4xl">
             {t("pages.benefits.description")}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 justify-items-center">
             {benifits.map((benefit, index) => (
               <Card key={index} className="w-full max-w-sm hover:shadow-lg transition-shadow duration-300">
                 <CardHeader className="flex flex-col gap-3 sm:gap-4 text-center p-6">
                   <CardTitle className="flex justify-center text-primary text-3xl sm:text-4xl">{benefit.icon}</CardTitle>
                   <CardTitle className="text-lg sm:text-xl font-bold">{benefit.title}</CardTitle>
-                  <CardDescription className="text-sm sm:text-base text-gray-600 leading-relaxed">{benefit.description}</CardDescription>
+                  <CardDescription className="text-sm sm:text-base text-gray-600 dark:text-[#A3ABB2] leading-relaxed">{benefit.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}

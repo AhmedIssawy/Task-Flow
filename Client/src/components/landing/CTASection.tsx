@@ -8,7 +8,7 @@ export const CTASection = () => {
 
     return (<section className="py-16 sm:py-20 bg-theme text-theme relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="text-center mb-8 sm:mb-12">
+            <div className="mb-8 sm:mb-12">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6">
                     {t("pages.cta.title")}
                 </h2>
@@ -17,7 +17,7 @@ export const CTASection = () => {
                 </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 mb-8 sm:mb-12">
-                <div className="bg-theme rounded-2xl p-6 sm:p-8 lg:p-10 text-center shadow-lg flex flex-col items-center">
+                <div className="bg-theme rounded-2xl p-6 sm:p-8 lg:p-10 shadow-lg flex flex-col items-center">
                     <div className="bg-main/10 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4">
                         <Users className="h-6 w-6 sm:h-8 sm:w-8 text-main" />
                     </div>
@@ -36,7 +36,7 @@ export const CTASection = () => {
                         </Link>
                     </Button>
                 </div>
-                <div className="bg-theme rounded-2xl p-6 sm:p-8 lg:p-10 text-center shadow-lg flex flex-col items-center">
+                <div className="bg-theme rounded-2xl p-6 sm:p-8 lg:p-10 shadow-lg flex flex-col items-center">
                     <div className="bg-main/10 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4">
                         <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-main" />
                     </div>
