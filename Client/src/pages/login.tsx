@@ -89,11 +89,15 @@ const LoginPage: React.FC = () => {
             profileData: {}
           };
 
-          // Save to Redux store
+          // Save to Redux store (this will also persist to sessionStorage via the slice)
+          const token = response.data.token || 'auth-token-placeholder';
           dispatch(setCredentials({
             user: userData,
-            token: 'auth-token' // Update with actual token when available
+            token: token
           }));
+          
+          console.log('🔄 Redux state updated with user data');
+          console.log('💾 SessionStorage should now contain auth data');
 
           // Role-based redirection using API role (not hardcoded)
           const redirectMap: Record<string, (id: string) => string> = {
@@ -103,7 +107,7 @@ const LoginPage: React.FC = () => {
             'student': (id: string) => `/student/${id}`,
         };
           
-        const redirectFn = redirectMap[apiRole] || (() => '/student');
+        const redirectFn = redirectMap[apiRole] || (() => `/student/${userData.id}`);
         const cleanId = userData.id.replace(/^STU-/, '');
         const redirectPath = redirectFn(cleanId);
 

@@ -34,6 +34,13 @@ export const authSlice = createSlice({
             state.token = action.payload.token
             state.isAuthenticated = true
             state.error = null
+            
+            // Persist to sessionStorage when credentials are set
+            if (typeof window !== 'undefined') {
+                sessionStorage.setItem('token', action.payload.token)
+                sessionStorage.setItem('user', JSON.stringify(action.payload.user))
+                sessionStorage.setItem('userRole', action.payload.user.role.toLowerCase())
+            }
         },
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload
@@ -47,6 +54,13 @@ export const authSlice = createSlice({
             state.token = null
             state.isAuthenticated = false
             state.error = null
+            
+            // Clear sessionStorage when auth is cleared
+            if (typeof window !== 'undefined') {
+                sessionStorage.removeItem('token')
+                sessionStorage.removeItem('user')
+                sessionStorage.removeItem('userRole')
+            }
         },
         updateProfile: (state, action: PayloadAction<Partial<User>>) => {
             if (state.user) {
