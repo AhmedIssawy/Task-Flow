@@ -6,7 +6,7 @@ import Student from "../models/student.model.js";
 import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
 
-const authintication = async (req, res, next) => {
+const authinticate = async (req, res, next) => {
   const token = req?.cookies?.jwt || req?.headers?.authorization?.split(" ")[1];
 
   if (!token) {
@@ -30,4 +30,4 @@ const authintication = async (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized!" });
   }
 };
-export default authintication;
+export default authinticate;
