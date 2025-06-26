@@ -37,7 +37,7 @@ app.use("/api/universities", universityRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api", collegesRoutes)
 app.use("/api", departmentsRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on localhost:${PORT}`);
