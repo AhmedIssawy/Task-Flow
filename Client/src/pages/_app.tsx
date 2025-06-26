@@ -8,11 +8,13 @@ import { ClientHydration } from '@/components/providers/ClientHydration'
 import { ProtectedRoute } from '@/components/routing/ProtectedRoute'
 import { GlobalRouter } from '@/components/routing/GlobalRouter'
 import { Toaster } from 'react-hot-toast'
+import AuthInitializer from "@/components/auth/AuthInitializer"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ReduxProvider>
       <QueryProvider>
+        <AuthInitializer />
         <ClientHydration>
           <ThemeProvider>
             <LanguageProvider>

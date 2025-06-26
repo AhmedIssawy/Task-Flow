@@ -11,8 +11,8 @@ export const AuthInitializer = () => {
             if (typeof window === 'undefined') return
 
             try {
-                const storedToken = localStorage.getItem('token')
-                const storedUser = localStorage.getItem('user')
+                const storedToken = sessionStorage.getItem('token')
+                const storedUser = sessionStorage.getItem('user')
 
                 if (storedToken && storedUser) {
                     const user = JSON.parse(storedUser)
@@ -27,8 +27,8 @@ export const AuthInitializer = () => {
             } catch (error) {
                 // If there's an error parsing stored data, clear it
                 console.error('Error initializing auth:', error)
-                localStorage.removeItem('token')
-                localStorage.removeItem('user')
+                sessionStorage.removeItem('token')
+                sessionStorage.removeItem('user')
                 dispatch(clearAuth())
             }
         }
