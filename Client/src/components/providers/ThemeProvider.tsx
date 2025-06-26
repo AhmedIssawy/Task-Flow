@@ -47,7 +47,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
         // Force apply theme styles directly to ensure they work
         if (effectiveTheme === 'dark') {
-            root.style.setProperty('--color-background', '#000000')
+            root.style.setProperty('--color-background', '#0f1a24')
             root.style.setProperty('--color-foreground', '#ffffff')
         } else {
             root.style.setProperty('--color-background', '#ffffff')

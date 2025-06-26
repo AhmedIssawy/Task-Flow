@@ -122,8 +122,8 @@ const Navbar: React.FC = () => {
                       </div>
                       <button
                         onClick={() => {
-setShowUserMenu(false);
-                          router.push(`${router.asPath}/profile/settings`);
+                          setShowUserMenu(false);
+                          // Navigate to profile
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-theme hover:bg-muted hover:text-primary transition-colors"
                       >

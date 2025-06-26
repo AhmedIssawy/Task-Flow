@@ -58,7 +58,7 @@ const KeyFeatures = () => {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center sm:text-left">
             {t("pages.keyfeatures.subtitle")}
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-muted font-normal text-center sm:text-left max-w-4xl">
+          <p className="text-lg sm:text-xl md:text-2xl font-normal text-center sm:text-left max-w-4xl">
             {t("pages.keyfeatures.description")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6">
@@ -67,7 +67,7 @@ const KeyFeatures = () => {
                 <CardHeader className="flex flex-col gap-3 sm:gap-4 text-center p-4 sm:p-6">
                   <CardTitle className="flex justify-center text-primary text-2xl sm:text-3xl">{feature.icon}</CardTitle>
                   <CardTitle className="text-sm sm:text-base lg:text-lg font-bold leading-tight">{feature.title}</CardTitle>
-                  <CardDescription className="text-xs sm:text-sm text-muted leading-relaxed">{feature.description}</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm text-gray-600 leading-relaxed">{feature.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}

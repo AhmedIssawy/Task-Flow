@@ -86,7 +86,7 @@ export const ProgramsSection = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center sm:text-left mb-12 sm:mb-16">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6">{t("pages.programs.title")}</h2>
-                    <p className="text-lg sm:text-xl md:text-2xl font-normal text-muted max-w-3xl mx-auto sm:mx-0">
+                    <p className="text-lg sm:text-xl md:text-2xl font-normal text-gray-600 max-w-3xl mx-auto sm:mx-0">
                         {t("pages.programs.description")}
                     </p>
                 </div>
@@ -96,7 +96,7 @@ export const ProgramsSection = () => {
                             <CardHeader className="flex flex-col items-center gap-4 p-6 sm:p-8">
                                 <div className="text-4xl sm:text-5xl">{program.icon}</div>
                                 <CardTitle className="text-lg sm:text-xl font-bold text-center">{program.title}</CardTitle>
-                                <CardDescription className="text-center text-sm sm:text-base text-muted leading-relaxed">
+                                <CardDescription className="text-center text-sm sm:text-base text-gray-600 leading-relaxed">
                                     {program.description}
                                 </CardDescription>
                                 <div className="flex flex-wrap gap-2 justify-center mt-4">

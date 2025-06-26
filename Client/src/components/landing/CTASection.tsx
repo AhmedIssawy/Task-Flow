@@ -12,7 +12,7 @@ export const CTASection = () => {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6">
                     {t("pages.cta.title")}
                 </h2>
-                <p className="text-lg sm:text-xl md:text-2xl text-muted max-w-3xl mx-auto leading-relaxed">
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                     {t("pages.cta.description")}
                 </p>
             </div>
@@ -22,7 +22,7 @@ export const CTASection = () => {
                         <Users className="h-6 w-6 sm:h-8 sm:w-8 text-main" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{t("pages.cta.cards.current.title")}</h3>
-                    <p className="text-muted mb-4 sm:mb-6 text-sm sm:text-base">
+                    <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                         {t("pages.cta.cards.current.description")}
                     </p>
                     <Button
@@ -41,7 +41,7 @@ export const CTASection = () => {
                         <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-main" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{t("pages.cta.cards.prospective.title")}</h3>
-                    <p className="text-muted mb-4 sm:mb-6 text-sm sm:text-base">
+                    <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                         {t("pages.cta.cards.prospective.description")}
                     </p>
                     <Button
@@ -57,7 +57,7 @@ export const CTASection = () => {
                 </div>
             </div>
             <div className="text-center">
-                <p className="text-muted mb-4 sm:mb-6 text-base sm:text-lg">
+                <p className="text-gray-500 mb-4 sm:mb-6 text-base sm:text-lg">
                     {t("pages.cta.help.text")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto">
