@@ -45,7 +45,7 @@ const Benefits = () => {
                 <CardHeader className="flex flex-col gap-3 sm:gap-4 text-center p-6">
                   <CardTitle className="flex justify-center text-primary text-3xl sm:text-4xl">{benefit.icon}</CardTitle>
                   <CardTitle className="text-lg sm:text-xl font-bold">{benefit.title}</CardTitle>
-                  <CardDescription className="text-sm sm:text-base text-gray-600 leading-relaxed">{benefit.description}</CardDescription>
+                  <CardDescription className="text-sm sm:text-base text-muted leading-relaxed">{benefit.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
