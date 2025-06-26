@@ -89,26 +89,33 @@ const LoginPage: React.FC = () => {
             profileData: {}
           };
 
-          // Save to Redux store
+          // Save to Redux store (this will also persist to sessionStorage via the slice)
+          const token = response.data.token || 'auth-token-placeholder';
           dispatch(setCredentials({
             user: userData,
-            token: 'auth-token' // Update with actual token when available
+            token: token
           }));
+          
+          console.log('🔄 Redux state updated with user data');
+          console.log('💾 SessionStorage should now contain auth data');
 
           // Role-based redirection using API role (not hardcoded)
-          const redirectMap: Record<string, string> = {
-            'super-admin': '/admins',
-            'admin': '/admin',
-            'teacher': '/teacher',
-            'student': '/student'
-          };
+          const redirectMap: Record<string, (id: string) => string> = {
+            'super-admin': () => '/admins',
+            'admin': () => '/admin',
+            'teacher': () => '/teacher',
+            'student': (id: string) => `/student/${id}`,
+        };
+          
+        const redirectFn = redirectMap[apiRole] || (() => `/student/${userData.id}`);
+        const cleanId = userData.id.replace(/^STU-/, '');
+        const redirectPath = redirectFn(cleanId);
 
-          const redirectPath = redirectMap[apiRole] || '/student';
-          console.log("🎯 Redirecting to:", redirectPath, "based on API role:", apiRole);
-
-          // Redirect after successful login
-          router.push(redirectPath);
+        // Redirect after successful login
+        console.log("🎯 Redirecting to:", redirectPath, "based on API role:", apiRole);
+        router.push(redirectPath);
         },
+
         onError: (error) => {
           const errorMessage = error.response?.data?.message || "Login failed";
           toast.error(errorMessage);

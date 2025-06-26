@@ -15,7 +15,7 @@ import { LoginRequest, LoginResponse, LoginErrorResponse } from '@/types/api'
  * 📤 Body: LoginRequest { userId: string, password: string }
  * 📥 Response: LoginResponse { message: string, role: string, data: { _id: string, name: string, id: string } }
  * ⚡ Performance: Immediate response, error handling, role storage
- * 🎯 Authenticate user and save role to localStorage
+ * 🎯 Authenticate user and save role to sessionStorage
  */
 export const useLoginMutation = (): UseMutationResult<
     AxiosResponse<LoginResponse>,
@@ -33,14 +33,19 @@ export const useLoginMutation = (): UseMutationResult<
             console.log('✅ Login API Success:', response.data);
             console.log('🎭 Role from API:', response.data.role);
 
-            // Save role to localStorage for persistence
-            localStorage.setItem('userRole', response.data.role);
-            localStorage.setItem('userData', JSON.stringify(response.data.data));
+            // Save role to sessionStorage for persistence
+            sessionStorage.setItem('userRole', response.data.role);
+            sessionStorage.setItem('user', JSON.stringify(response.data.data));
 
-            // Also save the token if it exists in the response
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
-            }
+            // Save the token - use response token or create a placeholder
+            const token = response.data.token || 'auth-token-placeholder';
+            sessionStorage.setItem('token', token);
+            
+            console.log('💾 Saved to sessionStorage:', {
+                userRole: response.data.role,
+                user: response.data.data,
+                token: token
+            });
         },
         onError: (error: AxiosError<LoginErrorResponse>) => {
             console.error('❌ Login API Error:', error.response?.data?.message || error.message);

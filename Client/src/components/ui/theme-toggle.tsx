@@ -18,7 +18,7 @@ export const ThemeToggle: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={handleToggle}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 border-none rounded-xl min-w-[80px]"
             aria-label="Toggle theme"
         >
             {currentTheme === 'light' ? (
