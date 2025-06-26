@@ -111,7 +111,7 @@ body {
 
 /* Dark mode override class */
 .dark {
-  --color-background: #000000;
+  --color-background: var(--color-bg-dark);
   --color-foreground: var(--color-text-dark);
 }
 

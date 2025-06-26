@@ -47,10 +47,10 @@ export const AboutSection = () => {
                 <div className="bg-theme backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 flex flex-col gap-6 sm:gap-8">
                     <div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4">{t('pages.about.title')}</h2>
-                        <p className="text-base text-muted sm:text-lg md:text-xl mb-2">
+                        <p className="text-base sm:text-lg md:text-xl mb-2">
                             {t('pages.about.description1')}
                         </p>
-                        <p className="text-sm sm:text-base text-muted md:text-lg">
+                        <p className="text-sm sm:text-base md:text-lg">
                             {t('pages.about.description2')}
                         </p>
                     </div>
@@ -59,7 +59,7 @@ export const AboutSection = () => {
                             <div key={i} className="flex flex-col items-center text-center gap-2">
                                 <div className="mb-1">{pillar.icon}</div>
                                 <div className="font-bold text-sm sm:text-base lg:text-lg">{pillar.title}</div>
-                                <div className="text-xs sm:text-sm text-muted">{pillar.desc}</div>
+                                <div className="text-xs sm:text-sm">{pillar.desc}</div>
                             </div>
                         ))}
                     </div>
