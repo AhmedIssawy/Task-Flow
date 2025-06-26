@@ -13,7 +13,7 @@ export const HeroSection = () => {
     router.push("/login");
   };
 
-  return (<section className="relative bg-background py-12 sm:py-16 lg:py-32">
+  return (<section className="relative bg-background flex justify-center items-center min-h-[90vh]">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-x-8 items-center">
         <div className="flex-1 order-2 lg:order-1">
