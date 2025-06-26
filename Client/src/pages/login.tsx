@@ -96,19 +96,22 @@ const LoginPage: React.FC = () => {
           }));
 
           // Role-based redirection using API role (not hardcoded)
-          const redirectMap: Record<string, string> = {
-            'super-admin': '/admins',
-            'admin': '/admin',
-            'teacher': '/teacher',
-            'student': '/student'
-          };
+          const redirectMap: Record<string, (id: string) => string> = {
+            'super-admin': () => '/admins',
+            'admin': () => '/admin',
+            'teacher': () => '/teacher',
+            'student': (id: string) => `/student/${id}`,
+        };
+          
+        const redirectFn = redirectMap[apiRole] || (() => '/student');
+        const cleanId = userData.id.replace(/^STU-/, '');
+        const redirectPath = redirectFn(cleanId);
 
-          const redirectPath = redirectMap[apiRole] || '/student';
-          console.log("🎯 Redirecting to:", redirectPath, "based on API role:", apiRole);
-
-          // Redirect after successful login
-          router.push(redirectPath);
+        // Redirect after successful login
+        console.log("🎯 Redirecting to:", redirectPath, "based on API role:", apiRole);
+        router.push(redirectPath);
         },
+
         onError: (error) => {
           const errorMessage = error.response?.data?.message || "Login failed";
           toast.error(errorMessage);
