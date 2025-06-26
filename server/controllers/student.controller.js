@@ -155,11 +155,8 @@ const getStudentById = asyncHandler(async (req, res) => {
 });
 
 const updateStudent = asyncHandler(async (req, res) => {
-  const { lang = "en" } = req.body;
+  const { lang = "en", ...updates } = req.body;
   const { id } = req.params;
-
-  const allowedFields = ["name", "email", "courses", "universityId"];
-  const updates = Object.fromEntries(Object.entries(req.body).filter(([k]) => allowedFields.includes(k)));
 
   const updatedStudent = await Student.findByIdAndUpdate(
     id,
