@@ -17,7 +17,7 @@ export const LanguageSwitcher: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={handleToggle}
-            className="flex items-center gap-2 min-w-[60px]"
+            className="flex items-center gap-2 min-w-[80px] bg-[#E5EDF5] dark:bg-[#21364A] border-none rounded-xl text-white"
             aria-label="Toggle language"
         >
             <span className="font-medium">
@@ -27,3 +27,5 @@ export const LanguageSwitcher: React.FC = () => {
 }
 
 export default LanguageSwitcher
+
+

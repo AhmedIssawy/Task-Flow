@@ -52,7 +52,7 @@ const KeyFeatures = () => {
   ];
   return (
     <section id="features" className="py-16 sm:py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 px-10 lg:px-[unset]">
         <h3 className="text-3xl sm:text-4xl md:text-5xl font-black pb-12 sm:pb-16 lg:pb-20 text-center sm:text-left">{t("pages.keyfeatures.title")}</h3>
         <div className="flex flex-col gap-8 sm:gap-10">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-center sm:text-left">
