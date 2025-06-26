@@ -13,22 +13,47 @@ export const AuthInitializer = () => {
             try {
                 const storedToken = sessionStorage.getItem('token')
                 const storedUser = sessionStorage.getItem('user')
+                const storedUserRole = sessionStorage.getItem('userRole')
 
-                if (storedToken && storedUser) {
-                    const user = JSON.parse(storedUser)
+                if (storedToken && storedUser && storedUserRole) {
+                    const userData = JSON.parse(storedUser)
 
-                    // For real API, we would validate the token with the server
-                    // For now, just restore the stored credentials
+                    const convertRole = (role: string) => {
+                        const roleMap: Record<string, 'STUDENT' | 'TEACHER' | 'ADMIN' | 'SUPER_ADMIN'> = {
+                            'super-admin': 'SUPER_ADMIN',
+                            'admin': 'ADMIN',
+                            'teacher': 'TEACHER',
+                            'student': 'STUDENT'
+                        }
+                        return roleMap[role] || 'STUDENT'
+                    }
+
+                    const internalRole = convertRole(storedUserRole)
+
+                    const user = {
+                        id: userData.id || userData._id,
+                        email: userData.email || userData.id,
+                        name: userData.name || 'User',
+                        role: internalRole,
+                        avatar: userData.avatar,
+                        profileData: userData.profileData || {}
+                    }
+
                     dispatch(setCredentials({
                         user,
                         token: storedToken
                     }))
+                } else {
+                    sessionStorage.removeItem('token')
+                    sessionStorage.removeItem('user')
+                    sessionStorage.removeItem('userRole')
+                    dispatch(clearAuth())
                 }
             } catch (error) {
-                // If there's an error parsing stored data, clear it
                 console.error('Error initializing auth:', error)
                 sessionStorage.removeItem('token')
                 sessionStorage.removeItem('user')
+                sessionStorage.removeItem('userRole')
                 dispatch(clearAuth())
             }
         }

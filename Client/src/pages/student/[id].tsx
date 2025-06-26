@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
 import { useAppSelector } from '@/store/hooks'
 import { selectCurrentUser } from '@/store/slices/authSlice'
 import { selectCurrentTheme } from '@/store/slices/themeSlice'
@@ -27,10 +29,18 @@ const mockData = {
     }
 }
 
-export default function StudentPage() {
+interface StudentPageProps {
+    studentId: string
+}
+
+export default function StudentPage({ studentId }: StudentPageProps) {
+    const router = useRouter()
     const currentUser = useAppSelector(selectCurrentUser)
     const currentTheme = useAppSelector(selectCurrentTheme)
     const currentLanguage = useAppSelector(selectCurrentLanguage)
+    
+    // Get the ID from router as fallback if prop is not available
+    const currentStudentId = studentId || (router.query.id as string)
     
     const studentData = {
         name: currentUser?.name,
@@ -467,4 +477,26 @@ const userRole = currentUser?.role
             </div>
         </div>
     )
+}
+
+// Add getServerSideProps to handle dynamic routing
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { id } = context.params || {}
+    
+    // Validate that id exists and is a string
+    if (!id || typeof id !== 'string') {
+        return {
+            notFound: true,
+        }
+    }
+    
+    // You can add additional validation here if needed
+    // For example, check if the student ID follows a specific format
+    // or validate against your database
+    
+    return {
+        props: {
+            studentId: id,
+        },
+    }
 }

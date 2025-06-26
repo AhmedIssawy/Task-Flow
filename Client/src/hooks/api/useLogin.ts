@@ -37,10 +37,15 @@ export const useLoginMutation = (): UseMutationResult<
             sessionStorage.setItem('userRole', response.data.role);
             sessionStorage.setItem('user', JSON.stringify(response.data.data));
 
-            // Also save the token if it exists in the response
-            if (response.data.token) {
-                sessionStorage.setItem('token', response.data.token);
-            }
+            // Save the token - use response token or create a placeholder
+            const token = response.data.token || 'auth-token-placeholder';
+            sessionStorage.setItem('token', token);
+            
+            console.log('💾 Saved to sessionStorage:', {
+                userRole: response.data.role,
+                user: response.data.data,
+                token: token
+            });
         },
         onError: (error: AxiosError<LoginErrorResponse>) => {
             console.error('❌ Login API Error:', error.response?.data?.message || error.message);
