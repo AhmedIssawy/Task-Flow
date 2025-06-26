@@ -30,7 +30,6 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(clearAuth());
-    sessionStorage.removeItem('user')
     router.push('/login');
   };
 

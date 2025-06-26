@@ -1,12 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Tailwind CSS v4 Theme Configuration */
 @theme {
   /* Font families */
-  --font-family-signature: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-family-logo: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-family-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-family-sans: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-signature: 'Public Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-logo: 'Public Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-body: 'Public Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-sans: 'Public Sans', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   /* Custom colors - Blue Primary Scale */
   --color-blue-50: #eff6ff;
@@ -102,7 +106,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-family-sans);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 /* Dark mode override class */
@@ -236,4 +240,8 @@ body {
 
 .dark .text-muted {
   color: var(--color-neutral-400);
+}
+
+button {
+  cursor: pointer;
 }

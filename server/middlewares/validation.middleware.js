@@ -22,7 +22,7 @@ const validateStudentId = (req, res, next) => {
 
 const validateUniversityId = (req, res, next) => {
   const { universityId } = req.params;
-  if (!universityId || universityId.length < 5) {
+  if (!universityId) {
     return res.status(400).json({
       message: "Invalid university ID format",
     });

@@ -1,5 +1,6 @@
 import Student from "../models/student.model.js";
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 import asyncHandler from "express-async-handler";
 
