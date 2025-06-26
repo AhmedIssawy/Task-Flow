@@ -7,6 +7,7 @@ const axiosConfig: AxiosRequestConfig = {
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true,
 }
 
 // Create axios instance
@@ -15,13 +16,6 @@ const axiosInstance: AxiosInstance = axios.create(axiosConfig)
 // Request interceptor - Auto-attach token
 axiosInstance.interceptors.request.use(
     (config) => {
-        // Get token from localStorage
-        if (typeof window !== 'undefined') {
-            const token = localStorage.getItem('token')
-            if (token) {
-                config.headers.Authorization = `Bearer ${token}`
-            }
-        }
         return config
     },
     (error) => {
