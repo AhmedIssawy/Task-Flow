@@ -127,7 +127,7 @@ const userRole = currentUser?.role
                                     <td className="p-4 text-muted">{course.instructor}</td>
                                     <td className="p-4 text-theme">{course.credits}</td>
                                     <td className="p-4">
-                                        <span className="px-3 py-1 rounded-full text-sm font-medium bg-neutral-200 dark:bg-neutral-700 text-theme">
+                                        <span className="px-3 py-1 rounded-full text-sm font-medium bg-muted text-theme">
                                             {course.status}
                                         </span>
                                     </td>

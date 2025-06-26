@@ -68,7 +68,7 @@ export const NewsSection = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12 sm:mb-16">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-6">{t("pages.news.title")}</h2>
-                    <p className="text-lg sm:text-xl md:text-2xl font-normal max-w-3xl mx-auto">
+                    <p className="text-lg sm:text-xl md:text-2xl text-muted font-normal max-w-3xl mx-auto">
                         {t("pages.news.description")}
                     </p>
                 </div>
@@ -89,13 +89,13 @@ export const NewsSection = () => {
                                                 <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded w-fit mx-auto sm:mx-0">
                                                     {item.category}
                                                 </span>
-                                                <span className="text-gray-500 text-sm">{item.date}</span>
-                                                <span className="text-gray-500 text-sm hidden sm:inline">• {item.readTime}</span>
+                                                <span className="text-muted text-sm">{item.date}</span>
+                                                <span className="text-muted text-sm hidden sm:inline">• {item.readTime}</span>
                                             </div>
                                             <CardTitle className="text-base sm:text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors">
                                                 {item.title}
                                             </CardTitle>
-                                            <CardDescription className="text-gray-600 text-sm sm:text-base mb-3">
+                                            <CardDescription className="text-muted text-sm sm:text-base mb-3">
                                                 {item.excerpt}
                                             </CardDescription>
                                             <Button
@@ -130,8 +130,8 @@ export const NewsSection = () => {
                                             </div>
                                             <div className="flex-1">
                                                 <h4 className="font-semibold text-sm sm:text-base mb-1">{event.title}</h4>
-                                                <p className="text-xs sm:text-sm text-gray-600 mb-1">{event.time}</p>
-                                                <p className="text-xs sm:text-sm text-gray-500">{event.location}</p>
+                                                <p className="text-xs sm:text-sm text-muted mb-1">{event.time}</p>
+                                                <p className="text-xs sm:text-sm text-muted">{event.location}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -152,7 +152,7 @@ export const NewsSection = () => {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-sm sm:text-base">{t("pages.news.stats.newStudents.value")}</p>
-                                            <p className="text-xs sm:text-sm text-gray-600">{t("pages.news.stats.newStudents.label")}</p>
+                                            <p className="text-xs sm:text-sm text-muted">{t("pages.news.stats.newStudents.label")}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
@@ -161,7 +161,7 @@ export const NewsSection = () => {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-sm sm:text-base">{t("pages.news.stats.researchPapers.value")}</p>
-                                            <p className="text-xs sm:text-sm text-gray-600">{t("pages.news.stats.researchPapers.label")}</p>
+                                            <p className="text-xs sm:text-sm text-muted">{t("pages.news.stats.researchPapers.label")}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
@@ -170,7 +170,7 @@ export const NewsSection = () => {
                                         </div>
                                         <div>
                                             <p className="font-semibold text-sm sm:text-base">{t("pages.news.stats.campusEvents.value")}</p>
-                                            <p className="text-xs sm:text-sm text-gray-600">{t("pages.news.stats.campusEvents.label")}</p>
+                                            <p className="text-xs sm:text-sm text-muted">{t("pages.news.stats.campusEvents.label")}</p>
                                         </div>
                                     </div>
                                 </div>
