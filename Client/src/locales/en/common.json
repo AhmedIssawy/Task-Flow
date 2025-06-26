@@ -1,0 +1,434 @@
+{
+  "app": {
+    "name": "Task-Flow",
+    "description": "Advanced Learning Management System for Universities",
+    "welcome": "Welcome to Task-Flow"
+  },
+  "common": {
+    "brandName": "Task-Flow LMS",
+    "testPage": "Infrastructure Test Page",
+    "controls": "Controls",
+    "testFeatures": "Test Redux, Theme, and Language features",
+    "toggleTheme": "Toggle Theme",
+    "toggleLanguage": "Toggle Language",
+    "authState": "Authentication State",
+    "authenticated": "Authenticated",
+    "yes": "Yes",
+    "no": "No",
+    "user": "User",
+    "role": "Role",
+    "email": "Email",
+    "systemState": "System State",
+    "theme": "Theme",
+    "language": "Language",
+    "direction": "Direction",
+    "fontDemo": "Font Demonstration",
+    "signature": "For signatures",
+    "logo": "For logos",
+    "bodyText": "For body text",
+    "quickActions": "Quick Actions",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "ok": "OK",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "select": "Select",
+    "selectAll": "Select All",
+    "noData": "No data available",
+    "retry": "Retry",
+    "refresh": "Refresh"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "assignments": "Assignments",
+    "grades": "Grades",
+    "calendar": "Calendar",
+    "schedule": "Schedule",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "students": "Students",
+    "users": "Users",
+    "departments": "Departments",
+    "reports": "Reports",
+    "institutions": "Institutions",
+    "admins": "Admins",
+    "system": "System",
+    "analytics": "Analytics"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "userId": "User ID",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "rememberMe": "Remember me",
+    "loginButton": "Sign In",
+    "loggingIn": "Signing In...",
+    "registerButton": "Sign Up",
+    "loginTitle": "Sign in to your account",
+    "registerTitle": "Create new account",
+    "invalidCredentials": "Invalid email or password",
+    "registrationSuccess": "Account created successfully",
+    "passwordResetSent": "Password reset email sent",
+    "loginRequired": "Please log in to continue",
+    "getStarted": "Get Started"
+  },
+  "roles": {
+    "student": "Student",
+    "teacher": "Teacher",
+    "admin": "Admin",
+    "super_admin": "Super Admin"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System Theme",
+    "changeTheme": "Change Theme"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "Arabic",
+    "changeLanguage": "Change Language"
+  },
+  "pages": {
+    "student": {
+      "title": "Student Portal",
+      "coursesDescription": "View and manage your enrolled courses",
+      "assignmentsDescription": "Track your assignments and submissions",
+      "scheduleDescription": "View your class schedule and events",
+      "profileDescription": "Manage your personal information",
+      "viewCourses": "View Courses",
+      "viewAssignments": "View Assignments",
+      "viewSchedule": "View Schedule",
+      "editProfile": "Edit Profile",
+      "profile": "Profile",
+      "quickStats": "Quick Stats",
+      "enrolledCourses": "Enrolled Courses",
+      "completedAssignments": "Completed",
+      "pendingAssignments": "Pending",
+      "averageGrade": "Average Grade",
+      "noCourses": "No Courses Enrolled",
+      "noCoursesDescription": "You haven't enrolled in any courses yet. Contact your advisor for course registration.",
+      "noAssignments": "No Assignments",
+      "noAssignmentsDescription": "You don't have any assignments at the moment. Check back later or contact your instructors."
+    },
+    "teacher": {
+      "title": "Teacher Portal",
+      "coursesDescription": "Manage your courses and content",
+      "studentsDescription": "View and manage your students",
+      "gradesDescription": "Grade assignments and manage grades",
+      "scheduleDescription": "Manage your teaching schedule",
+      "myCourses": "My Courses",
+      "createCourse": "Create Course",
+      "noCourses": "No Courses Created",
+      "noCoursesDescription": "You haven't created any courses yet. Click 'Create Course' to get started.",
+      "myStudents": "My Students",
+      "gradeAssignments": "Grade Assignments"
+    },
+    "admin": {
+      "title": "Admin Portal",
+      "usersDescription": "Manage system users and permissions",
+      "coursesDescription": "Oversee all courses and curriculum",
+      "reportsDescription": "View system reports and analytics",
+      "settingsDescription": "Configure system settings",
+      "userManagement": "User Management",
+      "addUser": "Add User",
+      "noUsers": "No Users Found",
+      "noUsersDescription": "No users are currently in the system. Click 'Add User' to create new user accounts."
+    },
+    "superadmin": {
+      "title": "Super Admin Portal",
+      "systemDescription": "Manage overall system configuration",
+      "usersDescription": "Manage all users and administrators",
+      "analyticsDescription": "View comprehensive system analytics",
+      "maintenanceDescription": "System maintenance and updates",
+      "systemOverview": "System Overview",
+      "adminManagement": "Admin Management"
+    },
+    "herosection": {
+      "title": "Simplify Learning. Empower Education.",
+      "description": "Task Flow is the all-in-one academic operations management platform designed to streamline workflows, enhance collaboration, and drive success for students, teachers, and administrators.",
+      "startbutton": "Get Started Free",
+      "demobutton": "Request a demo"
+    },
+    "keyfeatures": {
+      "title": "Key Features",
+      "subtitle": "Streamline Your Academic Operations",
+      "description": "Task Flow offers a comprehensive suite of tools to manage every aspect of your academic operations, from course management to communication.",
+      "features": {
+        "courses": {
+          "title": "Courses",
+          "description": "Manage courses, materials, and resources in one central hub."
+        },
+        "assignments": {
+          "title": "Assignments",
+          "description": "Create, distribute, and grade assignments efficiently."
+        },
+        "scheduling": {
+          "title": "Scheduling",
+          "description": "Streamline scheduling for classes, meetings, and events."
+        },
+        "collaboration": {
+          "title": "Collaboration",
+          "description": "Foster collaboration among students, teachers, and staff."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "Gain insights into performance with comprehensive analytics."
+        },
+        "communication": {
+          "title": "Communication",
+          "description": "Facilitate seamless communication across the academic community."
+        }
+      }
+    },
+    "benefits": {
+      "title": "Benefits for Everyone",
+      "subtitle": "Empowering Students, Teachers, and Administrators",
+      "description": "Task Flow provides tailored solutions to meet the unique needs of each member of the academic community.",
+      "users": {
+        "students": {
+          "title": "For Students",
+          "description": "Stay organized, manage assignments, and collaborate effectively with peers."
+        },
+        "teachers": {
+          "title": "For Teachers",
+          "description": "Simplify course management, grading, and communication with students."
+        },
+        "administrators": {
+          "title": "For Administrators",
+          "description": "Gain insights into performance, streamline workflows, and improve overall efficiency."
+        }
+      }
+    },
+    "about": {
+      "title": "Who We Are",
+      "description1": "Task Flow is a global leader in higher education, dedicated to empowering students to create positive change in the world.",
+      "description2": "Our mission is to inspire innovation, foster diversity, and cultivate excellence in every learner.",
+      "button": "Discover More",
+      "pillars": {
+        "excellence": {
+          "title": "Academic Excellence",
+          "description": "Over 130 years of shaping leaders and innovators."
+        },
+        "community": {
+          "title": "Diverse Community",
+          "description": "Students and faculty from 85+ countries."
+        },
+        "perspective": {
+          "title": "Global Perspective",
+          "description": "A curriculum designed for a connected world."
+        },
+        "impact": {
+          "title": "Recognized Impact",
+          "description": "Award-winning programs and research."
+        }
+      }
+    },
+    "programs": {
+      "title": "Academic Programs",
+      "description": "Discover world-class programs designed to challenge, inspire, and prepare you for success in your chosen field. Our comprehensive curriculum combines theoretical knowledge with practical application.",
+      "button": "View All Programs",
+      "schools": {
+        "sciences": {
+          "title": "School of Sciences",
+          "description": "Cutting-edge research in biology, chemistry, physics, and environmental sciences.",
+          "courses": {
+            "biology": "Biology",
+            "chemistry": "Chemistry",
+            "physics": "Physics",
+            "environmental": "Environmental Science"
+          }
+        },
+        "engineering": {
+          "title": "School of Engineering",
+          "description": "Innovation-driven programs in various engineering disciplines.",
+          "courses": {
+            "computer": "Computer Engineering",
+            "mechanical": "Mechanical",
+            "electrical": "Electrical",
+            "civil": "Civil"
+          }
+        },
+        "business": {
+          "title": "School of Business",
+          "description": "Preparing future leaders with comprehensive business education.",
+          "courses": {
+            "mba": "MBA",
+            "finance": "Finance",
+            "marketing": "Marketing",
+            "international": "International Business"
+          }
+        },
+        "arts": {
+          "title": "School of Arts",
+          "description": "Creative programs fostering artistic expression and cultural understanding.",
+          "courses": {
+            "finearts": "Fine Arts",
+            "music": "Music",
+            "theater": "Theater",
+            "writing": "Creative Writing"
+          }
+        },
+        "medicine": {
+          "title": "School of Medicine",
+          "description": "World-class medical education and healthcare research programs.",
+          "courses": {
+            "medicine": "Medicine",
+            "nursing": "Nursing",
+            "publichealth": "Public Health",
+            "biomedical": "Biomedical Sciences"
+          }
+        },
+        "technology": {
+          "title": "School of Technology",
+          "description": "Advanced programs in computer science and information technology.",
+          "courses": {
+            "computerscience": "Computer Science",
+            "datascience": "Data Science",
+            "cybersecurity": "Cybersecurity",
+            "aiml": "AI/ML"
+          }
+        }
+      }
+    },
+    "news": {
+      "title": "News & Events",
+      "description": "Stay updated with the latest developments, achievements, and upcoming events from our vibrant university community.",
+      "readMore": "Read More",
+      "latestNews": {
+        "title": "Latest News",
+        "viewAll": "View All News"
+      },
+      "newsItems": {
+        "research": {
+          "category": "Research",
+          "title": "Breakthrough in Renewable Energy Research",
+          "excerpt": "Our engineering team develops innovative solar panel technology that increases efficiency by 40%.",
+          "date": "June 5, 2025",
+          "readTime": "5 min read"
+        },
+        "achievement": {
+          "category": "Achievement",
+          "title": "International Recognition for Medical Program",
+          "excerpt": "Enterprise University's medical school receives top ranking in global healthcare education survey.",
+          "date": "June 3, 2025",
+          "readTime": "3 min read"
+        },
+        "event": {
+          "category": "Event",
+          "title": "Annual Innovation Summit 2025",
+          "excerpt": "Join us for three days of cutting-edge presentations, workshops, and networking opportunities.",
+          "date": "June 1, 2025",
+          "readTime": "2 min read"
+        },
+        "community": {
+          "category": "Community",
+          "title": "Student Volunteer Initiative Reaches 10,000 Hours",
+          "excerpt": "Our students have contributed over 10,000 hours of community service this academic year.",
+          "date": "May 30, 2025",
+          "readTime": "4 min read"
+        }
+      },
+      "upcomingEvents": {
+        "title": "Upcoming Events",
+        "viewAll": "View All Events",
+        "graduation": {
+          "date": "Jun 15",
+          "title": "Graduation Ceremony 2025",
+          "time": "10:00 AM",
+          "location": "University Stadium"
+        },
+        "symposium": {
+          "date": "Jun 20",
+          "title": "Summer Research Symposium",
+          "time": "2:00 PM",
+          "location": "Academic Center"
+        },
+        "alumni": {
+          "date": "Jun 25",
+          "title": "Alumni Networking Event",
+          "time": "6:00 PM",
+          "location": "Grand Hall"
+        }
+      },
+      "stats": {
+        "title": "This Month",
+        "newStudents": {
+          "value": "1,200",
+          "label": "New Students"
+        },
+        "researchPapers": {
+          "value": "45",
+          "label": "Research Papers"
+        },
+        "campusEvents": {
+          "value": "23",
+          "label": "Campus Events"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Begin Your Journey?",
+      "description": "Join thousands of students who are already transforming their futures through exceptional education and groundbreaking research opportunities.",
+      "cards": {
+        "current": {
+          "title": "Current Students",
+          "description": "Access your student portal to view courses, grades, schedules, and connect with your academic community.",
+          "button": "Sign In to Portal"
+        },
+        "prospective": {
+          "title": "Prospective Students",
+          "description": "Explore our academic programs, campus life, and application process. Start your journey to academic excellence today.",
+          "button": "Explore Programs"
+        }
+      },
+      "help": {
+        "text": "Have questions? Our admissions team is here to help.",
+        "contactButton": "Contact Admissions",
+        "tourButton": "Schedule Campus Tour"
+      }
+    },
+    "footer": {
+      "description": "Empowering education through innovative learning management solutions. Transform your teaching and learning experience with our comprehensive platform.",
+      "quickLinks": {
+        "title": "Quick Links",
+        "about": "About",
+        "programs": "Programs",
+        "features": "Features",
+        "news": "News",
+        "login": "Login"
+      },
+      "academic": {
+        "title": "Academic",
+        "programs": "Academic Programs",
+        "admissions": "Admissions",
+        "calendar": "Academic Calendar",
+        "library": "Library",
+        "resources": "Resources"
+      },
+      "support": {
+        "title": "Support",
+        "help": "Help Center",
+        "contact": "Contact Us",
+        "faq": "FAQ",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service"
+      },
+      "copyright": "All rights reserved."
+    }
+  }
+}
