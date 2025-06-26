@@ -8,6 +8,8 @@ dist/
 build/
 out/
 
+.history
+
 # IDE and editor files
 .idea/
 .vscode/
