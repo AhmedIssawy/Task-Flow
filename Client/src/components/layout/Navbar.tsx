@@ -120,24 +120,25 @@ const Navbar: React.FC = () => {
                         <p className="text-sm font-medium text-theme">{user?.name}</p>
                         <p className="text-xs text-muted">{user?.email}</p>
                       </div>
-                      <button
+                      <Button
                         onClick={() => {
                           setShowUserMenu(false);
                           // Navigate to profile
+                          router.push(`${router.asPath}/profile/settings`)
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-theme hover:bg-muted hover:text-primary transition-colors"
+                        className="w-full text-left px-4 py-2 text-sm text-theme bg-[#E5EDF5] dark:bg-[#21364A] hover:bg-primary/5 hover:text-primary  transition-colors"
                       >
                         Profile Settings
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         onClick={() => {
                           setShowUserMenu(false);
                           handleLogout();
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-theme hover:bg-muted hover:text-primary transition-colors"
+                        className="w-full text-left px-4 py-2 text-sm text-theme bg-[#E5EDF5] dark:bg-[#21364A] hover:bg-primary/5 hover:text-primary  transition-colors"
                       >
                         Sign Out
-                      </button>
+                      </Button>
                     </div>
                   )}
                 </div>
