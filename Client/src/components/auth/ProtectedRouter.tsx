@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type RoleGuardProps = {
+type ProtectedRouterProps = {
   allowedRoles: string[];
   children: ReactNode;
 };
@@ -8,7 +8,7 @@ type RoleGuardProps = {
 // This is just a placeholder for now to organize the structure and keep HOC in mind
 
 
-export default function RoleGuard({ allowedRoles, children }: RoleGuardProps) {
+export default function ProtectedRouter({ allowedRoles, children }: ProtectedRouterProps) {
   const role = "admin"; // temporary mock
 
   if (!allowedRoles.includes(role)) {
