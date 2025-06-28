@@ -1,6 +1,6 @@
 'use client';
 
-import { getPathByRole } from '../../utils/roleRedirect';
+import { getPathByRole } from '../../app/utils/roleRedirect';
 import { useState } from 'react';
 import { useLoginMutation } from '@/app/store/services/authApi';
 import { useAppDispatch } from '@/app/store/hooks';
