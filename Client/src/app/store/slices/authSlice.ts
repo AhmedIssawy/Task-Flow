@@ -1,7 +1,14 @@
 // store/slices/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type Role = "STUDENT" | "TEACHER" | "ADMIN" | "SUPER_ADMIN";
+export enum RoleEnum {
+  STUDENT = 'STUDENT',
+  TEACHER = 'TEACHER',
+  ADMIN = 'ADMIN',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+}
+
+type Role = keyof typeof RoleEnum;
 
 interface AuthState {
   id: string | null;

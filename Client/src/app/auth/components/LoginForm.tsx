@@ -3,26 +3,32 @@
 import { getPathByRole } from '../../utils/roleRedirect';
 import { useState } from 'react';
 import { useLoginMutation } from '@/app/store/services/authApi';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/app/store/hooks';
 import { setAuth } from '@/app/store/slices/authSlice';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { normalizeRole } from '@/app/utils/role';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [login, { isLoading, isError }] = useLoginMutation();
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const { role, data } = await login({ id: userId, password }).unwrap();
       const redirectPath = getPathByRole(role, data.id);
-      
-      const normalizedRole = role.toUpperCase() as 'STUDENT' | 'TEACHER' | 'ADMIN' | 'SUPER_ADMIN';
+      const normalizedRole = normalizeRole(role);
+
+    if (!normalizedRole) {
+      console.error("Invalid role from backend:", role);
+      return;
+    } // temporary error handling
+
       dispatch(setAuth({ id: data.id, role: normalizedRole }));
       router.push(redirectPath);
       console.log('Login response:', role, data);

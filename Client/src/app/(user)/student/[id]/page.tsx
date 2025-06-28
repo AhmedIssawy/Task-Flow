@@ -1,15 +1,18 @@
 'use client';
 
-import { useParams } from "next/navigation";
+import { useGetStudentsPageQuery } from '@/app/store/services/studentApi';
+import { useParams } from 'next/navigation';
 
 export default function StudentPage() {
-  const params = useParams();
-  const studentId = params?.id;
+
+  const { data, isLoading } = useGetStudentsPageQuery({ page: 1, limit: 10 });
+  console.log('data', data);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="p-8">
-      <h1 className="text-xl font-bold">Student Dashboard</h1>
-      <p className="mt-2 text-muted-foreground">Student ID: {studentId}</p>
-    </div>
+    <ul>
+      
+    </ul>
   );
 }
