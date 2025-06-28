@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from './services/authApi';
 import { studentApi } from './services/studentApi';
 import { adminApi } from './services/adminApi';
+import { collegeApi } from './services/collegeApi';
 import authReducer from './slices/authSlice';
 
 export const store = configureStore({
@@ -9,13 +10,15 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [studentApi.reducerPath]: studentApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [collegeApi.reducerPath]: collegeApi.reducer,
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(studentApi.middleware)
-      .concat(adminApi.middleware),
+      .concat(adminApi.middleware)
+      .concat(collegeApi.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 });
 
