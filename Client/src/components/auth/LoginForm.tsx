@@ -1,14 +1,14 @@
 'use client';
 
-import { getPathByRole } from '../../app/utils/roleRedirect';
+import { getPathByRole } from '@/utils/roleRedirect';
 import { useState } from 'react';
 import { useLoginMutation } from '@/store/services/authApi';
-import { useAppDispatch } from '@/app/store/hooks';
+import { useAppDispatch } from '@/store/hooks';
 import { setAuth } from '@/store/slices/authSlice';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { normalizeRole } from '@/app/utils/role';
+import { normalizeRole } from '@/utils/role';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
