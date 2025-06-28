@@ -1,22 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-export interface Teacher {
-  _id: string;
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  role: 'teacher';
-  courses: {
-    _id: string;
-    name: string;
-    [key: string]: any;
-  }[];
-  universityId: string;
-  departmentId: string;
-  collegeId: string;
-}
+import { Teacher } from '../types/teacher';
 
 
 export const teacherApi = createApi({

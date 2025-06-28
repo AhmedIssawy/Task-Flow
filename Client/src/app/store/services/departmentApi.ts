@@ -1,17 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-export interface Department {
-  _id: string;
-  name: string;
-  description: string;
-  phone: string;
-  email: string;
-  location: string;
-  establishedYear: number;
-  collegeId: string;
-  universityId: string;
-}
-
+import { Department } from '../types/department';
 
 export const departmentApi = createApi({
   reducerPath: 'departmentApi',

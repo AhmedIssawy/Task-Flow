@@ -1,15 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Admin, PaginatedAdmins } from "../types/admin";
 
-interface Admin {
-  id: string;
-  name: string;
-  role: string;
-}
 
-interface PaginatedAdmins {
-  admins: Admin[];
-  total: number;
-}
+
 
 export const adminApi = createApi({
   reducerPath: "adminApi",
