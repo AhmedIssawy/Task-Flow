@@ -204,6 +204,70 @@ const deleteStudent = asyncHandler(async (req, res) => {
   });
 });
 
+const getStudentCourses = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { lang = "en" } = req.body;
+
+  const student = await Student.findById(id)
+    .populate("courses")
+    .select("courses")
+    .lean();
+
+  if (!student) {
+    let message = "Student not found";
+    if (lang === "ar") message = "الطالب غير موجود";
+
+    return res.status(404).json({
+      message,
+    });
+  }
+
+  let message = "Courses retrieved successfully";
+  if (lang === "ar") message = "تم استرداد المقررات بنجاح";
+
+  res.status(200).json({
+    courses: student.courses,
+    message,
+  });
+});
+
+const getStudentCourseById = asyncHandler(async (req, res) => {
+  const { id, courseId } = req.params;
+  const { lang = "en" } = req.body;
+
+  const student = await Student.findById(id)
+    .populate({
+      path: "courses",
+      populate: { path: "teachers" }, 
+    })
+    .select("courses")
+    .lean();
+
+  if (!student) {
+    return res.status(404).json({
+      message: lang === "ar" ? "الطالب غير موجود" : "Student not found",
+    });
+  }
+
+  // Find the specific course by courseId
+  const course = student.courses.find(
+    (c) => c._id.toString() === courseId
+  );
+
+  if (!course) {
+    return res.status(404).json({
+      message: lang === "ar" ? "المقرر غير موجود" : "Course not found",
+    });
+  }
+
+  res.status(200).json({
+    course,
+    message: lang === "ar" ? "تم استرداد المقرر بنجاح" : "Course retrieved successfully",
+  });
+});
+
+
+
 export {
   // createStudent,
   // getAllStudents,
@@ -215,4 +279,6 @@ export {
   getStudentById,
   deleteStudent,
   updateStudent,
+  getStudentCourses,
+  getStudentCourseById,
 };
