@@ -210,7 +210,7 @@ const getStudentCourses = asyncHandler(async (req, res) => {
 
   const student = await Student.findById(id)
     .populate("courses")
-    .select("courses ")
+    .select("courses")
     .lean();
 
   if (!student) {
