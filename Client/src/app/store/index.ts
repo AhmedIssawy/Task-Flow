@@ -4,6 +4,7 @@ import { studentApi } from './services/studentApi';
 import { adminApi } from './services/adminApi';
 import { collegeApi } from './services/collegeApi';
 import authReducer from './slices/authSlice';
+import { departmentApi } from './services/departmentApi';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [studentApi.reducerPath]: studentApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
     [collegeApi.reducerPath]: collegeApi.reducer,
+    [departmentApi.reducerPath]: departmentApi.reducer,
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -18,7 +20,8 @@ export const store = configureStore({
       .concat(authApi.middleware)
       .concat(studentApi.middleware)
       .concat(adminApi.middleware)
-      .concat(collegeApi.middleware),
+      .concat(collegeApi.middleware)
+      .concat(departmentApi.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 });
 
