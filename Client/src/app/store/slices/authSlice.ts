@@ -1,4 +1,3 @@
-// store/slices/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum RoleEnum {
@@ -12,11 +11,13 @@ type Role = keyof typeof RoleEnum;
 
 interface AuthState {
   id: string | null;
+  mongoId: string | null;
   role: Role | null;
 }
 
 const initialState: AuthState = {
   id: null,
+  mongoId: null,
   role: null,
 };
 
@@ -26,11 +27,13 @@ const authSlice = createSlice({
   reducers: {
     setAuth: (state, action: PayloadAction<AuthState>) => {
       state.id = action.payload.id;
+      state.mongoId = action.payload.mongoId;
       state.role = action.payload.role;
     },
     clearAuth: (state) => {
       state.id = null;
       state.role = null;
+      state.mongoId = null;
     },
   },
 });

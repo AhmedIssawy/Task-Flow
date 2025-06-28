@@ -1,18 +1,15 @@
 'use client';
 
-import { useGetStudentsPageQuery } from '@/app/store/services/studentApi';
+import { useAppSelector } from '@/app/store/hooks';
+import { useGetStudentByIdQuery } from '@/app/store/services/studentApi';
 import { useParams } from 'next/navigation';
 
 export default function StudentPage() {
-
-  const { data, isLoading } = useGetStudentsPageQuery({ page: 1, limit: 10 });
+  const mongoId = useAppSelector((state) => state.auth.mongoId);
+  const { data, isLoading } = useGetStudentByIdQuery(mongoId);
   console.log('data', data);
 
   if (isLoading) return <div>Loading...</div>;
 
-  return (
-    <ul>
-      
-    </ul>
-  );
+  return <ul></ul>;
 }

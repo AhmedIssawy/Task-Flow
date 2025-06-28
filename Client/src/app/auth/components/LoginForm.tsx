@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { normalizeRole } from '@/app/utils/role';
+import { log } from 'console';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
@@ -23,13 +24,16 @@ export default function LoginForm() {
       const { role, data } = await login({ id: userId, password }).unwrap();
       const redirectPath = getPathByRole(role, data.id);
       const normalizedRole = normalizeRole(role);
+      
 
-    if (!normalizedRole) {
-      console.error("Invalid role from backend:", role);
-      return;
-    } // temporary error handling
+      if (!normalizedRole) {
+        console.error('Invalid role from backend:', role);
+        return;
+      } // temporary error handling
 
-      dispatch(setAuth({ id: data.id, role: normalizedRole }));
+      dispatch(
+        setAuth({ id: data.id, mongoId: data._id, role: normalizedRole })
+      );
       router.push(redirectPath);
       console.log('Login response:', role, data);
     } catch (err) {
