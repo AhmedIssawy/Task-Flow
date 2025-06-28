@@ -18,6 +18,10 @@ import { useLanguage } from '@/hooks/useLanguage'
 
 const Features = () => {
     const t = useTranslations('landing.features')
+    const tSecurity = useTranslations('landing.securityFeature')
+    const tGlobal = useTranslations('landing.globalIntegration')
+    const tHighlights = useTranslations('landing.featureHighlights')
+    const tAdditional = useTranslations('landing.additionalFeatures')
     const { isRTL } = useLanguage()
 
     const features = [
@@ -26,49 +30,85 @@ const Features = () => {
             title: t('taskManagement.title'),
             description: t('taskManagement.description'),
             badge: 'Smart',
-            highlights: ['Predictive Analytics', 'Auto-Assignment', 'Smart Suggestions']
+            highlights: [
+                tHighlights('predictiveAnalytics'),
+                tHighlights('autoAssignment'),
+                tHighlights('smartSuggestions')
+            ]
         },
         {
             icon: Users,
             title: t('teamCollaboration.title'),
             description: t('teamCollaboration.description'),
             badge: 'Team',
-            highlights: ['Live Updates', 'Shared Workspaces', 'Team Chat']
+            highlights: [
+                tHighlights('liveUpdates'),
+                tHighlights('sharedWorkspaces'),
+                tHighlights('teamChat')
+            ]
         },
         {
             icon: BarChart3,
             title: t('analytics.title'),
             description: t('analytics.description'),
             badge: 'Analytics',
-            highlights: ['Custom Reports', 'Performance Metrics', 'Trend Analysis']
+            highlights: [
+                tHighlights('customReports'),
+                tHighlights('performanceMetrics'),
+                tHighlights('trendAnalysis')
+            ]
         },
         {
             icon: Zap,
             title: t('integration.title'),
             description: t('integration.description'),
             badge: 'Performance',
-            highlights: ['Sub-second Loading', 'Global CDN', 'Offline Support']
+            highlights: [
+                tHighlights('subSecondLoading'),
+                tHighlights('globalCDN'),
+                tHighlights('offlineSupport')
+            ]
         },
         {
             icon: Shield,
-            title: 'Enterprise Security',
-            description: 'Your data is protected with enterprise-grade security and compliance standards.',
+            title: tSecurity('title'),
+            description: tSecurity('description'),
             badge: 'Security',
-            highlights: ['End-to-End Encryption', 'GDPR Compliant', 'SSO Integration']
+            highlights: [
+                tHighlights('endToEndEncryption'),
+                tHighlights('gdprCompliant'),
+                tHighlights('ssoIntegration')
+            ]
         },
         {
             icon: Globe,
-            title: 'Global Integration',
-            description: 'Connect with over 100+ tools and services to create a unified workflow experience.',
+            title: tGlobal('title'),
+            description: tGlobal('description'),
             badge: 'Integration',
-            highlights: ['API Access', '100+ Integrations', 'Custom Webhooks']
+            highlights: [
+                tHighlights('apiAccess'),
+                tHighlights('hundredPlusIntegrations'),
+                tHighlights('customWebhooks')
+            ]
         }
     ]
 
     const additionalFeatures = [
-        { icon: Clock, title: 'Time Tracking', description: 'Built-in time tracking with detailed reports' },
-        { icon: MessageSquare, title: 'Team Communication', description: 'Integrated chat and video calls' },
-        { icon: CheckCircle, title: 'Goal Management', description: 'Set and track team objectives and key results' }
+        {
+            icon: Clock,
+            title: tAdditional('timeTracking.title'),
+            description: tAdditional('timeTracking.description')
+        },
+        {
+            icon: MessageSquare,
+            title: tAdditional('teamCommunication.title'),
+            description: tAdditional('teamCommunication.description')
+        },
+        {
+            icon: CheckCircle,
+            title: tAdditional('goalManagement.title'),
+            description: tAdditional('goalManagement.description')
+        }
     ]
 
     return (
@@ -92,13 +132,10 @@ const Features = () => {
                         return (
                             <Card key={feature.title} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20">
                                 <CardHeader className="space-y-4">
-                                    <div className="flex items-center justify-between">
+                                    <div className={`flex items-center ${isRTL ? 'justify-between flex-row-reverse' : 'justify-between'}`}>
                                         <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
                                             <IconComponent className="w-6 h-6 text-primary" />
                                         </div>
-                                        <Badge variant="outline" className="text-xs">
-                                            {feature.badge}
-                                        </Badge>
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl group-hover:text-primary transition-colors">
@@ -112,8 +149,8 @@ const Features = () => {
                                 <CardContent>
                                     <ul className="space-y-2">
                                         {feature.highlights.map((highlight) => (
-                                            <li key={highlight} className="flex items-center text-sm text-muted-foreground">
-                                                <CheckCircle className="w-4 h-4 mr-2 text-primary" />
+                                            <li key={highlight} className={`flex items-center text-sm text-muted-foreground ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                                <CheckCircle className={`w-4 h-4 text-primary ${isRTL ? 'ml-2' : 'mr-2'}`} />
                                                 {highlight}
                                             </li>
                                         ))}
@@ -126,16 +163,16 @@ const Features = () => {
 
                 {/* Additional Features */}
                 <div className="border-t pt-16">
-                    <h3 className="text-2xl font-bold text-center mb-8">Plus many more features</h3>
+                    <h3 className="text-2xl font-bold text-center mb-8">{tAdditional('title')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {additionalFeatures.map((feature) => {
                             const IconComponent = feature.icon
                             return (
-                                <div key={feature.title} className="flex items-start space-x-4 p-6 rounded-lg bg-card hover:bg-accent/50 transition-colors">
+                                <div key={feature.title} className={`flex items-start p-6 rounded-lg bg-card hover:bg-accent/50 transition-colors ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                                     <div className="p-2 rounded-md bg-primary/10">
                                         <IconComponent className="w-5 h-5 text-primary" />
                                     </div>
-                                    <div>
+                                    <div className={isRTL ? 'text-right' : ''}>
                                         <h4 className="font-semibold text-base">{feature.title}</h4>
                                         <p className="text-sm text-muted-foreground mt-1">{feature.description}</p>
                                     </div>

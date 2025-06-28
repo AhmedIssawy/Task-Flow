@@ -18,6 +18,8 @@ import { useLanguage } from '@/hooks/useLanguage'
 
 const Benefits = () => {
     const t = useTranslations('landing.benefits')
+    const tAdditional = useTranslations('landing.additionalBenefits')
+    const tHighlights = useTranslations('landing.featureHighlights')
     const { isRTL } = useLanguage()
 
     const mainBenefits = [
@@ -26,7 +28,7 @@ const Benefits = () => {
             title: t('productivity.title'),
             description: t('productivity.description'),
             metric: '40%',
-            metricLabel: 'Productivity Increase',
+            metricLabel: tHighlights('productivity') || 'Productivity Increase',
             color: 'text-green-500'
         },
         {
@@ -34,7 +36,7 @@ const Benefits = () => {
             title: t('collaboration.title'),
             description: t('collaboration.description'),
             metric: '15hrs',
-            metricLabel: 'Time Saved Weekly',
+            metricLabel: tHighlights('timeSaved') || 'Time Saved Weekly',
             color: 'text-blue-500'
         },
         {
@@ -42,7 +44,7 @@ const Benefits = () => {
             title: t('insights.title'),
             description: t('insights.description'),
             metric: '30%',
-            metricLabel: 'Cost Reduction',
+            metricLabel: tHighlights('costReduction') || 'Cost Reduction',
             color: 'text-yellow-500'
         }
     ]
@@ -50,21 +52,33 @@ const Benefits = () => {
     const secondaryBenefits = [
         {
             icon: Users,
-            title: 'Better Team Collaboration',
-            description: 'Enhanced communication and seamless collaboration across all team members.',
-            features: ['Real-time updates', 'Shared workspaces', 'Team chat integration']
+            title: tAdditional('betterTeamCollaboration.title'),
+            description: tAdditional('betterTeamCollaboration.description'),
+            features: [
+                tHighlights('realtimeUpdates'),
+                tHighlights('sharedWorkspaces2'),
+                tHighlights('teamChatIntegration')
+            ]
         },
         {
             icon: Target,
-            title: 'Improved Goal Achievement',
-            description: 'Track progress and achieve objectives with clear visibility and accountability.',
-            features: ['Goal tracking', 'Progress monitoring', 'Achievement analytics']
+            title: tAdditional('improvedGoalAchievement.title'),
+            description: tAdditional('improvedGoalAchievement.description'),
+            features: [
+                tHighlights('goalTracking'),
+                tHighlights('progressMonitoring'),
+                tHighlights('achievementAnalytics')
+            ]
         },
         {
             icon: Rocket,
-            title: 'Faster Project Delivery',
-            description: 'Accelerate project timelines with efficient task management and automation.',
-            features: ['Automated workflows', 'Priority management', 'Deadline tracking']
+            title: tAdditional('fasterProjectDelivery.title'),
+            description: tAdditional('fasterProjectDelivery.description'),
+            features: [
+                tHighlights('automatedWorkflows'),
+                tHighlights('priorityManagement'),
+                tHighlights('deadlineTracking')
+            ]
         }
     ]
 
@@ -121,30 +135,32 @@ const Benefits = () => {
 
                 {/* Secondary Benefits */}
                 <div className="space-y-8">
-                    <h3 className="text-3xl font-bold text-center">Additional advantages</h3>
+                    <h3 className="text-3xl font-bold text-center">{tAdditional('title')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {secondaryBenefits.map((benefit) => {
                             const IconComponent = benefit.icon
                             return (
                                 <Card key={benefit.title} className="group hover:shadow-lg transition-all duration-300">
                                     <CardHeader className="space-y-4">
-                                        <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors w-fit">
-                                            <IconComponent className="w-6 h-6 text-primary" />
-                                        </div>
-                                        <div>
-                                            <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                                                {benefit.title}
-                                            </CardTitle>
-                                            <CardDescription className="mt-2">
-                                                {benefit.description}
-                                            </CardDescription>
+                                        <div className={`flex items-start ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
+                                            <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                                                <IconComponent className="w-6 h-6 text-primary" />
+                                            </div>
+                                            <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+                                                <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                                                    {benefit.title}
+                                                </CardTitle>
+                                                <CardDescription className="mt-2">
+                                                    {benefit.description}
+                                                </CardDescription>
+                                            </div>
                                         </div>
                                     </CardHeader>
                                     <CardContent>
                                         <ul className="space-y-2">
                                             {benefit.features.map((feature) => (
-                                                <li key={feature} className="flex items-center text-sm text-muted-foreground">
-                                                    <CheckCircle className="w-4 h-4 mr-2 text-primary" />
+                                                <li key={feature} className={`flex items-center text-sm text-muted-foreground ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                                    <CheckCircle className={`w-4 h-4 text-primary ${isRTL ? 'ml-2' : 'mr-2'}`} />
                                                     {feature}
                                                 </li>
                                             ))}
@@ -157,20 +173,20 @@ const Benefits = () => {
                 </div>
 
                 {/* CTA Section */}
-                <div className="mt-16 text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12">
+                <div className={`mt-16 text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 ${isRTL ? 'text-right' : ''}`}>
                     <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                        Ready to experience these benefits?
+                        {tAdditional('readyToExperience.title')}
                     </h3>
                     <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                        Join thousands of teams who have already transformed their workflow with TaskFlow.
+                        {tAdditional('readyToExperience.description')}
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                         <Button size="lg" className="group">
-                            Start Free Trial
-                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            {tAdditional('readyToExperience.startFreeTrial')}
+                            <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isRTL ? 'mr-2 group-hover:-translate-x-1' : 'ml-2'}`} />
                         </Button>
                         <Button size="lg" variant="outline">
-                            Schedule Demo
+                            {tAdditional('readyToExperience.scheduleDemo')}
                         </Button>
                     </div>
                 </div>

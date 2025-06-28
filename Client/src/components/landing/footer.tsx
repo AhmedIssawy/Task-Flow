@@ -78,7 +78,7 @@ const Footer = () => {
                             <Input
                                 type="email"
                                 placeholder={t('email')}
-                                className="flex-1"
+                                className={`flex-1 ${isRTL ? 'text-right' : ''}`}
                             />
                             <Button className="group">
                                 {t('subscribeButton')}
@@ -86,7 +86,7 @@ const Footer = () => {
                             </Button>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                            No spam, unsubscribe at any time. By subscribing, you agree to our Privacy Policy.
+                            {t('noSpam')}
                         </p>
                     </div>
                 </div>
@@ -95,16 +95,15 @@ const Footer = () => {
                 <div className="py-12">
                     <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
                         {/* Company Info */}
-                        <div className="lg:col-span-2 space-y-6">
-                            <div className="flex items-center space-x-2">
+                        <div className={`lg:col-span-2 space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+                            <div className={`flex items-center ${isRTL ? 'flex-row-reverse space-x-reverse space-x-2' : 'space-x-2'}`}>
                                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                                     <span className="text-primary-foreground font-bold text-sm">TF</span>
                                 </div>
                                 <span className="font-bold text-xl text-foreground">TaskFlow</span>
                             </div>
                             <p className="text-muted-foreground leading-relaxed max-w-md">
-                                TaskFlow is the modern task management platform that helps teams collaborate,
-                                stay organized, and achieve their goals faster than ever before.
+                                {t('description')}
                             </p>
 
                             {/* Contact Info */}
@@ -115,9 +114,9 @@ const Footer = () => {
                                         <Link
                                             key={contact.text}
                                             href={contact.href}
-                                            className="flex items-center space-x-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                                            className={`flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group ${isRTL ? 'flex-row-reverse space-x-reverse space-x-3' : 'space-x-3'}`}
                                         >
-                                            <IconComponent className="w-4 h-4 group-hover:text-primary transition-colors" />
+                                            <IconComponent className="w-4 h-4 group-hover:text-primary transition-colors flex-shrink-0" />
                                             <span>{contact.text}</span>
                                         </Link>
                                     )
@@ -125,7 +124,7 @@ const Footer = () => {
                             </div>
 
                             {/* Social Links */}
-                            <div className="flex space-x-4">
+                            <div className={`flex ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                                 {socialLinks.map((social) => {
                                     const IconComponent = social.icon
                                     return (
@@ -215,16 +214,16 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="py-6">
-                    <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <div className={`flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
                         <div className="text-sm text-muted-foreground">
                             {t('copyright')}
                         </div>
-                        <div className="flex flex-wrap justify-center md:justify-end items-center space-x-6 text-sm text-muted-foreground">
-                            <span>Made with ❤️ in San Francisco</span>
+                        <div className={`flex flex-wrap justify-center md:justify-end items-center text-sm text-muted-foreground ${isRTL ? 'md:justify-start space-x-reverse space-x-6' : 'space-x-6'}`}>
+                            <span>{t('madeWith')}</span>
                             <span>•</span>
-                            <span>99.9% Uptime</span>
+                            <span>{t('uptime')}</span>
                             <span>•</span>
-                            <span>GDPR Compliant</span>
+                            <span>{t('gdprCompliant')}</span>
                         </div>
                     </div>
                 </div>

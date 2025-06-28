@@ -96,7 +96,129 @@
             "subscribe": "اشترك في نشرتنا الإخبارية للحصول على التحديثات",
             "email": "أدخل بريدك الإلكتروني",
             "subscribeButton": "اشترك",
-            "copyright": "© 2025 تاسك فلو. جميع الحقوق محفوظة."
+            "copyright": "© 2025 تاسك فلو. جميع الحقوق محفوظة.",
+            "description": "تاسك فلو هي منصة إدارة المهام الحديثة التي تساعد الفرق على التعاون والبقاء منظمين وتحقيق أهدافهم بشكل أسرع من أي وقت مضى.",
+            "madeWith": "صُنع بـ ❤️ في سان فرانسيسكو",
+            "uptime": "99.9% وقت التشغيل",
+            "gdprCompliant": "متوافق مع GDPR",
+            "noSpam": "لا رسائل مزعجة، يمكنك إلغاء الاشتراك في أي وقت. بالاشتراك، فأنت توافق على سياسة الخصوصية الخاصة بنا."
+        },
+        "additionalFeatures": {
+            "title": "بالإضافة إلى العديد من المميزات الأخرى",
+            "timeTracking": {
+                "title": "تتبع الوقت",
+                "description": "تتبع الوقت المدمج مع التقارير التفصيلية"
+            },
+            "teamCommunication": {
+                "title": "التواصل الجماعي",
+                "description": "دردشة ومكالمات فيديو متكاملة"
+            },
+            "goalManagement": {
+                "title": "إدارة الأهداف",
+                "description": "تعيين وتتبع أهداف الفريق والنتائج الرئيسية"
+            }
+        },
+        "securityFeature": {
+            "title": "أمان المؤسسات",
+            "description": "بياناتك محمية بمعايير الأمان والامتثال على مستوى المؤسسات."
+        },
+        "globalIntegration": {
+            "title": "التكامل العالمي",
+            "description": "اتصل بأكثر من 100+ أداة وخدمة لإنشاء تجربة سير عمل موحدة."
+        },
+        "featureHighlights": {
+            "predictiveAnalytics": "التحليلات التنبؤية",
+            "autoAssignment": "التعيين التلقائي",
+            "smartSuggestions": "الاقتراحات الذكية",
+            "liveUpdates": "التحديثات المباشرة",
+            "sharedWorkspaces": "مساحات العمل المشتركة",
+            "teamChat": "دردشة الفريق",
+            "customReports": "التقارير المخصصة",
+            "performanceMetrics": "مقاييس الأداء",
+            "trendAnalysis": "تحليل الاتجاهات",
+            "subSecondLoading": "تحميل دون الثانية",
+            "globalCDN": "شبكة توصيل المحتوى العالمية",
+            "offlineSupport": "الدعم دون اتصال",
+            "endToEndEncryption": "التشفير من طرف إلى طرف",
+            "gdprCompliant": "متوافق مع GDPR",
+            "ssoIntegration": "تكامل تسجيل الدخول الموحد",
+            "apiAccess": "الوصول إلى واجهة برمجة التطبيقات",
+            "hundredPlusIntegrations": "100+ تكامل",
+            "customWebhooks": "الخطافات المخصصة",
+            "realtimeUpdates": "التحديثات الفورية",
+            "sharedWorkspaces2": "مساحات العمل المشتركة",
+            "teamChatIntegration": "تكامل دردشة الفريق",
+            "goalTracking": "تتبع الأهداف",
+            "progressMonitoring": "مراقبة التقدم",
+            "achievementAnalytics": "تحليلات الإنجاز",
+            "automatedWorkflows": "سير العمل الآلي",
+            "priorityManagement": "إدارة الأولويات",
+            "deadlineTracking": "تتبع المواعيد النهائية",
+            "aiInsights": "رؤى مدعومة بالذكاء الاصطناعي",
+            "analytics": "التحليلات المتقدمة",
+            "integration": "التكامل السلس",
+            "productivity": "زيادة الإنتاجية",
+            "timeSaved": "الوقت المُوفَّر",
+            "costReduction": "تقليل التكاليف"
+        },
+        "additionalBenefits": {
+            "title": "مزايا إضافية",
+            "betterTeamCollaboration": {
+                "title": "تعاون جماعي أفضل",
+                "description": "تواصل محسن وتعاون سلس عبر جميع أعضاء الفريق."
+            },
+            "improvedGoalAchievement": {
+                "title": "تحسين تحقيق الأهداف",
+                "description": "تتبع التقدم وتحقيق الأهداف مع الوضوح والمساءلة."
+            },
+            "fasterProjectDelivery": {
+                "title": "تسليم مشاريع أسرع",
+                "description": "تسريع الجداول الزمنية للمشاريع مع إدارة المهام الفعالة والأتمتة."
+            },
+            "readyToExperience": {
+                "title": "هل أنت مستعد لتجربة هذه الفوائد؟",
+                "description": "انضم إلى آلاف الفرق التي غيرت بالفعل سير عملها مع تاسك فلو.",
+                "startFreeTrial": "ابدأ النسخة التجريبية المجانية",
+                "scheduleDemo": "جدولة عرض تجريبي"
+            }
+        },
+        "stats": {
+            "happyCustomers": "عميل سعيد",
+            "uptimeGuarantee": "ضمان وقت التشغيل",
+            "customerRating": "تقييم العملاء",
+            "countriesServed": "دولة تخدمها",
+            "joinSatisfiedCustomers": "انضم إلى آلاف العملاء الراضين",
+            "startTrialToday": "ابدأ نسختك التجريبية المجانية اليوم واختبر الفرق الذي يحدثه تاسك فلو.",
+            "ratedByUsers": "تم تقييمه 4.9/5 من قبل أكثر من 10,000 مستخدم"
+        },
+        "extendedTestimonials": {
+            "testimonial4": {
+                "text": "بسيط وبديهي وقوي. ساعدنا تاسك فلو في تقليل وقت تسليم المشاريع بنسبة 25%. دعم العملاء استثناءي أيضاً.",
+                "author": "ديفيد طومسون",
+                "role": "قائد فريق، استوديوهات الإبداع"
+            },
+            "testimonial5": {
+                "text": "مميزات التعاون في الوقت الفعلي تغير اللعبة. فريقنا البعيد يشعر بترابط أكبر من أي وقت مضى.",
+                "author": "ليزا بارك",
+                "role": "مدير منتج، StartupXYZ"
+            },
+            "testimonial6": {
+                "text": "مميزات الأتمتة في تاسك فلو وفرت علينا ساعات لا تحصى. يمكننا الآن التركيز على العمل الاستراتيجي بدلاً من المهام المتكررة.",
+                "author": "جيمس ويلسون",
+                "role": "مدير هندسة، DevTech Pro"
+            }
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "تسجيل الدخول",
+            "subtitle": "أدخل معلومات حسابك للوصول إلى حسابك",
+            "email": "البريد الإلكتروني",
+            "password": "كلمة المرور",
+            "forgotPassword": "نسيت كلمة المرور؟",
+            "signIn": "تسجيل الدخول",
+            "noAccount": "ليس لديك حساب؟",
+            "signUp": "إنشاء حساب"
         }
     }
 }

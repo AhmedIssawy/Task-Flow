@@ -8,19 +8,25 @@ import { useLanguage } from '@/hooks/useLanguage'
 
 const HeroSection = () => {
     const t = useTranslations('landing.hero')
+    const tHighlights = useTranslations('landing.featureHighlights')
     const { isRTL } = useLanguage()
+
+    const features = [
+        tHighlights('realtimeUpdates') || 'Real-time Collaboration',
+        tHighlights('aiInsights') || 'AI-Powered Insights',
+        tHighlights('analytics') || 'Advanced Analytics',
+        tHighlights('integration') || 'Seamless Integration'
+    ]
 
     return (
         <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 overflow-hidden">
             {/* Background decoration */}
             <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"></div>
+            <div className={`absolute top-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl ${isRTL ? 'right-10' : 'left-10'}`}></div>
+            <div className={`absolute bottom-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl ${isRTL ? 'left-10' : 'right-10'}`}></div>
 
             <div className="container mx-auto px-4 lg:px-6 relative z-10">
-                <div className="max-w-5xl mx-auto text-center space-y-8">
-
-
+                <div className={`max-w-5xl mx-auto text-center space-y-8 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
                     {/* Main Headline */}
                     <div className="space-y-4">
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent font-serif">
@@ -33,26 +39,21 @@ const HeroSection = () => {
 
                     {/* Feature highlights */}
                     <div className={`flex flex-wrap justify-center gap-6 text-sm text-muted-foreground ${isRTL ? 'text-right' : 'text-left'}`}>
-                        {[
-                            'Real-time Collaboration',
-                            'AI-Powered Insights',
-                            'Advanced Analytics',
-                            'Seamless Integration'
-                        ].map((feature) => (
-                            <div key={feature} className={`flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                <CheckCircle className={`w-4 h-4 text-primary ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                                {feature}
+                        {features.map((feature) => (
+                            <div key={feature} className={`flex items-center ${isRTL ? 'flex-row-reverse space-x-reverse space-x-2' : 'space-x-2'}`}>
+                                <CheckCircle className="w-4 h-4 text-primary" />
+                                <span>{feature}</span>
                             </div>
                         ))}
                     </div>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                    <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
                         <Link href="/auth/login">
                             <Button size="lg" className="w-full sm:w-auto group">
                                 {t('getStarted')}
                                 {isRTL ? (
-                                    <ArrowLeft className="ml-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                                    <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                                 ) : (
                                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                                 )}

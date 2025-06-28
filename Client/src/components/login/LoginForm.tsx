@@ -6,13 +6,16 @@ import { useLoginMutation } from '@/services/authapi';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export default function LoginForm() {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [login, { isLoading, isError }] = useLoginMutation();
     const router = useRouter();
-
+    const t = useTranslations('auth.login');
+    const { isRTL } = useLanguage();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,27 +30,29 @@ export default function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-sm mx-auto mt-20">
+        <form onSubmit={handleSubmit} className={`space-y-4 max-w-sm mx-auto mt-20 ${isRTL ? 'text-right' : 'text-left'}`}>
             <Input
-                placeholder="User ID"
+                placeholder={t('email')}
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
                 type="text"
                 required
+                className={isRTL ? 'text-right' : 'text-left'}
             />
             <Input
-                placeholder="Password"
+                placeholder={t('password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 required
+                className={isRTL ? 'text-right' : 'text-left'}
             />
             <Button type="submit" disabled={isLoading} className="w-full">
-                {isLoading ? 'Logging in...' : 'Login'}
+                {isLoading ? 'Logging in...' : t('signIn')}
             </Button>
             {isError && (
-                <div className="text-sm text-red-500 text-center">
-                    Invalid credentials
+                <div className={`text-sm text-red-500 ${isRTL ? 'text-right' : 'text-center'}`}>
+                    {t('forgotPassword')}
                 </div>
             )}
         </form>

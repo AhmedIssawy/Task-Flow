@@ -1,27 +1,13 @@
 import type { Metadata } from "next";
-import { Dancing_Script, Edu_NSW_ACT_Foundation, Lora } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ReduxProvider from "../providers/ReduxProvider";
 import { ThemeProvider } from "next-themes";
 
-const dancingScript = Dancing_Script({
-  variable: "--font-dancing-script",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const eduNSW = Edu_NSW_ACT_Foundation({
-  variable: "--font-edu-nsw",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const lora = Lora({
-  variable: "--font-lora",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +26,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${dancingScript.variable} ${eduNSW.variable} ${lora.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

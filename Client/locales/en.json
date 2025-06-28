@@ -96,7 +96,129 @@
             "subscribe": "Subscribe to our newsletter for updates",
             "email": "Enter your email",
             "subscribeButton": "Subscribe",
-            "copyright": "© 2025 Task Flow. All rights reserved."
+            "copyright": "© 2025 Task Flow. All rights reserved.",
+            "description": "TaskFlow is the modern task management platform that helps teams collaborate, stay organized, and achieve their goals faster than ever before.",
+            "madeWith": "Made with ❤️ in San Francisco",
+            "uptime": "99.9% Uptime",
+            "gdprCompliant": "GDPR Compliant",
+            "noSpam": "No spam, unsubscribe at any time. By subscribing, you agree to our Privacy Policy."
+        },
+        "additionalFeatures": {
+            "title": "Plus many more features",
+            "timeTracking": {
+                "title": "Time Tracking",
+                "description": "Built-in time tracking with detailed reports"
+            },
+            "teamCommunication": {
+                "title": "Team Communication",
+                "description": "Integrated chat and video calls"
+            },
+            "goalManagement": {
+                "title": "Goal Management",
+                "description": "Set and track team objectives and key results"
+            }
+        },
+        "securityFeature": {
+            "title": "Enterprise Security",
+            "description": "Your data is protected with enterprise-grade security and compliance standards."
+        },
+        "globalIntegration": {
+            "title": "Global Integration",
+            "description": "Connect with over 100+ tools and services to create a unified workflow experience."
+        },
+        "featureHighlights": {
+            "predictiveAnalytics": "Predictive Analytics",
+            "autoAssignment": "Auto-Assignment",
+            "smartSuggestions": "Smart Suggestions",
+            "liveUpdates": "Live Updates",
+            "sharedWorkspaces": "Shared Workspaces",
+            "teamChat": "Team Chat",
+            "customReports": "Custom Reports",
+            "performanceMetrics": "Performance Metrics",
+            "trendAnalysis": "Trend Analysis",
+            "subSecondLoading": "Sub-second Loading",
+            "globalCDN": "Global CDN",
+            "offlineSupport": "Offline Support",
+            "endToEndEncryption": "End-to-End Encryption",
+            "gdprCompliant": "GDPR Compliant",
+            "ssoIntegration": "SSO Integration",
+            "apiAccess": "API Access",
+            "hundredPlusIntegrations": "100+ Integrations",
+            "customWebhooks": "Custom Webhooks",
+            "realtimeUpdates": "Real-time updates",
+            "sharedWorkspaces2": "Shared workspaces",
+            "teamChatIntegration": "Team chat integration",
+            "goalTracking": "Goal tracking",
+            "progressMonitoring": "Progress monitoring",
+            "achievementAnalytics": "Achievement analytics",
+            "automatedWorkflows": "Automated workflows",
+            "priorityManagement": "Priority management",
+            "deadlineTracking": "Deadline tracking",
+            "aiInsights": "AI-Powered Insights",
+            "analytics": "Advanced Analytics",
+            "integration": "Seamless Integration",
+            "productivity": "Productivity Boost",
+            "timeSaved": "Time Saved",
+            "costReduction": "Cost Reduction"
+        },
+        "additionalBenefits": {
+            "title": "Additional advantages",
+            "betterTeamCollaboration": {
+                "title": "Better Team Collaboration",
+                "description": "Enhanced communication and seamless collaboration across all team members."
+            },
+            "improvedGoalAchievement": {
+                "title": "Improved Goal Achievement",
+                "description": "Track progress and achieve objectives with clear visibility and accountability."
+            },
+            "fasterProjectDelivery": {
+                "title": "Faster Project Delivery",
+                "description": "Accelerate project timelines with efficient task management and automation."
+            },
+            "readyToExperience": {
+                "title": "Ready to experience these benefits?",
+                "description": "Join thousands of teams who have already transformed their workflow with TaskFlow.",
+                "startFreeTrial": "Start Free Trial",
+                "scheduleDemo": "Schedule Demo"
+            }
+        },
+        "stats": {
+            "happyCustomers": "Happy customers",
+            "uptimeGuarantee": "Uptime guarantee",
+            "customerRating": "Customer rating",
+            "countriesServed": "Countries served",
+            "joinSatisfiedCustomers": "Join thousands of satisfied customers",
+            "startTrialToday": "Start your free trial today and experience the difference TaskFlow makes.",
+            "ratedByUsers": "Rated 4.9/5 by over 10,000 users"
+        },
+        "extendedTestimonials": {
+            "testimonial4": {
+                "text": "Simple, intuitive, and powerful. TaskFlow helped us reduce project delivery time by 25%. The customer support is exceptional too.",
+                "author": "David Thompson",
+                "role": "Team Lead, Creative Studios"
+            },
+            "testimonial5": {
+                "text": "The real-time collaboration features are game-changing. Our remote team feels more connected than ever before.",
+                "author": "Lisa Park",
+                "role": "Product Manager, StartupXYZ"
+            },
+            "testimonial6": {
+                "text": "TaskFlow's automation features have saved us countless hours. We can now focus on strategic work instead of repetitive tasks.",
+                "author": "James Wilson",
+                "role": "Engineering Manager, DevTech Pro"
+            }
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Login",
+            "subtitle": "Enter your account details to access your account",
+            "email": "Email",
+            "password": "Password",
+            "forgotPassword": "Forgot your password?",
+            "signIn": "Sign In",
+            "noAccount": "Don't have an account?",
+            "signUp": "Sign Up"
         }
     }
 }

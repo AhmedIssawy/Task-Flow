@@ -5,9 +5,13 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Star, Quote } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useLanguage } from '@/hooks/useLanguage'
 
 const Testimonials = () => {
     const t = useTranslations('landing.testimonials')
+    const tExtended = useTranslations('landing.extendedTestimonials')
+    const tStats = useTranslations('landing.stats')
+    const { isRTL } = useLanguage()
 
     const testimonials = [
         {
@@ -42,9 +46,9 @@ const Testimonials = () => {
         },
         {
             id: 4,
-            content: "Simple, intuitive, and powerful. TaskFlow helped us reduce project delivery time by 25%. The customer support is exceptional too.",
-            author: "David Thompson",
-            role: "Team Lead",
+            content: tExtended('testimonial4.text'),
+            author: tExtended('testimonial4.author'),
+            role: tExtended('testimonial4.role'),
             company: "Creative Studios",
             avatar: "/avatars/david.jpg",
             rating: 5,
@@ -52,9 +56,9 @@ const Testimonials = () => {
         },
         {
             id: 5,
-            content: "The real-time collaboration features are game-changing. Our remote team feels more connected than ever before.",
-            author: "Lisa Park",
-            role: "Product Manager",
+            content: tExtended('testimonial5.text'),
+            author: tExtended('testimonial5.author'),
+            role: tExtended('testimonial5.role'),
             company: "StartupXYZ",
             avatar: "/avatars/lisa.jpg",
             rating: 5,
@@ -62,9 +66,9 @@ const Testimonials = () => {
         },
         {
             id: 6,
-            content: "TaskFlow's automation features have saved us countless hours. We can now focus on strategic work instead of repetitive tasks.",
-            author: "James Wilson",
-            role: "Engineering Manager",
+            content: tExtended('testimonial6.text'),
+            author: tExtended('testimonial6.author'),
+            role: tExtended('testimonial6.role'),
             company: "DevTech Pro",
             avatar: "/avatars/james.jpg",
             rating: 5,
@@ -73,10 +77,10 @@ const Testimonials = () => {
     ]
 
     const stats = [
-        { value: "10,000+", label: "Happy customers" },
-        { value: "99.9%", label: "Uptime guarantee" },
-        { value: "4.9/5", label: "Customer rating" },
-        { value: "50+", label: "Countries served" }
+        { value: "10,000+", label: tStats('happyCustomers') },
+        { value: "99.9%", label: tStats('uptimeGuarantee') },
+        { value: "4.9/5", label: tStats('customerRating') },
+        { value: "50+", label: tStats('countriesServed') }
     ]
 
     const featuredTestimonials = testimonials.filter(t => t.featured)
@@ -86,7 +90,7 @@ const Testimonials = () => {
         <section id="testimonials" className="py-20 bg-gradient-to-b from-background to-muted/20">
             <div className="container mx-auto px-4 lg:px-6">
                 {/* Section Header */}
-                <div className="text-center space-y-6 mb-16">
+                <div className={`text-center space-y-6 mb-16 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
                     <Badge variant="secondary" className="px-4 py-2">
                         {t('title')}
                     </Badge>
@@ -117,31 +121,31 @@ const Testimonials = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                     {featuredTestimonials.map((testimonial) => (
                         <Card key={testimonial.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 bg-background relative overflow-hidden">
-                            <div className="absolute top-4 right-4 opacity-20">
+                            <div className={`absolute top-4 opacity-20 ${isRTL ? 'left-4' : 'right-4'}`}>
                                 <Quote className="w-8 h-8 text-primary" />
                             </div>
                             <CardContent className="p-6 space-y-6">
                                 {/* Rating */}
-                                <div className="flex space-x-1">
+                                <div className={`flex space-x-1 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}>
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                 </div>
 
                                 {/* Content */}
-                                <blockquote className="text-base leading-relaxed text-foreground">
+                                <blockquote className={`text-base leading-relaxed text-foreground ${isRTL ? 'text-right' : ''}`}>
                                     &quot;{testimonial.content}&quot;
                                 </blockquote>
 
                                 {/* Author */}
-                                <div className="flex items-center space-x-4 pt-4 border-t">
+                                <div className={`flex items-center pt-4 border-t ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
                                     <Avatar className="w-12 h-12">
                                         <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
                                         <AvatarFallback>
                                             {testimonial.author.split(' ').map(n => n[0]).join('')}
                                         </AvatarFallback>
                                     </Avatar>
-                                    <div className="flex-1 min-w-0">
+                                    <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                                         <div className="font-semibold text-foreground truncate">
                                             {testimonial.author}
                                         </div>
@@ -161,26 +165,26 @@ const Testimonials = () => {
                         <Card key={testimonial.id} className="group hover:shadow-lg transition-all duration-300 bg-card">
                             <CardContent className="p-5 space-y-4">
                                 {/* Rating */}
-                                <div className="flex space-x-1">
+                                <div className={`flex space-x-1 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}>
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                                     ))}
                                 </div>
 
                                 {/* Content */}
-                                <blockquote className="text-sm leading-relaxed text-muted-foreground">
+                                <blockquote className={`text-sm leading-relaxed text-muted-foreground ${isRTL ? 'text-right' : ''}`}>
                                     &quot;{testimonial.content}&quot;
                                 </blockquote>
 
                                 {/* Author */}
-                                <div className="flex items-center space-x-3 pt-2">
+                                <div className={`flex items-center pt-2 ${isRTL ? 'flex-row-reverse space-x-reverse space-x-3' : 'space-x-3'}`}>
                                     <Avatar className="w-8 h-8">
                                         <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
                                         <AvatarFallback className="text-xs">
                                             {testimonial.author.split(' ').map(n => n[0]).join('')}
                                         </AvatarFallback>
                                     </Avatar>
-                                    <div className="flex-1 min-w-0">
+                                    <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                                         <div className="font-medium text-sm text-foreground truncate">
                                             {testimonial.author}
                                         </div>
@@ -195,15 +199,15 @@ const Testimonials = () => {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-16 text-center">
-                    <h3 className="text-2xl font-bold mb-4">Join thousands of satisfied customers</h3>
+                <div className={`mt-16 text-center ${isRTL ? 'text-right' : ''} md:text-center`}>
+                    <h3 className="text-2xl font-bold mb-4">{tStats('joinSatisfiedCustomers')}</h3>
                     <p className="text-muted-foreground mb-6">
-                        Start your free trial today and experience the difference TaskFlow makes.
+                        {tStats('startTrialToday')}
                     </p>
                     <div className="flex justify-center">
                         <Badge variant="secondary" className="px-6 py-2">
-                            <Star className="w-4 h-4 mr-2 fill-current" />
-                            Rated 4.9/5 by over 10,000 users
+                            <Star className={`w-4 h-4 fill-current ${isRTL ? 'ml-2' : 'mr-2'}`} />
+                            {tStats('ratedByUsers')}
                         </Badge>
                     </div>
                 </div>

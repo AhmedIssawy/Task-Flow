@@ -35,11 +35,6 @@ const Header = () => {
                                 {t('login')}
                             </Button>
                         </Link>
-                        <Link href="/auth/login">
-                            <Button size="sm">
-                                {t('signup')}
-                            </Button>
-                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -65,11 +60,7 @@ const Header = () => {
                                     {t('login')}
                                 </Button>
                             </Link>
-                            <Link href="/auth/login" className="block">
-                                <Button className="w-full">
-                                    {t('signup')}
-                                </Button>
-                            </Link>
+                            
                         </div>
                     </div>
                 )}
