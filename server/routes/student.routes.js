@@ -6,16 +6,15 @@ import {
   getStudentsPage,
   getStudentById,
   deleteStudent,
-  
+  getStudentCourses,
+  getStudentCourseById,
 } from "../controllers/student.controller.js";
 
 // Middlewares
 import authinticate from "../middlewares/authintication.middleware.js";
 
 // Validators
-import {
-  validateObjectId,
-} from "../middlewares/validation.middleware.js";
+import { validateObjectId } from "../middlewares/validation.middleware.js";
 import authorize from "../middlewares/authorization.middleware.js";
 
 const router = Router();
@@ -30,6 +29,10 @@ router.route("/:universityId");
 router
   .route("/:id")
   .get(validateObjectId, authinticate, getStudentById)
-  .delete(authinticate, authorize (["admin", "super-admin"]), deleteStudent)
+  .delete(authinticate, authorize(["admin", "super-admin"]), deleteStudent);
+
+router.route("/:id/courses").get(authinticate, getStudentCourses); //add validate user if its his own courses using jwt cookie if not send 403
+
+router.route("/:id/courses/:courseId").get(authinticate, getStudentCourseById); //add validate user if its his own courses using jwt cookie if not send 403
 
 export default router;
