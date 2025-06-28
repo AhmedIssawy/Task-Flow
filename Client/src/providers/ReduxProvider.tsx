@@ -1,17 +1,7 @@
 "use client";
 
 import { Provider } from "react-redux";
-// import { store } from "@/store";
-import { configureStore } from "@reduxjs/toolkit";
-
-// Temporary reducer to fix the empty reducer object error
-const tempReducer = (state = {}) => state;
-
-export const store = configureStore({
-  reducer: {
-    temp: tempReducer,
-  },
-});
+import { store } from "@/store";
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
