@@ -2,9 +2,9 @@
 
 import { getPathByRole } from '../../app/utils/roleRedirect';
 import { useState } from 'react';
-import { useLoginMutation } from '@/app/store/services/authApi';
+import { useLoginMutation } from '@/store/services/authApi';
 import { useAppDispatch } from '@/app/store/hooks';
-import { setAuth } from '@/app/store/slices/authSlice';
+import { setAuth } from '@/store/slices/authSlice';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
