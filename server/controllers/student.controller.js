@@ -194,6 +194,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
     });
   }
 
+  student.password = undefined;
+
   res.status(200).json({
     message:
       lang === "ar"
