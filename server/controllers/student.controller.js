@@ -238,7 +238,7 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
   const student = await Student.findById(id)
     .populate({
       path: "courses",
-      populate: { path: "teachers" }, 
+      populate: { path: "teachers", select: "-password" }, 
     })
     .select("courses")
     .lean();
