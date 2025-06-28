@@ -1,4 +1,6 @@
+// models
 import Student from "../models/student.model.js";
+// libraries
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -141,7 +143,7 @@ const getStudentById = asyncHandler(async (req, res) => {
     })
     .populate({
       path: "courses",
-      select: "_id name", // Populate courses and select name and _id
+      select: "_id name",
     })
     .lean();
   if (!student) {
@@ -249,7 +251,6 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
     });
   }
 
-  // Find the specific course by courseId
   const course = student.courses.find(
     (c) => c._id.toString() === courseId
   );
