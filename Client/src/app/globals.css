@@ -6,8 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-lora);
+  --font-serif: var(--font-dancing-script);
+  --font-mono: var(--font-edu-nsw);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -118,5 +119,93 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Space handling for RTL */
+[dir="rtl"] .space-x-2 > * + * {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .space-x-6 > * + * {
+  margin-left: 0;
+  margin-right: 1.5rem;
+}
+
+[dir="rtl"] .space-x-reverse > * + * {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Margin utilities for RTL */
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* Text alignment for RTL */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Flexbox direction for RTL */
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Positioning for RTL */
+[dir="rtl"] .left-10 {
+  left: auto;
+  right: 2.5rem;
+}
+
+[dir="rtl"] .right-10 {
+  right: auto;
+  left: 2.5rem;
+}
+
+/* Justify content for RTL */
+[dir="rtl"] .justify-start {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .justify-end {
+  justify-content: flex-start;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  [dir="rtl"] .md\:flex-row {
+    flex-direction: row-reverse;
   }
 }

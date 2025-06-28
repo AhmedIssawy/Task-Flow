@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Dancing_Script, Edu_NSW_ACT_Foundation, Lora } from "next/font/google";
 import "./globals.css";
 
-import ReduxProvider from "./providers/ReduxProvider";
+import ReduxProvider from "../providers/ReduxProvider";
+import { ThemeProvider } from "next-themes";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing-script",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const eduNSW = Edu_NSW_ACT_Foundation({
+  variable: "--font-edu-nsw",
   subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -24,15 +34,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-  
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ReduxProvider>
-          {children}
-        </ReduxProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className={`${dancingScript.variable} ${eduNSW.variable} ${lora.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

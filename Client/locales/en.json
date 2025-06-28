@@ -1,0 +1,102 @@
+{
+    "landing": {
+        "hero": {
+            "title": "Welcome to Task Flow",
+            "subtitle": "Streamline your workflow and boost productivity",
+            "description": "The ultimate task management platform designed to help teams collaborate efficiently and achieve their goals faster.",
+            "getStarted": "Get Started",
+            "learnMore": "Learn More"
+        },
+        "header": {
+            "home": "Home",
+            "features": "Features",
+            "pricing": "Pricing",
+            "about": "About",
+            "contact": "Contact",
+            "login": "Login",
+            "signup": "Sign Up"
+        },
+        "features": {
+            "title": "Powerful Features",
+            "subtitle": "Everything you need to manage your tasks effectively",
+            "taskManagement": {
+                "title": "Task Management",
+                "description": "Create, organize, and track your tasks with ease. Set priorities, deadlines, and collaborate with your team."
+            },
+            "teamCollaboration": {
+                "title": "Team Collaboration",
+                "description": "Work together seamlessly with real-time updates, comments, and file sharing capabilities."
+            },
+            "analytics": {
+                "title": "Analytics & Reports",
+                "description": "Get insights into your productivity with detailed analytics and customizable reports."
+            },
+            "integration": {
+                "title": "Integration",
+                "description": "Connect with your favorite tools and services to streamline your workflow."
+            }
+        },
+        "benefits": {
+            "title": "Why Choose Task Flow?",
+            "subtitle": "Experience the difference with our innovative approach",
+            "productivity": {
+                "title": "Boost Productivity",
+                "description": "Increase your team's efficiency with our intuitive task management system."
+            },
+            "collaboration": {
+                "title": "Enhanced Collaboration",
+                "description": "Foster better teamwork with real-time communication and file sharing."
+            },
+            "insights": {
+                "title": "Data-Driven Insights",
+                "description": "Make informed decisions with comprehensive analytics and reporting."
+            }
+        },
+        "testimonials": {
+            "title": "What Our Users Say",
+            "subtitle": "Join thousands of satisfied customers",
+            "testimonial1": {
+                "text": "Task Flow has transformed how our team works. The collaboration features are outstanding!",
+                "author": "Sarah Johnson",
+                "role": "Project Manager"
+            },
+            "testimonial2": {
+                "text": "The analytics dashboard gives us incredible insights into our productivity patterns.",
+                "author": "Michael Chen",
+                "role": "Team Lead"
+            },
+            "testimonial3": {
+                "text": "Simple, elegant, and powerful. Everything we needed in a task management tool.",
+                "author": "Emily Davis",
+                "role": "Product Owner"
+            }
+        },
+        "footer": {
+            "company": "Company",
+            "about": "About Us",
+            "careers": "Careers",
+            "press": "Press",
+            "news": "News",
+            "product": "Product",
+            "features": "Features",
+            "pricing": "Pricing",
+            "api": "API",
+            "documentation": "Documentation",
+            "support": "Support",
+            "helpCenter": "Help Center",
+            "community": "Community",
+            "contact": "Contact Us",
+            "status": "Status",
+            "legal": "Legal",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "cookies": "Cookie Policy",
+            "followUs": "Follow Us",
+            "newsletter": "Newsletter",
+            "subscribe": "Subscribe to our newsletter for updates",
+            "email": "Enter your email",
+            "subscribeButton": "Subscribe",
+            "copyright": "© 2025 Task Flow. All rights reserved."
+        }
+    }
+}
