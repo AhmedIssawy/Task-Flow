@@ -1,3 +1,5 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 export interface College {
   _id: string;
   name: string;
@@ -12,7 +14,6 @@ export interface College {
   universityId: string;
 }
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const collegeApi = createApi({
   reducerPath: 'collegeApi',
