@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '@/redux/slices/authSlice'
-
-import { authApi } from '@/redux/api/authApi'
-import { studentApi } from '@/redux/api/studentApi'
-import { adminApi } from '@/redux/api/adminApi'
-import { collegeApi } from '@/redux/api/collegeApi'
-import { departmentApi } from '@/redux/api/departmentApi'
-import { teacherApi } from '@/redux/api/teacherApi'
+import { authApi } from './services/authApi'
+import { studentApi } from './services/studentApi'
+import { adminApi } from './services/adminApi'
+import { collegeApi } from './services/collegeApi'
+import { departmentApi } from './services/departmentApi'
+import { teacherApi } from './services/teacherApi'
+import authReducer from './slices/authSlice'
 
 export const store = configureStore({
   reducer: {
