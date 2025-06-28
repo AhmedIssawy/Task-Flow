@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { normalizeRole } from '@/app/utils/role';
-import { log } from 'console';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
