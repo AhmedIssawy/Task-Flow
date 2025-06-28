@@ -3,17 +3,12 @@ import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
 import {
     Facebook,
     Twitter,
     Linkedin,
     Instagram,
-    Github,
-    Mail,
-    Phone,
-    MapPin,
-    ArrowRight
+    Github
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useLanguage } from '@/hooks/useLanguage'
@@ -56,174 +51,106 @@ const Footer = () => {
         { icon: Github, href: '#', label: 'GitHub' }
     ]
 
-    const contactInfo = [
-        { icon: Mail, text: 'hello@taskflow.com', href: 'mailto:hello@taskflow.com' },
-        { icon: Phone, text: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-        { icon: MapPin, text: '123 Business Ave, Suite 100, San Francisco, CA 94105', href: '#' }
-    ]
-
     return (
-        <footer className="bg-muted/30 border-t">
+        <footer className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-t border-gray-200/50 dark:border-gray-700/50">
             <div className="container mx-auto px-4 lg:px-6">
-                {/* Newsletter Section */}
-                <div className="py-12 border-b">
-                    <div className={`max-w-4xl mx-auto text-center space-y-6 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
-                        <h3 className="text-2xl md:text-3xl font-bold">
-                            {t('newsletter')}
-                        </h3>
-                        <p className="text-lg text-muted-foreground">
-                            {t('subscribe')}
-                        </p>
-                        <div className={`flex flex-col sm:flex-row gap-3 max-w-md mx-auto ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
-                            <Input
-                                type="email"
-                                placeholder={t('email')}
-                                className={`flex-1 ${isRTL ? 'text-right' : ''}`}
-                            />
-                            <Button className="group">
-                                {t('subscribeButton')}
-                                <ArrowRight className={`h-4 w-4 transition-transform ${isRTL ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'}`} />
-                            </Button>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                            {t('noSpam')}
-                        </p>
-                    </div>
-                </div>
-
                 {/* Main Footer Content */}
                 <div className="py-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
-                        {/* Company Info */}
-                        <div className={`lg:col-span-2 space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
-                            <div className={`flex items-center ${isRTL ? 'flex-row-reverse space-x-reverse space-x-2' : 'space-x-2'}`}>
-                                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                                    <span className="text-primary-foreground font-bold text-sm">TF</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                        {/* Brand Section */}
+                        <div className="lg:col-span-2 space-y-4">
+                            <Link href="/" className="inline-flex items-center space-x-3 group">
+                                <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
+                                    <span className="text-primary-foreground font-bold">TF</span>
                                 </div>
-                                <span className="font-bold text-xl text-foreground">TaskFlow</span>
-                            </div>
-                            <p className="text-muted-foreground leading-relaxed max-w-md">
+                                <span className="font-bold text-xl">TaskFlow</span>
+                            </Link>
+                            <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
                                 {t('description')}
                             </p>
 
-                            {/* Contact Info */}
-                            <div className="space-y-3">
-                                {contactInfo.map((contact) => {
-                                    const IconComponent = contact.icon
-                                    return (
-                                        <Link
-                                            key={contact.text}
-                                            href={contact.href}
-                                            className={`flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group ${isRTL ? 'flex-row-reverse space-x-reverse space-x-3' : 'space-x-3'}`}
-                                        >
-                                            <IconComponent className="w-4 h-4 group-hover:text-primary transition-colors flex-shrink-0" />
-                                            <span>{contact.text}</span>
-                                        </Link>
-                                    )
-                                })}
-                            </div>
-
-                            {/* Social Links */}
-                            <div className={`flex ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
-                                {socialLinks.map((social) => {
-                                    const IconComponent = social.icon
-                                    return (
-                                        <Link
-                                            key={social.label}
-                                            href={social.href}
-                                            className="p-2 rounded-lg bg-background hover:bg-primary hover:text-primary-foreground transition-all duration-200"
-                                            aria-label={social.label}
-                                        >
-                                            <IconComponent className="w-5 h-5" />
-                                        </Link>
-                                    )
-                                })}
+                            {/* Newsletter Subscription - Compact */}
+                            <div className={`flex gap-2 max-w-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                <Input
+                                    type="email"
+                                    placeholder={t('email') || 'Enter email'}
+                                    className="h-9 text-sm bg-white/80 dark:bg-gray-900/80 border border-gray-200/50 dark:border-gray-700/50"
+                                />
+                                <Button size="sm" className="shrink-0 bg-gradient-to-r from-primary to-secondary">
+                                    {t('subscribeButton') || 'Subscribe'}
+                                </Button>
                             </div>
                         </div>
 
-                        {/* Links Sections */}
-                        <div className={`lg:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-6 ${isRTL ? 'text-right' : 'text-left'}`}>
-                            <div>
-                                <h4 className="font-semibold text-foreground mb-4">{t('product')}</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.product.map((link) => (
-                                        <li key={link.title}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                                            >
-                                                {link.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        {/* Quick Links */}
+                        <div className="space-y-3">
+                            <h4 className="font-semibold text-sm">{t('product') || 'Product'}</h4>
+                            <ul className="space-y-2 text-sm text-muted-foreground">
+                                {footerLinks.product.map((link, index) => (
+                                    <li key={index}>
+                                        <Link href={link.href} className="hover:text-primary transition-colors">
+                                            {link.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                            <div>
-                                <h4 className="font-semibold text-foreground mb-4">{t('company')}</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.company.map((link) => (
-                                        <li key={link.title}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                                            >
-                                                {link.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="space-y-3">
+                            <h4 className="font-semibold text-sm">{t('company') || 'Company'}</h4>
+                            <ul className="space-y-2 text-sm text-muted-foreground">
+                                {footerLinks.company.map((link, index) => (
+                                    <li key={index}>
+                                        <Link href={link.href} className="hover:text-primary transition-colors">
+                                            {link.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                            <div>
-                                <h4 className="font-semibold text-foreground mb-4">{t('support')}</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.support.map((link) => (
-                                        <li key={link.title}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                                            >
-                                                {link.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="font-semibold text-foreground mb-4">{t('legal')}</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.legal.map((link) => (
-                                        <li key={link.title}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                                            >
-                                                {link.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className="space-y-3">
+                            <h4 className="font-semibold text-sm">{t('support') || 'Support'}</h4>
+                            <ul className="space-y-2 text-sm text-muted-foreground">
+                                {footerLinks.support.map((link, index) => (
+                                    <li key={index}>
+                                        <Link href={link.href} className="hover:text-primary transition-colors">
+                                            {link.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <Separator />
-
                 {/* Bottom Bar */}
-                <div className="py-6">
-                    <div className={`flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
-                        <div className="text-sm text-muted-foreground">
+                <div className="py-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                    <div className={`flex flex-col md:flex-row justify-between items-center gap-4 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
+                        <p className="text-sm text-muted-foreground">
                             {t('copyright')}
+                        </p>
+
+                        {/* Social Links */}
+                        <div className="flex items-center gap-3">
+                            {socialLinks.map((social, index) => (
+                                <Link
+                                    key={index}
+                                    href={social.href}
+                                    className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                                >
+                                    <social.icon className="w-4 h-4" />
+                                </Link>
+                            ))}
                         </div>
-                        <div className={`flex flex-wrap justify-center md:justify-end items-center text-sm text-muted-foreground ${isRTL ? 'md:justify-start space-x-reverse space-x-6' : 'space-x-6'}`}>
-                            <span>{t('madeWith')}</span>
-                            <span>•</span>
-                            <span>{t('uptime')}</span>
-                            <span>•</span>
-                            <span>{t('gdprCompliant')}</span>
+
+                        {/* Legal Links */}
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            {footerLinks.legal.map((link, index) => (
+                                <Link key={index} href={link.href} className="hover:text-primary transition-colors">
+                                    {link.title}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>

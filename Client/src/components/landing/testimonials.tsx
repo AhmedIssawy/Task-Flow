@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Star, Quote } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -87,128 +85,181 @@ const Testimonials = () => {
     const regularTestimonials = testimonials.filter(t => !t.featured)
 
     return (
-        <section id="testimonials" className="py-20 bg-gradient-to-b from-background to-muted/20">
-            <div className="container mx-auto px-4 lg:px-6">
+        <section id="testimonials" className="py-20 relative overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-background to-primary/5"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.08),transparent_50%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,165,0,0.05),transparent_50%)]"></div>
+
+            <div className="container mx-auto px-4 lg:px-6 relative z-10">
                 {/* Section Header */}
                 <div className={`text-center space-y-6 mb-16 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
-                    <Badge variant="secondary" className="px-4 py-2">
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20 text-orange-600 dark:text-orange-400 text-sm font-medium border border-orange-200 dark:border-orange-800 mb-4">
+                        <Star className="w-4 h-4 mr-2 fill-current" />
+                        {t('badge') || 'Customer Love'}
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight font-edu-nsw">
                         {t('title')}
-                    </Badge>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-                        {t('title')}
-                        <span className="block text-primary">{t('subtitle')}</span>
+                        <span className="block bg-gradient-to-r from-primary via-purple-500 to-secondary bg-clip-text text-transparent mt-2 font-dancing-script">
+                            {t('subtitle')}
+                        </span>
                     </h2>
-                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                        {t('subtitle')}
+                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-lora">
+                        {t('description') || 'See what our customers have to say about their experience with TaskFlow.'}
                     </p>
                 </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-                    {stats.map((stat) => (
-                        <div key={stat.label} className="text-center">
-                            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                                {stat.value}
+                {/* Stats Section */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+                    {stats.map((stat, index) => (
+                        <div key={stat.label} className="group relative">
+                            <div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 hover:border-primary/30 transition-all duration-300">
+                                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
+                                    {stat.value}
+                                </div>
+                                <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
+                                    {stat.label}
+                                </div>
                             </div>
-                            <div className="text-muted-foreground font-medium">
-                                {stat.label}
+                            {/* Floating index */}
+                            <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
+                                {index + 1}
                             </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Featured Testimonials */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                {/* Featured Testimonials - Creative Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
                     {featuredTestimonials.map((testimonial) => (
-                        <Card key={testimonial.id} className="group hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/20 bg-background relative overflow-hidden">
-                            <div className={`absolute top-4 opacity-20 ${isRTL ? 'left-4' : 'right-4'}`}>
-                                <Quote className="w-8 h-8 text-primary" />
-                            </div>
-                            <CardContent className="p-6 space-y-6">
+                        <div key={testimonial.id} className="group relative">
+                            {/* Card */}
+                            <div className="relative h-full p-8 rounded-3xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.02]">
+                                {/* Quote Icon */}
+                                <div className="absolute -top-4 left-8">
+                                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg">
+                                        <Quote className="w-4 h-4 text-white" />
+                                    </div>
+                                </div>
+
+                                {/* Background Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
                                 {/* Rating */}
-                                <div className={`flex space-x-1 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                                <div className={`flex mb-6 ${isRTL ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                                     {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 mr-1" />
                                     ))}
                                 </div>
 
                                 {/* Content */}
-                                <blockquote className={`text-base leading-relaxed text-foreground ${isRTL ? 'text-right' : ''}`}>
+                                <blockquote className={`text-base leading-relaxed text-foreground mb-6 relative z-10 ${isRTL ? 'text-right' : ''}`}>
                                     &quot;{testimonial.content}&quot;
                                 </blockquote>
 
                                 {/* Author */}
-                                <div className={`flex items-center pt-4 border-t ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
-                                    <Avatar className="w-12 h-12">
-                                        <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                                        <AvatarFallback>
-                                            {testimonial.author.split(' ').map(n => n[0]).join('')}
-                                        </AvatarFallback>
-                                    </Avatar>
+                                <div className={`flex items-center pt-6 border-t border-gray-200/50 dark:border-gray-700/50 relative z-10 ${isRTL ? 'flex-row-reverse space-x-reverse space-x-4' : 'space-x-4'}`}>
+                                    <div className="relative">
+                                        <Avatar className="w-14 h-14 ring-2 ring-primary/20">
+                                            <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
+                                            <AvatarFallback className="bg-gradient-to-br from-primary/20 to-secondary/20 text-primary font-semibold">
+                                                {testimonial.author.split(' ').map(n => n[0]).join('')}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-900"></div>
+                                    </div>
                                     <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                                        <div className="font-semibold text-foreground truncate">
+                                        <div className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
                                             {testimonial.author}
                                         </div>
-                                        <div className="text-sm text-muted-foreground truncate">
-                                            {testimonial.role} at {testimonial.company}
+                                        <div className="text-sm text-muted-foreground">
+                                            {testimonial.role}
+                                        </div>
+                                        <div className="text-xs text-muted-foreground/70 font-medium">
+                                            {testimonial.company}
                                         </div>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
+
+                                {/* Hover glow effect */}
+                                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
+                            </div>
+                        </div>
                     ))}
                 </div>
 
-                {/* Regular Testimonials */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Regular Testimonials - Masonry Style */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                     {regularTestimonials.map((testimonial) => (
-                        <Card key={testimonial.id} className="group hover:shadow-lg transition-all duration-300 bg-card">
-                            <CardContent className="p-5 space-y-4">
+                        <div key={testimonial.id} className="group">
+                            <div className="p-6 rounded-2xl bg-gradient-to-br from-white/50 to-gray-50/30 dark:from-gray-900/50 dark:to-gray-800/30 border border-gray-200/30 dark:border-gray-700/30 hover:border-primary/30 transition-all duration-300 backdrop-blur-sm">
                                 {/* Rating */}
-                                <div className={`flex space-x-1 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                                <div className={`flex mb-4 ${isRTL ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                                     {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-1" />
                                     ))}
                                 </div>
 
                                 {/* Content */}
-                                <blockquote className={`text-sm leading-relaxed text-muted-foreground ${isRTL ? 'text-right' : ''}`}>
+                                <blockquote className={`text-sm leading-relaxed text-muted-foreground mb-4 ${isRTL ? 'text-right' : ''}`}>
                                     &quot;{testimonial.content}&quot;
                                 </blockquote>
 
                                 {/* Author */}
-                                <div className={`flex items-center pt-2 ${isRTL ? 'flex-row-reverse space-x-reverse space-x-3' : 'space-x-3'}`}>
-                                    <Avatar className="w-8 h-8">
+                                <div className={`flex items-center ${isRTL ? 'flex-row-reverse space-x-reverse space-x-3' : 'space-x-3'}`}>
+                                    <Avatar className="w-10 h-10">
                                         <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                                        <AvatarFallback className="text-xs">
+                                        <AvatarFallback className="text-xs bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
                                             {testimonial.author.split(' ').map(n => n[0]).join('')}
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                                        <div className="font-medium text-sm text-foreground truncate">
+                                        <div className="font-medium text-sm text-foreground group-hover:text-primary transition-colors duration-300">
                                             {testimonial.author}
                                         </div>
-                                        <div className="text-xs text-muted-foreground truncate">
+                                        <div className="text-xs text-muted-foreground">
                                             {testimonial.role}, {testimonial.company}
                                         </div>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                     ))}
                 </div>
 
-                {/* Bottom CTA */}
-                <div className={`mt-16 text-center ${isRTL ? 'text-right' : ''} md:text-center`}>
-                    <h3 className="text-2xl font-bold mb-4">{tStats('joinSatisfiedCustomers')}</h3>
-                    <p className="text-muted-foreground mb-6">
-                        {tStats('startTrialToday')}
-                    </p>
-                    <div className="flex justify-center">
-                        <Badge variant="secondary" className="px-6 py-2">
-                            <Star className={`w-4 h-4 fill-current ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                            {tStats('ratedByUsers')}
-                        </Badge>
+                {/* Enhanced Bottom CTA */}
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/10 dark:to-orange-900/10 p-12 text-center border border-yellow-200/50 dark:border-yellow-800/30">
+                    {/* Background Pattern */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,165,0,0.1),transparent_70%)]"></div>
+
+                    <div className="relative z-10">
+                        <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-sm font-medium border border-yellow-200 dark:border-yellow-800 mb-6">
+                            <Star className="w-4 h-4 mr-2 fill-current" />
+                            {tStats('ratedByUsers') || '4.9/5 Rated by 10k+ Users'}
+                        </div>
+
+                        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+                            {tStats('joinSatisfiedCustomers') || 'Join Our Satisfied Customers'}
+                        </h3>
+
+                        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                            {tStats('startTrialToday') || 'Experience the difference that thousands of teams are already enjoying. Start your free trial today.'}
+                        </p>
+
+                        <div className="flex flex-wrap justify-center gap-4">
+                            <div className="flex items-center px-4 py-2 bg-white/80 dark:bg-gray-900/80 rounded-full border border-white/30 dark:border-gray-700/30 backdrop-blur-sm">
+                                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-2" />
+                                <span className="text-sm font-medium">4.9/5 Rating</span>
+                            </div>
+                            <div className="flex items-center px-4 py-2 bg-white/80 dark:bg-gray-900/80 rounded-full border border-white/30 dark:border-gray-700/30 backdrop-blur-sm">
+                                <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                                <span className="text-sm font-medium">10k+ Happy Users</span>
+                            </div>
+                            <div className="flex items-center px-4 py-2 bg-white/80 dark:bg-gray-900/80 rounded-full border border-white/30 dark:border-gray-700/30 backdrop-blur-sm">
+                                <span className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></span>
+                                <span className="text-sm font-medium">99.9% Uptime</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

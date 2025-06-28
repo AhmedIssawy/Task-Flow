@@ -10,10 +10,12 @@ const Landing = () => {
     return (
         <div className="min-h-screen bg-background text-foreground font-sans">
             <Header />
-            <Hero />
-            <Features />
-            <Benefits />
-            <Testimonials />
+            <main className="pt-4"> {/* Add top padding for floating header */}
+                <Hero />
+                <Features />
+                <Benefits />
+                <Testimonials />
+            </main>
             <Footer />
         </div>
     )

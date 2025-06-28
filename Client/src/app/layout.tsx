@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ReduxProvider from "../providers/ReduxProvider";
 import { ThemeProvider } from "next-themes";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +20,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.variable} antialiased`}>
+      <body className="antialiased font-inter">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
