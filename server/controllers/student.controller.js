@@ -207,7 +207,6 @@ const deleteStudent = asyncHandler(async (req, res) => {
 const getStudentCourses = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { lang = "en" } = req.body;
-  console.log("Lang", lang);
 
   const student = await Student.findById(id)
     .populate("courses")
