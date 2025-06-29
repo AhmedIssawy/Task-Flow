@@ -1,4 +1,6 @@
+// models
 import Student from "../models/student.model.js";
+// libraries
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
@@ -141,7 +143,7 @@ const getStudentById = asyncHandler(async (req, res) => {
     })
     .populate({
       path: "courses",
-      select: "_id name", // Populate courses and select name and _id
+      select: "_id name",
     })
     .lean();
   if (!student) {
@@ -194,6 +196,8 @@ const deleteStudent = asyncHandler(async (req, res) => {
     });
   }
 
+  student.password = undefined;
+
   res.status(200).json({
     message:
       lang === "ar"
@@ -201,6 +205,69 @@ const deleteStudent = asyncHandler(async (req, res) => {
         : "Student has been removed permanently",
   });
 });
+
+const getStudentCourses = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { lang = "en" } = req.body;
+
+  const student = await Student.findById(id)
+    .populate("courses")
+    .select("courses")
+    .lean();
+
+  if (!student) {
+    let message = "Student not found";
+    if (lang === "ar") message = "الطالب غير موجود";
+
+    return res.status(404).json({
+      message,
+    });
+  }
+
+  let message = "Courses retrieved successfully";
+  if (lang === "ar") message = "تم استرداد المقررات بنجاح";
+
+  res.status(200).json({
+    courses: student.courses,
+    message,
+  });
+});
+
+const getStudentCourseById = asyncHandler(async (req, res) => {
+  const { id, courseId } = req.params;
+  const { lang = "en" } = req.body;
+
+  const student = await Student.findById(id)
+    .populate({
+      path: "courses",
+      populate: { path: "teachers", select: "-password" }, 
+    })
+    .select("courses")
+    .lean();
+
+  if (!student) {
+    return res.status(404).json({
+      message: lang === "ar" ? "الطالب غير موجود" : "Student not found",
+    });
+  }
+
+  const course = student.courses.find(
+    (c) => c._id.toString() === courseId
+  );
+
+  if (!course) {
+    return res.status(404).json({
+      message: lang === "ar" ? "المقرر غير موجود" : "Course not found",
+    });
+  }
+
+  res.status(200).json({
+    course,
+    message: lang === "ar" ? "تم استرداد المقرر بنجاح" : "Course retrieved successfully",
+  });
+});
+
+
 
 export {
   // createStudent,
@@ -213,4 +280,6 @@ export {
   getStudentById,
   deleteStudent,
   updateStudent,
+  getStudentCourses,
+  getStudentCourseById,
 };

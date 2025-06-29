@@ -11,7 +11,9 @@ const universitySchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      default: () => `UNI-${this.name}-${Date.now().slice(9)}`,
+      default: function () {
+       return `UNI-${this.name}-${Date.now().toString().slice(9)}`;
+      } 
     },
     address: {
       type: String,
