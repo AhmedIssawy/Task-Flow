@@ -10,8 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { normalizeRole } from '@/utils/role';
 
-
-
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -22,9 +20,10 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const { role, data } = await login({ id: userId, password }).unwrap();
+      console.log("role and data", role, data);
+      
       const redirectPath = getPathByRole(role, data.id);
       const normalizedRole = normalizeRole(role);
-      
 
       if (!normalizedRole) {
         console.error('Invalid role from backend:', role);
@@ -34,6 +33,11 @@ export default function LoginForm() {
       dispatch(
         setAuth({ id: data.id, mongoId: data._id, role: normalizedRole })
       );
+      console.log('✅ Dispatched setAuth with:', {
+        id: data.id,
+        mongoId: data._id,
+        role: normalizedRole,
+      });
       router.push(redirectPath);
       console.log('Login response:', role, data);
     } catch (err) {

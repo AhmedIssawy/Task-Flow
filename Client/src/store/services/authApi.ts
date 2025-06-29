@@ -13,7 +13,7 @@ export const authApi = createApi({
     }),
 
     login: builder.mutation<
-      { role: string; data: { id: string } },
+      { role: string; data: { id: string; _id: string } },
       { id: string; password: string }
     >({
       query: (credentials) => ({

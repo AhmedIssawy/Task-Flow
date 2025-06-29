@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum RoleEnum {
   STUDENT = 'STUDENT',
@@ -22,13 +22,17 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<AuthState>) => {
+    setAuth: (
+      state,
+      action: PayloadAction<{ id: string; mongoId: string; role: Role }>
+    ) => {
       state.id = action.payload.id;
       state.mongoId = action.payload.mongoId;
       state.role = action.payload.role;
+      console.log('✅ Reducer triggered with:', action.payload);
     },
     clearAuth: (state) => {
       state.id = null;
