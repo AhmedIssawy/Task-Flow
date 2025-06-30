@@ -64,8 +64,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const logout = asyncHandler(async (req, res) => {
-  const { lang = "en" } = req.body;
-  console.log("Logging out user...", req.user);
+  const lang = req.cookies?.lang || "en";
 
   res.clearCookie("jwt");
 

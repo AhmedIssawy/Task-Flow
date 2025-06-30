@@ -6,19 +6,14 @@ import bcrypt from "bcrypt";
 
 import asyncHandler from "express-async-handler";
 
-// const getAllStudents = asyncHandler(async (req, res) => {
-//   const students = await Student.find().lean();
-//   res.status(200).json(students);
-// });
-
 const createStudent = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     name,
     email,
     courses = [],
     universityId,
     password,
-    lang = "en",
   } = req.body;
 
   const existingStudent = await Student.findOne({ email });
@@ -42,7 +37,6 @@ const createStudent = asyncHandler(async (req, res) => {
   });
 
   let message = "Student created successfully";
-
   if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
 
   res.status(201).json({
@@ -51,66 +45,49 @@ const createStudent = asyncHandler(async (req, res) => {
   });
 });
 
-// const registerStudentToUniversity = asyncHandler(async (req, res) => {
-//   const { studentId, universityId, lang = "en" } = req.body;
-
-//   if (!studentId || !universityId) {
-//     let message = "Please provide a student ID and university ID";
-//     if (lang === "ar") message = "يرجى تقديم معرف الطالب ومعرف الجامعة";
-
-//     return res.status(400).json({
-//       message,
-//     });
-//   }
-
-//   const student = await Student.findById(studentId);
-//   if (!student) {
-//     let message = "Student not found";
-//     if (lang === "ar") message = "الطالب غير موجود";
-
-//     return res.status(404).json({
-//       message,
-//     });
-//   }
-
-//   const university = await University.findById(universityId);
-//   if (!university) {
-//     let message = "University not found";
-//     if (lang === "ar") message = "الجامعة غير موجودة";
-
-//     return res.status(404).json({
-//       message,
-//     });
-//   }
-
-//   student.universityId = university._id;
-//   await student.save();
-
-//   res.status(200).json(student);
-// });
-
 const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
   const { page = 1, limit = 40 } = req.query;
+  
   const students = await Student.find({ universityId })
     .select("-createdAt -updatedAt")
     .limit(limit)
     .skip((page - 1) * limit)
     .sort({ _id: -1 })
     .lean();
+
+  if (!students || students.length === 0) {
+    let message = "No students found";
+    if (lang === "ar") message = "لم يتم العثور على طلاب";
+
+    return res.status(404).json({ message });
+  }
+
   res.status(200).json(students);
 });
 
 const getAllStudentsOfUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
+  
   const students = await Student.find({ universityId })
     .select("-createdAt -updatedAt -courses")
     .sort({ _id: -1 })
     .lean();
+
+  if (!students || students.length === 0) {
+    let message = "No students found";
+    if (lang === "ar") message = "لم يتم العثور على طلاب";
+
+    return res.status(404).json({ message });
+  }
+
   res.status(200).json(students);
 });
 
 const getStudentsPage = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { page = 1, limit = 40 } = req.query;
   const totalStudents = await Student.countDocuments();
   const totalPages = Math.ceil(totalStudents / limit);
@@ -126,6 +103,13 @@ const getStudentsPage = asyncHandler(async (req, res) => {
     .sort({ _id: -1 })
     .lean();
 
+  if (!students || students.length === 0) {
+    let message = "No students found";
+    if (lang === "ar") message = "لم يتم العثور على طلاب";
+
+    return res.status(404).json({ message });
+  }
+
   res.status(200).json({
     students,
     totalPages,
@@ -134,7 +118,7 @@ const getStudentsPage = asyncHandler(async (req, res) => {
 });
 
 const getStudentById = asyncHandler(async (req, res) => {
-  const { lang = "en" } = req.query;
+  const lang = req.cookies?.lang || "en";
 
   const student = await Student.findById(req.params.id)
     .populate({
@@ -146,6 +130,7 @@ const getStudentById = asyncHandler(async (req, res) => {
       select: "_id name",
     })
     .lean();
+    
   if (!student) {
     let message = "Student not found";
     if (lang === "ar") message = "الطالب غير موجود";
@@ -158,12 +143,12 @@ const getStudentById = asyncHandler(async (req, res) => {
 });
 
 const updateStudent = asyncHandler(async (req, res) => {
-  const { lang = "en", ...updates } = req.body;
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
 
   const updatedStudent = await Student.findByIdAndUpdate(
     id,
-    { $set: updates },
+    { $set: req.body },
     { new: true, runValidators: true }
   ).select("-password");
 
@@ -176,39 +161,49 @@ const updateStudent = asyncHandler(async (req, res) => {
     });
   }
 
-  res.status(200).json(updatedStudent);
+  let message = "Student updated successfully";
+  if (lang === "ar") message = "تم تحديث الطالب بنجاح";
+
+  res.status(200).json({
+    message,
+    student: updatedStudent,
+  });
 });
 
 const deleteStudent = asyncHandler(async (req, res) => {
-  const lang = req?.body?.lang || req?.query?.lang || "en";
+  const lang = req.cookies?.lang || "en";
 
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    let message = "Invalid student ID";
+    if (lang === "ar") message = "معرّف الطالب غير صالح";
+
     return res.status(400).json({
-      message: lang === "ar" ? "معرّف غير صالح" : "Invalid student ID",
+      message,
     });
   }
 
   const student = await Student.findByIdAndDelete(req.params.id);
 
   if (!student) {
+    let message = "Student not found";
+    if (lang === "ar") message = "الطالب غير موجود";
+
     return res.status(404).json({
-      message: lang === "ar" ? "الطالب غير موجود" : "Student not found",
+      message,
     });
   }
 
-  student.password = undefined;
+  let message = "Student has been removed permanently";
+  if (lang === "ar") message = "تم حذف الطالب نهائياً";
 
   res.status(200).json({
-    message:
-      lang === "ar"
-        ? "تم حذف الطالب نهائياً"
-        : "Student has been removed permanently",
+    message,
   });
 });
 
 const getStudentCourses = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
-  const { lang = "en" } = req.body;
 
   const student = await Student.findById(id)
     .populate("courses")
@@ -234,8 +229,8 @@ const getStudentCourses = asyncHandler(async (req, res) => {
 });
 
 const getStudentCourseById = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id, courseId } = req.params;
-  const { lang = "en" } = req.body;
 
   const student = await Student.findById(id)
     .populate({
@@ -246,8 +241,11 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
     .lean();
 
   if (!student) {
+    let message = "Student not found";
+    if (lang === "ar") message = "الطالب غير موجود";
+
     return res.status(404).json({
-      message: lang === "ar" ? "الطالب غير موجود" : "Student not found",
+      message,
     });
   }
 
@@ -256,23 +254,24 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
   );
 
   if (!course) {
+    let message = "Course not found";
+    if (lang === "ar") message = "المقرر غير موجود";
+
     return res.status(404).json({
-      message: lang === "ar" ? "المقرر غير موجود" : "Course not found",
+      message,
     });
   }
 
+  let message = "Course retrieved successfully";
+  if (lang === "ar") message = "تم استرداد المقرر بنجاح";
+
   res.status(200).json({
     course,
-    message: lang === "ar" ? "تم استرداد المقرر بنجاح" : "Course retrieved successfully",
+    message,
   });
 });
 
-
-
 export {
-  // createStudent,
-  // getAllStudents,
-  // registerStudentToUniversity,
   createStudent,
   getStudentsPageOfUniversity,
   getAllStudentsOfUniversity,

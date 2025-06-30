@@ -1,8 +1,8 @@
 import College from "../models/college.model.js";
-
 import asyncHandler from "express-async-handler";
 
 const getCollegesPage = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { page = 1, limit = 40 } = req.query;
   const { universityId } = req.params;
 
@@ -13,28 +13,50 @@ const getCollegesPage = asyncHandler(async (req, res) => {
     .sort({ _id: -1 })
     .lean();
 
+  if (!colleges || colleges.length === 0) {
+    let message = "No colleges found";
+    if (lang === "ar") message = "لم يتم العثور على كليات";
+
+    return res.status(404).json({ message });
+  }
+
   res.status(200).json(colleges);
 });
 
 const getCollegeById = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId, collegeId } = req.params;
+  
   if (!collegeId) {
-    return res.status(400).json({ message: "College ID is required" });
+    let message = "College ID is required";
+    if (lang === "ar") message = "معرف الكلية مطلوب";
+    
+    return res.status(400).json({ message });
   }
-  const college = await College.find({_id: collegeId, universityId})
+  
+  const college = await College.findOne({_id: collegeId, universityId})
     .select("-createdAt -updatedAt")
     .lean();
+    
   if (!college) {
-    return res.status(404).json({ message: "College not found" });
+    let message = "College not found";
+    if (lang === "ar") message = "الكلية غير موجودة";
+    
+    return res.status(404).json({ message });
   }
+  
   res.status(200).json(college);
 });
 
 const updateCollege = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id, ...updateData } = req.body;
 
   if (!id) {
-    return res.status(400).json({ message: "College ID is required" });
+    let message = "College ID is required";
+    if (lang === "ar") message = "معرف الكلية مطلوب";
+    
+    return res.status(400).json({ message });
   }
 
   const college = await College.findByIdAndUpdate(id, updateData, {
@@ -43,13 +65,23 @@ const updateCollege = asyncHandler(async (req, res) => {
   });
 
   if (!college) {
-    return res.status(404).json({ message: "College not found" });
+    let message = "College not found";
+    if (lang === "ar") message = "الكلية غير موجودة";
+    
+    return res.status(404).json({ message });
   }
 
-  res.status(200).json(college);
+  let message = "College updated successfully";
+  if (lang === "ar") message = "تم تحديث الكلية بنجاح";
+
+  res.status(200).json({
+    message,
+    college,
+  });
 });
 
 const createCollege = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     name,
     address,
@@ -66,9 +98,10 @@ const createCollege = asyncHandler(async (req, res) => {
   // Check if College with same email exists
   const existingCollege = await College.findOne({ email });
   if (existingCollege) {
-    return res.status(400).json({
-      message: "College already exists, please use a different email",
-    });
+    let message = "College already exists, please use a different email";
+    if (lang === "ar") message = "الكلية موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف";
+    
+    return res.status(400).json({ message });
   }
 
   // Create College
@@ -85,7 +118,13 @@ const createCollege = asyncHandler(async (req, res) => {
     universityId,
   });
 
-  res.status(201).json(college);
+  let message = "College created successfully";
+  if (lang === "ar") message = "تم إنشاء الكلية بنجاح";
+
+  res.status(201).json({
+    message,
+    college,
+  });
 });
 
 export { getCollegesPage, getCollegeById, updateCollege, createCollege };
