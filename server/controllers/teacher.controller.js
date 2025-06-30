@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 import Course from "../models/course.model.js";
 
 const getPageOfTeachers = asyncHandler(async (req, res) => {
-  const { page = 1, lang = "en" } = req.query;
+  const lang = req.cookies?.lang || "en";
+  const { page = 1 } = req.query;
 
   const teachers = await Teacher.find()
     .select("-password")
@@ -27,8 +28,9 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
 });
 
 const getTeacherById = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { teacherId } = req.params;
-  let lang = req?.body?.lang || req?.query?.lang || "en";
+  
   const teacher = await Teacher.findOne({ id: teacherId })
     .select("-password")
     .populate("courses");
@@ -46,6 +48,7 @@ const getTeacherById = asyncHandler(async (req, res) => {
 });
 
 const createTeacher = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     name,
     email,
@@ -57,7 +60,6 @@ const createTeacher = asyncHandler(async (req, res) => {
     departmentId,
     collegeId,
     role = "teacher",
-    lang = "en",
   } = req.body;
 
   // التحقق من الحقول المطلوبة
@@ -117,6 +119,7 @@ const createTeacher = asyncHandler(async (req, res) => {
 });
 
 const updateTeacher = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     _id,
     name,
@@ -126,7 +129,6 @@ const updateTeacher = asyncHandler(async (req, res) => {
     address,
     password,
     role,
-    lang = "en",
   } = req.body;
 
   const { id } = req.params;
@@ -175,8 +177,10 @@ const updateTeacher = asyncHandler(async (req, res) => {
 });
 
 const deleteTeacher = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
-  const { lang = "en", _id = "" } = req.body;
+  const { _id = "" } = req.body;
+  
   if (!id && !_id) {
     let message = "Teacher 'id' or '_id' is required";
     if (lang === "ar") message = "معرف المعلم 'id' أو '_id' مطلوب";
@@ -188,8 +192,16 @@ const deleteTeacher = asyncHandler(async (req, res) => {
     ? await Teacher.findOneAndDelete({ id })
     : await Teacher.findByIdAndDelete(_id);
 
+  if (!teacher) {
+    let message = "Teacher not found";
+    if (lang === "ar") message = "المعلم غير موجود";
+
+    return res.status(404).json({ message });
+  }
+
   let message = "Teacher deleted successfully";
   if (lang === "ar") message = "تم حذف المعلم بنجاح";
+  
   res.status(200).json({
     message,
   });
