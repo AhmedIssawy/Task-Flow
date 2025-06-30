@@ -11,11 +11,11 @@ import {
 } from "../controllers/student.controller.js";
 
 // Middlewares
-import authinticate from "../middlewares/authintication.middleware.js";
+import authinticate from "../middlewares/auth/authintication.middleware.js";
 
 // Validators
 import { validateObjectId } from "../middlewares/validation.middleware.js";
-import authorize from "../middlewares/authorization.middleware.js";
+import authorize from "../middlewares/auth/authorization.middleware.js";
 
 const router = Router();
 

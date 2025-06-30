@@ -1,6 +1,6 @@
 import { Router } from "express";
-import authinticate from "../middlewares/authintication.middleware.js";
-import authorize from "../middlewares/authorization.middleware.js";
+import authinticate from "../middlewares/auth/authintication.middleware.js";
+import authorize from "../middlewares/auth/authorization.middleware.js";
 
 const router = Router();
 

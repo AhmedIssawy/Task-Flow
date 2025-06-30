@@ -3,8 +3,8 @@ import { Router } from "express";
 // Validation
 import { validateUniversityId } from "../middlewares/validation.middleware.js";
 // Middlewares
-import authinticate from "../middlewares/authintication.middleware.js";
-import authorize from "../middlewares/authorization.middleware.js";
+import authinticate from "../middlewares/auth/authintication.middleware.js";
+import authorize from "../middlewares/auth/authorization.middleware.js";
 // controllers
 import { createCollege } from "../controllers/college.controller.js";
 import {
