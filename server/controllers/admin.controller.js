@@ -3,11 +3,8 @@ import bcrypt from "bcrypt";
 // Models
 import Admin from "../models/admin.model.js";
 
-
-
-
 const getAdminById = asyncHandler(async (req, res) => {
-  const lang = req?.body?.lang || req?.query?.lang || "en";
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
   const admin = await Admin.findOne({ id }).select("-password").lean();
 
@@ -32,7 +29,8 @@ const getAdminById = asyncHandler(async (req, res) => {
 });
 
 const getPageOfAdmins = asyncHandler(async (req, res) => {
-  const { page = 1, lang = "en" } = req.query;
+  const lang = req.cookies?.lang || "en";
+  const { page = 1 } = req.query;
   const admins = await Admin.find()
     .select("-password")
     .skip((page - 1) * 40)
@@ -44,10 +42,10 @@ const getPageOfAdmins = asyncHandler(async (req, res) => {
   });
 });
 const createAdmin = asyncHandler(async (req, res) => {
-  const { password, name, lang = "en" } = req.body;
+  const lang = req.cookies?.lang || "en";
+  const { password, name } = req.body;
   if (!password) {
     let message = "Please provide a password";
-
     if (lang === "ar") message = "يرجى تقديم كلمة مرور";
 
     return res.status(400).json({
@@ -73,7 +71,8 @@ const createAdmin = asyncHandler(async (req, res) => {
 });
 
 const updateAdmin = asyncHandler(async (req, res) => {
-  const { id, name, password, lang = "en" } = req.body;
+  const lang = req.cookies?.lang || "en";
+  const { id, name, password } = req.body;
 
   const updateData = {};
   if (name) updateData.name = name;
@@ -101,7 +100,8 @@ const updateAdmin = asyncHandler(async (req, res) => {
 });
 
 const deleteAdmin = asyncHandler(async (req, res) => {
-  const { id, lang = "en" } = req.body;
+  const lang = req.cookies?.lang || "en";
+  const { id } = req.body;
 
   if (!id) {
     let message = "Admin ID is required";
@@ -127,8 +127,6 @@ const deleteAdmin = asyncHandler(async (req, res) => {
     admin,
   });
 });
-
-
 
 export {
   createAdmin,

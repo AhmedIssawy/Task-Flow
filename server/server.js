@@ -15,6 +15,9 @@ import adminRoutes from "./routes/admin.routes.js";
 import departmentsRoutes from "./routes/department.routes.js";
 import collegesRoutes from "./routes/college.routes.js";
 
+// Middlewares
+import detectLanguage from "./middlewares/user prefrences/language.prefrence.js";
+
 const app = express();
 
 const { PORT } = process.env;
@@ -24,10 +27,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow the Next.js client
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
+app.use(detectLanguage());
 
 connectDB();
 
@@ -35,7 +39,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/universities", universityRoutes);
 app.use("/api/teachers", teacherRoutes);
-app.use("/api", collegesRoutes)
+app.use("/api", collegesRoutes);
 app.use("/api", departmentsRoutes);
 app.use("/auth", authRoutes);
 

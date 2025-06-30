@@ -2,6 +2,7 @@ import Department from "../models/department.model.js";
 import asyncHandler from "express-async-handler";
 
 const createDepartment = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     name,
     description,
@@ -9,32 +10,34 @@ const createDepartment = asyncHandler(async (req, res) => {
     email,
     location,
     establishedYear,
-    lang = "en",
   } = req.body;
 
   const { collegeId, universityId } = req.params;
 
   // التحقق من الحقول المطلوبة
   if (!name || !description || !phone || !email || !location || !collegeId || !universityId || !establishedYear) {
-    return res.status(400).json({
-      message: lang === "ar" ? "جميع الحقول مطلوبة" : "All fields are required",
-    });
+    let message = "All fields are required";
+    if (lang === "ar") message = "جميع الحقول مطلوبة";
+    
+    return res.status(400).json({ message });
   }
 
   // تحقق من تكرار الاسم في نفس الكلية
   const existingByName = await Department.findOne({ name, collegeId });
   if (existingByName) {
-    return res.status(400).json({
-      message: lang === "ar" ? "القسم موجود بالفعل في هذه الكلية" : "Department already exists in this college",
-    });
+    let message = "Department already exists in this college";
+    if (lang === "ar") message = "القسم موجود بالفعل في هذه الكلية";
+    
+    return res.status(400).json({ message });
   }
 
   // تحقق من تكرار البريد الإلكتروني
   const existingByEmail = await Department.findOne({ email });
   if (existingByEmail) {
-    return res.status(400).json({
-      message: lang === "ar" ? "البريد الإلكتروني مستخدم بالفعل" : "Email is already in use",
-    });
+    let message = "Email is already in use";
+    if (lang === "ar") message = "البريد الإلكتروني مستخدم بالفعل";
+    
+    return res.status(400).json({ message });
   }
 
   // إنشاء القسم
@@ -49,13 +52,19 @@ const createDepartment = asyncHandler(async (req, res) => {
     establishedYear,
   });
 
-  res.status(201).json(department);
+  let message = "Department created successfully";
+  if (lang === "ar") message = "تم إنشاء القسم بنجاح";
+
+  res.status(201).json({
+    message,
+    department,
+  });
 });
 
-
 const getDepartmentsPage = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { collegeId } = req.params;
-  const { page = 1, limit = 40, lang = "en" } = req.query;
+  const { page = 1, limit = 40 } = req.query;
 
   if (!collegeId) {
     let message = "College ID is required";
@@ -71,11 +80,19 @@ const getDepartmentsPage = asyncHandler(async (req, res) => {
     .sort({ _id: -1 })
     .lean();
 
+  if (!departments || departments.length === 0) {
+    let message = "No departments found";
+    if (lang === "ar") message = "لم يتم العثور على أقسام";
+
+    return res.status(404).json({ message });
+  }
+
   res.status(200).json(departments);
 });
 
 const updateDepartment = asyncHandler(async (req, res) => {
-  const { id, lang = "en", ...updateData } = req.body;
+  const lang = req.cookies?.lang || "en";
+  const { id, ...updateData } = req.body;
 
   if (!id) {
     let message = "Department ID is required";
@@ -96,12 +113,18 @@ const updateDepartment = asyncHandler(async (req, res) => {
     return res.status(404).json({ message });
   }
 
-  res.status(200).json(department);
+  let message = "Department updated successfully";
+  if (lang === "ar") message = "تم تحديث القسم بنجاح";
+
+  res.status(200).json({
+    message,
+    department,
+  });
 });
 
 const getDepartmentById = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
-  const { lang = "en" } = req.body;
 
   const department = await Department.findById(id).populate({
     path: "collegeId", // Example: populate related College if exists
@@ -109,7 +132,8 @@ const getDepartmentById = asyncHandler(async (req, res) => {
   });
 
   if (!department) {
-    const message = lang === "ar" ? "القسم غير موجود" : "Department not found";
+    let message = "Department not found";
+    if (lang === "ar") message = "القسم غير موجود";
 
     return res.status(404).json({ message });
   }
@@ -118,18 +142,22 @@ const getDepartmentById = asyncHandler(async (req, res) => {
 });
 
 const deleteDepartment = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { id } = req.params;
-  const { lang = "en" } = req.query;
 
   const department = await Department.findByIdAndDelete(id);
 
   if (!department) {
-    const message = lang === "ar" ? "القسم غير موجود" : "Department not found";
+    let message = "Department not found";
+    if (lang === "ar") message = "القسم غير موجود";
 
     return res.status(404).json({ message });
   }
 
-  res.status(200).json({ message: "Department deleted successfully" });
+  let message = "Department deleted successfully";
+  if (lang === "ar") message = "تم حذف القسم بنجاح";
+
+  res.status(200).json({ message });
 });
 
 export {
