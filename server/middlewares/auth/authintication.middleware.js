@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 
 import "dotenv/config";
 // Models
-import Student from "../models/student.model.js";
-import Admin from "../models/admin.model.js";
-import Teacher from "../models/teacher.model.js";
+import Student from "../../models/student.model.js";
+import Admin from "../../models/admin.model.js";
+import Teacher from "../../models/teacher.model.js";
 
 const authinticate = async (req, res, next) => {
   const lang = req.cookies?.lang || "en";

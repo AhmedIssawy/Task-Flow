@@ -1,6 +1,6 @@
 const detectLanguage = () => {
   return (req, res, next) => {
-    const lang = req.cookies?.lang || req.headers["lang"];
+    const lang = req.cookies?.lang || req.headers["lang"] || "en";
     if (!req.cookies?.lang){
         res.cookie("lang", lang, {
             httpOnly: false,

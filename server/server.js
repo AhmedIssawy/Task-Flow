@@ -16,7 +16,7 @@ import departmentsRoutes from "./routes/department.routes.js";
 import collegesRoutes from "./routes/college.routes.js";
 
 // Middlewares
-import detectLanguage from "./middlewares/user prefrences/language.prefrence.js";
+import detectLanguage from "./middlewares/user preferences/language.preference.js";
 
 const app = express();
 
