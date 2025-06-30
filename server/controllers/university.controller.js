@@ -3,6 +3,7 @@ import Student from "../models/student.model.js";
 import University from "../models/university.model.js";
 
 const createUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     name,
     address,
@@ -13,17 +14,17 @@ const createUniversity = asyncHandler(async (req, res) => {
     website,
     establishedYear,
     logo,
-    lang = "en",
   } = req.body;
 
   // Check for duplicate email
   const existing = await University.findOne({ email });
   if (existing) {
+    let message = "University already exists, please use a different email";
+    if (lang === "ar")
+      message = "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف";
+
     return res.status(400).json({
-      message:
-        lang === "ar"
-          ? "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف"
-          : "University already exists, please use a different email",
+      message,
     });
   }
 
@@ -40,12 +41,18 @@ const createUniversity = asyncHandler(async (req, res) => {
     logo,
   });
 
-  return res.status(201).json(university);
+  let message = "University created successfully";
+  if (lang === "ar") message = "تم إنشاء الجامعة بنجاح";
+
+  return res.status(201).json({
+    message,
+    university,
+  });
 });
 
 const getUniversityById = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
-  const { lang = "en" } = req.query;
 
   const university = await University.findById(universityId)
     .select("-createdAt -updatedAt")
@@ -64,7 +71,8 @@ const getUniversityById = asyncHandler(async (req, res) => {
 });
 
 const getUniversitiesPage = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 40, lang = "en" } = req.query;
+  const lang = req.cookies?.lang || "en";
+  const { page = 1, limit = 40 } = req.query;
 
   const universities = await University.find()
     .select("-createdAt -updatedAt")
@@ -85,10 +93,10 @@ const getUniversitiesPage = asyncHandler(async (req, res) => {
 });
 
 const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
   const page = Math.max(parseInt(req.query.page) || 1, 1);
   const limit = Math.max(parseInt(req.query.limit) || 40, 1);
-  const { lang = "en" } = req.query;
 
   const students = await Student.find({ universityId })
     .limit(limit)
@@ -108,8 +116,9 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
 });
 
 const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const { universityId, collegeId, departmentId } = req.params;
-  const { page = 1, limit = 40, lang = "en" } = req.query;
+  const { page = 1, limit = 40 } = req.query;
 
   const university = await University.findById(universityId)
     .populate({
@@ -139,8 +148,8 @@ const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
   });
 });
 
-
 const updateUniversity = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
   const {
     id,
     name,
@@ -152,7 +161,6 @@ const updateUniversity = asyncHandler(async (req, res) => {
     website,
     establishedYear,
     logo,
-    lang = "en",
   } = req.body;
 
   if (!id) {
