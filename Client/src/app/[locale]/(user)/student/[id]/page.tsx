@@ -1,7 +1,6 @@
 'use client';
 
 import { StudentDashboardCard } from '@/components/dashboard/StudentDashboardCard';
-import { SideMenu } from '@/components/layout/SideMenu';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -11,6 +10,7 @@ import {
 } from '@/store/services/studentApi';
 import { Clock } from 'lucide-react';
 import { useAppSelector } from '@/store/hooks';
+
 
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
@@ -24,7 +24,6 @@ export default function StudentDashboardPage() {
 
   return (
     <div className="flex">
-      <SideMenu />
       <main className="flex-1 p-6 space-y-6 overflow-y-auto">
         <h1 className="text-2xl font-bold">
           Welcome back, {loadingStudent ? '...' : student?.name}
