@@ -14,14 +14,11 @@ import { useAppSelector } from '@/store/hooks';
 
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
-  const auth = useAppSelector((state) => state.auth);
-  console.log('Auth state:', auth);
-  const { data: student, isLoading: loadingStudent } =
-    useGetStudentByIdQuery(studentId ?? '');
-  const { data: courseData, isLoading: loadingCourses } =
-    useGetStudentCoursesQuery(studentId ?? '');
-  console.log('Student data:', student);
-  console.log('courseData:', courseData);
+  const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
+  const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery(studentId ?? "");
+  console.log('Student Data:', student);
+  console.log('Course Data:', courseData);
+
 
   return (
     <div className="flex">
@@ -42,10 +39,12 @@ export default function StudentDashboardPage() {
           <StudentDashboardCard
             title="English Literature Seminar"
             subtitle="10:00 AM - 11:00 AM"
+            icon={Clock}
           />
           <StudentDashboardCard
             title="Physics Lab"
             subtitle="1:00 PM - 2:00 PM"
+            icon={Clock}
           />
         </section>
 

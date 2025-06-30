@@ -8,53 +8,78 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useLanguage } from '@/hooks/useLanguage';
+import { normalizeRole } from '@/utils/role';
+import { useAppDispatch } from '@/store/hooks';
+import { setAuth } from '@/store/slices/authSlice';
 
 export default function LoginForm() {
-    const [userId, setUserId] = useState('');
-    const [password, setPassword] = useState('');
-    const [login, { isLoading, isError }] = useLoginMutation();
-    const router = useRouter();
-    const t = useTranslations('auth.login');
-    const { isRTL } = useLanguage();
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [login, { isLoading, isError }] = useLoginMutation();
+  const router = useRouter();
+  const t = useTranslations('auth.login');
+  const { isRTL } = useLanguage();
+  const dispatch = useAppDispatch();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { role, data } = await login({ id: userId, password }).unwrap();
+      console.log('role and data', role, data);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const { role, data } = await login({ id: userId, password }).unwrap();
-            const redirectPath = getPathByRole(role, data.id)
-            router.push(redirectPath);
-            console.log("Login response:", role, data);
-        } catch (err) {
-            console.error("Login failed:", err);
-        }
-    };
+      const redirectPath = getPathByRole(role, data.id);
+      const normalizedRole = normalizeRole(role);
 
-    return (
-        <form onSubmit={handleSubmit} className={`space-y-4 max-w-sm mx-auto mt-20 ${isRTL ? 'text-right' : 'text-left'}`}>
-            <Input
-                placeholder={t('email')}
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-                type="text"
-                required
-                className={isRTL ? 'text-right' : 'text-left'}
-            />
-            <Input
-                placeholder={t('password')}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                required
-                className={isRTL ? 'text-right' : 'text-left'}
-            />
-            <Button type="submit" disabled={isLoading} className="w-full">
-                {isLoading ? 'Logging in...' : t('signIn')}
-            </Button>
-            {isError && (
-                <div className={`text-sm text-red-500 ${isRTL ? 'text-right' : 'text-center'}`}>
-                    {t('forgotPassword')}
-                </div>
-            )}
-        </form>
-    );
+      if (!normalizedRole) {
+        console.error('Invalid role from backend:', role);
+        return;
+      } // temporary error handling
+
+      dispatch(
+        setAuth({ id: data.id, mongoId: data._id, role: normalizedRole })
+      );
+
+      router.push(redirectPath);
+      console.log('Login response:', role, data);
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className={`space-y-4 max-w-sm mx-auto mt-20 ${
+        isRTL ? 'text-right' : 'text-left'
+      }`}
+    >
+      <Input
+        placeholder={t('email')}
+        value={userId}
+        onChange={(e) => setUserId(e.target.value)}
+        type="text"
+        required
+        className={isRTL ? 'text-right' : 'text-left'}
+      />
+      <Input
+        placeholder={t('password')}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        type="password"
+        required
+        className={isRTL ? 'text-right' : 'text-left'}
+      />
+      <Button type="submit" disabled={isLoading} className="w-full">
+        {isLoading ? 'Logging in...' : t('signIn')}
+      </Button>
+      {isError && (
+        <div
+          className={`text-sm text-red-500 ${
+            isRTL ? 'text-right' : 'text-center'
+          }`}
+        >
+          {t('forgotPassword')}
+        </div>
+      )}
+    </form>
+  );
 }
