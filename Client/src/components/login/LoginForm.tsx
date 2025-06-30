@@ -101,7 +101,7 @@ console.log('User ID Role:', userIdRole);
       <Button type="submit" disabled={isLoading} className="w-full">
         {isLoading ? 'Logging in...' : t('signIn')}
       </Button>
-      {isError && (
+      {/* {isError && (
         <div
           className={`text-sm text-red-500 ${
             isRTL ? 'text-right' : 'text-center'
@@ -109,7 +109,7 @@ console.log('User ID Role:', userIdRole);
         >
           {t('forgotPassword')}
         </div>
-      )}
+      )} */}
     </form>
   );
 }
