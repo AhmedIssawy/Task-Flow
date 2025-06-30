@@ -17,7 +17,7 @@ export default function StudentDashboardPage() {
   console.log('Student ID from Redux:', studentId);
   
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
-  const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery(studentId ?? "");
+  const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery("68272391943893d5e5a21e9a");
   console.log('Student Data:', student);
   console.log('Course Data:', courseData);
 
