@@ -14,6 +14,8 @@ import { useAppSelector } from '@/store/hooks';
 
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
+  console.log('Student ID from Redux:', studentId);
+  
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
   const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery(studentId ?? "");
   console.log('Student Data:', student);
