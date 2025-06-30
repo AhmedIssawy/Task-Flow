@@ -1,5 +1,6 @@
 {
     "landing": {
+        "taskFlow": "Task Flow",
         "hero": {
             "badge": "✨ New Experience",
             "title": "Welcome to Task Flow",
@@ -225,7 +226,7 @@
         "login": {
             "title": "Welcome Back",
             "subtitle": "Sign in to your account",
-            "email": "Email",
+            "ID": "ID",
             "password": "Password",
             "rememberMe": "Remember me",
             "forgotPassword": "Forgot password?",

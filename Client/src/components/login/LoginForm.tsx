@@ -1,13 +1,17 @@
 'use client';
 
-import { getPathByRole } from '@/utils/roleRedirect';
-import { useState } from 'react';
-import { useLoginMutation } from '@/services/authapi';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useTranslations } from 'next-intl';
-import { useLanguage } from '@/hooks/useLanguage';
+'use client'
+
+import { getPathByRole } from '@/utils/roleRedirect'
+import { useState } from 'react'
+import { useLoginMutation } from '@/services/authapi'
+import { useRouter } from 'next/navigation'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useTranslations } from 'next-intl'
+import { useLanguage } from '@/hooks/useLanguage'
+
+
 import { normalizeRole } from '@/utils/role';
 import { useAppDispatch } from '@/store/hooks';
 import { setAuth } from '@/store/slices/authSlice';
@@ -20,13 +24,13 @@ import {
 } from '@/components/ui/select';
 
 export default function LoginForm() {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState('')
   const [userIdRole, setUserIdRole] = useState('');
-  const [password, setPassword] = useState('');
-  const [login, { isLoading, isError }] = useLoginMutation();
-  const router = useRouter();
-  const t = useTranslations('auth.login');
-  const { isRTL } = useLanguage();
+  const [password, setPassword] = useState('')
+  const [login, { isLoading }] = useLoginMutation()
+  const router = useRouter()
+  const t = useTranslations('auth.login')
+  const { isRTL } = useLanguage()
   const dispatch = useAppDispatch();
   const fullUserId = `${userIdRole}${userId}`;
 console.log('Full User ID:', fullUserId);
@@ -109,3 +113,4 @@ console.log('User ID Role:', userIdRole);
     </form>
   );
 }
+
