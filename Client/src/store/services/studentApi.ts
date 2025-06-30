@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Student, PaginatedStudentsResponse } from '../types/student'
+import type { Student, PaginatedStudentsResponse, Course, CourseDetails } from '../types/student'
 
 export const studentApi = createApi({
   reducerPath: 'studentApi',
@@ -9,6 +9,7 @@ export const studentApi = createApi({
   }),
   tagTypes: ['Student'],
   endpoints: (builder) => ({
+    // Create
     createStudent: builder.mutation<Student, Partial<Student>>({
       query: (newStudentData) => ({
         url: '/students',
@@ -18,37 +19,43 @@ export const studentApi = createApi({
       invalidatesTags: ['Student'],
     }),
 
+    // Get All (paginated)
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 40 }) =>
-        `/students/paginated?page=${page}&limit=${limit}`,
+        `/students/page?page=${page}&limit=${limit}`,
       providesTags: ['Student'],
     }),
 
+    // Get University Students (paginated)
     getStudentsPageOfUniversity: builder.query<Student[], { universityId: string; page?: number; limit?: number }>({
       query: ({ universityId, page = 1, limit = 40 }) =>
-        `/students/university/${universityId}/paginated?page=${page}&limit=${limit}`,
+        `/students/university/${universityId}?page=${page}&limit=${limit}`,
       providesTags: ['Student'],
     }),
 
+    // Get University Students (all)
     getAllStudentsOfUniversity: builder.query<Student[], string>({
       query: (universityId) => `/students/university/${universityId}/all`,
       providesTags: ['Student'],
     }),
 
+    // Get One
     getStudentById: builder.query<Student, string>({
       query: (id) => `/students/${id}`,
       providesTags: ['Student'],
     }),
 
+    // Update
     updateStudent: builder.mutation<Student, Partial<Student> & { id: string }>({
       query: ({ id, ...updates }) => ({
         url: `/students/${id}`,
-        method: 'PATCH',
+        method: 'PUT', // changed from PATCH to PUT as per controller
         body: updates,
       }),
       invalidatesTags: ['Student'],
     }),
 
+    // Delete
     deleteStudent: builder.mutation<{ message: string }, string>({
       query: (id) => ({
         url: `/students/${id}`,
@@ -56,5 +63,27 @@ export const studentApi = createApi({
       }),
       invalidatesTags: ['Student'],
     }),
+
+    // Get student courses
+    getStudentCourses: builder.query<{ courses: Course[] }, string>({
+      query: (id) => `/students/${id}/courses`,
+    }),
+
+    // Get specific course with teachers populated
+    getStudentCourseById: builder.query<{ course: CourseDetails }, { id: string; courseId: string }>({
+      query: ({ id, courseId }) => `/students/${id}/courses/${courseId}`,
+    }),
   }),
 })
+
+export const {
+  useCreateStudentMutation,
+  useGetStudentsPageQuery,
+  useGetStudentsPageOfUniversityQuery,
+  useGetAllStudentsOfUniversityQuery,
+  useGetStudentByIdQuery,
+  useUpdateStudentMutation,
+  useDeleteStudentMutation,
+  useGetStudentCoursesQuery,
+  useGetStudentCourseByIdQuery,
+} = studentApi
