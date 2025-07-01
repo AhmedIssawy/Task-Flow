@@ -26,7 +26,7 @@ const Benefits = () => {
             description: t('productivity.description'),
             metric: '40%',
             metricLabel: tHighlights('productivity') || 'Productivity Increase',
-            color: 'text-green-500'
+            color: 'success'
         },
         {
             icon: Clock,
@@ -34,7 +34,7 @@ const Benefits = () => {
             description: t('collaboration.description'),
             metric: '15hrs',
             metricLabel: tHighlights('timeSaved') || 'Time Saved Weekly',
-            color: 'text-blue-500'
+            color: 'primary'
         },
         {
             icon: DollarSign,
@@ -42,7 +42,7 @@ const Benefits = () => {
             description: t('insights.description'),
             metric: '30%',
             metricLabel: tHighlights('costReduction') || 'Cost Reduction',
-            color: 'text-yellow-500'
+            color: 'warning'
         }
     ]
 
@@ -80,11 +80,15 @@ const Benefits = () => {
     ]
 
     return (
-        <section id="benefits" className="py-20 bg-background text-foreground">
-            <div className="container mx-auto px-4 lg:px-6">
+        <section id="benefits" className="py-20 bg-gradient-to-b from-primary/5 via-background to-primary/10 text-foreground relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.1),transparent_70%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(147,197,253,0.08),transparent_70%)]"></div>
+
+            <div className="container mx-auto px-4 lg:px-6 relative z-10">
                 {/* Section Header */}
                 <div className={`text-center space-y-6 mb-16 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium border border-accent/20">
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/15 text-primary text-sm font-medium border border-primary/30 backdrop-blur-sm">
                         <TrendingUp className="w-4 h-4 mr-2" />
                         {t('badge') || 'Proven Results'}
                     </div>
@@ -101,24 +105,65 @@ const Benefits = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
                     {mainBenefits.map((benefit) => {
                         const IconComponent = benefit.icon
+                        const getColorClasses = (color: string) => {
+                            switch (color) {
+                                case 'success':
+                                    return {
+                                        iconBg: 'bg-success/15 group-hover:bg-success/20',
+                                        iconColor: 'text-success',
+                                        metricColor: 'text-success',
+                                        titleHover: 'group-hover:text-success',
+                                        border: 'hover:border-success/30',
+                                        shadow: 'hover:shadow-success/10',
+                                        gradient: 'from-success/5'
+                                    }
+                                case 'warning':
+                                    return {
+                                        iconBg: 'bg-warning/15 group-hover:bg-warning/20',
+                                        iconColor: 'text-warning',
+                                        metricColor: 'text-warning',
+                                        titleHover: 'group-hover:text-warning',
+                                        border: 'hover:border-warning/30',
+                                        shadow: 'hover:shadow-warning/10',
+                                        gradient: 'from-warning/5'
+                                    }
+                                case 'primary':
+                                default:
+                                    return {
+                                        iconBg: 'bg-primary/15 group-hover:bg-primary/20',
+                                        iconColor: 'text-primary',
+                                        metricColor: 'text-primary',
+                                        titleHover: 'group-hover:text-primary',
+                                        border: 'hover:border-primary/30',
+                                        shadow: 'hover:shadow-primary/10',
+                                        gradient: 'from-primary/5'
+                                    }
+                            }
+                        }
+
+                        const colorClasses = getColorClasses(benefit.color)
+
                         return (
-                            <div key={benefit.title} className="group relative p-8 rounded-2xl bg-card border border-border hover:shadow-lg transition-all duration-300">
+                            <div key={benefit.title} className={`group relative p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 ${colorClasses.border} hover:shadow-xl ${colorClasses.shadow} transition-all duration-300 hover:-translate-y-1`}>
+                                {/* Background gradient */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.gradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`}></div>
+
                                 {/* Icon */}
-                                <div className="mb-6">
-                                    <div className="p-4 rounded-xl bg-accent/10 inline-block">
-                                        <IconComponent className="w-8 h-8 text-accent" />
+                                <div className="mb-6 relative z-10">
+                                    <div className={`p-4 rounded-xl ${colorClasses.iconBg} inline-block transition-colors duration-300`}>
+                                        <IconComponent className={`w-8 h-8 ${colorClasses.iconColor}`} />
                                     </div>
                                 </div>
 
                                 {/* Metrics */}
-                                <div className="mb-6">
-                                    <div className="text-4xl font-bold text-primary">{benefit.metric}</div>
+                                <div className="mb-6 relative z-10">
+                                    <div className={`text-4xl font-bold ${colorClasses.metricColor} group-hover:scale-105 transition-transform duration-300`}>{benefit.metric}</div>
                                     <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{benefit.metricLabel}</div>
                                 </div>
 
                                 {/* Content */}
                                 <div className="space-y-4">
-                                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                                    <h3 className={`text-xl font-bold text-foreground ${colorClasses.titleHover} transition-colors duration-300`}>
                                         {benefit.title}
                                     </h3>
                                     <p className="text-muted-foreground leading-relaxed">

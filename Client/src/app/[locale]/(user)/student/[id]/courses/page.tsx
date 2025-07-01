@@ -1,13 +1,11 @@
 'use client'
 
-import { useAppSelector } from '@/store/hooks'
 import { useGetStudentCoursesQuery } from '@/store/services/studentApi'
 import { Loader2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export default function StudentCoursesPage() {
-  const studentId = useAppSelector((state) => state.auth.mongoId)
   const { data, isLoading, error } = useGetStudentCoursesQuery("68272391943893d5e5a21e9a")
 
   return (
@@ -36,11 +34,10 @@ export default function StudentCoursesPage() {
             <CardContent className="p-4 space-y-2">
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-medium">{course.name}</h2>
-                <Badge variant="outline">{course.hours} hours</Badge>
+                <Badge variant="outline">Course</Badge>
               </div>
               <div className="text-sm text-muted-foreground">
-                Teachers: {course.teachers.length} <br />
-                Lectures: {course.lectures.length}
+                Course ID: {course._id.slice(-8)}
               </div>
             </CardContent>
           </Card>

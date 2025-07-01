@@ -1,5 +1,3 @@
-export { SideMenu } from './SideMenu'
-export { DashboardLayout } from './DashboardLayout'
 export { StudentLayout } from './StudentLayout'
 export { StudentNavbar } from './StudentNavbar'
 export { StudentSidebar } from './StudentSidebar'
