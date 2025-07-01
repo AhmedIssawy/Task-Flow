@@ -1,6 +1,6 @@
 'use client'
 
-import { StudentNavbar } from './StudentNavbar'
+import { Navbar } from '../Navbar';
 import { cn } from '@/lib/utils'
 
 interface StudentLayoutProps {
@@ -12,13 +12,13 @@ export function StudentLayout({ children, className }: StudentLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-blue-950 dark:to-indigo-950">
       {/* Fixed Navbar */}
-      <StudentNavbar />
-      
+      <Navbar />
+
       {/* Fixed Sidebar */}
       {/* <Sidebar na /> */}
-      
+
       {/* Main Content Area */}
-      <main 
+      <main
         className={cn(
           'lg:ml-64 pt-16 min-h-screen overflow-y-auto',
           'scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent',

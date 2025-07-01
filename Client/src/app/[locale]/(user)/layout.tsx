@@ -1,6 +1,6 @@
 'use client'
 
-import { StudentLayout } from '@/components/layout/StudentLayout'
+import { StudentLayout } from '@/components/layout/StudentLayout/StudentLayout'
 
 interface UserLayoutProps {
   children: React.ReactNode
