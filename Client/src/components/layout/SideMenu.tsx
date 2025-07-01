@@ -17,7 +17,7 @@ interface SideNavContentProps {
 export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
   const pathname = usePathname()
   return (
-    <div className="flex h-full flex-col bg-white dark:bg-gray-900">
+    <div className="flex h-full w-full flex-col bg-white dark:bg-gray-900">
       {/* Navigation */}
       <ScrollArea className="flex-1 px-3 py-6">
         <nav className="space-y-2">
@@ -82,7 +82,7 @@ interface SideMenuProps {
 
 export function SideMenu({ navItems, onItemClick }: SideMenuProps) {
   return (
-    <aside className="hidden lg:flex fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 z-40 border-r border-slate-200 dark:border-gray-700">
+    <aside className="student-sidebar hidden lg:flex border-r border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900">
       <SideNavContent navItems={navItems} onItemClick={onItemClick} />
     </aside>
   )
