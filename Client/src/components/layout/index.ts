@@ -1,3 +1,3 @@
 export { StudentLayout } from './StudentLayout'
 export { StudentNavbar } from './StudentNavbar'
-export { StudentSidebar } from './StudentSidebar'
+export { StudentSidebar } from './SideMenu'

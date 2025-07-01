@@ -1,6 +1,6 @@
 'use client'
 
-import { SideMenu } from '@/components/layout/SideMenu'
+import  SideMenu  from '@/components/layout/SideMenu'
 import { studentNavItems } from '@/constants/sideMenuData'
 import { useParams } from 'next/navigation'
 

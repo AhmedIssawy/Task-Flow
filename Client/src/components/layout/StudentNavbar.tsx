@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Bell, Menu, LogOut, User, GraduationCap } from 'lucide-react'
-import { StudentSidebarContent } from './StudentSidebar'
+// import { StudentSidebarContent } from './SideMenu'
 import { usePathname } from 'next/navigation'
 
 export function StudentNavbar() {
@@ -32,10 +32,10 @@ export function StudentNavbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-64 p-0">
-              <StudentSidebarContent
+              {/* <StudentSidebarContent
                 pathname={pathname}
                 onItemClick={() => setMobileMenuOpen(false)}
-              />
+              /> */}
             </SheetContent>
           </Sheet>
 

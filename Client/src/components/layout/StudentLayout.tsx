@@ -1,7 +1,6 @@
 'use client'
 
 import { StudentNavbar } from './StudentNavbar'
-import { StudentSidebar } from './StudentSidebar'
 import { cn } from '@/lib/utils'
 
 interface StudentLayoutProps {
@@ -16,7 +15,7 @@ export function StudentLayout({ children, className }: StudentLayoutProps) {
       <StudentNavbar />
       
       {/* Fixed Sidebar */}
-      <StudentSidebar />
+      {/* <Sidebar na /> */}
       
       {/* Main Content Area */}
       <main 
