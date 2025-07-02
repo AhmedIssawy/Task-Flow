@@ -200,50 +200,6 @@ export default function LoginForm() {
 
             </form>
           </div>
-    <form
-      onSubmit={handleSubmit}
-      className={`space-y-4 max-w-sm mx-auto mt-20 ${
-        isRTL ? 'text-right' : 'text-left'
-      }`}
-    >
-      <div className="flex">
-        <Select onValueChange={(value) => setUserIdRole(value)}>
-          <SelectTrigger className="w-[100px]">
-            <SelectValue placeholder="Role" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="STU-">Student</SelectItem>
-            <SelectItem value="ADMIN-">Admin</SelectItem>
-            <SelectItem value="TEACHER-">Teacher</SelectItem>
-          </SelectContent>
-        </Select>
-        <Input
-          placeholder="ID"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          type="text"
-          required
-          className={isRTL ? 'text-right' : 'text-left'}
-        />
-      </div>
-      <Input
-        placeholder={t('password')}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        type="password"
-        required
-        className={isRTL ? 'text-right' : 'text-left'}
-      />
-      <Button type="submit" disabled={isLoading} className="w-full">
-        {isLoading ? 'Logging in...' : t('signIn')}
-      </Button>
-      {/* {isError && (
-        <div
-          className={`text-sm text-red-500 ${
-            isRTL ? 'text-right' : 'text-center'
-          }`}
-        >
-          {t('forgotPassword')}
         </div>
       </div>
     </div>
