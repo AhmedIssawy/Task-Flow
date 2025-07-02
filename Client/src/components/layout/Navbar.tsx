@@ -9,11 +9,22 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from 
 import { Bell, Menu, LogOut, User, GraduationCap } from 'lucide-react'
 import { studentNavItems } from '@/constants/sideMenuData'
 import { SideNavContent } from './SideMenu'
-import { useParams } from 'next/navigation'
+import { useParams } from 'next/navigation';
+import { useGetStudentByIdQuery } from '@/store/services/studentApi';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { id } = useParams()
+  const { data: student } = useGetStudentByIdQuery(id as string);
+
+  const getInitials = (name: string) => {
+    if (!name) return "ST";
+    const names = name.split(' ');
+    if (names.length > 1) {
+      return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200 dark:border-gray-700 shadow-sm">
@@ -74,7 +85,7 @@ export function Navbar() {
                 <Avatar className="h-10 w-10 ring-2 ring-blue-100 dark:ring-blue-900">
                   <AvatarImage src="/placeholder-avatar.jpg" alt="Student" />
                   <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
-                    ST
+                    {getInitials(student?.name || '')}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -82,9 +93,9 @@ export function Navbar() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Student Name</p>
+                  <p className="text-sm font-medium leading-none">{student?.name || 'Student Name'}</p>
                   <p className="text-xs leading-none text-slate-500 dark:text-gray-400">
-                    student@university.edu
+                    {student?.email || 'student@university.edu'}
                   </p>
                 </div>
               </DropdownMenuLabel>

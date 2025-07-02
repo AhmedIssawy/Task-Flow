@@ -20,9 +20,9 @@ interface Column<T> {
 
 interface PaginatedTableProps<T> {
   queryHook: (args: { page: number; limit: number }) => {
-    data?: any;
+    data: { [key: string]: T[] } | undefined;
     isLoading: boolean;
-    error?: any;
+    error: unknown;
   };
   dataKey: string;
   columns: Column<T>[];
@@ -89,7 +89,7 @@ export function PaginatedTable<T>({
                     <TableCell key={j}>
                       {typeof col.accessor === 'function'
                         ? col.accessor(row)
-                        : (row as any)[col.accessor]}
+                        : String(row[col.accessor as keyof T])}
                     </TableCell>
                   ))}
                 </TableRow>
