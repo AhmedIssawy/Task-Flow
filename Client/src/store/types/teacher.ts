@@ -9,7 +9,7 @@ export interface Teacher {
   courses: {
     _id: string;
     name: string;
-    [key: string]: any;
+    [key: string]: unknown;
   }[];
   universityId: string;
   departmentId: string;

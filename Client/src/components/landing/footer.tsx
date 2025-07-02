@@ -50,17 +50,17 @@ const Footer = () => {
     ]
 
     return (
-        <footer className="bg-card border-t border-border">
+        <footer className="bg-gradient-to-t from-primary/5 to-card border-t border-border/50">
             <div className="container mx-auto px-4 lg:px-6">
                 {/* Main Footer Content */}
                 <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                     {/* Brand Section */}
                     <div className="lg:col-span-2 space-y-4">
                         <Link href="/" className="inline-flex items-center space-x-3 group">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center shadow-lg">
                                 <span className="text-primary-foreground font-bold">TF</span>
                             </div>
-                            <span className="font-bold text-xl text-foreground">TaskFlow</span>
+                            <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">TaskFlow</span>
                         </Link>
                         <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
                             {t('description')}
@@ -121,7 +121,7 @@ const Footer = () => {
                                 <Link
                                     key={index}
                                     href={social.href}
-                                    className="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center hover:bg-secondary hover:text-secondary-foreground transition-all duration-300"
+                                    className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                                 >
                                     <social.icon className="w-4 h-4" />
                                 </Link>

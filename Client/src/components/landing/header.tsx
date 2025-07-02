@@ -15,12 +15,17 @@ const Header = () => {
     const tLanding = useTranslations('landing')
     const { isRTL } = useLanguage()
     return (
-        <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <header className="sticky top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm">
             <div className="container mx-auto px-4 lg:px-6">
                 <div className={`flex items-center justify-between h-16 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse group font-display">
-                        <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">{tLanding('taskFlow')}</span>
+                        <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center shadow-lg">
+                            <span className="text-primary-foreground font-bold text-sm">TF</span>
+                        </div>
+                        <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">
+                            {tLanding('taskFlow')}
+                        </span>
                     </Link>
 
                     {/* Desktop CTA */}
@@ -28,7 +33,11 @@ const Header = () => {
                         <LanguageSwitcher />
                         <ThemeToggle />
                         <Link href="/auth/login">
-                            <Button variant="default" size="sm" className="hover:bg-accent hover:text-accent-foreground transition-all duration-300">
+                            <Button
+                                variant="default"
+                                size="sm"
+                                className=" text-primary-foreground font-medium px-6 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-primary/25 transform hover:-translate-y-0.5"
+                            >
                                 {t('login')}
                             </Button>
                         </Link>
@@ -52,10 +61,10 @@ const Header = () => {
 
             {/* Mobile Navigation */}
             {isMenuOpen && (
-                <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border">
+                <div className="md:hidden bg-card/95 backdrop-blur-md border-t border-border/50 shadow-lg">
                     <div className="px-4 py-4 space-y-3 text-start">
                         <Link href="/auth/login" className="block">
-                            <Button variant="ghost" className="w-full justify-start hover:bg-accent transition-all duration-300">
+                            <Button variant="ghost" className="w-full justify-start hover:bg-primary/10 hover:text-primary transition-all duration-300 text-foreground">
                                 {t('login')}
                             </Button>
                         </Link>
