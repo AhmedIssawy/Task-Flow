@@ -78,7 +78,7 @@ console.log('User ID Role:', userIdRole);
           <SelectContent>
             <SelectItem value="STU-">Student</SelectItem>
             <SelectItem value="ADMIN-">Admin</SelectItem>
-            <SelectItem value="TEA-">Teacher</SelectItem>
+            <SelectItem value="TEACHER-">Teacher</SelectItem>
           </SelectContent>
         </Select>
         <Input

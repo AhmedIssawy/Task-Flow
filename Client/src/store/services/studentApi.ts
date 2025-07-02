@@ -22,7 +22,7 @@ export const studentApi = createApi({
     // Get All (paginated)
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 40 }) =>
-        `/students/page?page=${page}&limit=${limit}`,
+        `/students?page=${page}&limit=${limit}`,
       providesTags: ['Student'],
     }),
 
