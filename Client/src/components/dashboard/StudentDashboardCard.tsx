@@ -60,7 +60,7 @@ export function StudentDashboardCard({
   return (
     <Card 
       className={cn(
-        'group relative overflow-hidden border transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-pointer bg-white dark:bg-gray-900',
+        'group relative overflow-hidden border transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-pointer bg-card/95 backdrop-blur-xl border-border/50 rounded-3xl shadow-2xl shadow-primary/5',
         styles.card,
         onClick && 'hover:shadow-xl',
         className

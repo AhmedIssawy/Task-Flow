@@ -2,7 +2,7 @@
 
 import { getPathByRole } from '@/utils/roleRedirect'
 import { useState } from 'react'
-import { useLoginMutation } from '@/services/authapi'
+import { useLoginMutation } from '@/store/services/authApi'
 import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'

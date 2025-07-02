@@ -110,13 +110,12 @@ export default function StudentDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-32 translate-x-32"></div>
+      <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl p-8 shadow-2xl shadow-primary/5 relative overflow-hidden">
         <div className="relative z-10">
-          <h1 className="text-3xl font-bold mb-2">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">
             Welcome back, {loadingStudent ? '...' : student?.name || 'Student'}! 👋
           </h1>
-          <p className="text-blue-100 text-lg">
+          <p className="text-muted-foreground text-lg">
             Ready to tackle your goals today? You have 3 classes and 2 assignments due this week.
           </p>
         </div>
@@ -125,7 +124,7 @@ export default function StudentDashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statsCards.map((stat, index) => (
-          <Card key={index} className="relative overflow-hidden border-slate-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+          <Card key={index} className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl p-6 shadow-2xl shadow-primary/5 relative overflow-hidden hover:shadow-lg transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -152,7 +151,7 @@ export default function StudentDashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Today's Schedule */}
-        <Card className="border-slate-200 dark:border-gray-700">
+        <Card className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl shadow-primary/5 relative overflow-hidden">
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
@@ -175,7 +174,7 @@ export default function StudentDashboardPage() {
                 <ArrowRight className="w-4 h-4 text-slate-400" />
               </div>
             ))}
-            <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700">
+            <Button className="w-full mt-4 bg-gradient-to-r from-primary via-primary-dark to-primary hover:from-primary-dark hover:via-primary hover:to-primary-dark text-primary-foreground font-semibold rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
               <Calendar className="w-4 h-4 mr-2" />
               View Full Calendar
             </Button>
@@ -185,20 +184,20 @@ export default function StudentDashboardPage() {
         {/* Quick Actions & Recent Grades */}
         <div className="space-y-6">
           {/* Quick Actions */}
-          <Card className="border-slate-200 dark:border-gray-700">
+          <Card className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl shadow-primary/5 relative overflow-hidden">
             <CardHeader className="pb-4">
               <CardTitle className="text-slate-900 dark:text-white">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full justify-start hover:bg-blue-50 dark:hover:bg-blue-950">
+              <Button variant="outline" className="w-full justify-start bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl transition-all duration-200">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Submit Assignment
               </Button>
-              <Button variant="outline" className="w-full justify-start hover:bg-emerald-50 dark:hover:bg-emerald-950">
+              <Button variant="outline" className="w-full justify-start bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl transition-all duration-200">
                 <Trophy className="w-4 h-4 mr-2" />
                 View Achievements
               </Button>
-              <Button variant="outline" className="w-full justify-start hover:bg-amber-50 dark:hover:bg-amber-950">
+              <Button variant="outline" className="w-full justify-start bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl transition-all duration-200">
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Grade Analytics
               </Button>
@@ -206,7 +205,7 @@ export default function StudentDashboardPage() {
           </Card>
 
           {/* Recent Grades */}
-          <Card className="border-slate-200 dark:border-gray-700">
+          <Card className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl shadow-primary/5 relative overflow-hidden">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
                 <BarChart3 className="w-5 h-5 text-emerald-600" />
@@ -234,7 +233,7 @@ export default function StudentDashboardPage() {
 
       {/* Upcoming Courses */}
       {courseData?.courses && courseData.courses.length > 0 && (
-        <Card className="border-slate-200 dark:border-gray-700">
+        <Card className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl shadow-primary/5 relative overflow-hidden">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
               <Book className="w-5 h-5 text-blue-600" />

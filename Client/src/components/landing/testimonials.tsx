@@ -18,7 +18,6 @@ const Testimonials = () => {
             author: t('testimonial1.author'),
             role: t('testimonial1.role'),
             company: "TechCorp Solutions",
-            avatar: "/avatars/sarah.jpg",
             rating: 5,
             featured: true
         },
@@ -28,7 +27,6 @@ const Testimonials = () => {
             author: t('testimonial2.author'),
             role: t('testimonial2.role'),
             company: "InnovateLab",
-            avatar: "/avatars/michael.jpg",
             rating: 5,
             featured: true
         },
@@ -38,7 +36,6 @@ const Testimonials = () => {
             author: t('testimonial3.author'),
             role: t('testimonial3.role'),
             company: "GlobalTech Inc",
-            avatar: "/avatars/emily.jpg",
             rating: 5,
             featured: true
         },
@@ -48,7 +45,6 @@ const Testimonials = () => {
             author: tExtended('testimonial4.author'),
             role: tExtended('testimonial4.role'),
             company: "Creative Studios",
-            avatar: "/avatars/david.jpg",
             rating: 5,
             featured: false
         },
@@ -58,7 +54,6 @@ const Testimonials = () => {
             author: tExtended('testimonial5.author'),
             role: tExtended('testimonial5.role'),
             company: "StartupXYZ",
-            avatar: "/avatars/lisa.jpg",
             rating: 5,
             featured: false
         },
@@ -68,7 +63,6 @@ const Testimonials = () => {
             author: tExtended('testimonial6.author'),
             role: tExtended('testimonial6.role'),
             company: "DevTech Pro",
-            avatar: "/avatars/james.jpg",
             rating: 5,
             featured: false
         }
@@ -126,7 +120,7 @@ const Testimonials = () => {
                             <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20 group-hover:text-primary/30 transition-colors duration-300" />
                             <div className="flex items-center mb-4 relative z-10">
                                 <Avatar className="w-12 h-12 mr-4 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
-                                    <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
+                                    <AvatarImage src="/" alt={testimonial.author} />
                                     <AvatarFallback className="bg-primary/10 text-primary">{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                 </Avatar>
                                 <div>

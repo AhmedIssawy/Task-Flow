@@ -9,7 +9,7 @@ export default function StudentCoursesPage() {
   const { data, isLoading, error } = useGetStudentCoursesQuery("68272391943893d5e5a21e9a")
 
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6 bg-gradient-to-br from-primary/8 via-background to-accent/10">
       <h1 className="text-2xl font-semibold mb-6">My Courses</h1>
 
       {isLoading && (
@@ -30,7 +30,7 @@ export default function StudentCoursesPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {data?.courses?.map((course) => (
-          <Card key={course._id} className="hover:shadow-amber-50 hover:shadow-sm transition-shadow cursor-pointer border">
+          <Card key={course._id} className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl p-4 shadow-2xl shadow-primary/5 relative overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer">
             <CardContent className="p-4 space-y-2">
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-medium">{course.name}</h2>

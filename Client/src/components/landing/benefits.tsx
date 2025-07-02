@@ -24,7 +24,7 @@ const Benefits = () => {
             icon: TrendingUp,
             title: t('productivity.title'),
             description: t('productivity.description'),
-            metric: '40%',
+            metric: '',
             metricLabel: tHighlights('productivity') || 'Productivity Increase',
             color: 'success'
         },
@@ -40,7 +40,7 @@ const Benefits = () => {
             icon: DollarSign,
             title: t('insights.title'),
             description: t('insights.description'),
-            metric: '30%',
+            metric: '',
             metricLabel: tHighlights('costReduction') || 'Cost Reduction',
             color: 'warning'
         }

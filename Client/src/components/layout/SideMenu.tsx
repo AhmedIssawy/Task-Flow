@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { NavItem } from '@/constants/sideMenuData'
+import { useLogoutMutation } from '@/store/services/authApi';
 
 interface SideNavContentProps {
   navItems: NavItem[]
@@ -15,7 +16,19 @@ interface SideNavContentProps {
 }
 
 export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const router = useRouter();
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap();
+      console.log('Logout successful');
+      router.replace('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
   return (
     <div className="flex h-full w-full flex-col bg-white dark:bg-gray-900">
       {/* Navigation */}
@@ -63,6 +76,7 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
       {/* Footer */}
       <div className="p-3 border-t border-slate-200 dark:border-gray-700">
         <Button
+          onClick={handleLogout}
           variant="ghost"
           size="sm"
           className="w-full justify-start gap-3 text-slate-600 hover:text-red-600 hover:bg-red-50 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-red-950/50 transition-all duration-200 rounded-xl py-2.5"

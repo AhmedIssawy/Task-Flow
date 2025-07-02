@@ -11,11 +11,25 @@ import { studentNavItems } from '@/constants/sideMenuData'
 import { SideNavContent } from './SideMenu'
 import { useParams } from 'next/navigation';
 import { useGetStudentByIdQuery } from '@/store/services/studentApi';
+import { useLogoutMutation } from '@/store/services/authApi';
+import { useRouter } from 'next/navigation';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { id } = useParams()
   const { data: student } = useGetStudentByIdQuery(id as string);
+  const [logout] = useLogoutMutation();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap();
+      console.log('Logout successful');
+      router.replace('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   const getInitials = (name: string) => {
     if (!name) return "ST";
@@ -83,7 +97,7 @@ export function Navbar() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-blue-50 dark:hover:bg-blue-950">
                 <Avatar className="h-10 w-10 ring-2 ring-blue-100 dark:ring-blue-900">
-                  <AvatarImage src="/placeholder-avatar.jpg" alt="Student" />
+                  <AvatarImage src="" alt="Student" />
                   <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-medium">
                     {getInitials(student?.name || '')}
                   </AvatarFallback>
@@ -105,7 +119,7 @@ export function Navbar() {
                 <span>Profile</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="hover:bg-red-50 dark:hover:bg-red-950 text-red-600 dark:text-red-400">
+              <DropdownMenuItem onClick={handleLogout} className="hover:bg-red-50 dark:hover:bg-red-950 text-red-600 dark:text-red-400">
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
