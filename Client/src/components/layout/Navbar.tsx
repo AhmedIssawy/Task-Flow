@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { id } = useParams()
-  const { data: student } = useGetStudentByIdQuery(id as string);
+  const { data: student, isLoading } = useGetStudentByIdQuery(id as string);
   const [logout] = useLogoutMutation();
   const router = useRouter();
 
