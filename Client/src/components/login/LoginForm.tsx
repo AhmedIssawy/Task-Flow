@@ -116,7 +116,7 @@ export default function LoginForm() {
                       </div>
                     </SelectItem>
                     <SelectItem
-                      value="TEA-"
+                      value="TEACHER-"
                       className="text-foreground hover:bg-accent focus:bg-accent rounded-lg cursor-pointer transition-all duration-200 py-3 px-3 role-card-hover"
                     >
                       <div className="flex items-center gap-3">
