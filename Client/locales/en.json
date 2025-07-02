@@ -224,8 +224,18 @@
     },
     "auth": {
         "login": {
+            "welcome": "Welcome Back",
+            "loginToAccount": "Sign in to your account to continue",
             "title": "Welcome Back",
             "subtitle": "Sign in to your account",
+            "userIdLabel": "User ID",
+            "selectRole": "Role",
+            "student": "Student",
+            "admin": "Admin",
+            "teacher": "Teacher",
+            "enterUserId": "Enter your ID",
+            "enterPassword": "Enter your password",
+            "loggingIn": "Signing in...",
             "ID": "ID",
             "password": "Password",
             "rememberMe": "Remember me",

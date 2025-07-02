@@ -82,11 +82,14 @@ const Testimonials = () => {
     ]
 
     return (
-        <section id="testimonials" className="py-20 bg-background text-foreground">
-            <div className="container mx-auto px-4 lg:px-6">
+        <section id="testimonials" className="py-20 bg-gradient-to-b from-background via-primary/5 to-background text-foreground relative overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_70%)]"></div>
+
+            <div className="container mx-auto px-4 lg:px-6 relative z-10">
                 {/* Section Header */}
                 <div className={`text-center space-y-6 mb-16 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary/10 text-secondary text-sm font-medium border border-secondary/20">
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/15 text-primary text-sm font-medium border border-primary/30 backdrop-blur-sm">
                         <Star className="w-4 h-4 mr-2 fill-current" />
                         {t('badge') || 'Customer Love'}
                     </div>
@@ -102,8 +105,8 @@ const Testimonials = () => {
                 {/* Stats Section */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
                     {stats.map((stat) => (
-                        <div key={stat.label} className="text-center p-6 rounded-2xl bg-card border border-border">
-                            <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                        <div key={stat.label} className="text-center p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group">
+                            <div className="text-3xl md:text-4xl font-bold text-primary group-hover:scale-105 transition-transform duration-300 mb-2">
                                 {stat.value}
                             </div>
                             <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
@@ -116,24 +119,27 @@ const Testimonials = () => {
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {testimonials.map((testimonial) => (
-                        <div key={testimonial.id} className="group relative p-8 rounded-2xl bg-card border border-border hover:shadow-lg transition-all duration-300">
-                            <Quote className="absolute top-6 right-6 w-8 h-8 text-secondary/20" />
-                            <div className="flex items-center mb-4">
-                                <Avatar className="w-12 h-12 mr-4">
+                        <div key={testimonial.id} className="group relative p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1">
+                            {/* Background gradient on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+
+                            <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20 group-hover:text-primary/30 transition-colors duration-300" />
+                            <div className="flex items-center mb-4 relative z-10">
+                                <Avatar className="w-12 h-12 mr-4 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
                                     <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                                    <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                                    <AvatarFallback className="bg-primary/10 text-primary">{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                                 </Avatar>
                                 <div>
-                                    <h4 className="font-bold text-foreground">{testimonial.author}</h4>
+                                    <h4 className="font-bold text-foreground group-hover:text-primary transition-colors duration-300">{testimonial.author}</h4>
                                     <p className="text-sm text-muted-foreground">{testimonial.role} at {testimonial.company}</p>
                                 </div>
                             </div>
-                            <div className="flex mb-4">
+                            <div className="flex mb-4 relative z-10">
                                 {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star key={i} className="w-5 h-5 text-accent fill-current" />
+                                    <Star key={i} className="w-5 h-5 text-primary fill-current" />
                                 ))}
                             </div>
-                            <blockquote className="text-muted-foreground italic">
+                            <blockquote className="text-muted-foreground italic relative z-10">
                                 {`"${testimonial.content}"`}
                             </blockquote>
                         </div>

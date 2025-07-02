@@ -224,8 +224,18 @@
     },
     "auth": {
         "login": {
+            "welcome": "مرحباً بعودتك",
+            "loginToAccount": "سجل الدخول إلى حسابك للمتابعة",
             "title": "مرحباً بعودتك",
             "subtitle": "سجل الدخول إلى حسابك",
+            "userIdLabel": "رقم المستخدم",
+            "selectRole": "الدور",
+            "student": "طالب",
+            "admin": "مدير",
+            "teacher": "مدرس",
+            "enterUserId": "أدخل رقم المستخدم",
+            "enterPassword": "أدخل كلمة المرور",
+            "loggingIn": "جاري تسجيل الدخول...",
             "ID": "رقم الهويه",
             "password": "كلمة المرور",
             "rememberMe": "تذكرني",

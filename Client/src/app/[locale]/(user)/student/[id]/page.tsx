@@ -9,12 +9,12 @@ import {
   useGetStudentByIdQuery,
   useGetStudentCoursesQuery,
 } from '@/store/services/studentApi';
-import { 
-  Clock, 
-  Book, 
-  Calendar, 
-  BarChart3, 
-  Trophy, 
+import {
+  Clock,
+  Book,
+  Calendar,
+  BarChart3,
+  Trophy,
   CheckCircle,
   ArrowRight,
   BookOpen,
@@ -26,7 +26,7 @@ import { useAppSelector } from '@/store/hooks';
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
   console.log('Student ID from Redux:', studentId);
-  
+
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
   const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery(studentId ?? "");
 
@@ -133,18 +133,16 @@ export default function StudentDashboardPage() {
                   <p className="text-3xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
                   <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">{stat.change}</p>
                 </div>
-                <div className={`p-3 rounded-xl ${
-                  stat.variant === 'primary' ? 'bg-blue-100 dark:bg-blue-900' :
-                  stat.variant === 'success' ? 'bg-emerald-100 dark:bg-emerald-900' :
-                  stat.variant === 'warning' ? 'bg-amber-100 dark:bg-amber-900' :
-                  'bg-slate-100 dark:bg-gray-800'
-                }`}>
-                  <stat.icon className={`w-6 h-6 ${
-                    stat.variant === 'primary' ? 'text-blue-600 dark:text-blue-400' :
-                    stat.variant === 'success' ? 'text-emerald-600 dark:text-emerald-400' :
-                    stat.variant === 'warning' ? 'text-amber-600 dark:text-amber-400' :
-                    'text-slate-600 dark:text-gray-400'
-                  }`} />
+                <div className={`p-3 rounded-xl ${stat.variant === 'primary' ? 'bg-blue-100 dark:bg-blue-900' :
+                    stat.variant === 'success' ? 'bg-emerald-100 dark:bg-emerald-900' :
+                      stat.variant === 'warning' ? 'bg-amber-100 dark:bg-amber-900' :
+                        'bg-slate-100 dark:bg-gray-800'
+                  }`}>
+                  <stat.icon className={`w-6 h-6 ${stat.variant === 'primary' ? 'text-blue-600 dark:text-blue-400' :
+                      stat.variant === 'success' ? 'text-emerald-600 dark:text-emerald-400' :
+                        stat.variant === 'warning' ? 'text-amber-600 dark:text-amber-400' :
+                          'text-slate-600 dark:text-gray-400'
+                    }`} />
                 </div>
               </div>
             </CardContent>
@@ -159,7 +157,7 @@ export default function StudentDashboardPage() {
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
                 <Clock className="w-5 h-5 text-blue-600" />
-                Today's Schedule
+                Today&apos;s Schedule
               </CardTitle>
               <Badge variant="outline" className="text-blue-600 border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-400">
                 3 classes
@@ -222,10 +220,9 @@ export default function StudentDashboardPage() {
                     <h4 className="text-sm font-medium text-slate-900 dark:text-white">{grade.title}</h4>
                     <p className="text-xs text-slate-500 dark:text-gray-500">{grade.date}</p>
                   </div>
-                  <Badge className={`${
-                    grade.variant === 'success' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' :
-                    'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                  }`}>
+                  <Badge className={`${grade.variant === 'success' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' :
+                      'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+                    }`}>
                     {grade.grade}
                   </Badge>
                 </div>
@@ -252,8 +249,8 @@ export default function StudentDashboardPage() {
                 ))
               ) : (
                 courseData.courses.map((course) => (
-                  <StudentDashboardCard 
-                    key={course._id} 
+                  <StudentDashboardCard
+                    key={course._id}
                     title={course.name}
                     subtitle="Click to view details"
                     variant="default"

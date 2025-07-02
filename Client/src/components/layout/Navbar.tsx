@@ -5,23 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Badge } from '@/components/ui/badge'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { Bell, Menu, LogOut, User, GraduationCap } from 'lucide-react'
-import { useAppSelector } from '@/store/hooks'
-import { StudentSidebarContent } from './StudentSidebar'
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { studentNavItems } from '@/constants/sideMenuData'
+import { SideNavContent } from './SideMenu'
+import { useParams } from 'next/navigation'
 
-export function StudentNavbar() {
+export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const studentId = useAppSelector((state) => state.auth.mongoId)
-  const pathname = usePathname()
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-    document.documentElement.classList.toggle('dark')
-  }
+  const { id } = useParams()
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200 dark:border-gray-700 shadow-sm">
@@ -41,10 +33,9 @@ export function StudentNavbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-64 p-0">
-              <StudentSidebarContent 
-                pathname={pathname} 
-                onItemClick={() => setMobileMenuOpen(false)} 
-              />
+              <SheetTitle className="sr-only">Menu</SheetTitle>
+              <SheetDescription className="sr-only">Student navigation menu</SheetDescription>
+              <SideNavContent navItems={studentNavItems(id as string)} onItemClick={() => setMobileMenuOpen(false)} />
             </SheetContent>
           </Sheet>
 
@@ -114,3 +105,4 @@ export function StudentNavbar() {
     </nav>
   )
 }
+
