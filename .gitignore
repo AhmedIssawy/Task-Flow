@@ -43,3 +43,6 @@ temp/
 
 # Optional eslint cache
 .eslintcache
+.yoyo
+# YoYo AI version control directory
+.yoyo/
