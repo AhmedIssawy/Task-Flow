@@ -55,6 +55,10 @@ interface PaginatedTableProps<T> {
     (data: any) => Promise<any>,
     { isLoading: boolean }
   ];
+  createHook?: () => readonly [
+    (data: any) => Promise<any>,
+    { isLoading: boolean }
+  ];
   editableFields?: EditableField<T>[];
 }
 
@@ -67,6 +71,7 @@ export function PaginatedTable<T>({
   enableActions,
   deleteHook,
   editHook,
+  createHook,
   editableFields = [],
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(1);
@@ -78,10 +83,12 @@ export function PaginatedTable<T>({
 
   const [itemToDelete, setItemToDelete] = useState<T | null>(null);
   const [itemToEdit, setItemToEdit] = useState<T | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
   const [editFormData, setEditFormData] = useState<Record<string, any>>({});
 
   const [deleteFn, { isLoading: isDeleting }] = deleteHook?.() || [];
   const [editFn, { isLoading: isEditing }] = editHook?.() || [];
+  const [createFn, { isLoading: isCreatingLoading }] = createHook?.() || [];
 
   const handleDelete = async () => {
     if (!itemToDelete || !deleteFn) return;
@@ -95,16 +102,25 @@ export function PaginatedTable<T>({
   };
 
   const handleEditSubmit = async () => {
-    if (!itemToEdit || !editFn) return;
+    if (!editFn && !createFn) return;
     try {
-      await editFn({
-        _id: (itemToEdit as any)._id,
-        ...editFormData,
-      }).unwrap?.();
-      toast.success('Updated successfully');
-      setItemToEdit(null);
+      if (itemToEdit) {
+        await editFn({
+          _id: (itemToEdit as any)._id,
+          ...editFormData,
+        }).unwrap?.();
+        toast.success('Updated successfully');
+        setItemToEdit(null);
+      } else {
+        await createFn({
+          ...editFormData,
+          universityId: '6823509b467cae38bbf7d69f',
+        }).unwrap?.();
+        toast.success('Created successfully');
+        setIsCreating(false);
+      }
     } catch {
-      toast.error('Failed to update');
+      toast.error(itemToEdit ? 'Failed to update' : 'Failed to create');
     }
   };
 
@@ -117,9 +133,26 @@ export function PaginatedTable<T>({
     setEditFormData(initialValues);
   };
 
+  const openCreateModal = () => {
+    setEditFormData({});
+    setIsCreating(true);
+  };
+
+  const closeFormModal = () => {
+    setItemToEdit(null);
+    setIsCreating(false);
+  };
+
   return (
     <>
       <div className={cn('w-full space-y-4', className)}>
+        <div className="flex justify-end">
+          {createHook && (
+            <Button onClick={openCreateModal} className="ml-auto">
+              Create
+            </Button>
+          )}
+        </div>
         <div className="rounded-md border">
           <Table>
             <TableHeader>
@@ -263,17 +296,18 @@ export function PaginatedTable<T>({
         </AlertDialog>
       )}
 
-      {/* Edit Modal */}
-      {editHook && (
-        <AlertDialog
-          open={!!itemToEdit}
-          onOpenChange={() => setItemToEdit(null)}
-        >
+      {/* Create/Edit Modal */}
+      {(editHook || createHook) && (itemToEdit || isCreating) && (
+        <AlertDialog open onOpenChange={closeFormModal}>
           <AlertDialogContent className="bg-black border border-border text-foreground shadow-xl sm:max-w-md rounded-lg space-y-4">
             <AlertDialogHeader>
-              <AlertDialogTitle>Edit Item</AlertDialogTitle>
+              <AlertDialogTitle>
+                {itemToEdit ? 'Edit Item' : 'Create Item'}
+              </AlertDialogTitle>
               <AlertDialogDescription>
-                Update the fields and click save to apply changes.
+                {itemToEdit
+                  ? 'Update the fields and click save to apply changes.'
+                  : 'Fill in the fields and click create to add new item.'}
               </AlertDialogDescription>
             </AlertDialogHeader>
 
@@ -293,21 +327,61 @@ export function PaginatedTable<T>({
                   />
                 </div>
               ))}
+              {isCreating && (
+                <>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Password</label>
+                    <Input
+                      type="password"
+                      value={editFormData['password'] || ''}
+                      onChange={(e) =>
+                        setEditFormData((prev) => ({
+                          ...prev,
+                          password: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium">Gender</label>
+                    <select
+                      className="w-full p-2 border border-border rounded-md bg-background text-foreground"
+                      value={editFormData['gender'] || ''}
+                      onChange={(e) =>
+                        setEditFormData((prev) => ({
+                          ...prev,
+                          gender: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Select gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </>
+              )}
             </div>
 
             <AlertDialogFooter>
               <AlertDialogCancel
                 className="bg-muted hover:bg-muted/80"
-                disabled={isEditing}
+                disabled={isEditing || isCreatingLoading}
               >
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
                 className="bg-primary text-white hover:bg-primary/90"
                 onClick={handleEditSubmit}
-                disabled={isEditing}
+                disabled={isEditing || isCreatingLoading}
               >
-                {isEditing ? 'Saving...' : 'Save'}
+                {itemToEdit
+                  ? isEditing
+                    ? 'Saving...'
+                    : 'Save'
+                  : isCreatingLoading
+                  ? 'Creating...'
+                  : 'Create'}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

@@ -12,7 +12,7 @@ export const studentApi = createApi({
     // Create
     createStudent: builder.mutation<Student, Partial<Student>>({
       query: (newStudentData) => ({
-        url: '/students',
+        url: 'admin/student',
         method: 'POST',
         body: newStudentData,
       }),

@@ -4,6 +4,7 @@ import {
   useGetStudentsPageQuery,
   useDeleteStudentMutation,
   useUpdateStudentMutation,
+  useCreateStudentMutation,
 } from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import { adminStudentsTableData } from '@/constants/adminTableData';
@@ -24,6 +25,7 @@ export default function AdminDashboard() {
           { label: 'Email', key: 'email', type: 'email' },
           { label: 'Name', key: 'name' },
         ]}
+        createHook={useCreateStudentMutation}
       />
     </>
   );
