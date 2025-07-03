@@ -4,7 +4,7 @@ import type { Student, PaginatedStudentsResponse, Course, CourseDetails } from '
 export const studentApi = createApi({
   reducerPath: 'studentApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/',
+    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
     credentials: 'include',
   }),
   tagTypes: ['Student'],
