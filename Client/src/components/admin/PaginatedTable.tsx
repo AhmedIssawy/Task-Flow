@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +18,18 @@ interface Column<T> {
   accessor: keyof T | ((row: T) => React.ReactNode);
 }
 
+interface RowAction<T> {
+  label: string;
+  onClick: (row: T) => void;
+  variant?:
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'ghost'
+    | 'secondary'
+    | 'link';
+}
+
 interface PaginatedTableProps<T> {
   queryHook: (args: { page: number; limit: number }) => {
     data?: any;
@@ -28,6 +40,9 @@ interface PaginatedTableProps<T> {
   columns: Column<T>[];
   limit?: number;
   className?: string;
+  enableActions?: boolean;
+  onEdit?: (row: T) => void;
+  onDelete?: (row: T) => void;
 }
 
 export function PaginatedTable<T>({
@@ -36,9 +51,13 @@ export function PaginatedTable<T>({
   columns,
   limit = 10,
   className,
+  enableActions,
+  onEdit,
+  onDelete,
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(1);
-  const { data, isLoading, error } = queryHook({ page, limit });
+  const queryArgs = useMemo(() => ({ page, limit }), [page, limit]);
+  const { data, isLoading, error } = queryHook(queryArgs);
 
   const rows: T[] = data?.[dataKey] || [];
   const totalPages: number = data?.totalPages || 1;
@@ -92,6 +111,32 @@ export function PaginatedTable<T>({
                         : (row as any)[col.accessor]}
                     </TableCell>
                   ))}
+
+                  {enableActions && (onEdit || onDelete) && (
+                    <TableCell>
+                      <div className="flex gap-2">
+                        {onEdit && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onEdit(row)}
+                          >
+                            Edit
+                          </Button>
+                        )}
+                        {onDelete && (
+                          <Button
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => onDelete(row)}
+                            className='text-red-500'
+                          >
+                            Delete
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  )}
                 </TableRow>
               ))
             )}

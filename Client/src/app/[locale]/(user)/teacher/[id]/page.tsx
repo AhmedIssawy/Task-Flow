@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useAppSelector } from '@/store/hooks';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import { useGetStudentsPageQuery } from '@/store/services/studentApi';
-import { studentColumns } from '@/constants/tableData';
+import { studentColumns } from '@/constants/teacherTableData';
 
 export default function TeacherDashboard() {
   const id = useAppSelector((state) => state.auth.id);
