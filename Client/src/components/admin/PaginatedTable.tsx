@@ -22,11 +22,18 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 interface Column<T> {
   label: string;
   accessor: keyof T | ((row: T) => React.ReactNode);
+}
+
+interface EditableField<T> {
+  label: string;
+  key: keyof T;
+  type?: string;
 }
 
 interface PaginatedTableProps<T> {
@@ -40,8 +47,15 @@ interface PaginatedTableProps<T> {
   limit?: number;
   className?: string;
   enableActions?: boolean;
-  deleteHook?: () => readonly [((id: string) => any), { isLoading: boolean }];
-  onEdit?: (row: T) => void;
+  deleteHook?: () => readonly [
+    (id: string) => Promise<any>,
+    { isLoading: boolean }
+  ];
+  editHook?: () => readonly [
+    (data: any) => Promise<any>,
+    { isLoading: boolean }
+  ];
+  editableFields?: EditableField<T>[];
 }
 
 export function PaginatedTable<T>({
@@ -52,7 +66,8 @@ export function PaginatedTable<T>({
   className,
   enableActions,
   deleteHook,
-  onEdit,
+  editHook,
+  editableFields = [],
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(1);
   const queryArgs = useMemo(() => ({ page, limit }), [page, limit]);
@@ -62,17 +77,44 @@ export function PaginatedTable<T>({
   const totalPages: number = data?.totalPages || 1;
 
   const [itemToDelete, setItemToDelete] = useState<T | null>(null);
+  const [itemToEdit, setItemToEdit] = useState<T | null>(null);
+  const [editFormData, setEditFormData] = useState<Record<string, any>>({});
+
   const [deleteFn, { isLoading: isDeleting }] = deleteHook?.() || [];
+  const [editFn, { isLoading: isEditing }] = editHook?.() || [];
 
   const handleDelete = async () => {
     if (!itemToDelete || !deleteFn) return;
     try {
-      await deleteFn((itemToDelete as any)._id as string).unwrap?.();
+      await deleteFn((itemToDelete as any)._id).unwrap?.();
       toast.success('Deleted successfully');
       setItemToDelete(null);
-    } catch (err) {
+    } catch {
       toast.error('Failed to delete');
     }
+  };
+
+  const handleEditSubmit = async () => {
+    if (!itemToEdit || !editFn) return;
+    try {
+      await editFn({
+        _id: (itemToEdit as any)._id,
+        ...editFormData,
+      }).unwrap?.();
+      toast.success('Updated successfully');
+      setItemToEdit(null);
+    } catch {
+      toast.error('Failed to update');
+    }
+  };
+
+  const openEditModal = (item: T) => {
+    setItemToEdit(item);
+    const initialValues: Record<string, any> = {};
+    editableFields.forEach((field) => {
+      initialValues[field.key as string] = (item as any)[field.key];
+    });
+    setEditFormData(initialValues);
   };
 
   return (
@@ -85,7 +127,7 @@ export function PaginatedTable<T>({
                 {columns.map((col, i) => (
                   <TableHead key={i}>{col.label}</TableHead>
                 ))}
-                {enableActions && (onEdit || deleteHook) && (
+                {enableActions && (editHook || deleteHook) && (
                   <TableHead>Actions</TableHead>
                 )}
               </TableRow>
@@ -128,15 +170,14 @@ export function PaginatedTable<T>({
                           : (row as any)[col.accessor]}
                       </TableCell>
                     ))}
-
-                    {enableActions && (onEdit || deleteHook) && (
+                    {enableActions && (editHook || deleteHook) && (
                       <TableCell>
                         <div className="flex gap-2">
-                          {onEdit && (
+                          {editHook && (
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => onEdit(row)}
+                              onClick={() => openEditModal(row)}
                             >
                               Edit
                             </Button>
@@ -186,8 +227,7 @@ export function PaginatedTable<T>({
         )}
       </div>
 
- {/*  Delete confirmation dialog */}
-
+      {/* Delete Modal */}
       {deleteHook && (
         <AlertDialog
           open={!!itemToDelete}
@@ -217,6 +257,57 @@ export function PaginatedTable<T>({
                 disabled={isDeleting}
               >
                 {isDeleting ? 'Deleting...' : 'Delete'}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+
+      {/* Edit Modal */}
+      {editHook && (
+        <AlertDialog
+          open={!!itemToEdit}
+          onOpenChange={() => setItemToEdit(null)}
+        >
+          <AlertDialogContent className="bg-black border border-border text-foreground shadow-xl sm:max-w-md rounded-lg space-y-4">
+            <AlertDialogHeader>
+              <AlertDialogTitle>Edit Item</AlertDialogTitle>
+              <AlertDialogDescription>
+                Update the fields and click save to apply changes.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            <div className="space-y-3">
+              {editableFields.map((field) => (
+                <div key={String(field.key)} className="space-y-1">
+                  <label className="text-sm font-medium">{field.label}</label>
+                  <Input
+                    type={field.type || 'text'}
+                    value={editFormData[field.key as string] || ''}
+                    onChange={(e) =>
+                      setEditFormData((prev) => ({
+                        ...prev,
+                        [field.key]: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                className="bg-muted hover:bg-muted/80"
+                disabled={isEditing}
+              >
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-primary text-white hover:bg-primary/90"
+                onClick={handleEditSubmit}
+                disabled={isEditing}
+              >
+                {isEditing ? 'Saving...' : 'Save'}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
