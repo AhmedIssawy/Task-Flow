@@ -12,7 +12,7 @@ export const studentApi = createApi({
     // Create
     createStudent: builder.mutation<Student, Partial<Student>>({
       query: (newStudentData) => ({
-        url: '/students',
+        url: 'admin/student',
         method: 'POST',
         body: newStudentData,
       }),
@@ -46,10 +46,10 @@ export const studentApi = createApi({
     }),
 
     // Update
-    updateStudent: builder.mutation<Student, Partial<Student> & { id: string }>({
-      query: ({ id, ...updates }) => ({
-        url: `/students/${id}`,
-        method: 'PUT',
+    updateStudent: builder.mutation<Student, Partial<Student> & { _id: string }>({
+      query: ({ _id, ...updates }) => ({
+        url: `admin/student/${_id}`,
+        method: 'PATCH',
         body: updates,
       }),
       invalidatesTags: ['Student'],
