@@ -40,10 +40,27 @@ const studentSchema = new mongoose.Schema(
       ref: "University",
       required: true,
     },
+    collegeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "College",
+      required: true,
+    },
+    departmentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
     courses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
+        course: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Course",
+          required: true,
+        },
+        section: {
+          type: String,
+          required: true,
+        },
       },
     ],
   },

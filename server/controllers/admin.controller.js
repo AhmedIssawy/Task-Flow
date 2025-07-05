@@ -6,7 +6,13 @@ import Admin from "../models/admin.model.js";
 const getAdminById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { id } = req.params;
-  const admin = await Admin.findOne({ id }).select("-password").lean();
+  const admin = await Admin.findOne({ id })
+    .select("-password")
+    .populate([
+      { path: "collegeId", select: "name _id id" },
+      { path: "universityId", select: "name _id id" },
+    ])
+    .lean();
 
   let message = "";
   if (!admin) {
@@ -43,7 +49,7 @@ const getPageOfAdmins = asyncHandler(async (req, res) => {
 });
 const createAdmin = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { password, name } = req.body;
+  const { password, name, universityId, collegeId } = req.body;
   if (!password) {
     let message = "Please provide a password";
     if (lang === "ar") message = "يرجى تقديم كلمة مرور";
@@ -58,6 +64,8 @@ const createAdmin = asyncHandler(async (req, res) => {
   const admin = await Admin.create({
     name,
     password: hashedPassword,
+    universityId,
+    collegeId,
     role: "admin",
   });
 
@@ -128,10 +136,4 @@ const deleteAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-export {
-  createAdmin,
-  updateAdmin,
-  deleteAdmin,
-  getAdminById,
-  getPageOfAdmins,
-};
+export { createAdmin, updateAdmin, deleteAdmin, getAdminById, getPageOfAdmins };

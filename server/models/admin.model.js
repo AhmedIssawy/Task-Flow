@@ -19,6 +19,16 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    universityId: {
+      type: String,
+      ref: "University",
+      required: true,
+    },
+    collegeId: {
+      type: String,
+      ref: "College",
+      required: true,
+    },
     role: {
       type: String,
       enum: ["super-admin", "admin"],

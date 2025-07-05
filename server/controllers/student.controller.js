@@ -12,7 +12,10 @@ const createStudent = asyncHandler(async (req, res) => {
     name,
     email,
     courses = [],
+    gender,
     universityId,
+    collegeId,
+    departmentId,
     password,
     gender,
   } = req.body;
@@ -29,14 +32,19 @@ const createStudent = asyncHandler(async (req, res) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const student = await Student.create({
+  const response = await Student.create({
     name,
     email,
     courses,
+    gender,
     universityId,
+    collegeId,
+    departmentId,
     password: hashedPassword,
     gender,
   });
+
+  const {password: _, ...student} = response.toObject();
 
   let message = "Student created successfully";
   if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
@@ -51,7 +59,7 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
   const { page = 1, limit = 40 } = req.query;
-  
+
   const students = await Student.find({ universityId })
     .select("-createdAt -updatedAt")
     .limit(limit)
@@ -72,7 +80,7 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
 const getAllStudentsOfUniversity = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { universityId } = req.params;
-  
+
   const students = await Student.find({ universityId })
     .select("-createdAt -updatedAt -courses")
     .sort({ _id: -1 })
@@ -132,7 +140,7 @@ const getStudentById = asyncHandler(async (req, res) => {
       select: "_id name",
     })
     .lean();
-    
+
   if (!student) {
     let message = "Student not found";
     if (lang === "ar") message = "الطالب غير موجود";
@@ -237,7 +245,7 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
   const student = await Student.findById(id)
     .populate({
       path: "courses",
-      populate: { path: "teachers", select: "-password" }, 
+      populate: { path: "teachers", select: "-password" },
     })
     .select("courses")
     .lean();
@@ -251,9 +259,7 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
     });
   }
 
-  const course = student.courses.find(
-    (c) => c._id.toString() === courseId
-  );
+  const course = student.courses.find((c) => c._id.toString() === courseId);
 
   if (!course) {
     let message = "Course not found";
