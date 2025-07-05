@@ -1,5 +1,6 @@
 'use client';
 
+import UserAuthGuard from '@/components/auth/UserAuthGuard';
 import { SideMenu } from '@/components/layout';
 import { Navbar } from '@/components/layout/Navbar';
 import { navItemsData } from '@/constants/sideMenuData';
@@ -10,12 +11,13 @@ interface UserLayoutProps {
 }
 
 export default function UserLayout({ children }: UserLayoutProps) {
-  const [, locale, role, id] = usePathname().split('/')
+  const [, locale, role, id] = usePathname().split('/');
   console.log('UserLayout role:', role, 'id:', id);
-  
+
   const getNavItems = navItemsData[role as keyof typeof navItemsData];
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+    <UserAuthGuard>
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
       {/* Fixed Navbar */}
       <Navbar />
 
@@ -29,5 +31,6 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </div>
       </div>
     </div>
+    </UserAuthGuard>
   );
 }

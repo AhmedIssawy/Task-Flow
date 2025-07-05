@@ -8,7 +8,8 @@ import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
 
 const login = asyncHandler(async (req, res) => {
-  let { id, password, lang = "en" } = req.body;
+  let { id, password } = req.body;
+  const lang = req.cookies?.lang || "en";
   let Model = null;
   if (id.startsWith("STU")) {
     Model = Student;
