@@ -20,6 +20,18 @@ const courseSchema = new mongoose.Schema(
         ref: "Teacher",
       },
     ],
+    students: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student",
+      },
+    ],
+    tasks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
+      },
+    ],
     id: {
       type: String,
       required: true,
