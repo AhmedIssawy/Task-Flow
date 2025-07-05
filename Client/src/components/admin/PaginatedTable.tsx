@@ -141,7 +141,7 @@ export function PaginatedTable<T>({
 
       {/* edit modal */}
       <FormModal
-        isOpen
+        isOpen={!!itemToEdit}
         onClose={closeFormModal}
         title="Edit Item"
         description="Update the fields and click save to apply changes."
