@@ -1,137 +1,167 @@
-'use client'
-import React from 'react'
-import Link from 'next/link'
-import {
-    Facebook,
-    Twitter,
-    Linkedin,
-    Instagram,
-    Github
-} from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useLanguage } from '@/hooks/useLanguage'
+"use client";
+import { useTranslations } from "next-intl";
+import { Github, Twitter, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
-    const t = useTranslations('landing.footer')
-    const { isRTL } = useLanguage()
+  const t = useTranslations("Footer");
+  const currentYear = new Date().getFullYear();
 
-    const footerLinks = {
-        product: [
-            { title: t('features'), href: '#features' },
-            { title: t('pricing'), href: '#pricing' },
-            { title: t('api'), href: '#api' },
-            { title: t('documentation'), href: '#docs' }
-        ],
-        company: [
-            { title: t('about'), href: '#about' },
-            { title: t('careers'), href: '#careers' },
-            { title: t('press'), href: '#press' },
-            { title: t('news'), href: '#news' }
-        ],
-        support: [
-            { title: t('helpCenter'), href: '#help' },
-            { title: t('community'), href: '#community' },
-            { title: t('contact'), href: '#contact' },
-            { title: t('status'), href: '#status' }
-        ],
-        legal: [
-            { title: t('privacy'), href: '#privacy' },
-            { title: t('terms'), href: '#terms' },
-            { title: t('cookies'), href: '#cookies' }
-        ]
-    }
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    const socialLinks = [
-        { icon: Facebook, href: '#', label: 'Facebook' },
-        { icon: Twitter, href: '#', label: 'Twitter' },
-        { icon: Linkedin, href: '#', label: 'LinkedIn' },
-        { icon: Instagram, href: '#', label: 'Instagram' },
-        { icon: Github, href: '#', label: 'GitHub' }
-    ]
-
-    return (
-        <footer className="bg-gradient-to-t from-primary/5 to-card border-t border-border/50">
-            <div className="container mx-auto px-4 lg:px-6">
-                {/* Main Footer Content */}
-                <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-                    {/* Brand Section */}
-                    <div className="lg:col-span-2 space-y-4">
-                        <Link href="/" className="inline-flex items-center space-x-3 group">
-                            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center shadow-lg">
-                                <span className="text-primary-foreground font-bold">TF</span>
-                            </div>
-                            <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">TaskFlow</span>
-                        </Link>
-                        <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-                            {t('description')}
-                        </p>
-                    </div>
-
-                    {/* Quick Links */}
-                    <div className="space-y-3">
-                        <h4 className="font-semibold text-sm text-foreground">{t('product') || 'Product'}</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            {footerLinks.product.map((link, index) => (
-                                <li key={index}>
-                                    <Link href={link.href} className="hover:text-primary transition-colors">
-                                        {link.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="space-y-3">
-                        <h4 className="font-semibold text-sm text-foreground">{t('company') || 'Company'}</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            {footerLinks.company.map((link, index) => (
-                                <li key={index}>
-                                    <Link href={link.href} className="hover:text-primary transition-colors">
-                                        {link.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="space-y-3">
-                        <h4 className="font-semibold text-sm text-foreground">{t('support') || 'Support'}</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            {footerLinks.support.map((link, index) => (
-                                <li key={index}>
-                                    <Link href={link.href} className="hover:text-primary transition-colors">
-                                        {link.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="py-6 border-t border-border">
-                    <div className={`flex flex-col md:flex-row justify-between items-center gap-4 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
-                        <p className="text-sm text-muted-foreground">
-                            {t('copyright')}
-                        </p>
-
-                        {/* Social Links */}
-                        <div className="flex items-center gap-3">
-                            {socialLinks.map((social, index) => (
-                                <Link
-                                    key={index}
-                                    href={social.href}
-                                    className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
-                                >
-                                    <social.icon className="w-4 h-4" />
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                </div>
+  return (
+    <footer className="border-t border-border/50 bg-background/95 backdrop-blur-sm relative">
+      <div className="container py-16 px-4 md:px-8">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand Section */}
+          <div className="lg:col-span-1">
+            <a href="#" className="text-2xl font-bold font-serif text-foreground hover:text-primary transition-colors">
+              TaskFlow
+            </a>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              The ultimate task management platform for teams. Streamline your workflow and achieve your goals faster.
+            </p>
+            
+            {/* Social Links */}
+            <div className="mt-6 flex items-center gap-4">
+              <a href="#" className="w-10 h-10 bg-muted/50 hover:bg-primary/10 rounded-lg flex items-center justify-center transition-all duration-200 group">
+                <Twitter className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-muted/50 hover:bg-primary/10 rounded-lg flex items-center justify-center transition-all duration-200 group">
+                <Github className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-muted/50 hover:bg-primary/10 rounded-lg flex items-center justify-center transition-all duration-200 group">
+                <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-muted/50 hover:bg-primary/10 rounded-lg flex items-center justify-center transition-all duration-200 group">
+                <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+              </a>
             </div>
-        </footer>
-    )
-}
+          </div>
 
-export default Footer
+          {/* Product Links */}
+          <div>
+            <h4 className="font-semibold text-foreground mb-6">{t("product")}</h4>
+            <nav className="grid gap-3">
+              <a href="#features" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Features
+              </a>
+              <a href="#benefits" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Benefits
+              </a>
+              <a href="#our-work" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Our Work
+              </a>
+              <a href="#testimonials" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Testimonials
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Pricing
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                API
+              </a>
+            </nav>
+          </div>
+
+          {/* Company Links */}
+          <div>
+            <h4 className="font-semibold text-foreground mb-6">{t("company")}</h4>
+            <nav className="grid gap-3">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("aboutUs")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("careers")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("press")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("blog")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Contact
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Help Center
+              </a>
+            </nav>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h4 className="font-semibold text-foreground mb-6">{t("legal")}</h4>
+            <nav className="grid gap-3">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("termsOfService")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("privacyPolicy")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                {t("cookiePolicy")}
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                Security
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
+                GDPR
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        {/* Newsletter Section */}
+        <div className="mt-16 p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl">
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-xl font-semibold text-foreground mb-2">
+              Stay Updated
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              Get the latest updates, tips, and insights delivered to your inbox.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200"
+              />
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-medium transition-all duration-200">
+                Subscribe
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
+            {t("copyright", { year: currentYear })}
+          </p>
+          
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span>🌍 English</span>
+              <span>•</span>
+              <span>🌙 Dark Mode</span>
+            </div>
+            
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollToTop}
+              className="w-10 h-10 p-0 rounded-lg border-border hover:bg-accent transition-all duration-200"
+            >
+              <ArrowUp className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

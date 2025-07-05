@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { Bell, Menu, LogOut, User, GraduationCap } from 'lucide-react'
-import { studentNavItems } from '@/constants/sideMenuData'
+// import { studentNavItems } from '@/constants/sideMenuData'
 import { SideNavContent } from './SideMenu'
 import { useParams } from 'next/navigation'
 
@@ -35,7 +35,7 @@ export function Navbar() {
             <SheetContent side="left" className="w-64 p-0">
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <SheetDescription className="sr-only">Student navigation menu</SheetDescription>
-              <SideNavContent navItems={studentNavItems(id as string)} onItemClick={() => setMobileMenuOpen(false)} />
+              {/* <SideNavContent navItems={studentNavItems(id as string)} onItemClick={() => setMobileMenuOpen(false)} /> */}
             </SheetContent>
           </Sheet>
 

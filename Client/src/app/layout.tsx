@@ -1,8 +1,28 @@
 import type { Metadata } from "next";
+import { Inter, Epilogue, Monsieur_La_Doulaise } from "next/font/google";
 import "./globals.css";
 
 import ReduxProvider from "../providers/ReduxProvider";
 import { ThemeProvider } from "next-themes";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-secondary",
+});
+
+const epilogue = Epilogue({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-primary",
+});
+
+const monsieur = Monsieur_La_Doulaise({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-signiture",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,23 +35,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="antialiased font-inter">
+    <html
+      lang="en"
+      className={`${inter.variable} ${epilogue.variable} ${monsieur.variable}`}
+      suppressHydrationWarning
+    >
+      <head />
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <ReduxProvider>
-            {children}
-          </ReduxProvider>
+          <ReduxProvider>{children}</ReduxProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
+

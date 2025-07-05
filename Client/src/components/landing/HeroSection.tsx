@@ -1,166 +1,151 @@
 'use client'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, ArrowLeft } from 'lucide-react'
-import { useTranslations, useLocale } from 'next-intl'
-import { motion } from 'framer-motion'
+import { useTranslations } from "next-intl";
+import { Users, Smartphone, BarChart3, CheckCircle, Clock, TrendingUp, ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
-    const t = useTranslations('landing.hero')
-    const locale = useLocale()
-    const Arrow = locale === 'ar' ? ArrowLeft : ArrowRight
-
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delayChildren: 0.3,
-                staggerChildren: 0.2
-            }
-        }
-    }
-
-    const itemVariants = {
-        hidden: { y: 50, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: "spring" as const,
-                damping: 12,
-                stiffness: 100
-            }
-        }
-    }
-
-    const floatingAnimation = {
-        y: [-20, 20, -20],
-        x: [-10, 10, -10],
-        transition: {
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut" as const
-        }
-    }
-
-    return (
-        <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-primary/10 text-foreground overflow-hidden">
+    const t = useTranslations("HeroSection"); return (
+        <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-8 py-20 bg-gradient-to-br from-background via-background to-accent/20 overflow-hidden">
             {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-primary-light/5"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(59,130,246,0.15),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(147,197,253,0.12),transparent_50%)]"></div>
+            <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-            {/* Animated Floating Elements */}
-            <motion.div
-                className="absolute top-20 left-10 w-32 h-32 bg-primary/15 rounded-full blur-3xl"
-                animate={floatingAnimation}
-            />
-            <motion.div
-                className="absolute bottom-20 right-10 w-40 h-40 bg-primary-light/15 rounded-full blur-3xl"
-                animate={{
-                    ...floatingAnimation,
-                    transition: { ...floatingAnimation.transition, delay: 1 }
-                }}
-            />
-            <motion.div
-                className="absolute top-1/2 left-1/4 w-24 h-24 bg-primary-dark/10 rounded-full blur-2xl"
-                animate={{
-                    ...floatingAnimation,
-                    transition: { ...floatingAnimation.transition, delay: 2 }
-                }}
-            />
+            {/* Floating geometric shapes */}
+            <div className="absolute top-1/4 right-1/4 w-6 h-6 bg-primary/30 rounded-full animate-float"></div>
+            <div className="absolute bottom-1/3 left-1/3 w-4 h-4 bg-secondary/30 rounded-full animate-float-reverse"></div>
+            <div className="absolute top-2/3 right-1/3 w-5 h-5 bg-accent/30 rounded-full animate-float-delayed"></div>
 
-            <div className="container mx-auto px-4 lg:px-6 relative z-10">
-                <motion.div
-                    className="text-center"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {/* Badge */}
-                    <motion.div
-                        className="inline-flex items-center px-6 py-3 rounded-full bg-primary/15 text-primary text-sm font-medium border border-primary/30 backdrop-blur-sm mb-8 shadow-lg ring-1 ring-primary/20"
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Sparkles className="w-4 h-4 animate-pulse me-2" />
-                        {t('badge') || 'New Experience'}
-                    </motion.div>
-
-                    {/* Main Headlines */}
-                    <div className="space-y-6 max-w-5xl mx-auto flex flex-col items-center justify-center text-center">
-                        <motion.h1
-                            className="text-5xl md:text-7xl font-bold tracking-tight leading-tight font-heading"
-                            variants={itemVariants}
-                        >
-                            <span className="bg-gradient-to-r from-primary via-primary-dark to-primary bg-clip-text text-transparent">
-                                {t('title')}
-                            </span>
-                        </motion.h1>
-                        <motion.p
-                            className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-body max-w-3xl"
-                            variants={itemVariants}
-                        >
-                            {t('subtitle')}
-                        </motion.p>
-                        <motion.p
-                            className="text-base md:text-lg text-muted-foreground/80 leading-relaxed max-w-2xl"
-                            variants={itemVariants}
-                        >
-                            {t('description')}
-                        </motion.p>
-                    </div>
+            <div className="container mx-auto text-center relative z-10 max-w-7xl">
+                {/* Hero Content */}
+                <div className="animate-fade-in-up max-w-5xl mx-auto">
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight font-serif text-foreground mb-6 leading-tight">
+                        <span className="text-gradient">{t("title")}</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+                        {t("subtitle")}
+                    </p>
 
                     {/* CTA Buttons */}
-                    <motion.div
-                        className="flex flex-col sm:flex-row gap-4 pt-10 justify-center rtl:sm:flex-row-reverse"
-                        variants={itemVariants}
-                    >
-                        <Link href="/auth/login">
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Button
-                                    size="lg"
-                                    className="w-full sm:w-auto group bg-primary text-primary-foreground hover:bg-primary-dark shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-medium"
-                                >
-                                    {t('getStarted')}
-                                    <Arrow className="ms-2 h-5 w-5 transition-transform group-hover:translate-x-1 rtl:-translate-x-1" />
-                                </Button>
-                            </motion.div>
-                        </Link>
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 mb-20">
+                        <button
+                            className="btn-primary-enhanced bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group flex items-center justify-center gap-2"
                         >
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-8 py-4 text-lg"
-                            >
-                                {t('learnMore')}
-                            </Button>
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-            >
-                <div className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center items-center hover:border-primary transition-all duration-300 cursor-pointer">
-                    <div className="w-1 h-3 bg-muted-foreground/50 rounded-full animate-pulse"></div>
+                            {t("getStarted")}
+                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                        <button
+                            className="interactive-element border border-border hover:bg-accent text-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 group flex items-center justify-center gap-2"
+                        >
+                            <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                            {t("learnMore")}
+                        </button>
+                    </div>
                 </div>
-            </motion.div>
-        </section>
-    )
-}
 
-export default HeroSection
+                {/* Floating Cards Grid */}
+                <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+                    {/* Team Collaboration Card */}
+                    <div className="relative transform -translate-y-5 glass-effect rounded-2xl p-6 shadow-2xl animate-float card-hover-effect group">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                                <Users className="w-6 h-6 text-primary" />
+                            </div>
+                            <h3 className="font-semibold text-foreground">Team Collaboration</h3>
+                        </div>
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                                    <span className="text-xs font-medium text-muted-foreground">SJ</span>
+                                </div>
+                                <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                                    <div className="h-full w-3/4 bg-primary rounded-full animate-pulse"></div>
+                                </div>
+                                <span className="text-xs text-muted-foreground">75%</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                                    <span className="text-xs font-medium text-muted-foreground">MC</span>
+                                </div>
+                                <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                                    <div className="h-full w-1/2 bg-green-500 rounded-full animate-pulse delay-300"></div>
+                                </div>
+                                <span className="text-xs text-muted-foreground">50%</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                                    <span className="text-xs font-medium text-muted-foreground">ED</span>
+                                </div>
+                                <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                                    <div className="h-full w-5/6 bg-orange-500 rounded-full animate-pulse delay-500"></div>
+                                </div>
+                                <span className="text-xs text-muted-foreground">83%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Mobile Ready Card */}
+                    <div className="relative transform translate-y-5 glass-effect rounded-2xl p-6 shadow-2xl animate-float-reverse card-hover-effect group">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                                <Smartphone className="w-6 h-6 text-green-600" />
+                            </div>
+                            <h3 className="font-semibold text-foreground">Mobile Ready</h3>
+                        </div>
+                        <div className="space-y-3">
+                            <div className="flex items-center justify-between p-2 bg-muted/50 rounded-lg">
+                                <span className="text-sm text-muted-foreground">Tasks Today</span>
+                                <span className="text-sm font-medium text-foreground">8/12</span>
+                            </div>
+                            <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-foreground">Design Review</span>
+                            </div>
+                            <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                                <Clock className="w-4 h-4 text-orange-500" />
+                                <span className="text-sm text-foreground">Client Meeting</span>
+                            </div>
+                            <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span className="text-sm text-foreground">Code Deploy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Analytics Card */}
+                    <div className="relative transform -translate-y-2 glass-effect rounded-2xl p-6 shadow-2xl animate-float-delayed card-hover-effect group md:col-span-2 lg:col-span-1">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                                <BarChart3 className="w-6 h-6 text-purple-600" />
+                            </div>
+                            <h3 className="font-semibold text-foreground">Analytics</h3>
+                        </div>
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-sm text-muted-foreground">Productivity</span>
+                                <div className="flex items-center gap-1">
+                                    <TrendingUp className="w-3 h-3 text-green-500" />
+                                    <span className="text-sm font-medium text-green-600">+12%</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-7 gap-1 h-16">
+                                {[40, 65, 45, 80, 55, 70, 85].map((height, index) => (
+                                    <div
+                                        key={index}
+                                        className="bg-primary rounded-sm hover:bg-primary/80 transition-colors cursor-pointer interactive-element"
+                                        style={{ height: `${height}%` }}
+                                        title={`Day ${index + 1}: ${height}%`}
+                                    ></div>
+                                ))}
+                            </div>
+                            <div className="text-xs text-muted-foreground text-center">Last 7 days</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    );
+};
+
+export default HeroSection;
