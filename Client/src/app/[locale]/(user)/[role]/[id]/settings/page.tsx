@@ -6,56 +6,55 @@ import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
-import { useAppSelector } from '@/store/hooks';
 import { 
   Settings, 
   Palette, 
   Globe, 
   Bell, 
-  User, 
   Shield, 
   Monitor,
-  Smartphone,
-  Volume2,
-  Mail,
-  MessageSquare,
-  Calendar,
-  Clock
+  User,
+  GraduationCap,
+  BookOpen,
+  Users
 } from 'lucide-react';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
-export default function SettingsPage() {
-  const { role } = useAppSelector((state) => state.auth);
+export default function UniversalSettingsPage() {
+  const pathname = usePathname();
+  const pathSegments = pathname.split('/');
+  const role = pathSegments[2]; // Extract role from path
+  const id = pathSegments[3]; // Extract id from path
+
   const [notifications, setNotifications] = useState({
     email: true,
     push: false,
     sms: false,
-    assignments: true,
-    grades: true,
-    announcements: true,
-    reminders: false
   });
 
-  // Role-specific settings (for future scalability)
-  const getRoleSpecificSettings = () => {
-    switch (role?.toLowerCase()) {
+  // Role-specific settings configuration
+  const getRoleSettings = (userRole: string) => {
+    switch (userRole) {
       case 'student':
         return {
           title: 'Student Settings',
           description: 'Customize your learning experience',
-          icon: User,
+          icon: GraduationCap,
           color: 'text-blue-600 dark:text-blue-400',
           bgColor: 'bg-blue-500/10',
-          borderColor: 'border-blue-500/20'
+          borderColor: 'border-blue-500/20',
+          badge: 'STUDENT'
         };
       case 'teacher':
         return {
           title: 'Teacher Settings',
-          description: 'Manage your teaching preferences',
-          icon: Shield,
+          description: 'Configure your teaching preferences',
+          icon: BookOpen,
           color: 'text-green-600 dark:text-green-400',
           bgColor: 'bg-green-500/10',
-          borderColor: 'border-green-500/20'
+          borderColor: 'border-green-500/20',
+          badge: 'TEACHER'
         };
       case 'admin':
         return {
@@ -64,30 +63,33 @@ export default function SettingsPage() {
           icon: Shield,
           color: 'text-purple-600 dark:text-purple-400',
           bgColor: 'bg-purple-500/10',
-          borderColor: 'border-purple-500/20'
+          borderColor: 'border-purple-500/20',
+          badge: 'ADMIN'
         };
-      case 'super_admin':
+      case 'superadmin':
         return {
           title: 'Super Admin Settings',
-          description: 'System-wide configuration options',
-          icon: Shield,
+          description: 'Manage system-wide configurations',
+          icon: Users,
           color: 'text-red-600 dark:text-red-400',
           bgColor: 'bg-red-500/10',
-          borderColor: 'border-red-500/20'
+          borderColor: 'border-red-500/20',
+          badge: 'SUPER ADMIN'
         };
       default:
         return {
           title: 'Settings',
-          description: 'Customize your experience',
-          icon: Settings,
-          color: 'text-primary',
-          bgColor: 'bg-primary/10',
-          borderColor: 'border-primary/20'
+          description: 'Configure your preferences',
+          icon: User,
+          color: 'text-gray-600 dark:text-gray-400',
+          bgColor: 'bg-gray-500/10',
+          borderColor: 'border-gray-500/20',
+          badge: 'USER'
         };
     }
   };
 
-  const roleSettings = getRoleSpecificSettings();
+  const roleSettings = getRoleSettings(role);
   const RoleIcon = roleSettings.icon;
 
   return (
@@ -116,7 +118,7 @@ export default function SettingsPage() {
             </div>
             <div className="ml-auto">
               <Badge variant="outline" className={`${roleSettings.bgColor} ${roleSettings.color} ${roleSettings.borderColor} rounded-xl px-3 py-1`}>
-                {role?.toUpperCase()}
+                {roleSettings.badge}
               </Badge>
             </div>
           </div>
@@ -159,29 +161,6 @@ export default function SettingsPage() {
                 </div>
                 <LanguageSwitcher />
               </div>
-
-              {/* Display Settings */}
-              <div className="group relative p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-500/10 transition-all duration-300 border border-transparent hover:border-purple-500/20">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-300">
-                    <Smartphone className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground">Display</h3>
-                    <p className="text-sm text-muted-foreground">Customize your display preferences</p>
-                  </div>
-                </div>
-                <div className="space-y-3 ml-9">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-foreground">Compact mode</span>
-                    <Switch disabled />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-foreground">High contrast</span>
-                    <Switch disabled />
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
 
@@ -198,7 +177,7 @@ export default function SettingsPage() {
               <div className="group relative flex items-center justify-between p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-orange-500/10 transition-all duration-300 border border-transparent hover:border-amber-500/20">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-xl bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors duration-300">
-                    <Mail className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                    <Bell className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground">Email Notifications</h3>
@@ -208,6 +187,7 @@ export default function SettingsPage() {
                 <Switch 
                   checked={notifications.email}
                   onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, email: checked }))}
+                  disabled
                 />
               </div>
 
@@ -215,7 +195,7 @@ export default function SettingsPage() {
               <div className="group relative flex items-center justify-between p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 transition-all duration-300 border border-transparent hover:border-blue-500/20">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors duration-300">
-                    <MessageSquare className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <Bell className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground">Push Notifications</h3>
@@ -225,67 +205,26 @@ export default function SettingsPage() {
                 <Switch 
                   checked={notifications.push}
                   onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, push: checked }))}
+                  disabled
                 />
               </div>
 
-              {/* Role-specific notifications */}
-              {role?.toLowerCase() === 'student' && (
-                <>
-                  <div className="group relative flex items-center justify-between p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-emerald-500/10 transition-all duration-300 border border-transparent hover:border-green-500/20">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-green-500/10 group-hover:bg-green-500/20 transition-colors duration-300">
-                        <Calendar className="w-4 h-4 text-green-600 dark:text-green-400" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">Assignment Reminders</h3>
-                        <p className="text-sm text-muted-foreground">Get notified about due assignments</p>
-                      </div>
-                    </div>
-                    <Switch 
-                      checked={notifications.assignments}
-                      onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, assignments: checked }))}
-                    />
-                  </div>
-
-                  <div className="group relative flex items-center justify-between p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-500/10 transition-all duration-300 border border-transparent hover:border-purple-500/20">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-300">
-                        <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-foreground">Grade Updates</h3>
-                        <p className="text-sm text-muted-foreground">Be notified when grades are posted</p>
-                      </div>
-                    </div>
-                    <Switch 
-                      checked={notifications.grades}
-                      onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, grades: checked }))}
-                    />
-                  </div>
-                </>
-              )}
-
-              {/* Sound Settings */}
-              <div className="group relative p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-red-500/10 hover:to-pink-500/10 transition-all duration-300 border border-transparent hover:border-red-500/20">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 rounded-xl bg-red-500/10 group-hover:bg-red-500/20 transition-colors duration-300">
-                    <Volume2 className="w-4 h-4 text-red-600 dark:text-red-400" />
+              {/* SMS Notifications */}
+              <div className="group relative flex items-center justify-between p-4 rounded-2xl bg-muted/30 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-indigo-500/10 transition-all duration-300 border border-transparent hover:border-purple-500/20">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-300">
+                    <Bell className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-foreground">Sound Settings</h3>
-                    <p className="text-sm text-muted-foreground">Configure notification sounds</p>
+                    <h3 className="font-medium text-foreground">SMS Notifications</h3>
+                    <p className="text-sm text-muted-foreground">Receive text message alerts</p>
                   </div>
                 </div>
-                <div className="space-y-3 ml-9">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-foreground">Notification sounds</span>
-                    <Switch disabled />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-foreground">Keyboard sounds</span>
-                    <Switch disabled />
-                  </div>
-                </div>
+                <Switch 
+                  checked={notifications.sms}
+                  onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, sms: checked }))}
+                  disabled
+                />
               </div>
             </CardContent>
           </Card>
@@ -296,10 +235,6 @@ export default function SettingsPage() {
           <Button className="group bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg rounded-xl transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] px-8 py-3">
             <Settings className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
             Save Settings
-          </Button>
-          
-          <Button variant="outline" className="group border-border/50 hover:bg-muted/50 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] px-8 py-3">
-            Reset to Default
           </Button>
         </div>
 
