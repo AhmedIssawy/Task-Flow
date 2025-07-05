@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { Bell, Menu, LogOut, User, GraduationCap } from 'lucide-react'
+import LogoutButton from '../auth/LogoutBtn'
 // import { studentNavItems } from '@/constants/sideMenuData'
 import { SideNavContent } from './SideMenu'
 import { useParams } from 'next/navigation'
@@ -95,8 +96,7 @@ export function Navbar() {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="hover:bg-red-50 dark:hover:bg-red-950 text-red-600 dark:text-red-400">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
+                <LogoutButton />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
