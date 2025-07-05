@@ -1,153 +1,201 @@
-'use client'
-import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Star, Quote } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useLanguage } from '@/hooks/useLanguage'
+'use client';
+import { useTranslations } from "next-intl";
+import { Card, CardContent } from "@/components/ui/card";
+import { Star, Quote, ArrowLeft, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const Testimonials = () => {
-    const t = useTranslations('landing.testimonials')
-    const tExtended = useTranslations('landing.extendedTestimonials')
-    const tStats = useTranslations('landing.stats')
-    const { isRTL } = useLanguage()
+    const t = useTranslations("Header");
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     const testimonials = [
         {
-            id: 1,
-            content: t('testimonial1.text'),
-            author: t('testimonial1.author'),
-            role: t('testimonial1.role'),
-            company: "TechCorp Solutions",
-            avatar: "/avatars/sarah.jpg",
+            name: "Sarah Johnson",
+            role: "Project Manager",
+            company: "TechCorp Inc.",
+            avatar: "SJ",
             rating: 5,
-            featured: true
+            content: "TaskFlow has revolutionized how our team collaborates. The real-time updates and intuitive interface make project management effortless. We've seen a 40% increase in productivity since switching.",
+            gradient: "from-blue-500 to-purple-600"
         },
         {
-            id: 2,
-            content: t('testimonial2.text'),
-            author: t('testimonial2.author'),
-            role: t('testimonial2.role'),
-            company: "InnovateLab",
-            avatar: "/avatars/michael.jpg",
-            rating: 5,
-            featured: true
-        },
-        {
-            id: 3,
-            content: t('testimonial3.text'),
-            author: t('testimonial3.author'),
-            role: t('testimonial3.role'),
-            company: "GlobalTech Inc",
-            avatar: "/avatars/emily.jpg",
-            rating: 5,
-            featured: true
-        },
-        {
-            id: 4,
-            content: tExtended('testimonial4.text'),
-            author: tExtended('testimonial4.author'),
-            role: tExtended('testimonial4.role'),
-            company: "Creative Studios",
-            avatar: "/avatars/david.jpg",
-            rating: 5,
-            featured: false
-        },
-        {
-            id: 5,
-            content: tExtended('testimonial5.text'),
-            author: tExtended('testimonial5.author'),
-            role: tExtended('testimonial5.role'),
+            name: "Michael Chen",
+            role: "Senior Developer",
             company: "StartupXYZ",
-            avatar: "/avatars/lisa.jpg",
+            avatar: "MC",
             rating: 5,
-            featured: false
+            content: "The customizable workflows and seamless integrations have streamlined our development process. TaskFlow's analytics help us identify bottlenecks before they become problems.",
+            gradient: "from-green-500 to-teal-600"
         },
         {
-            id: 6,
-            content: tExtended('testimonial6.text'),
-            author: tExtended('testimonial6.author'),
-            role: tExtended('testimonial6.role'),
-            company: "DevTech Pro",
-            avatar: "/avatars/james.jpg",
+            name: "Emily Rodriguez",
+            role: "Marketing Director",
+            company: "Growth Agency",
+            avatar: "ER",
             rating: 5,
-            featured: false
+            content: "Outstanding platform! The team management features and mobile optimization allow us to stay productive whether we're in the office or working remotely. Highly recommend!",
+            gradient: "from-purple-500 to-pink-600"
+        },
+        {
+            name: "David Kim",
+            role: "Operations Manager",
+            company: "Enterprise Solutions",
+            avatar: "DK",
+            rating: 5,
+            content: "TaskFlow's enterprise security and 24/7 support give us peace of mind. The platform scales beautifully with our growing team and complex project requirements.",
+            gradient: "from-orange-500 to-red-600"
         }
-    ]
+    ];
 
-    const stats = [
-        { value: "10,000+", label: tStats('happyCustomers') },
-        { value: "99.9%", label: tStats('uptimeGuarantee') },
-        { value: "4.9/5", label: tStats('customerRating') },
-        { value: "50+", label: tStats('countriesServed') }
-    ]
+    const nextTestimonial = () => {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    };
+
+    const prevTestimonial = () => {
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    };
 
     return (
-        <section id="testimonials" className="py-20 bg-gradient-to-b from-background via-primary/5 to-background text-foreground relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_70%)]"></div>
+        <section id="testimonials" className="py-24 bg-gradient-to-br from-background via-accent/5 to-background relative overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-            <div className="container mx-auto px-4 lg:px-6 relative z-10">
-                {/* Section Header */}
-                <div className={`text-center space-y-6 mb-16 ${isRTL ? 'text-right' : 'text-left'} md:text-center`}>
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/15 text-primary text-sm font-medium border border-primary/30 backdrop-blur-sm">
-                        <Star className="w-4 h-4 mr-2 fill-current" />
-                        {t('badge') || 'Customer Love'}
+            <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-7xl">
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+                        <Quote className="w-4 h-4" />
+                        {t("testimonials")}
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight font-heading">
-                        {t('title')}
-                        <span className="block text-primary mt-2 font-display">{t('subtitle')}</span>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-serif text-foreground mb-6">
+                        What Our Customers Say
                     </h2>
-                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-body">
-                        {t('description') || 'See what our customers have to say about their experience with TaskFlow.'}
+                    <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                        Join thousands of satisfied customers who have transformed their productivity with TaskFlow
                     </p>
                 </div>
 
-                {/* Stats Section */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-                    {stats.map((stat) => (
-                        <div key={stat.label} className="text-center p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 group">
-                            <div className="text-3xl md:text-4xl font-bold text-primary group-hover:scale-105 transition-transform duration-300 mb-2">
-                                {stat.value}
-                            </div>
-                            <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
-                                {stat.label}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Testimonials Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial) => (
-                        <div key={testimonial.id} className="group relative p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1">
-                            {/* Background gradient on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
-
-                            <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/20 group-hover:text-primary/30 transition-colors duration-300" />
-                            <div className="flex items-center mb-4 relative z-10">
-                                <Avatar className="w-12 h-12 mr-4 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
-                                    <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                                    <AvatarFallback className="bg-primary/10 text-primary">{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <h4 className="font-bold text-foreground group-hover:text-primary transition-colors duration-300">{testimonial.author}</h4>
-                                    <p className="text-sm text-muted-foreground">{testimonial.role} at {testimonial.company}</p>
+                {/* Main Testimonial Display */}
+                <div className="max-w-4xl mx-auto mb-16">
+                    <Card className="bg-card/80 backdrop-blur-sm border border-border/50 shadow-2xl overflow-hidden">
+                        <CardContent className="p-0">
+                            <div className={`bg-gradient-to-r ${testimonials[currentIndex].gradient} p-8 text-white relative`}>
+                                <div className="absolute top-4 right-4 opacity-20">
+                                    <Quote className="w-16 h-16" />
+                                </div>
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-2 mb-6">
+                                        {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                                            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                        ))}
+                                    </div>
+                                    <blockquote className="text-lg md:text-xl leading-relaxed mb-6 font-medium">
+                                        &ldquo;{testimonials[currentIndex].content}&rdquo;
+                                    </blockquote>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-semibold">
+                                                {testimonials[currentIndex].avatar}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <div className="font-semibold text-white">
+                                                {testimonials[currentIndex].name}
+                                            </div>
+                                            <div className="text-white/80 text-sm">
+                                                {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex mb-4 relative z-10">
-                                {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star key={i} className="w-5 h-5 text-primary fill-current" />
-                                ))}
-                            </div>
-                            <blockquote className="text-muted-foreground italic relative z-10">
-                                {`"${testimonial.content}"`}
-                            </blockquote>
+                        </CardContent>
+                    </Card>
+
+                    {/* Navigation */}
+                    <div className="flex justify-center items-center gap-4 mt-8">
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={prevTestimonial}
+                            className="w-12 h-12 rounded-full border-border hover:bg-accent transition-all duration-200"
+                        >
+                            <ArrowLeft className="w-4 h-4" />
+                        </Button>
+
+                        <div className="flex gap-2">
+                            {testimonials.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentIndex(index)}
+                                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                                            ? 'bg-primary scale-125'
+                                            : 'bg-muted hover:bg-primary/50'
+                                        }`}
+                                />
+                            ))}
                         </div>
-                    ))}
+
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={nextTestimonial}
+                            className="w-12 h-12 rounded-full border-border hover:bg-accent transition-all duration-200"
+                        >
+                            <ArrowRight className="w-4 h-4" />
+                        </Button>
+                    </div>
+                </div>
+
+                {/* Customer Logos */}
+                <div className="text-center max-w-5xl mx-auto">
+                    <p className="text-muted-foreground mb-8 font-medium">
+                        Trusted by 500+ companies worldwide
+                    </p>
+                    <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+                        {[...Array(8)].map((_, index) => (
+                            <div
+                                key={index}
+                                className="w-20 h-12 bg-muted/50 rounded-lg flex items-center justify-center hover:bg-muted/70 transition-all duration-300 hover:scale-105"
+                            >
+                                <div className="w-16 h-6 bg-muted rounded"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="mt-16 text-center max-w-4xl mx-auto">
+                    <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 md:p-12 shadow-xl">
+                        <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                            Ready to Transform Your Workflow?
+                        </h3>
+                        <p className="text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
+                            Join thousands of teams who have already discovered the power of TaskFlow.
+                            Start your free trial today and experience the difference.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button
+                                size="lg"
+                                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                            >
+                                Start Free Trial
+                            </Button>
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                className="border-border hover:bg-accent text-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+                            >
+                                Schedule Demo
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Testimonials
+export default Testimonials;

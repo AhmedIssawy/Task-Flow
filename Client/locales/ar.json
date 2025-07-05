@@ -1,248 +1,171 @@
 {
-    "landing": {
-        "taskFlow": "تاسك فلو",
-        "hero": {
-            "badge": "✨ تجربة جديدة",
-            "title": "مرحباً بك في تاسك فلو",
-            "subtitle": "تبسيط سير العمل وزيادة الإنتاجية",
-            "description": "منصة إدارة المهام المطلقة المصممة لمساعدة الفرق على التعاون بكفاءة وتحقيق أهدافهم بشكل أسرع.",
-            "getStarted": "ابدأ الآن",
-            "learnMore": "شاهد العرض التوضيحي"
-        },
-        "featureHighlights": {
-            "realtimeUpdates": "التعاون في الوقت الفعلي",
-            "aiInsights": "رؤى مدعومة بالذكاء الاصطناعي",
-            "analytics": "تحليلات متقدمة",
-            "integration": "تكامل سلس",
-            "activeUsers": "المستخدمون النشطون",
-            "uptime": "وقت التشغيل",
-            "integrations": "التكاملات",
-            "predictiveAnalytics": "التحليلات التنبؤية",
-            "autoAssignment": "التعيين التلقائي",
-            "smartSuggestions": "اقتراحات ذكية",
-            "liveUpdates": "التحديثات المباشرة",
-            "sharedWorkspaces": "مساحات العمل المشتركة",
-            "teamChat": "محادثة الفريق",
-            "customReports": "تقارير مخصصة",
-            "performanceMetrics": "مقاييس الأداء",
-            "trendAnalysis": "تحليل الاتجاهات",
-            "subSecondLoading": "تحميل فوري",
-            "globalCDN": "شبكة توصيل عالمية",
-            "offlineSupport": "دعم العمل بدون اتصال",
-            "endToEndEncryption": "تشفير شامل",
-            "gdprCompliant": "متوافق مع قانون حماية البيانات",
-            "ssoIntegration": "تكامل تسجيل الدخول الموحد",
-            "apiAccess": "وصول إلى واجهة برمجة التطبيقات",
-            "hundredPlusIntegrations": "أكثر من 100 تكامل",
-            "customWebhooks": "روابط ويب مخصصة",
-            "productivity": "زيادة الإنتاجية",
-            "timeSaved": "الوقت المحفوظ أسبوعياً",
-            "costReduction": "تقليل التكاليف",
-            "sharedWorkspaces2": "مساحات العمل المشتركة",
-            "teamChatIntegration": "تكامل محادثة الفريق",
-            "goalTracking": "تتبع الأهداف",
-            "progressMonitoring": "مراقبة التقدم",
-            "achievementAnalytics": "تحليلات الإنجاز",
-            "automatedWorkflows": "سير عمل تلقائي",
-            "priorityManagement": "إدارة الأولويات",
-            "deadlineTracking": "تتبع المواعيد النهائية"
-        },
-        "header": {
-            "home": "الرئيسية",
-            "features": "المميزات",
-            "benefits": "المزايا",
-            "testimonials": "آراء العملاء",
-            "pricing": "الأسعار",
-            "about": "عن الشركة",
-            "contact": "اتصل بنا",
-            "login": "تسجيل الدخول",
-            "signup": "ابدأ الآن"
-        },
-        "features": {
-            "title": "مميزات قوية",
-            "subtitle": "كل ما تحتاجه لإدارة مهامك بفعالية",
-            "badge": "مميزات قوية",
-            "description": "اكتشف الأدوات التي ستغير طريقة إدارة المهام والتعاون مع فريقك.",
-            "taskManagement": {
-                "title": "إدارة المهام",
-                "description": "إنشاء وتنظيم وتتبع مهامك بسهولة. حدد الأولويات والمواعيد النهائية وتعاون مع فريقك."
-            },
-            "teamCollaboration": {
-                "title": "التعاون الجماعي",
-                "description": "اعمل معاً بسلاسة مع التحديثات الفورية والتعليقات وإمكانيات مشاركة الملفات."
-            },
-            "analytics": {
-                "title": "التحليلات والتقارير",
-                "description": "احصل على رؤى حول إنتاجيتك مع التحليلات التفصيلية والتقارير القابلة للتخصيص."
-            },
-            "integration": {
-                "title": "التكامل",
-                "description": "اتصل بأدواتك وخدماتك المفضلة لتبسيط سير العمل."
-            }
-        },
-        "securityFeature": {
-            "title": "الأمان والامتثال",
-            "description": "أمان على مستوى المؤسسات مع ميزات امتثال شاملة لحماية بياناتك وتلبية المتطلبات التنظيمية."
-        },
-        "globalIntegration": {
-            "title": "مركز التكامل العالمي",
-            "description": "اتصل بأكثر من 100 أداة وخدمة شائعة من خلال منصة التكامل القوية وواجهات برمجة التطبيقات المخصصة."
-        },
-        "additionalFeatures": {
-            "title": "مزيد من المميزات الرائعة",
-            "timeTracking": {
-                "title": "تتبع الوقت",
-                "description": "تتبع الوقت المستغرق في المهام والمشاريع مع مؤقتات تلقائية وتقارير مفصلة."
-            },
-            "teamCommunication": {
-                "title": "التواصل الجماعي",
-                "description": "محادثة مدمجة ومكالمات فيديو ونظام تعليقات لإبقاء فريقك متصلاً."
-            },
-            "goalManagement": {
-                "title": "إدارة الأهداف",
-                "description": "حدد وتتبع وحقق أهدافك مع نظام إدارة الأهداف الشامل."
-            }
-        },
-        "additionalBenefits": {
-            "title": "مزايا إضافية",
-            "betterTeamCollaboration": {
-                "title": "تعاون أفضل للفريق",
-                "description": "تواصل سلس ومشاركة ملفات تجمع فريقك معاً."
-            },
-            "improvedGoalAchievement": {
-                "title": "تحقيق أفضل للأهداف",
-                "description": "تتبع وحقق أهدافك بشكل أسرع مع نظام إدارة الأهداف."
-            },
-            "fasterProjectDelivery": {
-                "title": "تسليم أسرع للمشاريع",
-                "description": "سير عمل مبسط وعمليات تلقائية لتسليم المشاريع في الوقت المحدد."
-            },
-            "readyToExperience": {
-                "title": "ابدأ قصة نجاحك اليوم",
-                "description": "انضم إلى آلاف الفرق التي تستفيد بالفعل من هذه المزايا. ابدأ تجربتك المجانية اليوم.",
-                "startFreeTrial": "ابدأ تجربة مجانية",
-                "scheduleDemo": "احجز عرض توضيحي"
-            }
-        },
-        "extendedTestimonials": {
-            "testimonial4": {
-                "text": "ميزة تتبع الوقت غيرت طريقة فوترة عملائنا. رائع جداً!",
-                "author": "ديفيد ويلسون",
-                "role": "مدير إبداعي"
-            },
-            "testimonial5": {
-                "text": "قدرات التكامل في تاسك فلو لا تضاهى. يتصل بجميع أدواتنا بسلاسة.",
-                "author": "ليسا أندرسون",
-                "role": "مدير العمليات"
-            },
-            "testimonial6": {
-                "text": "التطبيق المحمول قوي مثل النسخة الويب. يمكنني إدارة فريقي من أي مكان.",
-                "author": "جيمس رودريغيز",
-                "role": "قائد فريق عن بُعد"
-            }
-        },
-        "stats": {
-            "satisfaction": "رضا العملاء",
-            "teamEfficiency": "تعزيز كفاءة الفريق",
-            "timeReduction": "توفير الوقت",
-            "userGrowth": "نمو المستخدمين",
-            "happyCustomers": "عملاء سعداء",
-            "uptimeGuarantee": "ضمان وقت التشغيل",
-            "customerRating": "تقييم العملاء",
-            "countriesServed": "دول نخدمها",
-            "ratedByUsers": "تقييم 4.9/5 من قِبل أكثر من 10000 مستخدم",
-            "joinSatisfiedCustomers": "انضم إلى عملائنا الراضين",
-            "startTrialToday": "اختبر الفرق الذي يستمتع به آلاف الفرق بالفعل. ابدأ تجربتك المجانية اليوم."
-        },
-        "benefits": {
-            "title": "لماذا تختار تاسك فلو؟",
-            "subtitle": "اختبر الفرق مع نهجنا المبتكر",
-            "badge": "نتائج مثبتة",
-            "description": "انضم إلى آلاف الفرق التي حولت إنتاجيتها مع تاسك فلو.",
-            "productivity": {
-                "title": "زيادة الإنتاجية",
-                "description": "زد من كفاءة فريقك مع نظام إدارة المهام البديهي لدينا."
-            },
-            "collaboration": {
-                "title": "تعاون محسن",
-                "description": "عزز العمل الجماعي الأفضل مع التواصل الفوري ومشاركة الملفات."
-            },
-            "insights": {
-                "title": "رؤى مدفوعة بالبيانات",
-                "description": "اتخذ قرارات مدروسة مع التحليلات الشاملة والتقارير."
-            }
-        },
-        "testimonials": {
-            "title": "ماذا يقول عملاؤنا",
-            "subtitle": "انضم إلى آلاف العملاء الراضين",
-            "badge": "حب العملاء",
-            "description": "اطلع على ما يقوله عملاؤنا حول تجربتهم مع تاسك فلو.",
-            "testimonial1": {
-                "text": "تاسك فلو غير طريقة عمل فريقنا. ميزات التعاون رائعة!",
-                "author": "سارة جونسون",
-                "role": "مدير المشروع"
-            },
-            "testimonial2": {
-                "text": "لوحة التحليلات تعطينا رؤى لا تصدق حول أنماط إنتاجيتنا.",
-                "author": "مايكل تشين",
-                "role": "قائد الفريق"
-            },
-            "testimonial3": {
-                "text": "بسيط، أنيق، وقوي. كل ما احتجناه في أداة إدارة المهام.",
-                "author": "إميلي ديفيس",
-                "role": "مالك المنتج"
-            }
-        },
-        "footer": {
-            "company": "الشركة",
-            "about": "عن الشركة",
-            "careers": "الوظائف",
-            "press": "الصحافة",
-            "news": "الأخبار",
-            "product": "المنتج",
-            "features": "المميزات",
-            "pricing": "الأسعار",
-            "api": "واجهة برمجة التطبيقات",
-            "documentation": "التوثيق",
-            "support": "الدعم",
-            "helpCenter": "مركز المساعدة",
-            "community": "المجتمع",
-            "contact": "اتصل بنا",
-            "status": "الحالة",
-            "legal": "قانوني",
-            "privacy": "سياسة الخصوصية",
-            "terms": "شروط الخدمة",
-            "cookies": "سياسة ملفات تعريف الارتباط",
-            "followUs": "تابعنا",
-            "newsletter": "النشرة الإخبارية",
-            "subscribe": "اشترك في نشرتنا الإخبارية للحصول على التحديثات",
-            "email": "أدخل بريدك الإلكتروني",
-            "subscribeButton": "اشترك",
-            "copyright": "© 2025 تاسك فلو. جميع الحقوق محفوظة.",
-            "description": "تاسك فلو هي منصة إدارة المهام الحديثة التي تساعد الفرق على التعاون والبقاء منظمين وتحقيق أهدافهم بشكل أسرع من أي وقت مضى."
-        }
+  "Header": {
+    "features": "الميزات",
+    "benefits": "الفوائد",
+    "ourWork": "أعمالنا",
+    "testimonials": "الشهادات",
+    "login": "تسجيل الدخول",
+    "signup": "التسجيل"
+  },
+  "HeroSection": {
+    "title": "المنصة النهائية لإدارة المهام",
+    "subtitle": "قم بتبسيط سير عملك، وتعاون مع فريقك، وحقق أهدافك بشكل أسرع من أي وقت مضى.",
+    "getStarted": "ابدأ الآن",
+    "learnMore": "اعرف المزيد",
+    "watchDemo": "شاهد العرض التوضيحي",
+    "teamCollaboration": "تعاون الفريق",
+    "mobileReady": "جاهز للهاتف المحمول",
+    "analytics": "التحليلات",
+    "tasksToday": "مهام اليوم",
+    "designReview": "مراجعة التصميم",
+    "clientMeeting": "اجتماع العميل",
+    "codeDeploy": "نشر الكود",
+    "productivity": "الإنتاجية",
+    "lastSevenDays": "آخر 7 أيام"
+  },
+  "OurWork": {
+    "title": "أعمالنا في أرقام",
+    "subtitle": "نحن فخورون بالتأثير الذي أحدثناه. إليك بعض المقاييس الرئيسية التي تعرض نجاحنا.",
+    "tasksCompleted": "مهمة مكتملة",
+    "happyClients": "عميل سعيد",
+    "projectsDelivered": "مشروع مسلم",
+    "yearsOfExperience": "سنوات من الخبرة",
+    "globalRecognition": "الاعتراف العالمي",
+    "trustedByCompanies": "موثوق به من قبل الشركات في جميع أنحاء العالم",
+    "countriesServed": "البلدان المخدومة",
+    "uptimeRecord": "سجل وقت التشغيل",
+    "industryAwards": "جوائز الصناعة",
+    "ourImpact": "تأثيرنا"
+  },
+  "Benefits": {
+    "title": "لماذا تختار TaskFlow؟",
+    "subtitle": "اكتشف فوائد استخدام منصتنا لإدارة مهامك والتعاون مع فريقك.",
+    "increasedProductivity": "زيادة الإنتاجية",
+    "increasedProductivityDescription": "تساعدك منصتنا على البقاء منظمًا ومركّزًا، حتى تتمكن من إنجاز المزيد في وقت أقل.",
+    "improvedCollaboration": "تحسين التعاون",
+    "improvedCollaborationDescription": "يمكنك بسهولة مشاركة المهام والملفات والملاحظات مع فريقك لإبقاء الجميع على نفس الصفحة.",
+    "betterProjectVisibility": "رؤية أفضل للمشروع",
+    "betterProjectVisibilityDescription": "احصل على نظرة عامة واضحة على تقدم مشروعك وحدد الاختناقات المحتملة قبل أن تصبح مشكلة.",
+    "seamlessIntegrations": "تكاملات سلسة",
+    "seamlessIntegrationsDescription": "قم بتوصيل TaskFlow بأدواتك المفضلة لإنشاء سير عمل سلس.",
+    "customizableWorkflows": "سير عمل قابل للتخصيص",
+    "customizableWorkflowsDescription": "قم بتخصيص منصتنا لتلبية الاحتياجات المحددة لفريقك من خلال الحقول المخصصة والحالات والمزيد.",
+    "customerSupport": "دعم عملاء على مدار الساعة طوال أيام الأسبوع",
+    "customerSupportDescription": "فريق الدعم المخصص لدينا موجود دائمًا لمساعدتك في أي أسئلة أو مشكلات."
+  },
+  "Features": {
+    "features": "الميزات",
+    "title": "ميزات قوية لزيادة إنتاجيتك",
+    "subtitle": "TaskFlow مليء بالميزات المصممة لمساعدتك أنت وفريقك على العمل بذكاء أكبر وليس بجهد أكبر.",
+    "realTimeCollaboration": "تعاون في الوقت الفعلي",
+    "realTimeCollaborationDescription": "اعمل مع فريقك في الوقت الفعلي، مع تحديثات وإشعارات فورية.",
+    "customizableDashboards": "لوحات معلومات قابلة للتخصيص",
+    "customizableDashboardsDescription": "أنشئ لوحات معلومات مخصصة لتصور عملك وتتبع تقدمك.",
+    "teamManagement": "إدارة الفريق",
+    "teamManagementDescription": "قم بتعيين المهام وتحديد المواعيد النهائية ومراقبة أداء فريقك بسهولة.",
+    "learnMore": "اعرف المزيد",
+    "uptime": "وقت التشغيل",
+    "support": "الدعم",
+    "integrations": "التكاملات",
+    "users": "المستخدمون"
+  },
+  "Analytics": {
+    "title": "التحليلات والرؤى",
+    "subtitle": "تتبع أداء فريقك بتحليلات قوية ورؤى مفصلة.",
+    "totalTasks": "إجمالي المهام",
+    "completedTasks": "المهام المكتملة",
+    "activeProjects": "المشاريع ��لنشطة",
+    "teamMembers": "أعضاء الفريق",
+    "viewDetails": "عرض التفاصيل",
+    "performance": "الأداء",
+    "productivity": "الإنتاجية",
+    "efficiency": "الكفاءة",
+    "collaboration": "التعاون",
+    "weeklyPerformance": "الأداء الأسبوعي",
+    "taskCompletionTrends": "اتجاهات إكمال المهام",
+    "teamProgress": "تقدم الفريق",
+    "individualPerformance": "الأداء الفردي",
+    "tasksCompleted": "المهام المكتملة",
+    "vsLastWeek": "مقارنة بالأسبوع الماضي",
+    "customerSatisfaction": "رضا العملاء",
+    "supportAvailability": "توفر الدعم",
+    "uptimeGuarantee": "ضمان وقت التشغيل",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد"
+  },
+  "Testimonials": {
+    "title": "ما يقوله عملاؤنا",
+    "subtitle": "انضم إلى آلاف العملاء الراضين الذين حولوا إنتاجيتهم باستخدام TaskFlow",
+    "trustedBy": "موثوق به من قبل أكثر من 500 شركة حول العالم",
+    "ctaTitle": "هل أنت مستعد لتحويل سير عملك؟",
+    "ctaSubtitle": "انضم إلى آلاف الفرق التي اكتشفت بالفعل قوة TaskFlow. ابدأ تجربتك المجانية اليوم واختبر الفرق.",
+    "startFreeTrial": "ابدأ التجربة المجانية",
+    "scheduleDemo": "جدولة عرض توضيحي",
+    "testimonials": "الشهادات",
+    "customerReviews": "مراجعات العملاء",
+    "readMore": "اقرأ المزيد",
+    "previousTestimonial": "السابق",
+    "nextTestimonial": "التالي",
+    "testimonial1": {
+      "name": "سارة جونسون",
+      "role": "مديرة مشروع",
+      "company": "شركة TechCorp",
+      "content": "لقد غيّر TaskFlow طريقة تعاون فريقنا. التحديثات في الوقت الفعلي والواجهة البديهية تجعل إدارة المشاريع سهلة. لقد شهدنا زيادة بنسبة 40% في الإنتاجية م��ذ التبديل."
     },
-    "auth": {
-        "login": {
-            "welcome": "مرحباً بعودتك",
-            "loginToAccount": "سجل الدخول إلى حسابك للمتابعة",
-            "title": "مرحباً بعودتك",
-            "subtitle": "سجل الدخول إلى حسابك",
-            "userIdLabel": "رقم المستخدم",
-            "selectRole": "الدور",
-            "student": "طالب",
-            "admin": "مدير",
-            "teacher": "مدرس",
-            "enterUserId": "أدخل رقم المستخدم",
-            "enterPassword": "أدخل كلمة المرور",
-            "loggingIn": "جاري تسجيل الدخول...",
-            "ID": "رقم الهويه",
-            "password": "كلمة المرور",
-            "rememberMe": "تذكرني",
-            "forgotPassword": "نسيت كلمة المرور؟",
-            "signIn": "تسجيل الدخول",
-            "noAccount": "ليس لديك حساب؟",
-            "signUp": "إنشاء حساب"
-        }
+    "testimonial2": {
+      "name": "مايكل تشين",
+      "role": "مطور أول",
+      "company": "StartupXYZ",
+      "content": "لقد أدت سير العمل القابلة للتخصيص والتكاملات السلسة إلى تبسيط عملية التطوير لدينا. تساعدنا تحليلات TaskFlow في تحديد الاختناقات قبل أن تصبح مشكلات."
+    },
+    "testimonial3": {
+      "name": "إيميلي رودريجيز",
+      "role": "مديرة التسويق",
+      "company": "وكالة النمو",
+      "content": "منصة رائعة! تتيح لنا ميزات إدارة الفريق والتحسين للهاتف المحمول البقاء منتجين سواء كنا في المكتب أو نعمل عن بُعد. أوصي بشدة!"
+    },
+    "testimonial4": {
+      "name": "ديفيد كيم",
+      "role": "مدير العمليات",
+      "company": "حلول المؤسسات",
+      "content": "أمان TaskFlow للمؤسسات والدعم على مدار الساعة يمنحنا راحة البال. المنصة تتوسع بشكل جميل مع فريقنا المتنامي ومتطلبات المشروع المعقدة."
     }
+  },
+  "Footer": {
+    "product": "المنتج",
+    "company": "الشركة",
+    "legal": "قانوني",
+    "aboutUs": "معلومات عنا",
+    "careers": "وظائف",
+    "press": "صحافة",
+    "blog": "مدونة",
+    "termsOfService": "شروط الخدمة",
+    "privacyPolicy": "سياسة الخصوصية",
+    "cookiePolicy": "سياسة م��فات تعريف الارتباط",
+    "copyright": "© {year} TaskFlow. جميع الحقوق محفوظة.",
+    "brandDescription": "منصة إدارة المهام النهائية للفرق. قم بتبسيط سير عملك وحقق أهدافك بشكل أسرع.",
+    "stayUpdated": "ابق على اطلاع",
+    "newsletterSubtitle": "احصل على آخر التحديثات والنصائح والرؤى المرسلة إلى صندوق الوارد الخاص بك.",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "subscribe": "اشترك",
+    "features": "الميزات",
+    "benefits": "الفوائد",
+    "ourWork": "أعمالنا",
+    "testimonials": "الشهادات",
+    "pricing": "التسعير",
+    "api": "واجهة برمجة التطبيقات",
+    "contact": "اتصل بنا",
+    "helpCenter": "مركز المساعدة",
+    "security": "الأمان",
+    "gdpr": "اللائحة العامة لحماية البيانات",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "darkMode": "الوضع المظلم",
+    "lightMode": "الوضع الفاتح"
+  }
 }

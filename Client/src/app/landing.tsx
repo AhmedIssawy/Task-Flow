@@ -1,95 +1,39 @@
-'use client'
-import React from 'react'
-import { motion } from 'framer-motion'
-import Header from "@/components/landing/header"
-import HeroSection from "@/components/landing/HeroSection"
-import Features from "@/components/landing/features"
-import Benefits from "@/components/landing/benefits"
-import Testimonials from "@/components/landing/testimonials"
-import Footer from "@/components/landing/footer"
+import Analytics from "@/components/landing/Analytics";
+import Benefits from "@/components/landing/benefits";
+import Features from "@/components/landing/features";
+import Footer from "@/components/landing/footer";
+import Header from "@/components/landing/header";
+import HeroSection from "@/components/landing/HeroSection";
+import OurWork from "@/components/landing/Ourwork";
+import Testimonials from "@/components/landing/testimonials";
 
-const Landing = () => {
-    const pageVariants = {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 }
-    }
-
-    const sectionVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.8,
-                ease: "easeOut" as const
-            }
-        }
-    }
-
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3,
-                delayChildren: 0.2
-            }
-        }
-    }
-
+const LandingPage = () => {
     return (
-        <motion.div
-            className="min-h-screen bg-background text-foreground font-sans"
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ duration: 0.5 }}
-        >
+        <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="pt-4">
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={sectionVariants}
-                >
+            <main className="flex-grow">
+                <div className="w-full max-w-none mx-auto">
                     <HeroSection />
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={staggerContainer}
-                >
+                </div>
+                <div className="w-full max-w-none mx-auto">
                     <Features />
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={sectionVariants}
-                    transition={{ delay: 0.2 }}
-                >
+                </div>
+                <div className="w-full max-w-none mx-auto">
                     <Benefits />
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={sectionVariants}
-                    transition={{ delay: 0.3 }}
-                >
+                </div>
+                <div className="w-full max-w-none mx-auto">
+                    <Analytics />
+                </div>
+                <div className="w-full max-w-none mx-auto">
+                    <OurWork />
+                </div>
+                <div className="w-full max-w-none mx-auto">
                     <Testimonials />
-                </motion.div>
+                </div>
             </main>
             <Footer />
-        </motion.div>
-    )
-}
+        </div>
+    );
+};
 
-export default Landing
+export default LandingPage;
