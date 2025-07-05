@@ -12,7 +12,6 @@ const createStudent = asyncHandler(async (req, res) => {
     name,
     email,
     courses = [],
-    gender,
     universityId,
     collegeId,
     departmentId,

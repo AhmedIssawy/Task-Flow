@@ -4,8 +4,8 @@ import {
   Calendar,
   ClipboardList,
   BarChart3,
-  BarChart2,
   BarChart,
+  Settings,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -22,9 +22,10 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
   student: (id: string) => [
     { label: 'Dashboard', href: `/student/${id}`, icon: Home, badge: '' },
     { label: 'My Courses', href: `/student/${id}/courses`, icon: Book, badge: '3' },
-    { label: 'Assignments', href: `/student/${id}/assignments`, icon: ClipboardList, badge: '5' },
+    { label: 'Assignments', href: `/student/${id}/assignment`, icon: ClipboardList, badge: '5' },
     { label: 'Grades', href: `/student/${id}/grades`, icon: BarChart3, badge: 'New' },
     { label: 'Calendar', href: `/student/${id}/calendar`, icon: Calendar, badge: '' },
+    { label: 'Settings', href: `/student/${id}/settings`, icon: Settings, badge: '' },
   ],
 
   teacher: (id: string) => [
@@ -32,6 +33,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'My Courses', href: `/teacher/${id}/courses`, icon: Book, badge: '3' },
     { label: 'Assignments', href: `/teacher/${id}/assignments`, icon: ClipboardList, badge: '5' },
     { label: 'Students', href: `/teacher/${id}/students`, icon: BarChart3, badge: 'New' },
+    { label: 'Settings', href: `/teacher/${id}/settings`, icon: Settings, badge: '' },
   ],
 
   admin: (id: string) => [
@@ -41,6 +43,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'Courses', href: `/admin/${id}/courses`, icon: ClipboardList, badge: '5' },
     { label: 'Teachers', href: `/admin/${id}/teachers`, icon: Book, badge: '3' },
     { label: 'Students', href: `/admin/${id}/students`, icon: BarChart3, badge: 'New' },
+    { label: 'Settings', href: `/admin/${id}/settings`, icon: Settings, badge: '' },
   ],
 
   superadmin: (id: string) => [
@@ -51,5 +54,6 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'Courses', href: `/superadmin/${id}/courses`, icon: ClipboardList, badge: '5' },
     { label: 'Teachers', href: `/superadmin/${id}/teachers`, icon: Book, badge: '3' },
     { label: 'Students', href: `/superadmin/${id}/students`, icon: BarChart3, badge: 'New' },
+    { label: 'Settings', href: `/superadmin/${id}/settings`, icon: Settings, badge: '' },
   ],
 }

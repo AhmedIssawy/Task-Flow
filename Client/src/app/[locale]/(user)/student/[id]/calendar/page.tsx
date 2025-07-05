@@ -9,39 +9,82 @@ export default function StudentCalendarPage() {
     const { data, isLoading, error } = useGetStudentCalendarQuery("68272391943893d5e5a21e9a")
 
     return (
-        <div className="flex-1 p-6">
-            <h1 className="text-2xl font-semibold mb-6">My Calendar</h1>
+        <div className="relative min-h-screen bg-gradient-to-br from-background via-background to-accent/20 overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div className="absolute top-20 ltr:left-10 rtl:right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 ltr:right-10 rtl:left-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            
+            {/* Floating geometric shapes */}
+            <div className="absolute top-1/4 ltr:right-1/4 rtl:left-1/4 w-6 h-6 bg-primary/30 rounded-full animate-float"></div>
+            <div className="absolute bottom-1/3 ltr:left-1/3 rtl:right-1/3 w-4 h-4 bg-secondary/30 rounded-full animate-float-reverse"></div>
+            <div className="absolute top-2/3 ltr:right-1/3 rtl:left-1/3 w-5 h-5 bg-accent/30 rounded-full animate-float-delayed"></div>
 
-            {isLoading && (
-                <div className="flex justify-center py-10">
-                    <Loader2 className="animate-spin h-6 w-6 text-muted-foreground" />
+            <div className="relative z-10 flex-1 p-6">
+                {/* Header */}
+                <div className="glass-effect bg-gradient-to-r from-primary/20 via-primary/10 to-secondary/20 rounded-2xl p-8 text-foreground relative overflow-hidden shadow-3xl animate-fade-in-up mb-8">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full -translate-y-32 translate-x-32 animate-float"></div>
+                    <div className="relative z-10">
+                        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">My Calendar</h1>
+                        <p className="text-muted-foreground text-lg">Stay organized with your schedule and upcoming events</p>
+                    </div>
                 </div>
-            )}
 
-            {error && (
-                <div className="text-center text-red-500">Failed to load calendar.</div>
-            )}
+                {isLoading && (
+                    <div className="flex justify-center py-10">
+                        <Loader2 className="animate-spin h-8 w-8 text-primary" />
+                    </div>
+                )}
 
-            {!isLoading && data?.calendar?.length === 0 && (
-                <div className="text-center text-muted-foreground">
-                    You do not have any events in your calendar.
+                {error && (
+                    <div className="glass-effect text-center text-red-500 p-6 rounded-xl border border-red-500/20 bg-red-500/10">
+                        Failed to load calendar.
+                    </div>
+                )}
+
+                {!isLoading && data?.calendar?.length === 0 && (
+                    <div className="glass-effect text-center text-muted-foreground p-8 rounded-xl border border-border/50">
+                        <div className="animate-fade-in-up">
+                            <h3 className="text-xl font-semibold mb-2">No Events Yet</h3>
+                            <p>You do not have any events in your calendar.</p>
+                        </div>
+                    </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-scale-in">
+                    {data?.calendar?.map((event) => (
+                        <Card key={event._id} className="glass-effect hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer border-border/50 shadow-lg group rounded-2xl hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden">
+                            <CardContent className="p-6 space-y-4 relative">
+                                {/* Hover background effect */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                                
+                                {/* Animated border on hover */}
+                                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-purple-500/20 transition-colors duration-300" />
+                                
+                                {/* Event type indicator */}
+                                <div className="absolute top-0 left-0 w-1 h-full bg-purple-500/20 group-hover:bg-purple-500/40 group-hover:w-2 transition-all duration-300 rounded-l-2xl" />
+                                
+                                <div className="relative flex justify-between items-start">
+                                    <h2 className="text-lg font-semibold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">{event.title}</h2>
+                                    <Badge variant="outline" className="bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20 rounded-xl group-hover:bg-purple-500/20 group-hover:scale-105 transition-all duration-300">
+                                        {event.type}
+                                    </Badge>
+                                </div>
+                                
+                                <div className="relative text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors">
+                                    Date: {new Date(event.date).toLocaleDateString()}
+                                </div>
+                                
+                                <div className="relative pt-2 border-t border-border/50 group-hover:border-purple-500/20 transition-colors duration-300">
+                                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                        <span className="group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">Click to view details</span>
+                                        <div className="w-2 h-2 bg-purple-500/50 rounded-full group-hover:bg-purple-500 group-hover:scale-125 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {data?.calendar?.map((event) => (
-                    <Card key={event._id} className="hover:shadow-amber-50 hover:shadow-sm transition-shadow cursor-pointer border">
-                        <CardContent className="p-4 space-y-2">
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-lg font-medium">{event.title}</h2>
-                                <Badge variant="outline">{event.type}</Badge>
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                                Date: {new Date(event.date).toLocaleDateString()}
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
             </div>
         </div>
     )

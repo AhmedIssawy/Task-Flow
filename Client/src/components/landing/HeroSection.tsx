@@ -3,17 +3,19 @@ import { useTranslations } from "next-intl";
 import { Users, Smartphone, BarChart3, CheckCircle, Clock, TrendingUp, ArrowRight, Play } from "lucide-react";
 
 const HeroSection = () => {
-    const t = useTranslations("HeroSection"); return (
+    const t = useTranslations("Landing.HeroSection");
+
+    return (
         <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-8 py-20 bg-gradient-to-br from-background via-background to-accent/20 overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-20 ltr:left-10 rtl:right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 ltr:right-10 rtl:left-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
             {/* Floating geometric shapes */}
-            <div className="absolute top-1/4 right-1/4 w-6 h-6 bg-primary/30 rounded-full animate-float"></div>
-            <div className="absolute bottom-1/3 left-1/3 w-4 h-4 bg-secondary/30 rounded-full animate-float-reverse"></div>
-            <div className="absolute top-2/3 right-1/3 w-5 h-5 bg-accent/30 rounded-full animate-float-delayed"></div>
+            <div className="absolute top-1/4 ltr:right-1/4 rtl:left-1/4 w-6 h-6 bg-primary/30 rounded-full animate-float"></div>
+            <div className="absolute bottom-1/3 ltr:left-1/3 rtl:right-1/3 w-4 h-4 bg-secondary/30 rounded-full animate-float-reverse"></div>
+            <div className="absolute top-2/3 ltr:right-1/3 rtl:left-1/3 w-5 h-5 bg-accent/30 rounded-full animate-float-delayed"></div>
 
             <div className="container mx-auto text-center relative z-10 max-w-7xl">
                 {/* Hero Content */}
@@ -31,12 +33,12 @@ const HeroSection = () => {
                             className="btn-primary-enhanced bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group flex items-center justify-center gap-2"
                         >
                             {t("getStarted")}
-                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="ltr:ml-2 rtl:mr-2 h-5 w-5 group-hover:ltr:translate-x-1 group-hover:rtl:-translate-x-1 transition-transform" />
                         </button>
                         <button
                             className="interactive-element border border-border hover:bg-accent text-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 group flex items-center justify-center gap-2"
                         >
-                            <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                            <Play className="ltr:mr-2 rtl:ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                             {t("learnMore")}
                         </button>
                     </div>
@@ -51,7 +53,7 @@ const HeroSection = () => {
                             <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                                 <Users className="w-6 h-6 text-primary" />
                             </div>
-                            <h3 className="font-semibold text-foreground">Team Collaboration</h3>
+                            <h3 className="font-semibold text-foreground">{t("teamCollaboration")}</h3>
                         </div>
                         <div className="space-y-3">
                             <div className="flex items-center gap-3">
@@ -90,24 +92,24 @@ const HeroSection = () => {
                             <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
                                 <Smartphone className="w-6 h-6 text-green-600" />
                             </div>
-                            <h3 className="font-semibold text-foreground">Mobile Ready</h3>
+                            <h3 className="font-semibold text-foreground">{t("mobileReady")}</h3>
                         </div>
                         <div className="space-y-3">
                             <div className="flex items-center justify-between p-2 bg-muted/50 rounded-lg">
-                                <span className="text-sm text-muted-foreground">Tasks Today</span>
+                                <span className="text-sm text-muted-foreground">{t("tasksToday")}</span>
                                 <span className="text-sm font-medium text-foreground">8/12</span>
                             </div>
                             <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
                                 <CheckCircle className="w-4 h-4 text-green-500" />
-                                <span className="text-sm text-foreground">Design Review</span>
+                                <span className="text-sm text-foreground">{t("designReview")}</span>
                             </div>
                             <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
                                 <Clock className="w-4 h-4 text-orange-500" />
-                                <span className="text-sm text-foreground">Client Meeting</span>
+                                <span className="text-sm text-foreground">{t("clientMeeting")}</span>
                             </div>
                             <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
                                 <CheckCircle className="w-4 h-4 text-green-500" />
-                                <span className="text-sm text-foreground">Code Deploy</span>
+                                <span className="text-sm text-foreground">{t("codeDeploy")}</span>
                             </div>
                         </div>
                     </div>
@@ -118,14 +120,14 @@ const HeroSection = () => {
                             <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
                                 <BarChart3 className="w-6 h-6 text-purple-600" />
                             </div>
-                            <h3 className="font-semibold text-foreground">Analytics</h3>
+                            <h3 className="font-semibold text-foreground">{t("analytics")}</h3>
                         </div>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <span className="text-sm text-muted-foreground">Productivity</span>
+                                <span className="text-sm text-muted-foreground">{t("productivity")}</span>
                                 <div className="flex items-center gap-1">
                                     <TrendingUp className="w-3 h-3 text-green-500" />
-                                    <span className="text-sm font-medium text-green-600">+12%</span>
+                                    <span className="text-sm font-medium text-green-600">{t("percentageIncrease")}</span>
                                 </div>
                             </div>
                             <div className="grid grid-cols-7 gap-1 h-16">

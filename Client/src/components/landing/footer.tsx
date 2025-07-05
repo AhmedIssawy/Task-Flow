@@ -4,7 +4,7 @@ import { Github, Twitter, Linkedin, Mail, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
-  const t = useTranslations("Footer");
+  const t = useTranslations("Landing.Footer");
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
@@ -13,15 +13,15 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-border/50 bg-background/95 backdrop-blur-sm relative">
-      <div className="container py-16 px-4 md:px-8">
+      <div className="container mx-auto py-16 px-4 md:px-8 max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <a href="#" className="text-2xl font-bold font-serif text-foreground hover:text-primary transition-colors">
-              TaskFlow
+              {t("brandName")}
             </a>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              The ultimate task management platform for teams. Streamline your workflow and achieve your goals faster.
+              {t("brandDescription")}
             </p>
             
             {/* Social Links */}
@@ -43,72 +43,72 @@ const Footer = () => {
 
           {/* Product Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">{t("product")}</h4>
-            <nav className="grid gap-3">
+            <h4 className="font-semibold text-foreground mb-6">{t("sections.product")}</h4>
+            <nav className="grid gap-3 ltr:text-left rtl:text-right">
               <a href="#features" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Features
+                {t("productLinks.features")}
               </a>
               <a href="#benefits" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Benefits
+                {t("productLinks.benefits")}
               </a>
               <a href="#our-work" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Our Work
+                {t("productLinks.ourWork")}
               </a>
               <a href="#testimonials" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Testimonials
+                {t("productLinks.testimonials")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Pricing
+                {t("productLinks.pricing")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                API
+                {t("productLinks.api")}
               </a>
             </nav>
           </div>
 
           {/* Company Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">{t("company")}</h4>
-            <nav className="grid gap-3">
+            <h4 className="font-semibold text-foreground mb-6">{t("sections.company")}</h4>
+            <nav className="grid gap-3 ltr:text-left rtl:text-right">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("aboutUs")}
+                {t("companyLinks.aboutUs")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("careers")}
+                {t("companyLinks.careers")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("press")}
+                {t("companyLinks.press")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("blog")}
+                {t("companyLinks.blog")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Contact
+                {t("companyLinks.contact")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Help Center
+                {t("companyLinks.helpCenter")}
               </a>
             </nav>
           </div>
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-6">{t("legal")}</h4>
-            <nav className="grid gap-3">
+            <h4 className="font-semibold text-foreground mb-6">{t("sections.legal")}</h4>
+            <nav className="grid gap-3 ltr:text-left rtl:text-right">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("termsOfService")}
+                {t("legalLinks.termsOfService")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("privacyPolicy")}
+                {t("legalLinks.privacyPolicy")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                {t("cookiePolicy")}
+                {t("legalLinks.cookiePolicy")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                Security
+                {t("legalLinks.security")}
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm">
-                GDPR
+                {t("legalLinks.gdpr")}
               </a>
             </nav>
           </div>
@@ -118,19 +118,19 @@ const Footer = () => {
         <div className="mt-16 p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              Stay Updated
+              {t("newsletter.title")}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Get the latest updates, tips, and insights delivered to your inbox.
+              {t("newsletter.subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("newsletter.emailPlaceholder")}
                 className="flex-1 px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200"
               />
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-medium transition-all duration-200">
-                Subscribe
+                {t("newsletter.subscribe")}
               </Button>
             </div>
           </div>
@@ -139,14 +139,14 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            {t("copyright", { year: currentYear })}
+            {t("bottom.copyright", { year: currentYear })}
           </p>
           
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>🌍 English</span>
+              <span>{t("bottom.language")}</span>
               <span>•</span>
-              <span>🌙 Dark Mode</span>
+              <span>{t("bottom.theme")}</span>
             </div>
             
             <Button

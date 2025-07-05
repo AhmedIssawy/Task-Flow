@@ -114,6 +114,196 @@
     text-align: right;
   }
 
+  [dir="ltr"] {
+    text-align: left;
+  }
+
+  /* RTL/LTR flex direction utilities */
+  .rtl\:flex-row-reverse[dir="rtl"] {
+    flex-direction: row-reverse;
+  }
+
+  .ltr\:flex-row[dir="ltr"] {
+    flex-direction: row;
+  }
+
+  /* RTL/LTR text alignment utilities */
+  .rtl\:text-right[dir="rtl"] {
+    text-align: right;
+  }
+
+  .ltr\:text-left[dir="ltr"] {
+    text-align: left;
+  }
+
+  .rtl\:text-left[dir="rtl"] {
+    text-align: left;
+  }
+
+  .ltr\:text-right[dir="ltr"] {
+    text-align: right;
+  }
+
+  /* RTL/LTR spacing utilities */
+  .rtl\:space-x-reverse[dir="rtl"] > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+
+  .ltr\:space-x-normal[dir="ltr"] > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+  }
+
+  /* RTL/LTR margin utilities */
+  .rtl\:mr-2[dir="rtl"] {
+    margin-right: 0.5rem;
+  }
+
+  .rtl\:ml-2[dir="rtl"] {
+    margin-left: 0.5rem;
+  }
+
+  .ltr\:ml-2[dir="ltr"] {
+    margin-left: 0.5rem;
+  }
+
+  .ltr\:mr-2[dir="ltr"] {
+    margin-right: 0.5rem;
+  }
+
+  /* RTL/LTR transform utilities */
+  .rtl\:-translate-x-1[dir="rtl"] {
+    --tw-translate-x: -0.25rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .ltr\:translate-x-1[dir="ltr"] {
+    --tw-translate-x: 0.25rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .group:hover .group-hover\:rtl\:-translate-x-1[dir="rtl"] {
+    --tw-translate-x: -0.25rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .group:hover .group-hover\:ltr\:translate-x-1[dir="ltr"] {
+    --tw-translate-x: 0.25rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  /* RTL/LTR positioning utilities */
+  .rtl\:right-10[dir="rtl"] {
+    right: 2.5rem;
+  }
+
+  .rtl\:left-10[dir="rtl"] {
+    left: 2.5rem;
+  }
+
+  .ltr\:left-10[dir="ltr"] {
+    left: 2.5rem;
+  }
+
+  .ltr\:right-10[dir="ltr"] {
+    right: 2.5rem;
+  }
+
+  .rtl\:right-1\/4[dir="rtl"] {
+    right: 25%;
+  }
+
+  .rtl\:left-1\/4[dir="rtl"] {
+    left: 25%;
+  }
+
+  .ltr\:left-1\/4[dir="ltr"] {
+    left: 25%;
+  }
+
+  .ltr\:right-1\/4[dir="ltr"] {
+    right: 25%;
+  }
+
+  .rtl\:right-1\/3[dir="rtl"] {
+    right: 33.333333%;
+  }
+
+  .rtl\:left-1\/3[dir="rtl"] {
+    left: 33.333333%;
+  }
+
+  .ltr\:left-1\/3[dir="ltr"] {
+    left: 33.333333%;
+  }
+
+  .ltr\:right-1\/3[dir="ltr"] {
+    right: 33.333333%;
+  }
+
+  .rtl\:right-4[dir="rtl"] {
+    right: 1rem;
+  }
+
+  .rtl\:left-4[dir="rtl"] {
+    left: 1rem;
+  }
+
+  .ltr\:left-4[dir="ltr"] {
+    left: 1rem;
+  }
+
+  .ltr\:right-4[dir="ltr"] {
+    right: 1rem;
+  }
+
+  .rtl\:right-0[dir="rtl"] {
+    right: 0;
+  }
+
+  .rtl\:left-0[dir="rtl"] {
+    left: 0;
+  }
+
+  .ltr\:left-0[dir="ltr"] {
+    left: 0;
+  }
+
+  .ltr\:right-0[dir="ltr"] {
+    right: 0;
+  }
+
+  /* Container centering utilities */
+  .center-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem; /* 1280px */
+  }
+
+  /* Section centering */
+  .section-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Content centering */
+  .content-center {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .content-center {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
   [dir="rtl"] .flex {
     flex-direction: row-reverse;
   }

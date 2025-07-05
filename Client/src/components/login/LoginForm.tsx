@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Lock, User, Shield, Eye, EyeOff, GraduationCap, UserCog, BookOpen } from 'lucide-react';
+import { Lock, User, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('')
@@ -56,151 +56,87 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center bg-gradient-to-br from-primary/8 via-background to-accent/10 px-4 py-8 relative overflow-hidden rounded-3xl">
-      {/* Main Content Container */}
-      <div className="w-full max-w-md relative z-10">
-        {/* Login Card */}
-        <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-3xl p-8 shadow-2xl shadow-primary/5 relative overflow-hidden">
-
-
-          {/* Content */}
-          <div className="relative z-10">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-2">
-                {t('welcome')}
-              </h2>
-              <p className="text-muted-foreground">
-                {t('loginToAccount')}
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Role Selection */}
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-primary" />
-                  {t('selectRole')}
-                </label>
-                <Select onValueChange={(value) => setUserIdRole(value)}>
-                  <SelectTrigger className="w-full h-12 bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl transition-all duration-200">
-                    <SelectValue placeholder={t('selectRole')} className="text-foreground" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-card/95 backdrop-blur-md border border-border/50 shadow-xl rounded-xl p-1 select-content-enhanced">
-                    <SelectItem
-                      value="STU-"
-                      className="text-foreground hover:bg-accent focus:bg-accent rounded-lg cursor-pointer transition-all duration-200 py-3 px-3 role-card-hover"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm role-icon-bg">
-                          <GraduationCap className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{t('student')}</span>
-                          <span className="text-xs text-muted-foreground">Access learning resources</span>
-                        </div>
-                      </div>
-                    </SelectItem>
-                    <SelectItem
-                      value="ADMIN-"
-                      className="text-foreground hover:bg-accent focus:bg-accent rounded-lg cursor-pointer transition-all duration-200 py-3 px-3 role-card-hover"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-sm role-icon-bg">
-                          <UserCog className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{t('admin')}</span>
-                          <span className="text-xs text-muted-foreground">System administration</span>
-                        </div>
-                      </div>
-                    </SelectItem>
-                    <SelectItem
-                      value="TEACHER-"
-                      className="text-foreground hover:bg-accent focus:bg-accent rounded-lg cursor-pointer transition-all duration-200 py-3 px-3 role-card-hover"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-sm role-icon-bg">
-                          <BookOpen className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-medium">{t('teacher')}</span>
-                          <span className="text-xs text-muted-foreground">Manage courses & students</span>
-                        </div>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* User ID Input */}
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground flex items-center gap-2">
-                  <User className="w-4 h-4 text-primary" />
-                  {t('userIdLabel')}
-                </label>
-                <div className="relative">
-                  <Input
-                    placeholder={t('enterUserId')}
-                    value={userId}
-                    onChange={(e) => setUserId(e.target.value)}
-                    type="text"
-                    required
-                    className={`h-12 bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 transition-all duration-200 ${isRTL ? 'text-right pr-10 pl-4' : 'text-left'}`}
-                  />
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                </div>
-              </div>
-
-              {/* Password Input */}
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-primary" />
-                  {t('password')}
-                </label>
-                <div className="relative">
-                  <Input
-                    placeholder={t('enterPassword')}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type={showPassword ? "text" : "password"}
-                    required
-                    className={`h-12 bg-background border-border hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 rounded-xl pl-10 pr-10 transition-all duration-200 ${isRTL ? 'text-right' : 'text-left'}`}
-                  />
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors duration-200"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={isLoading || !userIdRole || !userId}
-                className="w-full h-12 bg-gradient-to-r from-primary via-primary-dark to-primary hover:from-primary-dark hover:via-primary hover:to-primary-dark text-primary-foreground font-semibold rounded-xl shadow-lg hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin"></div>
-                    {t('loggingIn')}
-                  </div>
-                ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    <Shield className="w-4 h-4" />
-                    {t('signIn')}
-                  </span>
-                )}
-              </Button>
-
-
-            </form>
-          </div>
+    <div className="w-full max-w-sm mx-auto">
+      <div className="bg-card p-6 shadow-sm">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-semibold text-foreground mb-2">
+            {t('welcome')}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            {t('loginToAccount')}
+          </p>
         </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Role Selection */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">
+              {t('selectRole')}
+            </label>
+            <Select onValueChange={(value) => setUserIdRole(value)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={t('selectRole')} />
+              </SelectTrigger>
+                <SelectContent className="backdrop-blur-md bg-opacity-50">
+                <SelectItem value="STU-">{t('student')}</SelectItem>
+                <SelectItem value="ADMIN-">{t('admin')}</SelectItem>
+                <SelectItem value="TEACHER-">{t('teacher')}</SelectItem>
+                </SelectContent>
+            </Select>
+          </div>
+
+          {/* User ID Input */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">
+              {t('userIdLabel')}
+            </label>
+            <div className="relative">
+              <Input
+                placeholder={t('enterUserId')}
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                type="text"
+                required
+                className={`${isRTL ? 'text-right pr-10 pl-3' : 'text-left pl-10 pr-3'}`}
+              />
+              <User className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground`} />
+            </div>
+          </div>
+
+          {/* Password Input */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">
+              {t('password')}
+            </label>
+            <div className="relative">
+              <Input
+                placeholder={t('enterPassword')}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPassword ? "text" : "password"}
+                required
+                className={`${isRTL ? 'text-right pr-10 pl-10' : 'text-left pl-10 pr-10'}`}
+              />
+              <Lock className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground`} />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground`}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+          </div>
+
+            {/* Submit Button */}
+            <Button
+            type="submit"
+            disabled={isLoading || !userIdRole || !userId}
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
+            >
+            {isLoading ? t('loggingIn') : t('signIn')}
+            </Button>
+        </form>
       </div>
     </div>
   );
