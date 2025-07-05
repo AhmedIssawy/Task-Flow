@@ -62,24 +62,31 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <div className={cn('w-full space-y-4', className)}>
+      <div className={cn('w-full space-y-6', className)}>
         <div className="flex justify-end">
           {createHook && (
-            <Button onClick={openCreateModal} className="ml-auto">
-              Create
+            <Button 
+              onClick={openCreateModal} 
+              className="ml-auto bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Create New
             </Button>
           )}
         </div>
 
-        <div className="rounded-md border">
+        <div className="glass-effect rounded-2xl border border-border/50 shadow-lg overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="border-border/50 hover:bg-muted/30 transition-colors">
                 {columns.map((col, i) => (
-                  <TableHead key={i}>{col.label}</TableHead>
+                  <TableHead key={i} className="text-foreground font-semibold bg-muted/20 border-border/50">
+                    {col.label}
+                  </TableHead>
                 ))}
                 {enableActions && (editHook || deleteHook) && (
-                  <TableHead>Actions</TableHead>
+                  <TableHead className="text-foreground font-semibold bg-muted/20 border-border/50">
+                    Actions
+                  </TableHead>
                 )}
               </TableRow>
             </TableHeader>
@@ -100,11 +107,13 @@ export function PaginatedTable<T>({
         </div>
 
         {totalPages > 1 && (
-          <PaginationControls
-            page={page}
-            totalPages={totalPages}
-            setPage={setPage}
-          />
+          <div className="flex justify-center">
+            <PaginationControls
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+            />
+          </div>
         )}
       </div>
 
