@@ -4,6 +4,7 @@ import "./globals.css";
 
 import ReduxProvider from "../providers/ReduxProvider";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({
         >
           <ReduxProvider>{children}</ReduxProvider>
         </ThemeProvider>
+        <Toaster richColors position="top-right" closeButton />
       </body>
     </html>
   );

@@ -27,7 +27,7 @@ export function PaginatedTable<T>({
 }: PaginatedTableProps<T>) {
   const [page, setPage] = useState(1);
   const queryArgs = useMemo(() => ({ page, limit }), [page, limit]);
-  const { data, isLoading, error } = queryHook(queryArgs);
+  const { data, isLoading, error, refetch } = queryHook(queryArgs);
 
   const rows: T[] = data?.[dataKey] || [];
   const totalPages: number = data?.totalPages || 1;
@@ -87,6 +87,7 @@ export function PaginatedTable<T>({
             <TableBodyRenderer
               isLoading={isLoading}
               error={error}
+              refetch={refetch}
               rows={rows}
               columns={columns}
               enableActions={enableActions}
