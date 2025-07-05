@@ -1,192 +1,250 @@
 {
-  "Header": {
-    "features": "Features",
-    "benefits": "Benefits",
-    "ourWork": "Our Work",
-    "testimonials": "Testimonials",
-    "login": "Log in",
-    "signup": "Sign up"
-  },
-  "HeroSection": {
-    "title": "The Ultimate Task Management Platform",
-    "subtitle": "Streamline your workflow, collaborate with your team, and achieve your goals faster than ever before.",
-    "getStarted": "Get Started",
-    "learnMore": "Learn More",
-    "watchDemo": "Watch Demo",
-    "teamCollaboration": "Team Collaboration",
-    "mobileReady": "Mobile Ready",
-    "analytics": "Analytics",
-    "tasksToday": "Tasks Today",
-    "designReview": "Design Review",
-    "clientMeeting": "Client Meeting",
-    "codeDeploy": "Code Deploy",
-    "productivity": "Productivity",
-    "lastSevenDays": "Last 7 days"
-  },
-  "OurWork": {
-    "title": "Our Work in Numbers",
-    "subtitle": "We are proud of the impact we have made. Here are some of the key metrics that showcase our success.",
-    "tasksCompleted": "Tasks Completed",
-    "happyClients": "Happy Clients",
-    "projectsDelivered": "Projects Delivered",
-    "yearsOfExperience": "Years of Experience",
-    "globalRecognition": "Global Recognition",
-    "trustedByCompanies": "Trusted by companies worldwide",
-    "countriesServed": "Countries Served",
-    "uptimeRecord": "Uptime Record",
-    "industryAwards": "Industry Awards",
-    "ourImpact": "Our Impact"
-  },
-  "Benefits": {
-    "title": "Why Choose TaskFlow?",
-    "subtitle": "Discover the benefits of using our platform to manage your tasks and collaborate with your team.",
-    "increasedProductivity": "Increased Productivity",
-    "increasedProductivityDescription": "Our platform helps you stay organized and focused, so you can get more done in less time.",
-    "improvedCollaboration": "Improved Collaboration",
-    "improvedCollaborationDescription": "Easily share tasks, files, and feedback with your team to keep everyone on the same page.",
-    "betterProjectVisibility": "Better Project Visibility",
-    "betterProjectVisibilityDescription": "Get a clear overview of your project progress and identify potential bottlenecks before they become a problem.",
-    "seamlessIntegrations": "Seamless Integrations",
-    "seamlessIntegrationsDescription": "Connect TaskFlow with your favorite tools to create a seamless workflow.",
-    "customizableWorkflows": "Customizable Workflows",
-    "customizableWorkflowsDescription": "Tailor our platform to your team's specific needs with custom fields, statuses, and more.",
-    "customerSupport": "24/7 Customer Support",
-    "customerSupportDescription": "Our dedicated support team is always here to help you with any questions or issues.",
-    "keyAdvantages": "Key Advantages",
-    "keyAdvantagesSubtitle": "Everything you need to succeed, built right in",
-    "realTimeSynchronization": "Real-time synchronization",
-    "advancedAnalytics": "Advanced analytics",
-    "mobileOptimization": "Mobile optimization",
-    "enterpriseSecurity": "Enterprise security",
-    "apiIntegrations": "API integrations",
-    "unlimitedStorage": "Unlimited storage",
-    "customerRating": "4.9/5 Customer Rating",
-    "reviewsCount": "Based on 2,500+ reviews from satisfied customers"
-  },
-  "Analytics": {
-    "title": "Analytics & Insights",
-    "subtitle": "Track your team's performance with powerful analytics and detailed insights.",
-    "totalTasks": "Total Tasks",
-    "completedTasks": "Completed Tasks",
-    "activeProjects": "Active Projects",
-    "teamMembers": "Team Members",
-    "viewDetails": "View Details",
-    "performance": "Performance",
-    "productivity": "Productivity",
-    "efficiency": "Efficiency",
-    "collaboration": "Collaboration",
-    "weeklyPerformance": "Weekly Performance",
-    "taskCompletionTrends": "Task completion trends",
-    "teamProgress": "Team Progress",
-    "individualPerformance": "Individual performance",
-    "tasksCompleted": "Tasks Completed",
-    "vsLastWeek": "vs last week",
-    "customerSatisfaction": "Customer Satisfaction",
-    "supportAvailability": "Support Availability",
-    "uptimeGuarantee": "Uptime Guarantee",
-    "monday": "Monday",
-    "tuesday": "Tuesday",
-    "wednesday": "Wednesday",
-    "thursday": "Thursday",
-    "friday": "Friday",
-    "saturday": "Saturday",
-    "sunday": "Sunday"
-  },
-  "Features": {
-    "features": "Features",
-    "title": "Powerful Features to Boost Your Productivity",
-    "subtitle": "TaskFlow is packed with features designed to help you and your team work smarter, not harder.",
-    "realTimeCollaboration": "Real-Time Collaboration",
-    "realTimeCollaborationDescription": "Work together with your team in real-time, with instant updates and notifications.",
-    "customizableDashboards": "Customizable Dashboards",
-    "customizableDashboardsDescription": "Create personalized dashboards to visualize your work and track your progress.",
-    "teamManagement": "Team Management",
-    "teamManagementDescription": "Assign tasks, set deadlines, and monitor your team's performance with ease.",
-    "learnMore": "Learn more",
-    "uptime": "Uptime",
-    "support": "Support",
-    "integrations": "Integrations",
-    "users": "Users"
-  },
-  "Analytics": {
-    "title": "Analytics & Insights",
-    "subtitle": "Track your team's performance with powerful analytics and detailed insights.",
-    "totalTasks": "Total Tasks",
-    "completedTasks": "Completed Tasks",
-    "activeProjects": "Active Projects",
-    "teamMembers": "Team Members",
-    "viewDetails": "View Details",
-    "performance": "Performance",
-    "productivity": "Productivity",
-    "efficiency": "Efficiency",
-    "collaboration": "Collaboration"
-  },
-  "Testimonials": {
-    "title": "What Our Customers Say",
-    "subtitle": "Join thousands of satisfied customers who have transformed their productivity with TaskFlow",
-    "trustedBy": "Trusted by 500+ companies worldwide",
-    "ctaTitle": "Ready to Transform Your Workflow?",
-    "ctaSubtitle": "Join thousands of teams who have already discovered the power of TaskFlow. Start your free trial today and experience the difference.",
-    "startFreeTrial": "Start Free Trial",
-    "scheduleDemo": "Schedule Demo",
-    "testimonials": "Testimonials",
-    "customerReviews": "Customer Reviews",
-    "readMore": "Read More",
-    "previousTestimonial": "Previous",
-    "nextTestimonial": "Next",
-    "testimonial1": {
-      "name": "Sarah Johnson",
-      "role": "Project Manager",
-      "company": "TechCorp Inc.",
-      "content": "TaskFlow has revolutionized how our team collaborates. The real-time updates and intuitive interface make project management effortless. We've seen a 40% increase in productivity since switching."
+  "Landing": {
+    "Header": {
+      "features": "Features",
+      "benefits": "Benefits",
+      "ourWork": "Our Work",
+      "testimonials": "Testimonials",
+      "login": "Log in",
+      "signup": "Sign up",
+      "brandName": "TaskFlow"
     },
-    "testimonial2": {
-      "name": "Michael Chen",
-      "role": "Senior Developer",
-      "company": "StartupXYZ",
-      "content": "The customizable workflows and seamless integrations have streamlined our development process. TaskFlow's analytics help us identify bottlenecks before they become problems."
+    "HeroSection": {
+      "title": "The Ultimate Task Management Platform",
+      "subtitle": "Streamline your workflow, collaborate with your team, and achieve your goals faster than ever before.",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More",
+      "watchDemo": "Watch Demo",
+      "teamCollaboration": "Team Collaboration",
+      "mobileReady": "Mobile Ready",
+      "analytics": "Analytics",
+      "tasksToday": "Tasks Today",
+      "designReview": "Design Review",
+      "clientMeeting": "Client Meeting",
+      "codeDeploy": "Code Deploy",
+      "productivity": "Productivity",
+      "lastSevenDays": "Last 7 days",
+      "percentageIncrease": "+12%"
     },
-    "testimonial3": {
-      "name": "Emily Rodriguez",
-      "role": "Marketing Director",
-      "company": "Growth Agency",
-      "content": "Outstanding platform! The team management features and mobile optimization allow us to stay productive whether we're in the office or working remotely. Highly recommend!"
+    "Features": {
+      "badge": "Features",
+      "title": "Powerful Features to Boost Your Productivity",
+      "subtitle": "TaskFlow is packed with features designed to help you and your team work smarter, not harder.",
+      "realTimeCollaboration": "Real-Time Collaboration",
+      "realTimeCollaborationDescription": "Work together with your team in real-time, with instant updates and notifications.",
+      "customizableDashboards": "Customizable Dashboards",
+      "customizableDashboardsDescription": "Create personalized dashboards to visualize your work and track your progress.",
+      "teamManagement": "Team Management",
+      "teamManagementDescription": "Assign tasks, set deadlines, and monitor your team's performance with ease.",
+      "learnMore": "Learn more",
+      "stats": {
+        "uptime": "Uptime",
+        "support": "Support",
+        "integrations": "Integrations",
+        "users": "Users",
+        "uptimeValue": "99.9%",
+        "supportValue": "24/7",
+        "integrationsValue": "50+",
+        "usersValue": "500K+"
+      }
     },
-    "testimonial4": {
-      "name": "David Kim",
-      "role": "Operations Manager",
-      "company": "Enterprise Solutions",
-      "content": "TaskFlow's enterprise security and 24/7 support give us peace of mind. The platform scales beautifully with our growing team and complex project requirements."
+    "Benefits": {
+      "badge": "Benefits",
+      "title": "Why Choose TaskFlow?",
+      "subtitle": "Discover the benefits of using our platform to manage your tasks and collaborate with your team.",
+      "increasedProductivity": "Increased Productivity",
+      "increasedProductivityDescription": "Our platform helps you stay organized and focused, so you can get more done in less time.",
+      "improvedCollaboration": "Improved Collaboration",
+      "improvedCollaborationDescription": "Easily share tasks, files, and feedback with your team to keep everyone on the same page.",
+      "betterProjectVisibility": "Better Project Visibility",
+      "betterProjectVisibilityDescription": "Get a clear overview of your project progress and identify potential bottlenecks before they become a problem.",
+      "seamlessIntegrations": "Seamless Integrations",
+      "seamlessIntegrationsDescription": "Connect TaskFlow with your favorite tools to create a seamless workflow.",
+      "customizableWorkflows": "Customizable Workflows",
+      "customizableWorkflowsDescription": "Tailor our platform to your team's specific needs with custom fields, statuses, and more.",
+      "customerSupport": "24/7 Customer Support",
+      "customerSupportDescription": "Our dedicated support team is always here to help you with any questions or issues.",
+      "keyAdvantages": "Key Advantages",
+      "keyAdvantagesSubtitle": "Everything you need to succeed, built right in",
+      "advantages": {
+        "realTimeSynchronization": "Real-time synchronization",
+        "advancedAnalytics": "Advanced analytics",
+        "mobileOptimization": "Mobile optimization",
+        "enterpriseSecurity": "Enterprise security",
+        "apiIntegrations": "API integrations",
+        "unlimitedStorage": "Unlimited storage"
+      },
+      "customerRating": "4.9/5 Customer Rating",
+      "reviewsCount": "Based on 2,500+ reviews from satisfied customers"
+    },
+    "Analytics": {
+      "badge": "Analytics",
+      "title": "Analytics & Insights",
+      "subtitle": "Track your team's performance with powerful analytics and detailed insights.",
+      "weeklyPerformance": "Weekly Performance",
+      "taskCompletionTrends": "Task completion trends",
+      "teamProgress": "Team Progress",
+      "individualPerformance": "Individual performance",
+      "tasksCompleted": "Tasks Completed",
+      "vsLastWeek": "vs last week",
+      "percentageIncrease": "+15%",
+      "stats": {
+        "tasksCompleted": "Tasks Completed",
+        "tasksCompletedValue": "10,000+",
+        "happyClients": "Happy Clients",
+        "projectsDelivered": "Projects Delivered",
+        "yearsOfExperience": "Years of Experience",
+        "happyClientsValue": "500+",
+        "projectsDeliveredValue": "200+",
+        "yearsOfExperienceValue": "5+"
+      },
+      "weekDays": {
+        "monday": "Mon",
+        "tuesday": "Tue",
+        "wednesday": "Wed",
+        "thursday": "Thu",
+        "friday": "Fri",
+        "saturday": "Sat",
+        "sunday": "Sun"
+      },
+      "teamMembers": {
+        "sarahJohnson": "Sarah Johnson",
+        "mikeCheng": "Mike Cheng",
+        "emilyDavis": "Emily Davis",
+        "alexRodriguez": "Alex Rodriguez"
+      },
+      "metrics": {
+        "customerSatisfaction": "Customer Satisfaction",
+        "supportAvailability": "Support Availability",
+        "uptimeGuarantee": "Uptime Guarantee",
+        "customerSatisfactionValue": "98%",
+        "supportAvailabilityValue": "24/7",
+        "uptimeGuaranteeValue": "99.9%"
+      }
+    },
+    "OurWork": {
+      "badge": "Our Impact",
+      "title": "Our Work in Numbers",
+      "subtitle": "We are proud of the impact we have made. Here are some of the key metrics that showcase our success.",
+      "stats": {
+        "tasksCompleted": "Tasks Completed",
+        "happyClients": "Happy Clients",
+        "projectsDelivered": "Projects Delivered",
+        "yearsOfExperience": "Years of Experience",
+        "tasksCompletedValue": "10,000+",
+        "happyClientsValue": "500+",
+        "projectsDeliveredValue": "200+",
+        "yearsOfExperienceValue": "5+"
+      },
+      "globalRecognition": "Global Recognition",
+      "trustedByCompanies": "Trusted by companies worldwide",
+      "achievements": {
+        "countriesServed": "Countries Served",
+        "uptimeRecord": "Uptime Record",
+        "industryAwards": "Industry Awards",
+        "countriesServedValue": "50+",
+        "uptimeRecordValue": "99.9%",
+        "industryAwardsValue": "15+"
+      }
+    },
+    "Testimonials": {
+      "badge": "Testimonials",
+      "title": "What Our Customers Say",
+      "subtitle": "Join thousands of satisfied customers who have transformed their productivity with TaskFlow",
+      "trustedBy": "Trusted by 500+ companies worldwide",
+      "testimonials": {
+        "sarahJohnson": {
+          "name": "Sarah Johnson",
+          "role": "Project Manager",
+          "company": "TechCorp Inc.",
+          "content": "TaskFlow has revolutionized how our team collaborates. The real-time updates and intuitive interface make project management effortless. We've seen a 40% increase in productivity since switching."
+        },
+        "michaelChen": {
+          "name": "Michael Chen",
+          "role": "Senior Developer",
+          "company": "StartupXYZ",
+          "content": "The customizable workflows and seamless integrations have streamlined our development process. TaskFlow's analytics help us identify bottlenecks before they become problems."
+        },
+        "emilyRodriguez": {
+          "name": "Emily Rodriguez",
+          "role": "Marketing Director",
+          "company": "Growth Agency",
+          "content": "Outstanding platform! The team management features and mobile optimization allow us to stay productive whether we're in the office or working remotely. Highly recommend!"
+        },
+        "davidKim": {
+          "name": "David Kim",
+          "role": "Operations Manager",
+          "company": "Enterprise Solutions",
+          "content": "TaskFlow's enterprise security and 24/7 support give us peace of mind. The platform scales beautifully with our growing team and complex project requirements."
+        }
+      },
+      "cta": {
+        "title": "Ready to Transform Your Workflow?",
+        "subtitle": "Join thousands of teams who have already discovered the power of TaskFlow. Start your free trial today and experience the difference.",
+        "startFreeTrial": "Start Free Trial",
+        "scheduleDemo": "Schedule Demo"
+      }
+    },
+    "Footer": {
+      "brandName": "TaskFlow",
+      "brandDescription": "The ultimate task management platform for teams. Streamline your workflow and achieve your goals faster.",
+      "sections": {
+        "product": "Product",
+        "company": "Company",
+        "legal": "Legal"
+      },
+      "productLinks": {
+        "features": "Features",
+        "benefits": "Benefits",
+        "ourWork": "Our Work",
+        "testimonials": "Testimonials",
+        "pricing": "Pricing",
+        "api": "API"
+      },
+      "companyLinks": {
+        "aboutUs": "About Us",
+        "careers": "Careers",
+        "press": "Press",
+        "blog": "Blog",
+        "contact": "Contact",
+        "helpCenter": "Help Center"
+      },
+      "legalLinks": {
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy",
+        "cookiePolicy": "Cookie Policy",
+        "security": "Security",
+        "gdpr": "GDPR"
+      },
+      "newsletter": {
+        "title": "Stay Updated",
+        "subtitle": "Get the latest updates, tips, and insights delivered to your inbox.",
+        "emailPlaceholder": "Enter your email",
+        "subscribe": "Subscribe"
+      },
+      "bottom": {
+        "copyright": "© {year} TaskFlow. All rights reserved.",
+        "language": "🌍 English",
+        "theme": "🌙 Dark Mode"
+      }
     }
   },
-  "Footer": {
-    "product": "Product",
-    "company": "Company",
-    "legal": "Legal",
-    "aboutUs": "About Us",
-    "careers": "Careers",
-    "press": "Press",
-    "blog": "Blog",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "cookiePolicy": "Cookie Policy",
-    "copyright": "© {year} TaskFlow. All rights reserved.",
-    "brandDescription": "The ultimate task management platform for teams. Streamline your workflow and achieve your goals faster.",
-    "stayUpdated": "Stay Updated",
-    "newsletterSubtitle": "Get the latest updates, tips, and insights delivered to your inbox.",
-    "emailPlaceholder": "Enter your email",
-    "subscribe": "Subscribe",
-    "features": "Features",
-    "benefits": "Benefits",
-    "ourWork": "Our Work",
-    "testimonials": "Testimonials",
-    "pricing": "Pricing",
-    "api": "API",
-    "contact": "Contact",
-    "helpCenter": "Help Center",
-    "security": "Security",
-    "gdpr": "GDPR",
-    "english": "English",
-    "darkMode": "Dark Mode"
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue",
+      "welcome": "Welcome Back",
+      "loginToAccount": "Sign in to your account",
+      "selectRole": "Select Role",
+      "student": "Student",
+      "admin": "Admin",
+      "teacher": "Teacher",
+      "userIdLabel": "User ID",
+      "enterUserId": "Enter your user ID",
+      "password": "Password",
+      "enterPassword": "Enter your password",
+      "signIn": "Sign In",
+      "loggingIn": "Signing in..."
+    }
   }
 }

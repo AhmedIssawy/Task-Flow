@@ -12,22 +12,12 @@ const LandingPage = () => {
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
-                <div className="w-full max-w-none mx-auto">
+                <div className="w-full">
                     <HeroSection />
-                </div>
-                <div className="w-full max-w-none mx-auto">
                     <Features />
-                </div>
-                <div className="w-full max-w-none mx-auto">
                     <Benefits />
-                </div>
-                <div className="w-full max-w-none mx-auto">
                     <Analytics />
-                </div>
-                <div className="w-full max-w-none mx-auto">
                     <OurWork />
-                </div>
-                <div className="w-full max-w-none mx-auto">
                     <Testimonials />
                 </div>
             </main>
