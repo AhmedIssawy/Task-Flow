@@ -5,12 +5,13 @@ import Course from "../models/course.model.js";
 
 const getPageOfTeachers = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { page = 1 } = req.query;
+  const { page = 1, limit = 40 } = req.query;
 
   const teachers = await Teacher.find()
     .select("-password")
     .populate("courses")
     .skip((page - 1) * 40)
+    .limit(limit)
     .lean();
 
   if (!teachers || teachers.length === 0) {
@@ -30,7 +31,7 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
 const getTeacherById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { teacherId } = req.params;
-  
+
   const teacher = await Teacher.findOne({ id: teacherId })
     .select("-password")
     .populate("courses");
@@ -120,16 +121,8 @@ const createTeacher = asyncHandler(async (req, res) => {
 
 const updateTeacher = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const {
-    _id,
-    name,
-    email,
-    courses,
-    phone,
-    address,
-    password,
-    role,
-  } = req.body;
+  const { _id, name, email, courses, phone, address, password, role } =
+    req.body;
 
   const { id } = req.params;
 
@@ -180,7 +173,7 @@ const deleteTeacher = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { id } = req.params;
   const { _id = "" } = req.body;
-  
+
   if (!id && !_id) {
     let message = "Teacher 'id' or '_id' is required";
     if (lang === "ar") message = "معرف المعلم 'id' أو '_id' مطلوب";
@@ -201,7 +194,7 @@ const deleteTeacher = asyncHandler(async (req, res) => {
 
   let message = "Teacher deleted successfully";
   if (lang === "ar") message = "تم حذف المعلم بنجاح";
-  
+
   res.status(200).json({
     message,
   });
