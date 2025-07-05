@@ -8,7 +8,7 @@ const detectLanguage = () => {
         })
     }
     req.lang = lang;
-    console.log("Detected language:", lang);
+    // console.log("Detected language:", lang);
     next();
   };
 };
