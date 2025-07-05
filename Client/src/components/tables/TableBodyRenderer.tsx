@@ -1,8 +1,4 @@
-import {
-  TableBody,
-  TableCell,
-  TableRow,
-} from '@/components/ui/table';
+import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
 
@@ -14,6 +10,7 @@ interface Column<T> {
 interface TableBodyRendererProps<T> {
   isLoading: boolean;
   error: any;
+  refetch?: () => void;
   rows: T[];
   columns: Column<T>[];
   enableActions?: boolean;
@@ -26,6 +23,7 @@ interface TableBodyRendererProps<T> {
 export default function TableBodyRenderer<T>({
   isLoading,
   error,
+  refetch,
   rows,
   columns,
   enableActions,
@@ -50,8 +48,16 @@ export default function TableBodyRenderer<T>({
     return (
       <TableBody>
         <TableRow>
-          <TableCell colSpan={columns.length + 1} className="text-center text-red-500 py-6">
-            Failed to load data.
+          <TableCell
+            colSpan={columns.length + 1}
+            className="text-center text-red-500 py-6"
+          >
+            <div className="space-y-2">
+              <p>Failed to load data.</p>
+              <Button variant="outline" size="sm" onClick={() => refetch?.()}>
+                Retry
+              </Button>
+            </div>
           </TableCell>
         </TableRow>
       </TableBody>
@@ -62,7 +68,10 @@ export default function TableBodyRenderer<T>({
     return (
       <TableBody>
         <TableRow>
-          <TableCell colSpan={columns.length + 1} className="text-center text-muted-foreground py-6">
+          <TableCell
+            colSpan={columns.length + 1}
+            className="text-center text-muted-foreground py-6"
+          >
             No data found.
           </TableCell>
         </TableRow>
@@ -85,7 +94,11 @@ export default function TableBodyRenderer<T>({
             <TableCell>
               <div className="flex gap-2">
                 {editHook && (
-                  <Button variant="outline" size="sm" onClick={() => onEdit(row)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onEdit(row)}
+                  >
                     Edit
                   </Button>
                 )}
