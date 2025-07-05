@@ -2,8 +2,6 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { LogOut } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -17,7 +15,7 @@ interface SideNavContentProps {
 export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
   const pathname = usePathname()
   return (
-    <div className="flex h-full w-full flex-col bg-white dark:bg-gray-900">
+    <div className="flex h-full w-full flex-col glass-effect bg-background/80 backdrop-blur-md border-r border-border/50">
       {/* Navigation */}
       <ScrollArea className="flex-1 px-3 py-6">
         <nav className="space-y-2">
@@ -29,16 +27,16 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
                 href={href}
                 onClick={onItemClick}
                 className={cn(
-                  'group flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 hover:shadow-sm',
+                  'group flex items-center justify-between px-3 py-2.5 rounded-2xl text-sm font-medium transition-colors duration-200',
                   isActive
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
-                    : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-blue-950/50'
+                    ? 'bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg'
+                    : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
                 )}
               >
                 <div className="flex items-center gap-3">
                   <Icon className={cn(
-                    'h-5 w-5 transition-transform duration-200',
-                    isActive ? 'text-white' : 'text-current group-hover:scale-110'
+                    'h-5 w-5 transition-colors duration-200',
+                    isActive ? 'text-primary-foreground' : 'text-current group-hover:text-primary'
                   )} />
                   <span>{label}</span>
                 </div>
@@ -46,10 +44,10 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
                   <Badge
                     variant={isActive ? 'secondary' : 'outline'}
                     className={cn(
-                      'text-xs px-2 py-0.5 font-medium',
+                      'text-xs px-2 py-0.5 font-medium transition-colors duration-200 rounded-xl',
                       isActive
-                        ? 'bg-white/20 text-white border-white/30 hover:bg-white/30'
-                        : 'bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 dark:bg-blue-950 dark:text-blue-400 dark:border-blue-800'
+                        ? 'bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30'
+                        : 'bg-primary/10 text-primary border-primary/20 hover:bg-primary/20'
                     )}
                   >
                     {badge}
@@ -60,17 +58,8 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
           })}
         </nav>
       </ScrollArea>
-      {/* Footer */}
-      <div className="p-3 border-t border-slate-200 dark:border-gray-700">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start gap-3 text-slate-600 hover:text-red-600 hover:bg-red-50 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-red-950/50 transition-all duration-200 rounded-xl py-2.5"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Logout</span>
-        </Button>
-      </div>
+      
+      
     </div>
   )
 }
@@ -82,7 +71,7 @@ interface SideMenuProps {
 
 export function SideMenu({ navItems, onItemClick }: SideMenuProps) {
   return (
-    <aside className="student-sidebar hidden lg:flex border-r border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 z-40 hidden lg:flex glass-effect bg-background/80 backdrop-blur-md border-r border-border/50 shadow-2xl rounded-r-2xl">
       <SideNavContent navItems={navItems} onItemClick={onItemClick} />
     </aside>
   )

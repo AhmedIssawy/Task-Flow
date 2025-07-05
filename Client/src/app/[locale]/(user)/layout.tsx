@@ -15,14 +15,18 @@ export default function UserLayout({ children }: UserLayoutProps) {
   
   const getNavItems = navItemsData[role as keyof typeof navItemsData];
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-blue-950 dark:to-indigo-950">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
       {/* Fixed Navbar */}
       <Navbar />
 
-      <div className=''>
+      <div className="flex pt-16">
+        {/* Sidebar */}
         <SideMenu navItems={getNavItems(id)} />
+        
         {/* Content Area */}
-        <div className="pt-16">{children}</div>
+        <div className="flex-1 lg:ml-64">
+          {children}
+        </div>
       </div>
     </div>
   );
