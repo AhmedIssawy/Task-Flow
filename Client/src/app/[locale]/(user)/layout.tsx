@@ -19,9 +19,11 @@ export default function UserLayout({ children }: UserLayoutProps) {
       {/* Fixed Navbar */}
       <Navbar />
 
-      <SideMenu navItems={getNavItems(id)} />
-      {/* Content Area */}
-      <div className="pt-16">{children}</div>
+      <div className=''>
+        <SideMenu navItems={getNavItems(id)} />
+        {/* Content Area */}
+        <div className="pt-16">{children}</div>
+      </div>
     </div>
   );
 }

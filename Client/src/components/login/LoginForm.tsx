@@ -77,11 +77,11 @@ export default function LoginForm() {
               <SelectTrigger className="w-full">
                 <SelectValue placeholder={t('selectRole')} />
               </SelectTrigger>
-              <SelectContent>
+                <SelectContent className="backdrop-blur-md bg-opacity-50">
                 <SelectItem value="STU-">{t('student')}</SelectItem>
                 <SelectItem value="ADMIN-">{t('admin')}</SelectItem>
                 <SelectItem value="TEACHER-">{t('teacher')}</SelectItem>
-              </SelectContent>
+                </SelectContent>
             </Select>
           </div>
 
@@ -128,14 +128,14 @@ export default function LoginForm() {
             </div>
           </div>
 
-          {/* Submit Button */}
-          <Button
+            {/* Submit Button */}
+            <Button
             type="submit"
             disabled={isLoading || !userIdRole || !userId}
-            className="w-full"
-          >
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
+            >
             {isLoading ? t('loggingIn') : t('signIn')}
-          </Button>
+            </Button>
         </form>
       </div>
     </div>

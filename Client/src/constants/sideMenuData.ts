@@ -4,7 +4,6 @@ import {
   Calendar,
   ClipboardList,
   BarChart3,
-  BarChart2,
   BarChart,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
