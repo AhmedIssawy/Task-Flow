@@ -37,9 +37,12 @@ export function PaginatedTable<T>({
   const [isCreating, setIsCreating] = useState(false);
   const [editFormData, setEditFormData] = useState<Record<string, any>>({});
 
-  const [deleteFn, { isLoading: isDeleting }] = deleteHook?.() || [];
-  const [editFn, { isLoading: isEditing }] = editHook?.() || [];
-  const [createFn, { isLoading: isCreatingLoading }] = createHook?.() || [];
+  const [deleteFn, { isLoading: isDeleting } = { isLoading: false }] =
+    deleteHook?.() || [];
+  const [editFn, { isLoading: isEditing } = { isLoading: false }] =
+    editHook?.() || [];
+  const [createFn, { isLoading: isCreatingLoading } = { isLoading: false }] =
+    createHook?.() || [];
 
   const openEditModal = (item: T) => {
     const initialValues: Record<string, any> = {};
@@ -71,7 +74,7 @@ export function PaginatedTable<T>({
           )}
         </div>
 
-        <div className="rounded-md border">
+        <div className="rounded-md border mx-4">
           <Table>
             <TableHeader>
               <TableRow>
@@ -104,6 +107,7 @@ export function PaginatedTable<T>({
             page={page}
             totalPages={totalPages}
             setPage={setPage}
+            className="mx-6"
           />
         )}
       </div>
