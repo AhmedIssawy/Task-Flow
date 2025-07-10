@@ -17,15 +17,16 @@ interface Field {
   options?: { label: string; value: string }[];
 }
 
+
 export interface PaginatedTableProps<T> {
-  queryHook: (args: { page: number; limit: number }) => {
-    data?: any;
+  queryResult: {
+    data?: { [key: string]: any; totalPages?: number };
     isLoading: boolean;
-    error?: any;
+    error?: unknown;
+    refetch?: () => void;
   };
   dataKey: string;
   columns: Column<T>[];
-  limit?: number;
   className?: string;
   enableActions?: boolean;
   deleteHook?: () => readonly [

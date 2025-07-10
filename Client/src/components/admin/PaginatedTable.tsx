@@ -1,22 +1,20 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Table, TableHeader, TableRow, TableHead } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-import PaginationControls from '../tables/PaginatedControls';
 import DeleteModal from '../tables/DeleteModal';
 import TableBodyRenderer from '../tables/TableBodyRenderer';
 import type { PaginatedTableProps } from '@/constants/tableTypes';
 import FormModal from '../tables/FormModal';
 
 export function PaginatedTable<T>({
-  queryHook,
+  queryResult,
   dataKey,
   columns,
-  limit = 10,
   className,
   enableActions,
   deleteHook,
@@ -25,12 +23,10 @@ export function PaginatedTable<T>({
   editableFields = [],
   createFields = [],
 }: PaginatedTableProps<T>) {
-  const [page, setPage] = useState(1);
-  const queryArgs = useMemo(() => ({ page, limit }), [page, limit]);
-  const { data, isLoading, error, refetch } = queryHook(queryArgs);
 
+  const { data, isLoading, error, refetch } = queryResult;
   const rows: T[] = data?.[dataKey] || [];
-  const totalPages: number = data?.totalPages || 1;
+  
 
   const [itemToDelete, setItemToDelete] = useState<T | null>(null);
   const [itemToEdit, setItemToEdit] = useState<T | null>(null);
@@ -65,7 +61,7 @@ export function PaginatedTable<T>({
 
   return (
     <>
-      <div className={cn('w-full space-y-4', className)}>
+      <div className={cn(className)}>
         <div className="flex justify-end">
           {createHook && (
             <Button onClick={openCreateModal} className="ml-auto">
@@ -74,7 +70,7 @@ export function PaginatedTable<T>({
           )}
         </div>
 
-        <div className="rounded-md border mx-4">
+        <div className="rounded-md border max-w-full">
           <Table>
             <TableHeader>
               <TableRow>
@@ -102,14 +98,6 @@ export function PaginatedTable<T>({
           </Table>
         </div>
 
-        {totalPages > 1 && (
-          <PaginationControls
-            page={page}
-            totalPages={totalPages}
-            setPage={setPage}
-            className="mx-6"
-          />
-        )}
       </div>
 
       <DeleteModal
@@ -128,23 +116,23 @@ export function PaginatedTable<T>({
         isLoading={isDeleting}
       />
 
-      {/* creation modal */}
+      {/* Creation Modal */}
       <FormModal
         isOpen={isCreating}
         onClose={closeFormModal}
         title="Create Item"
         description="Fill in the fields to create an item"
         submitLabel="Create"
-        fields={createFields || []}
+        fields={createFields}
         submitFn={(data) =>
           createFn!({
             ...data,
-            universityId: '6823509b467cae38bbf7d69f', // TODO: make dynamic
+            universityId: '6823509b467cae38bbf7d69f', // TODO: Make dynamic
           }).unwrap?.()
         }
       />
 
-      {/* edit modal */}
+      {/* Edit Modal */}
       <FormModal
         isOpen={!!itemToEdit}
         onClose={closeFormModal}
@@ -152,7 +140,7 @@ export function PaginatedTable<T>({
         description="Update the fields and click save to apply changes."
         submitLabel="Save"
         initialData={editFormData}
-        fields={editableFields || []}
+        fields={editableFields}
         submitFn={(data) =>
           editFn!({ _id: (itemToEdit as any)._id, ...data }).unwrap?.()
         }
