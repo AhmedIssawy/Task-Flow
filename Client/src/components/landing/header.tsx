@@ -25,7 +25,7 @@ const Header = () => {
         >
             <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8 max-w-7xl">
                 {/* Logo */}
-                <a href="#" className="text-2xl font-bold font-serif text-foreground hover:text-primary transition-colors">
+                <a href="#" className="text-2xl font-bold font-serif text-light transition-colors">
                     {t("brandName")}
                 </a>
 
