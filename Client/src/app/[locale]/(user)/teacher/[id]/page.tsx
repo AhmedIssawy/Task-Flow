@@ -19,7 +19,6 @@ export default function TeacherDashboard() {
   
   const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
   const totalPages: number = studentsQueryResult?.data?.totalPages || 1;
-  console.log('Teacher Dashboard - data:', studentsQueryResult);
 
   if (isLoading) {
     return (
@@ -101,7 +100,6 @@ export default function TeacherDashboard() {
           setPage={setPage}
           />
       </div>
-
 
     </div>
   );
