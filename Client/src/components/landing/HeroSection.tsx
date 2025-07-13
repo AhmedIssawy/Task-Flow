@@ -17,7 +17,7 @@ const HeroSection = () => {
   const t = useTranslations("Landing.HeroSection");
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-8 py-20 bg-light  overflow-hidden">
+    <section className="relative min-h-[96vh] flex flex-col justify-center items-center px-4 md:px-8 pt-[20px] bg-light  overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="absolute top-20 ltr:left-10 rtl:right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
@@ -123,13 +123,13 @@ const HeroSection = () => {
               <div className="relative w-fit">
                 <Image
                   src="/mobile.svg"
-                  width={485}
-                  height={1034}
+                  width={380}
+                  height={850}
                   alt="Mobile"
                   className="block"
                 />
               </div>
-              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-white via-white to-transparent pointer-events-none blur-2xl" />
+              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-white via-white to-transparent dark:from-[#020817] dark:via-[#020817] dark:to-transparent pointer-events-none blur-2xl" />
             </div>
 
             <div>

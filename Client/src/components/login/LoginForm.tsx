@@ -11,18 +11,10 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { normalizeRole } from '@/utils/role';
 import { useAppDispatch } from '@/store/hooks';
 import { setAuth } from '@/store/slices/authSlice';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Lock, User, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('')
-  const [userIdRole, setUserIdRole] = useState('');
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [login, { isLoading }] = useLoginMutation()
@@ -30,12 +22,11 @@ export default function LoginForm() {
   const t = useTranslations('auth.login')
   const { isRTL } = useLanguage()
   const dispatch = useAppDispatch();
-  const fullUserId = `${userIdRole}${userId}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { role, data } = await login({ id: fullUserId, password }).unwrap();
+      const { role, data } = await login({ id: userId, password }).unwrap();
 
       const redirectPath = getPathByRole(role, data.id);
       const normalizedRole = normalizeRole(role);
@@ -68,22 +59,6 @@ export default function LoginForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Role Selection */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">
-              {t('selectRole')}
-            </label>
-            <Select onValueChange={(value) => setUserIdRole(value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder={t('selectRole')} />
-              </SelectTrigger>
-                <SelectContent className="backdrop-blur-md bg-opacity-50">
-                <SelectItem value="STU-">{t('student')}</SelectItem>
-                <SelectItem value="ADMIN-">{t('admin')}</SelectItem>
-                <SelectItem value="TEACHER-">{t('teacher')}</SelectItem>
-                </SelectContent>
-            </Select>
-          </div>
 
           {/* User ID Input */}
           <div className="space-y-2">
@@ -131,7 +106,7 @@ export default function LoginForm() {
             {/* Submit Button */}
             <Button
             type="submit"
-            disabled={isLoading || !userIdRole || !userId}
+            disabled={isLoading || !userId}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-colors cursor-pointer disabled:cursor-not-allowed"
             >
             {isLoading ? t('loggingIn') : t('signIn')}
