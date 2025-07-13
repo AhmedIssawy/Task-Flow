@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useGetTeacherByIdQuery } from '@/store/services/teacherApi';
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
@@ -8,10 +9,16 @@ import { useAppSelector } from '@/store/hooks';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import { useGetStudentsPageQuery } from '@/store/services/studentApi';
 import { studentColumns } from '@/constants/teacherTableData';
+import PaginationControls from '@/components/tables/PaginatedControls';
 
 export default function TeacherDashboard() {
   const id = useAppSelector((state) => state.auth.id);
   const { data, isLoading, error } = useGetTeacherByIdQuery(id as string);
+
+  const [page, setPage] = useState(1);
+  
+  const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
+  const totalPages: number = studentsQueryResult?.data?.totalPages || 1;
 
   if (isLoading) {
     return (
@@ -76,12 +83,24 @@ export default function TeacherDashboard() {
           ))}
         </div>
       )}
-      <PaginatedTable
-        queryHook={useGetStudentsPageQuery}
-        dataKey="students"
-        columns={studentColumns}
-        className='mt-10'
-      />
+
+
+
+      <div className="w-full space-y-4 mt-4">
+        <PaginatedTable
+          queryResult={studentsQueryResult}
+          dataKey="students"
+          columns={studentColumns}
+          className="mt-10"
+        />
+
+        <PaginationControls
+          page={page}
+          totalPages={totalPages}
+          setPage={setPage}
+          />
+      </div>
+
     </div>
   );
 }

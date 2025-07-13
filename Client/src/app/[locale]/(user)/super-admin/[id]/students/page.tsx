@@ -13,7 +13,6 @@ import {
   adminStudentsTableData,
 } from '@/constants/adminTableData';
 
-import type { Student } from '@/store/types/student';
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
 
@@ -25,7 +24,7 @@ export default function AdminDashboard() {
   return (
     <>
       <div className="w-full space-y-4 mt-4">
-        <PaginatedTable<Student>
+        <PaginatedTable
           queryResult={studentsQueryResult}
           dataKey="students"
           columns={adminStudentsTableData}

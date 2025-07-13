@@ -12,7 +12,8 @@ export const collegeApi = createApi({
     // GET /colleges/universityId?page=1&limit=40
     getCollegesPage: builder.query<College[], { universityId: string; page?: number; limit?: number }>({
       query: ({ universityId, page = 1, limit = 40 }) =>
-        `/colleges/${universityId}?page=${page}&limit=${limit}`,
+        `/universities/${universityId}/colleges?page=${page}&limit=${limit}`,
+      
     }),
 
     // GET /colleges/universityId/collegeId

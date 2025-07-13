@@ -14,7 +14,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
   const [, locale, role, id] = usePathname().split('/');
   console.log('UserLayout role:', role, 'id:', id);
 
-  const getNavItems = navItemsData[role as keyof typeof navItemsData];
+  const getNavItems = navItemsData[role.replace(/-/g, '') as keyof typeof navItemsData];
   return (
     <UserAuthGuard>
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">

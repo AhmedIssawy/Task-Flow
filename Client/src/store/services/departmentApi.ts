@@ -9,9 +9,9 @@ export const departmentApi = createApi({
   }),
   endpoints: (builder) => ({
     // GET /departments/:collegeId?page=1&limit=40
-    getDepartmentsPage: builder.query<Department[], { collegeId: string; page?: number; limit?: number }>({
-      query: ({ collegeId, page = 1, limit = 40 }) =>
-        `/departments/${collegeId}?page=${page}&limit=${limit}`,
+    getDepartmentsPage: builder.query<Department[], {universityId: string, collegeId: string; page?: number; limit?: number }>({
+      query: ({ universityId, collegeId, page = 1, limit = 20 }) =>
+    `/universities/${universityId}/colleges/${collegeId}/departments?page=${page}&limit=${limit}`,
     }),
 
     // GET /departments/:id

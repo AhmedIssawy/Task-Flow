@@ -45,15 +45,16 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'Students', href: `/admin/${id}/students`, icon: BarChart3, badge: 'New' },
     { label: 'Settings', href: `/admin/${id}/settings`, icon: Settings, badge: '' },
   ],
-
+  
   superadmin: (id: string) => [
-    { label: 'University', href: `/superadmin/${id}/universities`, icon: Book, badge: '3' },
-    { label: 'Admins', href: `/superadmin/${id}/admins`, icon: BarChart, badge: 'New' },
-    { label: 'Colleges', href: `/superadmin/${id}/colleges`, icon: BarChart3, badge: 'New' },
-    { label: 'Departments', href: `/superadmin/${id}/departments`, icon: BarChart3, badge: 'New' },
-    { label: 'Courses', href: `/superadmin/${id}/courses`, icon: ClipboardList, badge: '5' },
-    { label: 'Teachers', href: `/superadmin/${id}/teachers`, icon: Book, badge: '3' },
-    { label: 'Students', href: `/superadmin/${id}/students`, icon: BarChart3, badge: 'New' },
-    { label: 'Settings', href: `/superadmin/${id}/settings`, icon: Settings, badge: '' },
+    { label: 'Dashboard', href: `/super-admin/${id}`, icon: Home, badge: '' },
+    { label: 'University', href: `/super-admin/${id}/universities`, icon: Book, badge: '3' },
+    { label: 'Admins', href: `/super-admin/${id}/admins`, icon: BarChart, badge: 'New' },
+    { label: 'Colleges', href: `/super-admin/${id}/colleges`, icon: BarChart3, badge: 'New' },
+    { label: 'Departments', href: `/super-admin/${id}/departments`, icon: BarChart3, badge: 'New' },
+    { label: 'Courses', href: `/super-admin/${id}/courses`, icon: ClipboardList, badge: '5' },
+    { label: 'Teachers', href: `/super-admin/${id}/teachers`, icon: Book, badge: '3' },
+    { label: 'Students', href: `/super-admin/${id}/students`, icon: BarChart3, badge: 'New' },
+    { label: 'Settings', href: `/super-admin/${id}/settings`, icon: Settings, badge: '' },
   ],
 }

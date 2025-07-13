@@ -1,43 +1,34 @@
 'use client';
 
 import {
-  useGetStudentsPageQuery,
-  useDeleteStudentMutation,
-  useUpdateStudentMutation,
-  useCreateStudentMutation,
+
 } from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import {
-  adminStudentCreateFields,
-  adminStudentEditFields,
   adminStudentsTableData,
 } from '@/constants/adminTableData';
 
-import type { Student } from '@/store/types/student';
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
+import { useDeleteAdminMutation, useGetPageOfAdminsQuery } from '@/store/services/adminApi';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
-  const totalPages: number = studentsQueryResult?.data?.totalPages || 0;
+  const adminsQueryResult = useGetPageOfAdminsQuery(page);
+  const totalPages: number = adminsQueryResult?.data?.totalPages || 0;
 
   return (
     <>
       <div className="w-full space-y-4 mt-4">
-        <PaginatedTable<Student>
-          queryResult={studentsQueryResult}
-          dataKey="students"
+        <PaginatedTable
+          queryResult={adminsQueryResult}
+          dataKey="admins"
           columns={adminStudentsTableData}
           className="mx-4"
           enableActions
-          deleteHook={useDeleteStudentMutation}
-          editHook={useUpdateStudentMutation}
-          editableFields={adminStudentEditFields}
-          createHook={useCreateStudentMutation}
-          createFields={adminStudentCreateFields}
+          deleteHook={useDeleteAdminMutation}
         />
-        {totalPages && (
+        {totalPages > 0 && (
           <PaginationControls
             page={page}
             totalPages={totalPages}
