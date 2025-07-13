@@ -13,8 +13,7 @@ const createDepartment = asyncHandler(async (req, res) => {
   } = req.body;
 
   const { collegeId, universityId } = req.params;
-
-  // التحقق من الحقول المطلوبة
+ 
   if (!name || !description || !phone || !email || !location || !collegeId || !universityId || !establishedYear) {
     let message = "All fields are required";
     if (lang === "ar") message = "جميع الحقول مطلوبة";
@@ -22,7 +21,6 @@ const createDepartment = asyncHandler(async (req, res) => {
     return res.status(400).json({ message });
   }
 
-  // تحقق من تكرار الاسم في نفس الكلية
   const existingByName = await Department.findOne({ name, collegeId });
   if (existingByName) {
     let message = "Department already exists in this college";
@@ -31,7 +29,6 @@ const createDepartment = asyncHandler(async (req, res) => {
     return res.status(400).json({ message });
   }
 
-  // تحقق من تكرار البريد الإلكتروني
   const existingByEmail = await Department.findOne({ email });
   if (existingByEmail) {
     let message = "Email is already in use";
@@ -40,7 +37,6 @@ const createDepartment = asyncHandler(async (req, res) => {
     return res.status(400).json({ message });
   }
 
-  // إنشاء القسم
   const department = await Department.create({
     name,
     description,
@@ -127,8 +123,8 @@ const getDepartmentById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const department = await Department.findById(id).populate({
-    path: "collegeId", // Example: populate related College if exists
-    select: "name address", // Limit fields if needed
+    path: "collegeId", 
+    select: "name address", 
   });
 
   if (!department) {

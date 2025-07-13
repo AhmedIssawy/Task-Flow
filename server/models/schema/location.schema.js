@@ -17,7 +17,7 @@ const locationSchema = new mongoose.Schema(
       },
     },
   },
-  { _id: false } // Prevents creating an extra _id for embedded sub-documents
+  { _id: false }
 );
 
 export default locationSchema;
