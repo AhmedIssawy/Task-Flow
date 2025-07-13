@@ -10,6 +10,8 @@ export const getPathByRole = (role: string, id: string) => {
       return `/admin/${cleanId}`;
     case 'teacher':
       return `/teacher/${cleanId}`;
+    case 'super-admin':
+      return `/super-admin/${cleanId}`;
     default:
       return '/';
   }

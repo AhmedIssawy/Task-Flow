@@ -35,7 +35,7 @@ export const adminTeachersTableData = [
   { label: 'Name', accessor: 'name' },
   { label: 'Email', accessor: 'email' },
   { label: 'Teacher ID', accessor: 'id' },
-  { label: 'Role', accessor: 'role' },
+  { label: 'Phone', accessor: 'phone' },
   { label: 'University', accessor: (row: any) => row.universityId?.name },
 ];
 

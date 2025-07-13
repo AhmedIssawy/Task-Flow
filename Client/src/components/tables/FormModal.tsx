@@ -28,7 +28,7 @@ interface FormModalProps {
   title?: string;
   description?: string;
   submitLabel?: string;
-  submitFn: (data: any) => Promise<any>;
+  submitFn: (data: any) => Promise<any> | undefined;
   fields: Field[];
   initialData?: Record<string, any>;
 }
