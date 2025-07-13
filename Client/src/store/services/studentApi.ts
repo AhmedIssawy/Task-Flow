@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Student, PaginatedStudentsResponse, Course, CourseDetails } from '../types/student'
+import type { Student, PaginatedStudentsResponse, Course, CourseDetails, Grade, Assignment, Calendar as calendar } from '../types/student'
 
 export const studentApi = createApi({
   reducerPath: 'studentApi',
@@ -12,7 +12,7 @@ export const studentApi = createApi({
     // Create
     createStudent: builder.mutation<Student, Partial<Student>>({
       query: (newStudentData) => ({
-        url: '/students',
+        url: 'admin/student',
         method: 'POST',
         body: newStudentData,
       }),
@@ -22,7 +22,7 @@ export const studentApi = createApi({
     // Get All (paginated)
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 40 }) =>
-        `/students/page?page=${page}&limit=${limit}`,
+        `/students?page=${page}&limit=${limit}`,
       providesTags: ['Student'],
     }),
 
@@ -46,10 +46,10 @@ export const studentApi = createApi({
     }),
 
     // Update
-    updateStudent: builder.mutation<Student, Partial<Student> & { id: string }>({
-      query: ({ id, ...updates }) => ({
-        url: `/students/${id}`,
-        method: 'PUT', // changed from PATCH to PUT as per controller
+    updateStudent: builder.mutation<Student, Partial<Student> & { _id: string }>({
+      query: ({ _id, ...updates }) => ({
+        url: `admin/student/${_id}`,
+        method: 'PATCH',
         body: updates,
       }),
       invalidatesTags: ['Student'],
@@ -73,6 +73,21 @@ export const studentApi = createApi({
     getStudentCourseById: builder.query<{ course: CourseDetails }, { id: string; courseId: string }>({
       query: ({ id, courseId }) => `/students/${id}/courses/${courseId}`,
     }),
+
+    // Get student grades
+    getStudentGrades: builder.query<{ grades: Grade[] }, string>({
+      query: (id) => `/students/${id}/grades`,
+    }),
+
+    // Get student assignments
+    getStudentAssignments: builder.query<{ assignments: Assignment[] }, string>({
+      query: (id) => `/students/${id}/assignments`,
+    }),
+
+    // Get student calendar
+    getStudentCalendar: builder.query<{ calendar: calendar[] }, string>({
+      query: (id) => `/students/${id}/calendar`,
+    }),
   }),
 })
 
@@ -86,4 +101,7 @@ export const {
   useDeleteStudentMutation,
   useGetStudentCoursesQuery,
   useGetStudentCourseByIdQuery,
+  useGetStudentGradesQuery,
+  useGetStudentAssignmentsQuery,
+  useGetStudentCalendarQuery,
 } = studentApi

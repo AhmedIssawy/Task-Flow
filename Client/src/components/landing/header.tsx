@@ -1,69 +1,77 @@
-'use client'
-import React from 'react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
-import { LanguageSwitcher } from '@/components/made/language-switcher'
-import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { useLanguage } from '@/hooks/useLanguage'
+'use client';
+import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageSwitcher } from "@/components/made/language-switcher";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const t = useTranslations('landing.header')
-    const tLanding = useTranslations('landing')
-    const { isRTL } = useLanguage()
+    const t = useTranslations("Landing.Header");
+    const router = useRouter();
+
+    const handleLogin = () => {
+        router.push('/auth/login');
+    };
+
     return (
-        <header className="sticky top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-            <div className="container mx-auto px-4 lg:px-6">
-                <div className={`flex items-center justify-between h-16 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse group font-display">
-                        <span className="font-bold text-xl text-foreground group-hover:text-primary transition-colors duration-300">{tLanding('taskFlow')}</span>
-                    </Link>
+        <motion.header
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="bg-background/80 backdrop-blur-md fixed top-0 z-50 w-full border-b border-border/50 shadow-sm"
+        >
+            <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8 max-w-7xl">
+                {/* Logo */}
+                <a href="#" className="text-2xl font-bold font-serif text-light transition-colors">
+                    {t("brandName")}
+                </a>
 
-                    {/* Desktop CTA */}
-                    <div className="hidden md:flex items-center space-x-4 rtl:space-x-reverse">
-                        <LanguageSwitcher />
-                        <ThemeToggle />
-                        <Link href="/auth/login">
-                            <Button variant="default" size="sm" className="hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-                                {t('login')}
-                            </Button>
-                        </Link>
-                    </div>
+                {/* Desktop Actions */}
+                <div className="hidden md:flex items-center space-x-3 rtl:space-x-reverse">
+                    <LanguageSwitcher />
+                    <ThemeToggle />
+                    <Button
+                        onClick={handleLogin}
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
+                    >
+                        {t("login")}
+                    </Button>
+                </div>
 
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center space-x-2 rtl:space-x-reverse">
-                        <LanguageSwitcher />
-                        <ThemeToggle />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="hover:bg-accent transition-colors duration-300"
-                        >
-                            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {/* Mobile Menu */}
+                <Sheet>
+                    <SheetTrigger asChild className="md:hidden">
+                        <Button variant="outline" size="icon" className="border-border hover:bg-accent">
+                            <Menu className="h-5 w-5" />
                         </Button>
-                    </div>
-                </div>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="bg-background/95 backdrop-blur-md border-border/50">
+                        <div className="grid gap-6 p-6">
+                            <a href="#" className="text-2xl font-bold font-serif text-foreground">
+                                {t("brandName")}
+                            </a>
+                            <div className="grid gap-4">
+                                <div className="flex items-center gap-3">
+                                    <LanguageSwitcher />
+                                    <ThemeToggle />
+                                </div>
+                                <Button 
+                                    onClick={handleLogin}
+                                    variant="ghost" 
+                                    className="justify-start text-muted-foreground hover:text-foreground"
+                                >
+                                    {t("login")}
+                                </Button>
+                            </div>
+                        </div>
+                    </SheetContent>
+                </Sheet>
             </div>
+        </motion.header>
+    );
+};
 
-            {/* Mobile Navigation */}
-            {isMenuOpen && (
-                <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border">
-                    <div className="px-4 py-4 space-y-3 text-start">
-                        <Link href="/auth/login" className="block">
-                            <Button variant="ghost" className="w-full justify-start hover:bg-accent transition-all duration-300">
-                                {t('login')}
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-            )}
-        </header>
-    )
-}
-
-export default Header
+export default Header;

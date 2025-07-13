@@ -12,11 +12,11 @@ const createStudent = asyncHandler(async (req, res) => {
     name,
     email,
     courses = [],
-    gender,
     universityId,
     collegeId,
     departmentId,
     password,
+    gender,
   } = req.body;
 
   const existingStudent = await Student.findOne({ email });
@@ -40,6 +40,7 @@ const createStudent = asyncHandler(async (req, res) => {
     collegeId,
     departmentId,
     password: hashedPassword,
+    gender,
   });
 
   const {password: _, ...student} = response.toObject();

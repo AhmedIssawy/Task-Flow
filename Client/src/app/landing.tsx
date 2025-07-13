@@ -1,24 +1,30 @@
-import React from 'react'
-import Header from "@/components/landing/header"
-import Features from "@/components/landing/features"
-import Benefits from "@/components/landing/benefits"
-import Hero from "@/components/landing/HeroSection"
-import Testimonials from "@/components/landing/testimonials"
-import Footer from "@/components/landing/footer"
+import Analytics from "@/components/landing/Analytics";
+import Benefits from "@/components/landing/benefits";
+import Features from "@/components/landing/features";
+import Footer from "@/components/landing/footer";
+import Header from "@/components/landing/header";
+import HeroSection from "@/components/landing/HeroSection";
+import OurWork from "@/components/landing/Ourwork";
+import Testimonials from "@/components/landing/testimonials";
 
-const Landing = () => {
+const LandingPage = () => {
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans">
+        <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="pt-4"> {/* Add top padding for floating header */}
-                <Hero />
-                <Features />
-                <Benefits />
-                <Testimonials />
+            <main className="flex-grow mt-10">
+                <div className="w-full">
+                    <HeroSection />
+                    
+                    <Features />
+                    <Benefits />
+                    <Analytics />
+                    <OurWork />
+                    <Testimonials />
+                </div>
             </main>
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default Landing
+export default LandingPage;

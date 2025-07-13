@@ -1,60 +1,180 @@
-'use client'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, ArrowLeft } from 'lucide-react'
-import { useTranslations, useLocale } from 'next-intl'
+"use client";
+import { useTranslations } from "next-intl";
+import {
+  Users,
+  Smartphone,
+  BarChart3,
+  CheckCircle,
+  Clock,
+  TrendingUp,
+  ArrowRight,
+  Play,
+} from "lucide-react";
+import Image from "next/image";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const HeroSection = () => {
-    const t = useTranslations('landing.hero')
-    const locale = useLocale()
-    const Arrow = locale === 'ar' ? ArrowLeft : ArrowRight
-    return (
-        <section className="relative min-h-screen flex items-center justify-center bg-background text-foreground overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-background via-bg-secondary to-background"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(var(--secondary-color-rgb),0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(var(--accent-color-rgb),0.08),transparent_50%)]"></div>
+  const t = useTranslations("Landing.HeroSection");
 
-            <div className="container mx-auto px-4 lg:px-6 relative z-10">
-                <div className="text-center">
-                    {/* Badge */}
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium border border-accent/20 backdrop-blur-sm mb-6">
-                        <Sparkles className="w-4 h-4 animate-pulse me-2" />
-                        {t('badge') || 'New Experience'}
-                    </div>
+  return (
+    <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-8 py-20 bg-light  overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="absolute top-20 ltr:left-10 rtl:right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 ltr:right-10 rtl:left-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-                    {/* Main Headlines */}
-                    <div className="space-y-6 max-w-4xl mx-auto flex flex-col items-center justify-center text-center rtl:text-center">
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight font-heading">
-                            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                                {t('title')}
-                            </span>
-                        </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-body">
-                            {t('subtitle')}
-                        </p>
-                    </div>
+      {/* Floating geometric shapes */}
+      <div className="absolute top-1/4 ltr:right-1/4 rtl:left-1/4 w-6 h-6 bg-primary/30 rounded-full animate-float"></div>
+      <div className="absolute bottom-1/3 ltr:left-1/3 rtl:right-1/3 w-4 h-4 bg-secondary/30 rounded-full animate-float-reverse"></div>
+      <div className="absolute top-2/3 ltr:right-1/3 rtl:left-1/3 w-5 h-5 bg-accent/30 rounded-full animate-float-delayed"></div>
 
-                    {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 pt-8 justify-center rtl:sm:flex-row-reverse">
-                        <Link href="/auth/login">
-                            <Button size="lg" className="w-full sm:w-auto group bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300">
-                                {t('getStarted')}
-                                <Arrow className="ms-2 h-4 w-4 transition-transform group-hover:translate-x-1 rtl:-translate-x-1" />
-                            </Button>
-                        </Link>
+      <div className="container mx-auto text-center relative z-10 max-w-7xl">
+        {/* Hero Content */}
+        <div className="animate-fade-in-up max-w-6xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight font-serif text-foreground mb-6 leading-tight">
+            <span className="text-light text-7xl font-bold">{t("title")}</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+            {t("subtitle")}
+          </p>
+
+          <div className="flex justify-between">
+            <div>
+              <Card className="transform -translate-y-2 shadow-2xl animate-float-delayed card-hover-effect md:col-span-2 lg:col-span-1 rounded">
+                <CardHeader className="flex items-center gap-3 mb-4">
+                  <Users className="w-6 h-6 text-primary" />
+                  <CardTitle>{t("teamCollaboration")}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        SJ
+                      </span>
                     </div>
-                </div>
+                    <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full w-3/4 bg-primary rounded-full animate-pulse"></div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">75%</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        MC
+                      </span>
+                    </div>
+                    <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full w-1/2 bg-green-500 rounded-full animate-pulse delay-300"></div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">50%</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        ED
+                      </span>
+                    </div>
+                    <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-full w-5/6 bg-orange-500 rounded-full animate-pulse delay-500"></div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">83%</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="transform translate-y-5 shadow-2xl animate-float-reverse card-hover-effect rounded">
+                <CardHeader className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
+                    <Smartphone className="w-6 h-6 text-green-600" />
+                  </div>
+                  <CardTitle>{t("mobileReady")}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between p-2 bg-muted/50 rounded-lg">
+                    <span className="text-sm text-muted-foreground">
+                      {t("tasksToday")}
+                    </span>
+                    <span className="text-sm font-medium text-foreground">
+                      8/12
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span className="text-sm text-foreground">
+                      {t("designReview")}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                    <Clock className="w-4 h-4 text-orange-500" />
+                    <span className="text-sm text-foreground">
+                      {t("clientMeeting")}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 hover:bg-muted/30 rounded-lg transition-colors interactive-element">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span className="text-sm text-foreground">
+                      {t("codeDeploy")}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            <div>
+              <div className="relative w-fit">
+                <Image
+                  src="/mobile.svg"
+                  width={485}
+                  height={1034}
+                  alt="Mobile"
+                  className="block"
+                />
+              </div>
+              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-white via-white to-transparent pointer-events-none blur-2xl" />
             </div>
 
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <div className="w-6 h-10 border-2 border-muted-foreground/50 rounded-full flex justify-center items-center hover:border-primary transition-all duration-300 cursor-pointer">
-                    <div className="w-1 h-3 bg-muted-foreground/50 rounded-full animate-pulse"></div>
-                </div>
+            <div>
+              <Card className="transform -translate-y-2 shadow-2xl animate-float-delayed card-hover-effect md:col-span-2 lg:col-span-1 rounded">
+                <CardHeader className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <CardTitle>{t("analytics")}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">
+                      {t("productivity")}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <TrendingUp className="w-3 h-3 text-green-500" />
+                      <span className="text-sm font-medium text-green-600">
+                        {t("percentageIncrease")}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 h-16">
+                    {[40, 65, 45, 80, 55, 70, 85].map((height, index) => (
+                      <div
+                        key={index}
+                        className="bg-primary rounded-sm hover:bg-primary/80 transition-colors cursor-pointer interactive-element"
+                        style={{ height: `${height}%` }}
+                        title={`Day ${index + 1}: ${height}%`}
+                      ></div>
+                    ))}
+                  </div>
+                  <div className="text-xs text-muted-foreground text-center">
+                    Last 7 days
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-        </section>
-    )
-}
+          </div>
+        </div>
 
-export default HeroSection
+        <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"></div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
