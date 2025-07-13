@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${epilogue.variable} ${monsieur.variable}`}
+      className={` ${epilogue.variable} ${inter.variable} ${monsieur.variable}`}
       suppressHydrationWarning
     >
       <head />

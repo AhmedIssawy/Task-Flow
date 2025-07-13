@@ -46,9 +46,11 @@ const login = asyncHandler(async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
-  res.cookie("jwt", token, {
+  res.cookie("__Secure-access-token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    path: "/",
+    sameSite: "strict",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
@@ -67,7 +69,7 @@ const login = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
-  res.clearCookie("jwt");
+  res.clearCookie("__Secure-access-token");
 
   let message = "Logout successfully";
   if (lang === "ar") message = "تم تسجيل الخروج بنجاح";
