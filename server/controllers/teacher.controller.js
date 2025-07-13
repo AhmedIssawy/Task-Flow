@@ -63,37 +63,8 @@ const createTeacher = asyncHandler(async (req, res) => {
     role = "teacher",
   } = req.body;
 
-  // التحقق من الحقول المطلوبة
-  if (
-    !name ||
-    !email ||
-    !phone ||
-    !address ||
-    !password ||
-    !universityId ||
-    !collegeId ||
-    !departmentId
-  ) {
-    let message = "All fields are required";
-    if (lang === "ar") message = "جميع الحقول مطلوبة";
-
-    return res.status(400).json({ message });
-  }
-
-  // التحقق من البريد الإلكتروني إذا كان موجود مسبقًا
-  const existingTeacher = await Teacher.findOne({ email });
-  if (existingTeacher) {
-    let message = "Teacher already exists, please use a different email";
-    if (lang === "ar")
-      message = "المعلم موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-
-    return res.status(400).json({ message });
-  }
-
-  // تشفير كلمة المرور
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // إنشاء المعلم
   const teacher = await Teacher.create({
     name,
     email,
@@ -107,7 +78,6 @@ const createTeacher = asyncHandler(async (req, res) => {
     role,
   });
 
-  // إخفاء كلمة المرور من الرد
   const { password: _password, ...response } = teacher.toObject();
 
   let message = "Teacher created successfully";

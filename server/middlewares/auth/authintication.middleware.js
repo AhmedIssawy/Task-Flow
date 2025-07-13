@@ -8,7 +8,9 @@ import Teacher from "../../models/teacher.model.js";
 
 const authinticate = async (req, res, next) => {
   const lang = req.cookies?.lang || "en";
-  const token = req?.cookies?.jwt || req?.headers?.authorization?.split(" ")[1];
+  const token =
+    req?.cookies["__Secure-access-token"] ||
+    req?.headers?.authorization?.split(" ")[1];
 
   if (!token) {
     let message = "Unauthorized!";
