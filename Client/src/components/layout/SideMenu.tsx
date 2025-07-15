@@ -1,19 +1,21 @@
-'use client'
+'use client';
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-import { NavItem } from '@/constants/sideMenuData'
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
+import { NavItem } from '@/constants/sideMenuData';
+import { useState } from 'react';
+import { Menu, XIcon } from 'lucide-react';
 
 interface SideNavContentProps {
-  navItems: NavItem[]
-  onItemClick?: () => void
+  navItems: NavItem[];
+  onItemClick?: () => void;
 }
 
 export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   return (
     <div className="flex h-full w-full flex-col glass-effect bg-background/80 backdrop-blur-md border-r border-border/50">
       {/* Navigation */}
@@ -34,18 +36,26 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
                 )}
               >
                 <div className="flex items-center gap-4">
-                  <div className={cn(
-                    'p-2 rounded-xl transition-all duration-300',
-                    isActive 
-                      ? 'bg-primary-foreground/20 shadow-sm' 
-                      : 'group-hover:bg-primary/20 group-hover:shadow-sm'
-                  )}>
-                    <Icon className={cn(
-                      'h-5 w-5 transition-all duration-300',
-                      isActive ? 'text-primary-foreground' : 'text-current group-hover:text-primary group-hover:scale-110'
-                    )} />
+                  <div
+                    className={cn(
+                      'p-2 rounded-xl transition-all duration-300',
+                      isActive
+                        ? 'bg-primary-foreground/20 shadow-sm'
+                        : 'group-hover:bg-primary/20 group-hover:shadow-sm'
+                    )}
+                  >
+                    <Icon
+                      className={cn(
+                        'h-5 w-5 transition-all duration-300',
+                        isActive
+                          ? 'text-primary-foreground'
+                          : 'text-current group-hover:text-primary group-hover:scale-110'
+                      )}
+                    />
                   </div>
-                  <span className="font-medium tracking-wide leading-relaxed">{label}</span>
+                  <span className="font-medium tracking-wide leading-relaxed">
+                    {label}
+                  </span>
                 </div>
                 {badge && (
                   <Badge
@@ -61,25 +71,51 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
                   </Badge>
                 )}
               </Link>
-            )
+            );
           })}
         </nav>
       </ScrollArea>
-      
-      
     </div>
-  )
+  );
 }
 
 interface SideMenuProps {
-  navItems: NavItem[]
-  onItemClick?: () => void
+  navItems: NavItem[];
+  onItemClick?: () => void;
 }
 
 export function SideMenu({ navItems, onItemClick }: SideMenuProps) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 z-40 hidden lg:flex glass-effect bg-background/80 backdrop-blur-md border-r border-border/50 shadow-2xl rounded-r-2xl">
-      <SideNavContent navItems={navItems} onItemClick={onItemClick} />
-    </aside>
-  )
+    <>
+      <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 z-40 hidden lg:flex glass-effect bg-background/80 backdrop-blur-md border-r border-border/50 shadow-2xl rounded-r-2xl">
+        <SideNavContent navItems={navItems} onItemClick={onItemClick} />
+      </aside>
+
+      <button
+        onClick={() => setIsSidebarOpen(true)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-background border p-2 rounded-md shadow"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+      <aside
+        className={cn(
+          'fixed top-0 left-0 h-full w-72 z-50 bg-background/90 backdrop-blur-md border-r border-border/50 shadow-2xl rounded-r-2xl transition-transform duration-300',
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
+          'lg:hidden'
+        )}
+      >
+        <div className="flex justify-end p-4">
+          <button onClick={() => setIsSidebarOpen(false)}>
+            <XIcon className="w-5 h-5" />
+          </button>
+        </div>
+        <SideNavContent
+          navItems={navItems}
+          onItemClick={() => setIsSidebarOpen(false)}
+        />
+      </aside>
+    </>
+  );
 }
