@@ -10,8 +10,8 @@ export function useLanguage() {
 
     const switchLanguage = (newLocale: string) => {
         startTransition(() => {
-            // Set the locale cookie
-            document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+            // Set the locale cookie (using next-intl's cookie name)
+            document.cookie = `locale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
             
             // Update HTML attributes immediately
             document.documentElement.lang = newLocale;

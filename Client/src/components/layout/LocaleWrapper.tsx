@@ -11,11 +11,11 @@ export default function LocaleWrapper() {
         // Get locale from URL params first
         let locale = params?.locale as string;
         
-        // If no locale in URL, check cookie
+        // If no locale in URL, check cookie (using next-intl's cookie name)
         if (!locale) {
             const cookieLocale = document.cookie
                 .split('; ')
-                .find(row => row.startsWith('NEXT_LOCALE='))
+                .find(row => row.startsWith('locale='))
                 ?.split('=')[1];
             
             locale = cookieLocale || 'en';
@@ -33,8 +33,8 @@ export default function LocaleWrapper() {
         document.documentElement.lang = locale;
         document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
         
-        // Update or set the locale cookie
-        document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+        // Update or set the locale cookie (using next-intl's cookie name)
+        document.cookie = `locale=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
         
     }, [params?.locale]);
 

@@ -24,8 +24,8 @@ export default function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // Get locale from cookie or Accept-Language header
-    const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
+    // Get locale from next-intl's locale cookie or Accept-Language header
+    const cookieLocale = request.cookies.get('locale')?.value;
     const acceptLanguage = request.headers.get('Accept-Language');
     
     // Determine the best locale
@@ -60,9 +60,9 @@ export default function middleware(request: NextRequest) {
         
         const response = NextResponse.rewrite(url);
         
-        // Set locale cookie if not already set or different
+        // Set locale cookie if not already set or different (using next-intl's cookie name)
         if (cookieLocale !== detectedLocale) {
-            response.cookies.set('NEXT_LOCALE', detectedLocale, {
+            response.cookies.set('locale', detectedLocale, {
                 httpOnly: false,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',
@@ -80,7 +80,7 @@ export default function middleware(request: NextRequest) {
     const localeFromPath = pathname.split('/')[1];
     if (locales.includes(localeFromPath) && cookieLocale !== localeFromPath) {
         if (response instanceof NextResponse) {
-            response.cookies.set('NEXT_LOCALE', localeFromPath, {
+            response.cookies.set('locale', localeFromPath, {
                 httpOnly: false,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'lax',

@@ -54,7 +54,7 @@ export function getLocaleFromCookie(): string {
     
     const cookieLocale = document.cookie
         .split('; ')
-        .find(row => row.startsWith('NEXT_LOCALE='))
+        .find(row => row.startsWith('locale='))
         ?.split('=')[1];
     
     return cookieLocale && ['en', 'ar'].includes(cookieLocale) ? cookieLocale : 'en';
@@ -71,5 +71,5 @@ export function setLocaleCookie(locale: string) {
         locale = 'en';
     }
     
-    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+    document.cookie = `locale=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
 }
