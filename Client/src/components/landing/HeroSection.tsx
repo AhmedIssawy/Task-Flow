@@ -129,7 +129,7 @@ const HeroSection = () => {
                   className="block"
                 />
               </div>
-              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-white via-white to-transparent dark:from-[#020817] dark:via-[#020817] dark:to-transparent pointer-events-none blur-2xl" />
+              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-[hsl(var(--background))] via-[hsl(var(--background))] to-transparent pointer-events-none blur-2xl" />
             </div>
 
             <div>
