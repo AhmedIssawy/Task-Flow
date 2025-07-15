@@ -114,50 +114,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Newsletter Section */}
-        <div className="mt-16 p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              {t("newsletter.title")}
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              {t("newsletter.subtitle")}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder={t("newsletter.emailPlaceholder")}
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-200"
-              />
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-medium transition-all duration-200">
-                {t("newsletter.subscribe")}
-              </Button>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-border/50  justify-between items-center gap-4">
+          <p className="text-sm text-center text-muted-foreground">
             {t("bottom.copyright", { year: currentYear })}
           </p>
-          
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>{t("bottom.language")}</span>
-              <span>•</span>
-              <span>{t("bottom.theme")}</span>
-            </div>
-            
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={scrollToTop}
-              className="w-10 h-10 p-0 rounded-lg border-border hover:bg-accent transition-all duration-200"
-            >
-              <ArrowUp className="w-4 h-4" />
-            </Button>
-          </div>
+
         </div>
       </div>
     </footer>

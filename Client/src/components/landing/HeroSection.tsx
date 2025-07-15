@@ -129,7 +129,7 @@ const HeroSection = () => {
                   className="block"
                 />
               </div>
-              <div className="absolute -bottom-[120px] left-0 w-full h-96 bg-gradient-to-t from-white via-white to-transparent pointer-events-none blur-2xl" />
+              <div className="absolute -bottom-[120px] left-0 w-full h-96 mobile-gradient-overlay pointer-events-none blur-2xl" />
             </div>
 
             <div>

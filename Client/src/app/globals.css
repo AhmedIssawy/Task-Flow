@@ -16,7 +16,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: var(--color-bg-light);
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -35,7 +35,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: var(--color-bg-dark);
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -832,6 +832,15 @@
 
   .bg-accent\/20 {
     background-color: hsl(var(--secondary) / 0.2);
+  }
+
+  /* Mobile gradient overlay */
+  .mobile-gradient-overlay {
+    background: linear-gradient(to top, #f8f8ff, rgba(248, 248, 255, 0.5), transparent);
+  }
+
+  .dark .mobile-gradient-overlay {
+    background: linear-gradient(to top, #1a1a1a, rgba(26, 26, 26, 0.5), transparent);
   }
 }
 
