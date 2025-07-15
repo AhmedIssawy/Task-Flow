@@ -7,8 +7,13 @@ const nextConfig: NextConfig = {
   /* config options here */
   async rewrites() {
     return [
+      // Handle clean URLs by rewriting to locale-prefixed paths
       {
-        source: '/:locale/login',
+        source: '/login',
+        destination: '/en/auth/login',
+      },
+      {
+        source: '/:locale(en|ar)/login',
         destination: '/:locale/auth/login',
       },
     ]
