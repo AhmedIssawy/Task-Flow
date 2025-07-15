@@ -49,8 +49,9 @@ const login = asyncHandler(async (req, res) => {
   res.cookie("__Security_access_token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    // path: "/",
+    path: "/",
     sameSite: "strict",
+    priority: "high",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
