@@ -6,10 +6,11 @@ import Student from "../../models/student.model.js";
 import Admin from "../../models/admin.model.js";
 import Teacher from "../../models/teacher.model.js";
 
+
 const authinticate = async (req, res, next) => {
   const lang = req.cookies?.lang || "en";
   const token =
-    req?.cookies["__Secure-access-token"] ||
+    req?.cookies["__Security_access_token"]   ||
     req?.headers?.authorization?.split(" ")[1];
 
   if (!token) {
