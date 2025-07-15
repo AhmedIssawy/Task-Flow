@@ -43,7 +43,7 @@ const createStudent = asyncHandler(async (req, res) => {
     gender,
   });
 
-  const {password: _, ...student} = response.toObject();
+  const { password: _, ...student } = response.toObject();
 
   let message = "Student created successfully";
   if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
@@ -128,8 +128,9 @@ const getStudentsPage = asyncHandler(async (req, res) => {
 
 const getStudentById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
+  const { id } = req.params;
 
-  const student = await Student.findById(req.params.id)
+  const student = await Student.findById(id)
     .populate({
       path: "universityId",
       select: "name",
@@ -148,7 +149,10 @@ const getStudentById = asyncHandler(async (req, res) => {
       message,
     });
   }
-  res.status(200).json(student);
+
+  const { password: _, createdAt, updatedAt, ...response } = student;
+
+  res.status(200).json(response);
 });
 
 const updateStudent = asyncHandler(async (req, res) => {
