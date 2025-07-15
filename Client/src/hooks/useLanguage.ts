@@ -1,36 +1,37 @@
+'use client';
+
 import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 
 export function useLanguage() {
-    const locale = useLocale();
-    const router = useRouter();
-    const pathname = usePathname();
-    const [isPending, startTransition] = useTransition();
+  const locale = useLocale();
+  const [isPending, startTransition] = useTransition();
 
-    const switchLanguage = (newLocale: string) => {
-        startTransition(() => {
-            // Remove the current locale from the pathname
-            const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '') || '/';
+  const availableLocales = [
+    { code: 'en', name: 'English', dir: 'ltr' },
+    { code: 'ar', name: 'العربية', dir: 'rtl' }
+  ];
 
-            // Navigate to the new locale
-            router.replace(`/${newLocale}${pathWithoutLocale}`);
-        });
-    };
+  const currentLocaleInfo = availableLocales.find((l) => l.code === locale);
 
-    const availableLocales = [
-        { code: 'en', name: 'English', dir: 'ltr' },
-        { code: 'ar', name: 'العربية', dir: 'rtl' }
-    ];
+  const switchLanguage = (newLocale: string) => {
+    if (newLocale === locale) return;
 
-    const currentLocaleInfo = availableLocales.find(l => l.code === locale);
+    startTransition(() => {
+      // set locale cookie to expire in 1 year
+      document.cookie = `lang=${newLocale}; path=/; max-age=31536000`;
 
-    return {
-        locale,
-        switchLanguage,
-        availableLocales,
-        currentLocaleInfo,
-        isPending,
-        isRTL: locale === 'ar'
-    };
+      // reload to trigger SSR layout with new locale
+      window.location.reload();
+    });
+  };
+
+  return {
+    locale,
+    switchLanguage,
+    availableLocales,
+    currentLocaleInfo,
+    isPending,
+    isRTL: locale === 'ar'
+  };
 }
