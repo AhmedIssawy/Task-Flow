@@ -32,6 +32,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'Dashboard', href: `/teacher/${id}`, icon: Home, badge: '' },
     { label: 'My Courses', href: `/teacher/${id}/courses`, icon: Book, badge: '3' },
     { label: 'Assignments', href: `/teacher/${id}/assignments`, icon: ClipboardList, badge: '5' },
+    { label: 'Students', href: `/teacher/${id}/students`, icon: BarChart3, badge: 'New' },
     { label: 'Settings', href: `/teacher/${id}/settings`, icon: Settings, badge: '' },
   ],
 
@@ -41,6 +42,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { label: 'Departments', href: `/admin/${id}/departments`, icon: BarChart3, badge: 'New' },
     { label: 'Courses', href: `/admin/${id}/courses`, icon: ClipboardList, badge: '5' },
     { label: 'Teachers', href: `/admin/${id}/teachers`, icon: Book, badge: '3' },
+    { label: 'Students', href: `/admin/${id}/students`, icon: BarChart3, badge: 'New' },
     { label: 'Settings', href: `/admin/${id}/settings`, icon: Settings, badge: '' },
   ],
   

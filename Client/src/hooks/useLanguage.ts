@@ -10,24 +10,11 @@ export function useLanguage() {
 
     const switchLanguage = (newLocale: string) => {
         startTransition(() => {
-            // Set the locale cookie (using next-intl's cookie name)
-            document.cookie = `locale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
-            
-            // Update HTML attributes immediately
-            document.documentElement.lang = newLocale;
-            document.documentElement.dir = newLocale === 'ar' ? 'rtl' : 'ltr';
-            
-            // Get clean pathname (remove locale prefix if present)
+            // Remove the current locale from the pathname
             const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '') || '/';
-            
-            // For clean URLs, we navigate to the path without locale prefix
-            // The middleware will handle the internal routing
-            router.replace(pathWithoutLocale);
-            
-            // Force a page refresh to ensure the new locale is properly loaded
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
+
+            // Navigate to the new locale
+            router.replace(`/${newLocale}${pathWithoutLocale}`);
         });
     };
 
