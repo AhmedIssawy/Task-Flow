@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
-import { useLogoutMutation } from '@/services/authapi';
+import { useLogoutMutation } from '@/store/services/authApi'
 import { clearAuth } from '@/store/slices/authSlice';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';

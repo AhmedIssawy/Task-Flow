@@ -57,6 +57,7 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.59.0",
+    "react-hotkeys-hook": "^5.1.0",
     "react-redux": "^9.2.0",
     "react-resizable-panels": "^3.0.3",
     "react-tooltip": "^5.29.1",
