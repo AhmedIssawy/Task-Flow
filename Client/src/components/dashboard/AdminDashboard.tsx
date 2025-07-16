@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { fakeApi } from '@/lib/lib';
 import { mockStats } from '@/app/mock/stats';
-import { StatCard } from './StatCard';
+import  StatCard from './StatCard';
 import RevenueChart from './RevenueChart';
 import EngagementHeatmap from './HeatmapGrid';
 import { motion } from 'framer-motion';

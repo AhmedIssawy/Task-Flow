@@ -1,6 +1,7 @@
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import React from 'react';
 
 interface Column<T> {
   label: string;
@@ -20,7 +21,7 @@ interface TableBodyRendererProps<T> {
   onDelete: (row: T) => void;
 }
 
-export default function TableBodyRenderer<T>({
+ function TableBodyRenderer<T>({
   isLoading,
   error,
   refetch,
@@ -81,42 +82,44 @@ export default function TableBodyRenderer<T>({
 
   return (
     <TableBody>
-      {rows.map((row, i) => (
-        <TableRow key={i}>
-          {columns.map((col, j) => (
-            <TableCell key={j}>
-              {typeof col.accessor === 'function'
-                ? col.accessor(row)
-                : (row as any)[col.accessor]}
-            </TableCell>
-          ))}
-          {enableActions && (editHook || deleteHook) && (
-            <TableCell>
-              <div className="flex gap-2">
-                {editHook && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onEdit(row)}
-                  >
-                    Edit
-                  </Button>
-                )}
-                {deleteHook && (
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    className="text-red-500"
-                    onClick={() => onDelete(row)}
-                  >
-                    Delete
-                  </Button>
-                )}
-              </div>
-            </TableCell>
-          )}
-        </TableRow>
-      ))}
+      {rows.map((row, i) => {
+        const handleEdit = () => onEdit(row);
+        const handleDelete = () => onDelete(row);
+        return (
+          <TableRow key={i}>
+            {columns.map((col, j) => (
+              <TableCell key={j}>
+                {typeof col.accessor === 'function'
+                  ? col.accessor(row)
+                  : (row as any)[col.accessor]}
+              </TableCell>
+            ))}
+            {enableActions && (editHook || deleteHook) && (
+              <TableCell>
+                <div className="flex gap-2">
+                  {editHook && (
+                    <Button variant="outline" size="sm" onClick={handleEdit}>
+                      Edit
+                    </Button>
+                  )}
+                  {deleteHook && (
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="text-red-500"
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </div>
+              </TableCell>
+            )}
+          </TableRow>
+        );
+      })}
     </TableBody>
   );
 }
+
+export default React.memo(TableBodyRenderer);

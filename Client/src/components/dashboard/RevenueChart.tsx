@@ -3,6 +3,7 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import React from "react";
 
 const data = [
   { month: "Jan", revenue: 1200 },
@@ -13,7 +14,7 @@ const data = [
   { month: "Jun", revenue: 2500 },
 ];
 
-export default function RevenueChart() {
+function RevenueChart() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -50,3 +51,5 @@ export default function RevenueChart() {
     </motion.div>
   );
 }
+
+export default React.memo(RevenueChart);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Mail, AlertTriangle, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ const suggestions = [
   },
 ];
 
-export default function AISuggestionCenter() {
+function AISuggestionCenter() {
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -136,3 +136,6 @@ export default function AISuggestionCenter() {
     </section>
   );
 }
+
+
+export default React.memo(AISuggestionCenter);
