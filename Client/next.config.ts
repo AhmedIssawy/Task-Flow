@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:locale/login',
-        destination: '/:locale/auth/login',
+        source: '/login',
+        destination: '/auth/login',
       },
     ]
   },

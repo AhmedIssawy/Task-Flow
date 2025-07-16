@@ -13,7 +13,7 @@ const Header = () => {
     const router = useRouter();
 
     const handleLogin = () => {
-        router.push('/auth/login');
+        router.push('/login');
     };
 
     return (

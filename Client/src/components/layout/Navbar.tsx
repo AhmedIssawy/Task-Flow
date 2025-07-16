@@ -19,27 +19,9 @@ export function Navbar() {
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
         {/* Left Section: Mobile Menu + Logo */}
         <div className="flex items-center gap-4">
-          {/* Mobile Menu Button */}
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="lg:hidden text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-colors"
-              >
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-64 p-0 glass-effect border-border/50 rounded-r-2xl">
-              <SheetTitle className="sr-only">Menu</SheetTitle>
-              <SheetDescription className="sr-only">Student navigation menu</SheetDescription>
-              {/* <SideNavContent navItems={studentNavItems(id as string)} onItemClick={() => setMobileMenuOpen(false)} /> */}
-            </SheetContent>
-          </Sheet>
 
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 ml-14 lg:ml-0">
             <div className="p-2 rounded-2xl bg-gradient-to-br from-primary to-secondary shadow-lg">
               <GraduationCap className="h-6 w-6 text-primary-foreground" />
             </div>

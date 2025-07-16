@@ -84,7 +84,7 @@ const Analytics = () => {
                                 {[65, 45, 80, 55, 70, 85, 90].map((height, index) => (
                                     <div key={index} className="flex flex-col items-center flex-1 group">
                                         <div
-                                            className="w-full bg-gradient-to-t from-primary to-primary/70 rounded-sm transition-all duration-500 hover:from-primary/80 hover:to-primary/50 cursor-pointer relative interactive-element"
+                                            className="w-full bg-gradient-to-t from-primary to-primary/70 dark:from-[#020817] dark:via-[#020817] dark:to-transparent rounded-sm transition-all duration-500 hover:from-primary/80 hover:to-primary/50 cursor-pointer relative interactive-element"
                                             style={{ height: `${height}%` }}
                                         >
                                             <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-foreground text-background text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">

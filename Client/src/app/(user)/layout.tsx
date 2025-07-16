@@ -11,7 +11,7 @@ interface UserLayoutProps {
 }
 
 export default function UserLayout({ children }: UserLayoutProps) {
-  const [, locale, role, id] = usePathname().split('/');
+  const [, role, id] = usePathname().split('/');
   console.log('UserLayout role:', role, 'id:', id);
 
   const getNavItems = navItemsData[role.replace(/-/g, '') as keyof typeof navItemsData];
