@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { Admin, PaginatedAdmins } from '../types/admin';
+import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const adminApi = createApi({
   reducerPath: 'adminApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-    credentials: 'include',
-  }),
+  baseQuery: baseQueryWithErrorHandling,
   tagTypes: ['Admin'],
   endpoints: (builder) => ({
     getAdminById: builder.query<Admin, string>({
