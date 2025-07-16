@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { authApi } from './services/authApi'
-import { studentApi } from './services/studentApi'
-import { adminApi } from './services/adminApi'
-import { collegeApi } from './services/collegeApi'
-import { departmentApi } from './services/departmentApi'
-import { teacherApi } from './services/teacherApi'
-import authReducer from './slices/authSlice'
+import { authApi } from '@/store/services/authApi'
+import { studentApi } from '@/store/services/studentApi'
+import { adminApi } from '@/store/services/adminApi'
+import { collegeApi } from '@/store/services/collegeApi'
+import { departmentApi } from '@/store/services/departmentApi'
+import { teacherApi } from '@/store/services/teacherApi'
+import authReducer from '@/store/slices/authSlice'
 
 
 // redux state persistence

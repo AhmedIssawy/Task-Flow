@@ -1,30 +1,32 @@
-import Analytics from "@/components/landing/Analytics";
-import Benefits from "@/components/landing/benefits";
-import Features from "@/components/landing/features";
-import Footer from "@/components/landing/footer";
-import Header from "@/components/landing/header";
-import HeroSection from "@/components/landing/HeroSection";
-import OurWork from "@/components/landing/Ourwork";
-import Testimonials from "@/components/landing/testimonials";
+"use client"
+import dynamic from "next/dynamic";
+
+const Header = dynamic(() => import("@/components/landing/header"));
+const HeroSection = dynamic(() => import("@/components/landing/HeroSection"));
+const Features = dynamic(() => import("@/components/landing/features"));
+const Benefits = dynamic(() => import("@/components/landing/benefits"));
+const Analytics = dynamic(() => import("@/components/landing/Analytics"));
+const OurWork = dynamic(() => import("@/components/landing/Ourwork"));
+const Testimonials = dynamic(() => import("@/components/landing/testimonials"));
+const Footer = dynamic(() => import("@/components/landing/footer"));
 
 const LandingPage = () => {
-    return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow mt-10">
-                <div className="w-full">
-                    <HeroSection />
-                    
-                    <Features />
-                    <Benefits />
-                    <Analytics />
-                    <OurWork />
-                    <Testimonials />
-                </div>
-            </main>
-            <Footer />
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow mt-10">
+        <div className="w-full">
+          <HeroSection />
+          <Features />
+          <Benefits />
+          <Analytics />
+          <OurWork />
+          <Testimonials />
         </div>
-    );
+      </main>
+      <Footer />
+    </div>
+  );
 };
 
 export default LandingPage;

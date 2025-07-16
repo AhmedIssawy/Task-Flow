@@ -1,1 +1,1 @@
-export { StudentDashboardCard } from './StudentDashboardCard'
+export { StudentDashboardCard } from '@/components/dashboard/StudentDashboardCard'
