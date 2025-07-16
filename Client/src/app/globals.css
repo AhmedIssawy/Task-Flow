@@ -845,3 +845,49 @@
   --color-text-dark: var(--light);
   --color-muted: var(--muted);
 }
+
+/* Custom heatmap fill colors */
+.color-empty {
+  fill: #e5e7eb;
+}
+.color-github-1 {
+  fill: #c7d2fe;
+}
+.color-github-2 {
+  fill: #a5b4fc;
+}
+.color-github-3 {
+  fill: #818cf8;
+}
+.color-github-4 {
+  fill: #6366f1;
+}
+
+.react-calendar-heatmap rect {
+  rx: 4px;
+  ry: 4px;
+  shape-rendering: geometricPrecision;
+  transition: all 0.3s ease;
+}
+
+.react-calendar-heatmap .color-empty {
+  fill: #1e293b !important;
+}
+.react-calendar-heatmap .color-github-1 {
+  fill: #334155 !important;
+}
+.react-calendar-heatmap .color-github-2 {
+  fill: #475569 !important;
+}
+.react-calendar-heatmap .color-github-3 {
+  fill: #6366f1 !important;
+}
+.react-calendar-heatmap .color-github-4 {
+  fill: #4f46e5 !important;
+}
+
+.react-calendar-heatmap .color-filled:hover {
+  filter: brightness(1.15);
+  transform: scale(1.05);
+  cursor: pointer;
+}
