@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { fakeApi } from '@/lib/lib';
 import { mockStats } from '@/app/mock/stats';
-import { StatCard } from './StatCard';
+import StatCard from './StatCard';
 import RevenueChart from './RevenueChart';
 import EngagementHeatmap from './HeatmapGrid';
 import { motion } from 'framer-motion';
-import AISuggestionCenter from './AISuggestionCenter';
+import AISuggestionCenter from '@/components/dashboard/AISuggestionCenter';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<typeof mockStats | null>(null);

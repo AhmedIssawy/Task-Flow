@@ -2,7 +2,7 @@
 
 import { useAppSelector } from '@/store/hooks';
 import { ReactNode } from 'react';
-import Unauthorized from './Unathorized';
+import Unauthorized from '@/components/auth/Unauthorized';
 
 interface UserAuthGuardProps {
   children: ReactNode;

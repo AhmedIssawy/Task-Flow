@@ -7,7 +7,12 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        destructive: '#ef4444',
+        'destructive-foreground': '#ffffff',
+      },
+    },
   },
   plugins: [],
 };

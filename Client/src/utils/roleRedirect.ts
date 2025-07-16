@@ -3,7 +3,8 @@ export const getPathByRole = (role: string, id: string) => {
     return '/';
   }
   const cleanId = id.split('-')[1];
-  switch (role) {
+  const normalizedRole = role.toLowerCase().replace(/_/g, '-')
+  switch (normalizedRole) {
     case 'student':
       return `/student/${cleanId}`;
     case 'admin':

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import React from "react";
 
 const endDate = new Date();
 const startDate = subDays(endDate, 120);
@@ -20,7 +21,7 @@ const values = Array.from({ length: 100 }, (_, i) => {
   };
 });
 
-export default function EngagementHeatmap() {
+function EngagementHeatmap() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -52,3 +53,5 @@ export default function EngagementHeatmap() {
     </motion.div>
   );
 }
+
+export default React.memo(EngagementHeatmap);
