@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { fakeApi } from '@/lib/lib';
 import { mockStats } from '@/app/mock/stats';
-import { StatCard } from '@/components/dashboard/StatCard';
-import RevenueChart from '@/components/dashboard/RevenueChart';
-import EngagementHeatmap from '@/components/dashboard/HeatmapGrid';
+import StatCard from './StatCard';
+import RevenueChart from './RevenueChart';
+import EngagementHeatmap from './HeatmapGrid';
 import { motion } from 'framer-motion';
 import AISuggestionCenter from '@/components/dashboard/AISuggestionCenter';
 

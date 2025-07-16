@@ -49,7 +49,8 @@ export default function NotFound() {
               404 - Page Not Found
             </h1>
             <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved. 
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Oops! The page you're looking for doesn't exist or has been moved. 
               {isLoggedIn ? " Don&apos;t worry, you can return to your dashboard." : " Don&apos;t worry, you can return to the homepage."}
             </p>
           </div>

@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
+import React from "react";
 
 interface StatCardProps {
   title: string;
   value: string | number;
 }
 
-export const StatCard = ({ title, value }: StatCardProps) => (
+const StatCard = ({ title, value }: StatCardProps) => (
   <Card className="w-full shadow-lg border-1 border-muted/30">
     <CardContent className="p-4 flex flex-col">
       <span className="text-sm text-muted-foreground">{title}</span>
@@ -13,3 +14,5 @@ export const StatCard = ({ title, value }: StatCardProps) => (
     </CardContent>
   </Card>
 );
+
+export default React.memo(StatCard);

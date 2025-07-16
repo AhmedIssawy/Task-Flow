@@ -7,6 +7,6 @@ export function isValidRole(value: string): value is Role {
 }
 
 export function normalizeRole(value: string): Role | null {
-  const normalized = value.toUpperCase().replace(/-/g, '_');;
+  const normalized = value.toUpperCase().replace(/-/g, '_');
   return isValidRole(normalized) ? (normalized as Role) : null;
 }

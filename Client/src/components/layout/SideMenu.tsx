@@ -6,7 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { NavItem } from '@/constants/sideMenuData';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Menu, XIcon } from 'lucide-react';
 
 interface SideNavContentProps {
@@ -86,11 +86,11 @@ interface SideMenuProps {
 
 export function SideMenu({ navItems, onItemClick }: SideMenuProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const MemoizedSideNavContent = React.memo(SideNavContent);
   return (
     <>
       <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 z-40 hidden lg:flex glass-effect bg-background/80 backdrop-blur-md border-r border-border/50 shadow-2xl rounded-r-2xl">
-        <SideNavContent navItems={navItems} onItemClick={onItemClick} />
+        <MemoizedSideNavContent navItems={navItems} onItemClick={onItemClick} />
       </aside>
 
       <button
@@ -111,7 +111,7 @@ export function SideMenu({ navItems, onItemClick }: SideMenuProps) {
             <XIcon className="w-5 h-5" />
           </button>
         </div>
-        <SideNavContent
+        <MemoizedSideNavContent
           navItems={navItems}
           onItemClick={() => setIsSidebarOpen(false)}
         />
