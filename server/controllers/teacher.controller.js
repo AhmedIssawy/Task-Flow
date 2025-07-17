@@ -1,6 +1,7 @@
 import Teacher from "../models/teacher.model.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
+import Course from "../models/course.model.js";
 
 const getPageOfTeachers = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
@@ -9,7 +10,7 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
   const teachers = await Teacher.find()
     .select("-password")
     .populate("courses")
-    .skip((page - 1) * 40)
+    .skip((page - 1) * 40, 1)
     .limit(limit)
     .lean();
 
