@@ -21,7 +21,7 @@ interface TableBodyRendererProps<T> {
   onDelete: (row: T) => void;
 }
 
- function TableBodyRenderer<T>({
+function TableBodyRenderer<T>({
   isLoading,
   error,
   refetch,

@@ -10,8 +10,8 @@ export default function DepartmentsPage() {
   const [page, setPage] = useState(1);
 
   // Hardcoded for now — replace with dynamic values later
-  const universityId = '685b0635a4b32e07ca4e97e6';
-  const collegeId = '685b113ccce35d1be7fb42d6';
+  const universityId = '685b0635a4b32e07ca4e97e6'; //todo replace with dynamic student ID
+  const collegeId = '685b113ccce35d1be7fb42d6'; //todo replace with dynamic student ID
 
   const departmentsQuery = useGetDepartmentsPageQuery({
     universityId,
