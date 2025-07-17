@@ -6,9 +6,7 @@ import {
   BarChart3,
   CheckCircle,
   Clock,
-  TrendingUp,
-  ArrowRight,
-  Play,
+  TrendingUp
 } from "lucide-react";
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";

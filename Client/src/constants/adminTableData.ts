@@ -36,7 +36,7 @@ export const adminTeachersTableData = [
   { label: 'Email', accessor: 'email' },
   { label: 'Teacher ID', accessor: 'id' },
   { label: 'Phone', accessor: 'phone' },
-  { label: 'University', accessor: (row: any) => row.universityId?.name },
+  { label: 'University', accessor: (row: any) => row.universityId?.name }, //todo update this
 ];
 
 

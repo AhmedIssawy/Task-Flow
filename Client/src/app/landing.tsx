@@ -1,14 +1,14 @@
-"use client"
+"use client";
 import dynamic from "next/dynamic";
 
-const Header = dynamic(() => import("@/components/landing/header"));
-const HeroSection = dynamic(() => import("@/components/landing/HeroSection"));
-const Features = dynamic(() => import("@/components/landing/features"));
-const Benefits = dynamic(() => import("@/components/landing/benefits"));
-const Analytics = dynamic(() => import("@/components/landing/Analytics"));
-const OurWork = dynamic(() => import("@/components/landing/Ourwork"));
-const Testimonials = dynamic(() => import("@/components/landing/testimonials"));
-const Footer = dynamic(() => import("@/components/landing/footer"));
+const Header = dynamic(() => import("@/components/landing/header"), { ssr: false });
+const HeroSection = dynamic(() => import("@/components/landing/HeroSection"), { ssr: false });
+const Features = dynamic(() => import("@/components/landing/features"), { ssr: false });
+const Benefits = dynamic(() => import("@/components/landing/benefits"), { ssr: false });
+const Analytics = dynamic(() => import("@/components/landing/Analytics"), { ssr: false });
+const OurWork = dynamic(() => import("@/components/landing/Ourwork"), { ssr: false });
+const Testimonials = dynamic(() => import("@/components/landing/testimonials"), { ssr: false });
+const Footer = dynamic(() => import("@/components/landing/footer"), { ssr: false });
 
 const LandingPage = () => {
   return (

@@ -4,7 +4,6 @@ import UserAuthGuard from '@/components/auth/UserAuthGuard';
 import { SideMenu } from '@/components/layout';
 import { Navbar } from '@/components/layout/Navbar';
 import { navItemsData } from '@/constants/sideMenuData';
-import { get } from 'http';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
