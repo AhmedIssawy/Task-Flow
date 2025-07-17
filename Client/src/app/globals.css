@@ -1,16 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+@import 'tailwindcss';
+
 @layer base {
   :root {
-    --background: #F9FAFB;
+    --background: #f9fafb;
     --foreground: #111827;
-    --primary: #3B82F6;
-    --primary-light: #93C5FD;
-    --primary-dark: #1D4ED8;
+    --primary: #3b82f6;
+    --primary-light: #93c5fd;
+    --primary-dark: #1d4ed8;
     --text-primary: #111827;
-    --text-muted: #6B7280;
-    --success: #10B981;
-    --warning: #F59E0B;
-    --danger: #EF4444;
-    --border-muted: #E5E7EB;
+    --text-muted: #6b7280;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border-muted: #e5e7eb;
 
     /* Additional colors from tweakcn.com (converted to HEX) */
     --primary-theme-foreground: #0a0a0a;
@@ -39,16 +44,16 @@
 
   .dark {
     --background: #111827;
-    --foreground: #F9FAFB;
-    --primary: #60A5FA;
-    --primary-light: #BFDBFE;
-    --primary-dark: #1E40AF;
-    --text-primary: #F9FAFB;
-    --text-muted: #9CA3AF;
-    --success: #34D399;
-    --warning: #FBBF24;
-    --danger: #F87171;
-    --border-muted: #4B5563;
+    --foreground: #f9fafb;
+    --primary: #60a5fa;
+    --primary-light: #bfdbfe;
+    --primary-dark: #1e40af;
+    --text-primary: #f9fafb;
+    --text-muted: #9ca3af;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --border-muted: #4b5563;
 
     /* Additional colors for dark mode (adjust as needed) */
     --primary-theme-foreground: #fafafa;
@@ -77,9 +82,6 @@
 }
 
 /* Font Imports */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap");
 
 @layer base {
   :root {

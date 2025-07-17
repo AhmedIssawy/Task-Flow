@@ -50,7 +50,7 @@ const Header = () => {
             >
               <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
               <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-medium rounded-2xl">
-                ST
+                {role?.slice(0,2)}
               </AvatarFallback>
             </Avatar>
           ) : (

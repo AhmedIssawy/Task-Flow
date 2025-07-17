@@ -7,10 +7,13 @@ import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { Bell, Menu, User, GraduationCap } from 'lucide-react'
 import LogoutButton from '../auth/LogoutBtn'
+import { useAppSelector } from '@/store/hooks'
 
 
 export function Navbar() {
 
+  const role = useAppSelector((state) => state.auth.role);
+  
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect bg-background/90 backdrop-blur-md border-b border-border/50 shadow-lg">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
@@ -52,7 +55,7 @@ export function Navbar() {
                 <Avatar className="h-10 w-10 ring-2 ring-primary/20 rounded-2xl">
                   <AvatarImage src="/placeholder-avatar.jpg" alt="Student" />
                   <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-medium rounded-2xl">
-                    ST
+                    {role?.slice(0,2)}
                   </AvatarFallback>
                 </Avatar>
               </Button>
