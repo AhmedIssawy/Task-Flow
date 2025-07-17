@@ -30,6 +30,8 @@ export default function LoginForm() {
     setErrorMessage('');
     try {
       const { role, data } = await login({ id: userId, password }).unwrap();
+      console.log("login data", data);
+      
 
       const redirectPath = getPathByRole(role, data.id);
       const normalizedRole = normalizeRole(role);
@@ -40,7 +42,7 @@ export default function LoginForm() {
       }
 
       dispatch(
-        setAuth({ id: data.id, mongoId: data.id, role: normalizedRole })
+        setAuth({ id: data.id, mongoId: data._id, role: normalizedRole })
       );
 
       router.push(redirectPath);

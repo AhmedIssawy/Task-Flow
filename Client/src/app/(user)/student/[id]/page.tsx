@@ -25,6 +25,8 @@ import { useAppSelector } from '@/store/hooks';
 
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
+  console.log(useAppSelector((state) => state.auth));
+  
   console.log('Student ID from Redux:', studentId);
 
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
@@ -126,7 +128,7 @@ export default function StudentDashboardPage() {
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-secondary/10 rounded-full translate-y-24 -translate-x-24"></div>
       <div className="relative z-10">
       <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">
-      Welcome back, {loadingStudent ? '...' : student?.name || 'Student'}! 👋
+      Welcome back, {loadingStudent ? '...' : student?.name}! 👋
       </h1>
       <p className="text-muted-foreground text-lg">
       Ready to tackle your goals today? You have 3 classes and 2 assignments due this week.
