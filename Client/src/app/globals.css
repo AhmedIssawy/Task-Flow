@@ -1,514 +1,90 @@
-/* ----------------------------------------- */
-/* ---  GLOBAL STYLESHEET FOR THE PROJECT  --- */
-/* ----------------------------------------- */
-
-/* 1. استيراد Tailwind (الطريقة الصحيحة لـ v4) */
-@import "tailwindcss";
-
 @layer base {
-  /* 2. تعريف كل متغيرات التصميم الأساسية (Design Tokens) */
-  /* هذا هو المصدر الوحيد للحقيقة لكل قيم التصميم */
   :root {
-    /* -- ألوانك المخصصة الخام بصيغة HEX و HSL -- */
-    --color-primary-hex: #1b86dd;
-    --color-primary-hsl: 207 83% 48%;
-    --color-success-hex: #10b981;
-    --color-success-hsl: 150 76% 42%;
-    --color-warning-hex: #f59e0b;
-    --color-warning-hsl: 38 92% 50%;
-    --color-danger-hex: #ef4444;
-    --color-danger-hsl: 0 84.2% 60.2%;
-    --color-info-hex: #1b86dd;
-    --color-info-hsl: 207 83% 48%;
+    --background: #F9FAFB;
+    --foreground: #111827;
+    --primary: #3B82F6;
+    --primary-light: #93C5FD;
+    --primary-dark: #1D4ED8;
+    --text-primary: #111827;
+    --text-muted: #6B7280;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --border-muted: #E5E7EB;
 
-    /* ألوان النظام الأساسية */
-    --color-white-hex: #ffffff;
-    --color-white-hsl: 0 0% 100%;
-    --color-black-hex: #000000;
-    --color-black-hsl: 222.2 84% 4.9%;
-    --color-gray-50-hex: #f9fafb;
-    --color-gray-100-hex: #f3f4f6;
-    --color-gray-200-hex: #e5e7eb;
-    --color-gray-300-hex: #d1d5db;
-    --color-gray-400-hex: #9ca3af;
-    --color-gray-500-hex: #6b7280;
-    --color-gray-600-hex: #4b5563;
-    --color-gray-700-hex: #374151;
-    --color-gray-800-hex: #1f2937;
-    --color-gray-900-hex: #111827;
-
-    /* ألوان الرسوم البيانية */
-    --color-chart-1-hex: #1b86dd;
-    --color-chart-2-hex: #10b981;
-    --color-chart-3-hex: #f59e0b;
-    --color-chart-4-hex: #ef4444;
-    --color-chart-5-hex: #6366f1;
-
-    /* -- الخطوط المحسنة -- */
-    --font-sans: "Inter", "DM Sans", ui-sans-serif, system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-      "Noto Sans", sans-serif;
-    --font-heading: "Cairo", "Inter", sans-serif;
-    --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular,
-      Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --font-serif: "Lora", "Source Serif 4", ui-serif, Georgia, Cambria,
-      "Times New Roman", Times, serif;
-
-    /* -- قيم التصميم العامة المحسنة -- */
-    --radius: 0.5rem; /* استدارة الحواف للمكونات */
-
-    /* -- تباعد الأحرف (Letter Spacing) -- */
-    --tracking-normal: 0em;
-    --tracking-tight: calc(var(--tracking-normal) - 0.025em);
-    --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
-    --tracking-wide: calc(var(--tracking-normal) + 0.025em);
-    --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-    --tracking-widest: calc(var(--tracking-normal) + 0.1em);
-
-    /* -- الظلال المحسنة -- */
-    --shadow-color: hsl(0 0% 0%);
-    --shadow-opacity: 0.1;
-    --shadow-blur: 8px;
-    --shadow-spread: -1px;
-    --shadow-offset-x: 0px;
-    --shadow-offset-y: 4px;
-
-    /* -- ظلال مختلفة الأحجام -- */
-    --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.1),
-      0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.1),
-      0px 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0px 4px 8px -1px hsl(0 0% 0% / 0.1),
-      0px 2px 4px -2px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.1),
-      0px 4px 6px -2px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.1),
-      0px 8px 10px -2px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
-
-    /* -- التباعد والمسافات -- */
-    --spacing: 0.25rem;
-  }
-}
-
-@layer base {
-  /* 3. تعريف متغيرات الثيم المحسنة (فاتح وداكن) بناءً على القيم الأساسية */
-  /* -- الوضع الفاتح (Light Mode) -- */
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 207 83% 48%; /* from #1b86dd */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%; /* from #ef4444 */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 207 83% 48%; /* from #1b86dd */
-
-    /* ألوان إضافية محسنة */
-    --success: 150 76% 42%; /* from #10b981 */
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%; /* from #f59e0b */
-    --warning-foreground: 0 0% 100%;
-    --info: 207 83% 48%; /* نفس اللون الأساسي */
-    --info-foreground: 0 0% 100%;
-
-    /* ألوان الرسوم البيانية */
-    --chart-1: 207 83% 48%;
-    --chart-2: 150 76% 42%;
-    --chart-3: 38 92% 50%;
-    --chart-4: 0 84.2% 60.2%;
-    --chart-5: 222.2 47.4% 11.2%;
-
-    /* ألوان الشريط الجانبي */
-    --sidebar: 210 40% 96.1%;
-    --sidebar-foreground: 222.2 84% 4.9%;
-    --sidebar-primary: 207 83% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 207 83% 48%;
+    /* Additional colors from tweakcn.com (converted to HEX) */
+    --primary-theme-foreground: #0a0a0a;
+    --primary-theme-primary-foreground: #fafafa;
+    --secondary-accent-secondary-foreground: #171717;
+    --secondary-accent-accent-foreground: #171717;
+    --ui-component-card-foreground: #0a0a0a;
+    --ui-component-popover-foreground: #0a0a0a;
+    --ui-component-muted-foreground: #737373;
+    --status-feedback-destructive: #e7000b;
+    --status-feedback-destructive-foreground: #ffffff;
+    --chart-visualization-chart-1: #91c5ff;
+    --chart-visualization-chart-2: #3a81f6;
+    --chart-visualization-chart-3: #2563ef;
+    --chart-visualization-chart-4: #1a4eda;
+    --chart-visualization-chart-5: #1f3fad;
+    --sidebar-navigation-sidebar-background: #fafafa;
+    --sidebar-navigation-sidebar-foreground: #0a0a0a;
+    --sidebar-navigation-sidebar-primary: #171717;
+    --sidebar-navigation-sidebar-primary-foreground: #fafafa;
+    --sidebar-navigation-sidebar-accent: #f7f7f7;
+    --sidebar-navigation-sidebar-accent-foreground: #171717;
+    --sidebar-navigation-sidebar-border: #ebebeb;
+    --sidebar-navigation-sidebar-ring: #b4b4b4;
   }
 
-  /* -- الوضع الداكن المحسن (Dark Mode) -- */
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: #111827;
+    --foreground: #F9FAFB;
+    --primary: #60A5FA;
+    --primary-light: #BFDBFE;
+    --primary-dark: #1E40AF;
+    --text-primary: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --success: #34D399;
+    --warning: #FBBF24;
+    --danger: #F87171;
+    --border-muted: #4B5563;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 207 83% 48%; /* from #1b86dd */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%; /* from #ef4444 */
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 207 83% 48%; /* from #1b86dd */
-
-    /* ألوان إضافية للوضع الداكن */
-    --success: 150 76% 42%; /* from #10b981 */
-    --success-foreground: 222.2 84% 4.9%;
-    --warning: 38 92% 50%; /* from #f59e0b */
-    --warning-foreground: 222.2 84% 4.9%;
-    --info: 207 83% 48%; /* نفس اللون الأساسي */
-    --info-foreground: 0 0% 100%;
-
-    /* ألوان الرسوم البيانية للوضع الداكن */
-    --chart-1: 207 83% 58%;
-    --chart-2: 150 76% 52%;
-    --chart-3: 38 92% 60%;
-    --chart-4: 0 62.8% 40.6%;
-    --chart-5: 210 40% 78%;
-
-    /* ألوان الشريط الجانبي للوضع الداكن */
-    --sidebar: 217.2 32.6% 17.5%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 207 83% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 207 83% 48%;
+    /* Additional colors for dark mode (adjust as needed) */
+    --primary-theme-foreground: #fafafa;
+    --primary-theme-primary-foreground: #0a0a0a;
+    --secondary-accent-secondary-foreground: #fafafa;
+    --secondary-accent-accent-foreground: #fafafa;
+    --ui-component-card-foreground: #fafafa;
+    --ui-component-popover-foreground: #fafafa;
+    --ui-component-muted-foreground: #737373;
+    --status-feedback-destructive: #e7000b;
+    --status-feedback-destructive-foreground: #000000;
+    --chart-visualization-chart-1: #91c5ff;
+    --chart-visualization-chart-2: #3a81f6;
+    --chart-visualization-chart-3: #2563ef;
+    --chart-visualization-chart-4: #1a4eda;
+    --chart-visualization-chart-5: #1f3fad;
+    --sidebar-navigation-sidebar-background: #0a0a0a;
+    --sidebar-navigation-sidebar-foreground: #fafafa;
+    --sidebar-navigation-sidebar-primary: #fafafa;
+    --sidebar-navigation-sidebar-primary-foreground: #0a0a0a;
+    --sidebar-navigation-sidebar-accent: #f7f7f7;
+    --sidebar-navigation-sidebar-accent-foreground: #fafafa;
+    --sidebar-navigation-sidebar-border: #ebebeb;
+    --sidebar-navigation-sidebar-ring: #b4b4b4;
   }
 }
+
+/* Font Imports */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap");
 
 @layer base {
-  /* 4. الأنماط الأساسية المحسنة للعناصر */
-  * {
-    border-color: hsl(var(--border));
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    text-size-adjust: 100%;
-  }
-
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    letter-spacing: var(--tracking-normal);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    font-variation-settings: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: var(--tracking-tight);
-  }
-
-  h1 {
-    font-size: 2.25rem; /* 36px */
-    font-weight: 700;
-  }
-
-  h2 {
-    font-size: 1.875rem; /* 30px */
-  }
-
-  h3 {
-    font-size: 1.5rem; /* 24px */
-  }
-
-  h4 {
-    font-size: 1.25rem; /* 20px */
-  }
-
-  h5 {
-    font-size: 1.125rem; /* 18px */
-  }
-
-  h6 {
-    font-size: 1rem; /* 16px */
-  }
-
-  p {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  a {
-    color: hsl(var(--primary));
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  /* أنماط محسنة للمدخلات */
-  input,
-  textarea,
-  select {
-    font-family: inherit;
-    font-size: inherit;
-  }
-
-  /* أنماط التركيز المحسنة */
-  :focus-visible {
-    outline: 2px solid hsl(var(--ring));
-    outline-offset: 2px;
-  }
-
-  /* أنماط التمرير المخصصة */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground));
-    border-radius: var(--radius);
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--accent-foreground));
-  }
-
-  /* أنماط الاختيار */
-  ::selection {
-    background: hsl(var(--primary) / 0.2);
-    color: hsl(var(--primary-foreground));
-  }
-
-  /* أنماط مقاومة الحركة للمستخدمين الذين يفضلون تقليل الحركة */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-}
-
-@layer utilities {
-  /* 5. فئات الأدوات المخصصة */
-
-  /* فئات الظلال */
-  .shadow-elegant {
-    box-shadow: var(--shadow-lg);
-  }
-
-  .shadow-soft {
-    box-shadow: var(--shadow-md);
-  }
-
-  .shadow-subtle {
-    box-shadow: var(--shadow-sm);
-  }
-
-  /* فئات التباعد */
-  .letter-spacing-tight {
-    letter-spacing: var(--tracking-tight);
-  }
-
-  .letter-spacing-wide {
-    letter-spacing: var(--tracking-wide);
-  }
-
-  /* فئات الانتقالات السلسة */
-  .transition-all {
-    transition: all 0.2s ease-in-out;
-  }
-
-  .transition-colors {
-    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
-      border-color 0.2s ease-in-out;
-  }
-
-  /* فئات الخلفيات المتدرجة */
-  .bg-gradient-primary {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary)) 0%,
-      hsl(var(--primary) / 0.8) 100%
-    );
-  }
-
-  .bg-gradient-success {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--success)) 0%,
-      hsl(var(--success) / 0.8) 100%
-    );
-  }
-
-  .bg-gradient-warning {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--warning)) 0%,
-      hsl(var(--warning) / 0.8) 100%
-    );
-  }
-
-  /* فئات النصوص */
-  .text-gradient-primary {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary)),
-      hsl(var(--primary) / 0.7)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* فئات الحدود */
-  .border-gradient {
-    border: 1px solid;
-    border-image: linear-gradient(
-        135deg,
-        hsl(var(--primary)),
-        hsl(var(--border))
-      )
-      1;
-  }
-
-  /* فئات التفاعل */
-  .hover-lift {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  /* فئات التصميم المتجاوب */
-  .container-responsive {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .container-responsive {
-      padding: 0 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container-responsive {
-      padding: 0 2rem;
-    }
-  }
-
-  /* فئات الشبكة المتجاوبة */
-  .grid-responsive {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 640px) {
-    .grid-responsive {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .grid-responsive {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  /* فئات الألوان الديناميكية */
-  .text-primary {
-    color: hsl(var(--primary));
-  }
-
-  .text-success {
-    color: hsl(var(--success));
-  }
-
-  .text-warning {
-    color: hsl(var(--warning));
-  }
-
-  .text-destructive {
-    color: hsl(var(--destructive));
-  }
-
-  .bg-primary {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-  }
-
-  .bg-success {
-    background-color: hsl(var(--success));
-    color: hsl(var(--success-foreground));
-  }
-
-  .bg-warning {
-    background-color: hsl(var(--warning));
-    color: hsl(var(--warning-foreground));
-  }
-
-  .bg-destructive {
-    background-color: hsl(var(--destructive));
-    color: hsl(var(--destructive-foreground));
+  :root {
+    --font-secondary: 'Inter', sans-serif;
+    --font-primary: 'Epilogue', sans-serif;
+    --font-signiture: 'Monsieur La Doulaise', cursive;
   }
 }

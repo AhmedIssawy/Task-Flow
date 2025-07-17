@@ -1,273 +1,125 @@
-// tailwind.config.ts
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
-    // إعدادات الشاشات المخصصة الكاملة للمشروع
-    screens: {
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
-    },
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: '1rem',
-        sm: '1.5rem',
-        lg: '2rem',
-        xl: '2.5rem',
-        '2xl': '3rem',
+    extend: {
+      colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          light: 'var(--primary-light)',
+          dark: 'var(--primary-dark)',
+        },
+        'text-primary': 'var(--text-primary)',
+        'text-muted': 'var(--text-muted)',
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        danger: 'var(--danger)',
+        'border-muted': 'var(--border-muted)',
+        // Additional colors from tweakcn.com
+        'primary-theme-foreground': 'var(--primary-theme-foreground)',
+        'primary-theme-primary-foreground': 'var(--primary-theme-primary-foreground)',
+        'secondary-accent-secondary-foreground': 'var(--secondary-accent-secondary-foreground)',
+        'secondary-accent-accent-foreground': 'var(--secondary-accent-accent-foreground)',
+        'ui-component-card-foreground': 'var(--ui-component-card-foreground)',
+        'ui-component-popover-foreground': 'var(--ui-component-popover-foreground)',
+        'ui-component-muted-foreground': 'var(--ui-component-muted-foreground)',
+        'status-feedback-destructive': 'var(--status-feedback-destructive)',
+        'status-feedback-destructive-foreground': 'var(--status-feedback-destructive-foreground)',
+        'chart-visualization-chart-1': 'var(--chart-visualization-chart-1)',
+        'chart-visualization-chart-2': 'var(--chart-visualization-chart-2)',
+        'chart-visualization-chart-3': 'var(--chart-visualization-chart-3)',
+        'chart-visualization-chart-4': 'var(--chart-visualization-chart-4)',
+        'chart-visualization-chart-5': 'var(--chart-visualization-chart-5)',
+        'sidebar-navigation-sidebar-background': 'var(--sidebar-navigation-sidebar-background)',
+        'sidebar-navigation-sidebar-foreground': 'var(--sidebar-navigation-sidebar-foreground)',
+        'sidebar-navigation-sidebar-primary': 'var(--sidebar-navigation-sidebar-primary)',
+        'sidebar-navigation-sidebar-primary-foreground': 'var(--sidebar-navigation-sidebar-primary-foreground)',
+        'sidebar-navigation-sidebar-accent': 'var(--sidebar-navigation-sidebar-accent)',
+        'sidebar-navigation-sidebar-accent-foreground': 'var(--sidebar-navigation-sidebar-accent-foreground)',
+        'sidebar-navigation-sidebar-border': 'var(--sidebar-navigation-sidebar-border)',
+        'sidebar-navigation-sidebar-ring': 'var(--sidebar-navigation-sidebar-ring)',
+      },
+      fontFamily: {
+        primary: ['var(--font-primary)'],
+        secondary: ['var(--font-secondary)'],
+        signature: ['var(--font-signiture)'],
       },
       screens: {
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1400px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
       },
-    },
-    fontSize: {
-      'xs': ['0.75rem', { lineHeight: '1rem' }],
-      'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-      'base': ['1rem', { lineHeight: '1.5rem' }],
-      'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-      'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-      '2xl': ['1.5rem', { lineHeight: '2rem' }],
-      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-      '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-      '5xl': ['3rem', { lineHeight: '1' }],
-      '6xl': ['3.75rem', { lineHeight: '1' }],
-      '7xl': ['4.5rem', { lineHeight: '1' }],
-      '8xl': ['6rem', { lineHeight: '1' }],
-      '9xl': ['8rem', { lineHeight: '1' }],
-    },
-    extend: {
-      // تعريف الألوان الكاملة لتكون متوافقة مع ShadCN
-      colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-          50: '#eff8ff',
-          100: '#dbeefe',
-          200: '#bfe3fd',
-          300: '#93d3fc',
-          400: '#60baf8',
-          500: '#3ba1f4',
-          600: '#1b86dd', // Your primary color
-          700: '#1a75c9',
-          800: '#1c60a3',
-          900: '#1d5180',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        // ألوان مخصصة إضافية
-        success: {
-          DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--success-foreground))',
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981', // Your success color
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
-        },
-        warning: {
-          DEFAULT: 'hsl(var(--warning))',
-          foreground: 'hsl(var(--warning-foreground))',
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b', // Your warning color
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-        },
-        info: {
-          DEFAULT: 'hsl(var(--info))',
-          foreground: 'hsl(var(--info-foreground))',
-        },
-        // ألوان الرسوم البيانية
-        chart: {
-          1: 'hsl(var(--chart-1))',
-          2: 'hsl(var(--chart-2))',
-          3: 'hsl(var(--chart-3))',
-          4: 'hsl(var(--chart-4))',
-          5: 'hsl(var(--chart-5))',
-        },
-        // ألوان الشريط الجانبي
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
+      spacing: {
+        '1/2': '0.125rem', // 2px
+        '1': '0.25rem',  // 4px
+        '1.5': '0.375rem', // 6px
+        '2': '0.5rem',   // 8px
+        '2.5': '0.625rem', // 10px
+        '3': '0.75rem',  // 12px
+        '3.5': '0.875rem', // 14px
+        '4': '1rem',     // 16px
+        '5': '1.25rem',  // 20px
+        '6': '1.5rem',   // 24px
+        '7': '1.75rem',  // 28px
+        '8': '2rem',     // 32px
+        '9': '2.25rem',  // 36px
+        '10': '2.5rem',  // 40px
+        '12': '3rem',    // 48px
+        '16': '4rem',    // 64px
+        '20': '5rem',    // 80px
+        '24': '6rem',    // 96px
+        '32': '8rem',    // 128px
+        '40': '10rem',   // 160px
+        '48': '12rem',   // 192px
+        '56': '14rem',   // 224px
+        '64': '16rem',   // 256px
       },
-      // تعريف استدارة الحواف المحسنة
       borderRadius: {
         'none': '0',
-        'sm': 'calc(var(--radius) - 4px)',
-        'DEFAULT': 'var(--radius)',
-        'md': 'calc(var(--radius) - 2px)',
-        'lg': 'var(--radius)',
-        'xl': 'calc(var(--radius) + 2px)',
-        '2xl': 'calc(var(--radius) + 4px)',
-        '3xl': 'calc(var(--radius) + 8px)',
+        'sm': '0.125rem',
+        'DEFAULT': '0.25rem',
+        'md': '0.375rem',
+        'lg': '0.5rem',
+        'xl': '0.75rem',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
         'full': '9999px',
       },
-      // تعريف أنواع الخطوط المحسنة
-      fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-heading)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'monospace'],
-        serif: ['var(--font-serif)', 'serif'],
-      },
-      // تعريف أوزان الخطوط
-      fontWeight: {
-        thin: '100',
-        extralight: '200',
-        light: '300',
-        normal: '400',
-        medium: '500',
-        semibold: '600',
-        bold: '700',
-        extrabold: '800',
-        black: '900',
-      },
-      // تعريف المسافات والحشو
-      spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
-      },
-      // تعريف الظلال المحسنة
       boxShadow: {
-        'xs': 'var(--shadow-xs)',
-        'sm': 'var(--shadow-sm)',
-        'DEFAULT': 'var(--shadow)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
-        'xl': 'var(--shadow-xl)',
-        '2xl': 'var(--shadow-2xl)',
-        'elegant': 'var(--shadow-lg)',
-        'soft': 'var(--shadow-md)',
-        'subtle': 'var(--shadow-sm)',
+        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'DEFAULT': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        'inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+        'none': 'none',
       },
-      // تعريف تباعد الأحرف
-      letterSpacing: {
-        tighter: 'var(--tracking-tighter)',
-        tight: 'var(--tracking-tight)',
-        normal: 'var(--tracking-normal)',
-        wide: 'var(--tracking-wide)',
-        wider: 'var(--tracking-wider)',
-        widest: 'var(--tracking-widest)',
+      // Example of custom sizes for components (adjust as needed)
+      width: {
+        'card-sm': '200px',
+        'card-md': '300px',
+        'card-lg': '400px',
+        'sidebar': '250px',
       },
-      // تعريف الانتقالات السلسة
-      transitionProperty: {
-        'height': 'height',
-        'spacing': 'margin, padding',
-        'colors': 'color, background-color, border-color, text-decoration-color, fill, stroke',
-      },
-      transitionDuration: {
-        '0': '0ms',
-        '75': '75ms',
-        '100': '100ms',
-        '150': '150ms',
-        '200': '200ms',
-        '300': '300ms',
-        '500': '500ms',
-        '700': '700ms',
-        '1000': '1000ms',
-      },
-      // تعريف الأنيميشن المحسن
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
-        },
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        'fade-out': {
-          '0%': { opacity: '1' },
-          '100%': { opacity: '0' },
-        },
-        'slide-in-from-top': {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(0)' },
-        },
-        'slide-in-from-bottom': {
-          '0%': { transform: 'translateY(100%)' },
-          '100%': { transform: 'translateY(0)' },
-        },
-        'slide-in-from-left': {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-        'slide-in-from-right': {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in': 'fade-in 0.2s ease-out',
-        'fade-out': 'fade-out 0.2s ease-out',
-        'slide-in-from-top': 'slide-in-from-top 0.2s ease-out',
-        'slide-in-from-bottom': 'slide-in-from-bottom 0.2s ease-out',
-        'slide-in-from-left': 'slide-in-from-left 0.2s ease-out',
-        'slide-in-from-right': 'slide-in-from-right 0.2s ease-out',
+      height: {
+        'card-sm': '150px',
+        'card-md': '200px',
+        'card-lg': '250px',
+        'header': '64px',
       },
     },
   },
-  // إضافة Plugins أساسية (يتم تثبيتها عند الحاجة)
   plugins: [],
 };
 
