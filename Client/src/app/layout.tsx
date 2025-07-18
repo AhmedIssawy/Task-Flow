@@ -1,32 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { Inter, Epilogue, Monsieur_La_Doulaise } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'sonner';
 
 import ReduxProvider from '@/providers/ReduxProvider';
 import LocaleWrapper from '@/components/layout/LocaleWrapper';
 import { getServerLocale, getLocaleDirection, type Locale } from '@/lib/i18n';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-secondary',
-});
-
-const epilogue = Epilogue({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-primary',
-});
-
-const monsieur = Monsieur_La_Doulaise({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-  variable: '--font-signiture',
-});
 
 export const metadata: Metadata = {
   title: 'Task Flow - Streamline Your Workflow',
@@ -59,10 +39,16 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={direction}
-      className={`${epilogue.variable} ${inter.variable} ${monsieur.variable}`}
       suppressHydrationWarning
     >
-      <head />
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"

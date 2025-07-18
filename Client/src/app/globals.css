@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -81,12 +78,13 @@
   }
 }
 
-/* Font Imports */
+/* Font Variables */
 
 @layer base {
   :root {
-    --font-secondary: 'Inter', sans-serif;
-    --font-primary: 'Epilogue', sans-serif;
-    --font-signiture: 'Monsieur La Doulaise', cursive;
+    --font-primary: "Rethink Sans", sans-serif;
+    --font-secondary: "Lora", serif;
+    --font-arabic: "Amiri", serif;
+    --font-signature: "Lora", serif;
   }
 }
