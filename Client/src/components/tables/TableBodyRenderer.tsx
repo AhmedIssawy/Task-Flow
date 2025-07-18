@@ -86,7 +86,7 @@ function TableBodyRenderer<T>({
         const handleEdit = () => onEdit(row);
         const handleDelete = () => onDelete(row);
         return (
-          <TableRow key={i}>
+          <TableRow key={i} className='relative group'>
             {columns.map((col, j) => (
               <TableCell key={j}>
                 {typeof col.accessor === 'function'
@@ -96,9 +96,9 @@ function TableBodyRenderer<T>({
             ))}
             {enableActions && (editHook || deleteHook) && (
               <TableCell>
-                <div className="flex gap-2">
+                <div className="absolute top-1 right-1 top hidden group-hover:flex gap-2 bg-background/80 backdrop-blur-sm rounded">
                   {editHook && (
-                    <Button variant="outline" size="sm" onClick={handleEdit}>
+                    <Button variant="default" size="sm" onClick={handleEdit}>
                       Edit
                     </Button>
                   )}

@@ -78,9 +78,6 @@ export function PaginatedTable<T>({
                 {columns.map((col, i) => (
                   <TableHead key={i}>{col.label}</TableHead>
                 ))}
-                {enableActions && (editHook || deleteHook) && (
-                  <TableHead>Actions</TableHead>
-                )}
               </TableRow>
             </TableHeader>
 
