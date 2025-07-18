@@ -1,37 +1,82 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { useTransition } from 'react';
+import { useState, useEffect, useTransition } from 'react';
+import {
+  getCurrentLocale,
+  setLocale,
+  localeInfo,
+  getSupportedLocales,
+  isValidLocale,
+  type Locale
+} from '@/lib/i18n';
 
 export function useLanguage() {
-  const locale = useLocale();
+  const [currentLocale, setCurrentLocale] = useState<Locale>(() => getCurrentLocale());
   const [isPending, startTransition] = useTransition();
 
-  const availableLocales = [
-    { code: 'en', name: 'English', dir: 'ltr' },
-    { code: 'ar', name: 'العربية', dir: 'rtl' }
-  ];
+  // Available locales with enhanced information
+  const availableLocales = getSupportedLocales().map(code => ({
+    code,
+    name: localeInfo[code].name,
+    dir: localeInfo[code].direction,
+    flag: localeInfo[code].flag
+  }));
 
-  const currentLocaleInfo = availableLocales.find((l) => l.code === locale);
+  const currentLocaleInfo = availableLocales.find((l) => l.code === currentLocale);
+
+  // Listen for locale changes from other components or tabs
+  useEffect(() => {
+    const handleLocaleChange = (event: CustomEvent<{ locale: Locale }>) => {
+      setCurrentLocale(event.detail.locale);
+    };
+
+    window.addEventListener('localeChange', handleLocaleChange as EventListener);
+
+    return () => {
+      window.removeEventListener('localeChange', handleLocaleChange as EventListener);
+    };
+  }, []);
+
+  // Monitor cookie changes for cross-tab synchronization
+  useEffect(() => {
+    const monitorCookieChanges = () => {
+      const cookieLocale = getCurrentLocale();
+      if (cookieLocale !== currentLocale) {
+        setCurrentLocale(cookieLocale);
+      }
+    };
+
+    const intervalId = setInterval(monitorCookieChanges, 1000);
+    return () => clearInterval(intervalId);
+  }, [currentLocale]);
 
   const switchLanguage = (newLocale: string) => {
-    if (newLocale === locale) return;
+    if (!isValidLocale(newLocale) || newLocale === currentLocale) return;
 
     startTransition(() => {
-      // set locale cookie to expire in 1 year
-      document.cookie = `lang=${newLocale}; path=/; max-age=31536000`;
+      // Use the centralized setLocale function which handles:
+      // - Cookie setting
+      // - HTML attribute updates
+      // - Event dispatching for component updates
+      setLocale(newLocale);
 
-      // reload to trigger SSR layout with new locale
-      window.location.reload();
+      // Update local state immediately for visual feedback
+      setCurrentLocale(newLocale);
+
+      // Force a re-render of the entire app by reloading
+      // This ensures all server components get the new locale
+      setTimeout(() => {
+        window.location.reload();
+      }, 100); // Small delay for visual feedback
     });
   };
 
   return {
-    locale,
+    locale: currentLocale,
     switchLanguage,
     availableLocales,
     currentLocaleInfo,
     isPending,
-    isRTL: locale === 'ar'
+    isRTL: currentLocale === 'ar'
   };
 }

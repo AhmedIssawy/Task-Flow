@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import { useLanguage } from '@/hooks/useLanguage'
 import { LanguageSwitcher } from '@/components/made/language-switcher'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
-export default function LocaleLoginPage() {
+export default function LoginPage() {
     const t = useTranslations('auth.login')
     const { isRTL } = useLanguage()
 

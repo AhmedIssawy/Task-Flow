@@ -1,19 +1,85 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import {
+    getCurrentLocale,
+    updateHTMLAttributes,
+    type Locale,
+    getLocaleFromCookie,
+    DEFAULT_LOCALE
+} from '@/lib/i18n';
 
 export default function LocaleWrapper() {
-    const params = useParams();
-    const locale = params?.locale as string;
+    const [currentLocale, setCurrentLocale] = useState<Locale>(DEFAULT_LOCALE);
 
+    // Initialize locale from cookies on component mount
     useEffect(() => {
-        if (locale) {
-            // Update HTML lang and dir attributes
-            document.documentElement.lang = locale;
-            document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
-        }
-    }, [locale]);
+        const initializeLocale = () => {
+            const cookieLocale = getCurrentLocale();
+            setCurrentLocale(cookieLocale);
+            updateHTMLAttributes(cookieLocale);
+        };
+
+        initializeLocale();
+    }, []);
+
+    // Listen for locale changes via custom events
+    useEffect(() => {
+        const handleLocaleChange = (event: CustomEvent<{ locale: Locale }>) => {
+            const newLocale = event.detail.locale;
+            setCurrentLocale(newLocale);
+            updateHTMLAttributes(newLocale);
+        };
+
+        // Add event listener for locale changes
+        window.addEventListener('localeChange', handleLocaleChange as EventListener);
+
+        return () => {
+            window.removeEventListener('localeChange', handleLocaleChange as EventListener);
+        };
+    }, []);
+
+    // Monitor cookie changes for real-time updates (cross-tab synchronization)
+    useEffect(() => {
+        const monitorCookieChanges = () => {
+            const cookieLocale = getLocaleFromCookie();
+            const effectiveLocale = cookieLocale || DEFAULT_LOCALE;
+
+            // Only update if the locale has actually changed
+            if (effectiveLocale !== currentLocale) {
+                setCurrentLocale(effectiveLocale);
+                updateHTMLAttributes(effectiveLocale);
+            }
+        };
+
+        // Check for cookie changes every 1 second for cross-tab synchronization
+        const intervalId = setInterval(monitorCookieChanges, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [currentLocale]);
+
+    // Handle visibility change to sync when tab becomes active
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (!document.hidden) {
+                const cookieLocale = getLocaleFromCookie();
+                const effectiveLocale = cookieLocale || DEFAULT_LOCALE;
+
+                if (effectiveLocale !== currentLocale) {
+                    setCurrentLocale(effectiveLocale);
+                    updateHTMLAttributes(effectiveLocale);
+                }
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [currentLocale]);
 
     return null;
 }
