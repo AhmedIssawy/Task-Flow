@@ -20,13 +20,11 @@ export const LANGUAGE_COOKIE = {
 // Locale information
 export const localeInfo = {
     en: {
-        code: 'en',
         name: 'English',
         direction: 'ltr' as const,
         flag: '🇺🇸',
     },
     ar: {
-        code: 'ar',
         name: 'العربية',
         direction: 'rtl' as const,
         flag: '🇸🇦',

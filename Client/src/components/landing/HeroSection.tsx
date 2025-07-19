@@ -1,23 +1,20 @@
 "use client";
 import React from 'react';
-import { ArrowRight, Play, Users, CheckCircle } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const HeroSection = () => {
   const t = useTranslations('Landing.Hero');
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background to-muted/20">
+    <section className="relative min-h-screen flex items-center justify-center  overflow-hidden bg-gradient-to-br from-background to-muted/20 border-b border-solid border-border">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-8">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-medium">
-            <CheckCircle size={16} className="mr-2 rtl:mr-0 rtl:ml-2" />
-            Trusted by 10,000+ teams worldwide
-          </div>
+          
 
           {/* Main Heading */}
           <div className="space-y-4">
@@ -43,14 +40,14 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-12 max-w-3xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">{t('stats.teams').split(' ')[0]}</div>
               <div className="text-muted-foreground">{t('stats.teams').split(' ').slice(1).join(' ')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">{t('stats.rating')}</div>
-              <div className="text-muted-foreground">Rating</div>
+              <div className="text-muted-foreground">{t('stats.text')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary">{t('stats.countries').split(' ')[0]}</div>
@@ -59,19 +56,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Hero Image Placeholder */}
-        <div className="mt-16 pb-12 relative">
-          <div className="bg-card border border-border rounded-2xl shadow-2xl overflow-hidden max-w-4xl mx-auto">
-            <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
-                  <Users size={32} className="text-primary" />
-                </div>
-                <p className="text-muted-foreground text-lg">TaskFlow Dashboard Preview</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   );

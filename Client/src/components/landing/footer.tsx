@@ -64,8 +64,7 @@ const Footer = () => {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-2 mb-6">
-                <div className="w-8 h-8 bg-primary rounded-lg"></div>
-                <span className="text-xl font-bold text-foreground font-primary">TaskFlow</span>
+                <span className="text-xl font-bold text-foreground font-primary">{t('brand.name')}</span>
               </div>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-sm">
                 {t('brand.description')}
@@ -79,11 +78,11 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone size={16} className="text-primary" />
-                  <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                  <span className="text-muted-foreground">+20 155 445 9196</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin size={16} className="text-primary" />
-                  <span className="text-muted-foreground">San Francisco, CA</span>
+                  <span className="text-muted-foreground"> {t('contactinfo.address')}</span>
                 </div>
               </div>
             </div>
@@ -157,29 +156,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Newsletter Section */}
-        <div className="border-t border-border py-12">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-foreground font-primary mb-4">
-              {t('newsletter.title')}
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              {t('newsletter.subtitle')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder={t('newsletter.placeholder')}
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-sm"
-              />
-              <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl hover:opacity-90 transition-opacity font-medium text-sm">
-                {t('newsletter.button')}
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Footer */}
         <div className="border-t border-border py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
@@ -205,15 +181,6 @@ const Footer = () => {
                   </a>
                 );
               })}
-
-              {/* Scroll to Top */}
-              <button
-                onClick={scrollToTop}
-                className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-full flex items-center justify-center transition-colors ml-4"
-                aria-label="Scroll to top"
-              >
-                <ArrowUp size={16} className="text-primary" />
-              </button>
             </div>
           </div>
         </div>

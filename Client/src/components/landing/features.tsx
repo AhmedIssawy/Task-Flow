@@ -11,37 +11,43 @@ const Features = () => {
       icon: Calendar,
       title: t('list.smartScheduling.title'),
       description: t('list.smartScheduling.description'),
-      color: "text-blue-500"
+      color: "text-blue-500",
+      button: t('list.smartScheduling.button')
     },
     {
       icon: Users,
       title: t('list.teamCollaboration.title'),
       description: t('list.teamCollaboration.description'),
-      color: "text-green-500"
+      color: "text-green-500",
+      button: t('list.smartScheduling.button')
     },
     {
       icon: BarChart3,
       title: t('list.advancedAnalytics.title'),
       description: t('list.advancedAnalytics.description'),
-      color: "text-purple-500"
+      color: "text-purple-500",
+      button: t('list.smartScheduling.button')
     },
     {
       icon: Zap,
       title: t('list.automation.title'),
       description: t('list.automation.description'),
-      color: "text-yellow-500"
+      color: "text-yellow-500",
+      button: t('list.smartScheduling.button')
     },
     {
       icon: Shield,
       title: t('list.enterpriseSecurity.title'),
       description: t('list.enterpriseSecurity.description'),
-      color: "text-red-500"
+      color: "text-red-500",
+      button: t('list.smartScheduling.button')
     },
     {
       icon: Globe,
       title: t('list.globalAccess.title'),
       description: t('list.globalAccess.description'),
-      color: "text-indigo-500"
+      color: "text-indigo-500",
+      button: t('list.smartScheduling.button')
     }
   ];
 
@@ -79,7 +85,7 @@ const Features = () => {
                                 </p>
                                 <div className="mt-6">
                                     <button className="text-primary hover:text-primary/80 font-medium transition-colors">
-                                        Learn more →
+                                        {feature.button}
                                     </button>
                                 </div>
                             </div>
@@ -87,12 +93,7 @@ const Features = () => {
                     })}
                 </div>
 
-                {/* Bottom CTA */}
-                <div className="text-center mt-16">
-                    <button className="bg-primary text-primary-foreground px-8 py-4 rounded-xl hover:opacity-90 transition-opacity shadow-xl font-medium text-lg">
-                        Explore All Features
-                    </button>
-                </div>
+                
             </div>
         </section>
     );

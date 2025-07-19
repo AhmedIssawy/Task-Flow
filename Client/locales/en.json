@@ -30,7 +30,8 @@
         "teams": "10K+ Teams",
         "tasks": "1M+ Tasks Completed",
         "rating": "4.9/5 Rating",
-        "countries": "50+ Countries"
+        "countries": "50+ Countries",
+        "text": "rating"
       }
     },
     "Features": {
@@ -40,27 +41,33 @@
       "list": {
         "smartScheduling": {
           "title": "Smart Scheduling",
-          "description": "AI-powered task scheduling that adapts to your team's workflow and priorities."
+          "description": "AI-powered task scheduling that adapts to your team's workflow and priorities.",
+          "button": "learn more →"
         },
         "teamCollaboration": {
           "title": "Team Collaboration",
-          "description": "Real-time collaboration tools that keep your team synchronized and productive."
+          "description": "Real-time collaboration tools that keep your team synchronized and productive.",
+          "button": "learn more →"
         },
         "advancedAnalytics": {
           "title": "Advanced Analytics",
-          "description": "Comprehensive insights into team performance and project progress."
+          "description": "Comprehensive insights into team performance and project progress.",
+          "button": "learn more →"
         },
         "automation": {
           "title": "Automation",
-          "description": "Automate repetitive tasks and workflows to focus on what matters most."
+          "description": "Automate repetitive tasks and workflows to focus on what matters most.",
+          "button": "learn more →"
         },
         "enterpriseSecurity": {
           "title": "Enterprise Security",
-          "description": "Bank-level security with end-to-end encryption and compliance standards."
+          "description": "Bank-level security with end-to-end encryption and compliance standards.",
+          "button": "learn more →"
         },
         "globalAccess": {
           "title": "Global Access",
-          "description": "Access your tasks and projects from anywhere with full offline support."
+          "description": "Access your tasks and projects from anywhere with full offline support.",
+          "button": "learn more →"
         }
       },
       "cta": "Explore All Features"
@@ -209,7 +216,7 @@
         },
         "michael": {
           "name": "Michael Chen",
-          "role": "CEO", 
+          "role": "CEO",
           "company": "StartupXYZ",
           "content": "As a fast-growing startup, we needed a solution that could scale with us. TaskFlow delivered exactly that and more. The automation features alone save us 10 hours per week.",
           "highlight": "Saves 10 hours per week"
@@ -269,16 +276,22 @@
     },
     "Footer": {
       "brand": {
-        "description": "Empowering teams to achieve more with intelligent task management and seamless collaboration."
+        "description": "Empowering teams to achieve more with intelligent task management and seamless collaboration.",
+        "name": "TaskFlow"
       },
       "contact": {
         "email": "hello@taskflow.com",
         "phone": "+1 (555) 123-4567",
         "address": "San Francisco, CA"
       },
+      "sections": {
+        "product": "Product",
+        "company": "Company",
+        "support": "Support",
+        "legal": "Legal"
+      },
       "links": {
         "product": {
-          "title": "Product",
           "features": "Features",
           "pricing": "Pricing",
           "integrations": "Integrations",
@@ -286,7 +299,6 @@
           "updates": "Updates"
         },
         "company": {
-          "title": "Company",
           "about": "About Us",
           "careers": "Careers",
           "blog": "Blog",
@@ -294,15 +306,13 @@
           "partners": "Partners"
         },
         "support": {
-          "title": "Support",
-          "help": "Help Center",
-          "docs": "Documentation",
-          "contact": "Contact Us",
+          "helpCenter": "Help Center",
+          "documentation": "Documentation",
+          "contactUs": "Contact Us",
           "status": "Status",
           "community": "Community"
         },
         "legal": {
-          "title": "Legal",
           "privacy": "Privacy Policy",
           "terms": "Terms of Service",
           "cookies": "Cookie Policy",
@@ -310,27 +320,29 @@
           "security": "Security"
         }
       },
-      "newsletter": {
-        "title": "Stay Updated",
-        "description": "Get the latest product updates, tips, and team productivity insights.",
-        "placeholder": "Enter your email",
-        "button": "Subscribe"
+      "contactinfo": {
+        "address": "Egypt, Cairo"
       },
-      "copyright": "© 2025 TaskFlow. Made with",
-      "copyrightSuffix": "for productive teams."
+      "copyright": {
+        "text": "© 2025 TaskFlow. Made with",
+        "suffix": "for productive teams."
+      }
     }
   },
   "auth": {
     "login": {
       "title": "Welcome Back",
       "subtitle": "Sign in to your account",
+      "brandName": "TaskFlow",
+      "userIdLabel": "User ID",
+      "enterUserId": "Enter your user ID",
       "email": "Email Address",
       "password": "Password",
+      "enterPassword": "Enter your password",
       "remember": "Remember me",
       "forgot": "Forgot password?",
       "submit": "Sign In",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up"
+      "loggingIn": "Signing in..."
     }
   }
 }

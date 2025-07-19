@@ -72,25 +72,14 @@ const Analytics = () => {
                 </div>
 
                 {/* Visual Analytics Dashboard */}
-                <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl">
-                    <div className="flex items-center justify-between mb-8">
-                        <h3 className="text-2xl font-bold text-foreground font-primary">
+                <div className="bg-card flex flex-col  items-start border border-border rounded-2xl p-8 shadow-2xl">
+                    <div className=" mb-8">
+                        <h3 className="text-2xl font-bold text-foreground font-primary ">
                             {t('dashboard.title')}
                         </h3>
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-sm text-muted-foreground">{t('dashboard.live')}</span>
-                        </div>
-                    </div>                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Chart Placeholder */}
-            <div className="lg:col-span-2">
-              <div className="bg-muted/30 rounded-xl p-6 h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <BarChart3 size={48} className="text-primary mx-auto mb-4" />
-                  <p className="text-muted-foreground">{t('dashboard.chartDescription')}</p>
-                </div>
-              </div>
-            </div>                        {/* Stats Panel */}
+                    </div>
+                    <div >
+                        {/* Stats Panel */}
                         <div className="space-y-4">
                             <div className="bg-muted/30 rounded-xl p-4">
                                 <div className="flex items-center justify-between mb-2">
