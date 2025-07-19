@@ -5,7 +5,6 @@ import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'sonner';
 
 import ReduxProvider from '@/providers/ReduxProvider';
-import LocaleWrapper from '@/components/layout/LocaleWrapper';
 import { getServerLocale, getLocaleDirection, type Locale } from '@/lib/i18n';
 
 export const metadata: Metadata = {
@@ -41,14 +40,7 @@ export default async function RootLayout({
       dir={direction}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+      
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
@@ -58,12 +50,11 @@ export default async function RootLayout({
         >
           <ReduxProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              <LocaleWrapper />
               {children}
             </NextIntlClientProvider>
           </ReduxProvider>
         </ThemeProvider>
-        <Toaster richColors position="top-right" closeButton />
+        <Toaster richColors position="bottom-left" closeButton />
       </body>
     </html>
   );

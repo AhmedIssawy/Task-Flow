@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ThemeProvider } from 'next-themes';
 import {
     getCurrentLocale,
     updateHTMLAttributes,
@@ -9,8 +10,13 @@ import {
     DEFAULT_LOCALE
 } from '@/lib/i18n';
 
-export default function LocaleWrapper() {
+interface LocaleWrapperProps {
+    children: React.ReactNode;
+}
+
+export default function LocaleWrapper({ children }: LocaleWrapperProps) {
     const [currentLocale, setCurrentLocale] = useState<Locale>(DEFAULT_LOCALE);
+    const [mounted, setMounted] = useState(false);
 
     // Initialize locale from cookies on component mount
     useEffect(() => {
@@ -18,6 +24,7 @@ export default function LocaleWrapper() {
             const cookieLocale = getCurrentLocale();
             setCurrentLocale(cookieLocale);
             updateHTMLAttributes(cookieLocale);
+            setMounted(true);
         };
 
         initializeLocale();
@@ -81,5 +88,21 @@ export default function LocaleWrapper() {
         };
     }, [currentLocale]);
 
-    return null;
+    // Prevent hydration mismatch
+    if (!mounted) {
+        return null;
+    }
+
+    return (
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <div className={`min-h-screen ${currentLocale === 'ar' ? 'rtl' : 'ltr'}`} dir={currentLocale === 'ar' ? 'rtl' : 'ltr'}>
+                {children}
+            </div>
+        </ThemeProvider>
+    );
 }
