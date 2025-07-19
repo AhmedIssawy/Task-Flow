@@ -1,112 +1,71 @@
-'use client';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+"use client";
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { useAppSelector } from '@/store/hooks';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getPathByRole } from '@/utils/roleRedirect';
+import { useTranslations } from 'next-intl';
 
 const Header = () => {
-  const id = useAppSelector((state) => state.auth.id);
-  const role = useAppSelector((state) => state.auth.role);
-  const isLogged = !!id;
-  const userPath = getPathByRole(role, id);
-  console.log(`User path: ${userPath}, Role: ${role}, ID: ${id}`);
-
-  const t = useTranslations('Landing.Header');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+  const t = useTranslations('Landing.Header');
 
-  const handleLogin = () => {
+  const handleLoginClick = () => {
     router.push('/login');
   };
 
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="bg-background/80 backdrop-blur-md fixed top-0 z-50 w-full border-b border-border/50 shadow-sm"
-    >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8 max-w-7xl">
-        {/* Logo */}
-        <a
-          href="#"
-          className="text-2xl font-bold font-serif text-light transition-colors"
-        >
-          {t('brandName')}
-        </a>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border pt-4 pb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-header">
+          {/* Logo */}
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <span className="text-xl font-bold text-foreground font-primary">{t('logo.taskflow')}</span>
+          </div>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center space-x-3 rtl:space-x-reverse">
-          {isLogged ? (
-            <Avatar
-              onClick={() => router.push(userPath)}
-              className="h-10 w-10 ring-2 ring-primary/20 rounded-2xl cursor-pointer"
+          {/* Always Visible Controls & Mobile Menu Button */}
+          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+            {/* Theme Toggle and Language Switcher - Always Visible */}
+            <ThemeToggle />
+            <LanguageSwitcher />
+
+            {/* Desktop CTA Button */}
+            <button 
+              onClick={handleLoginClick}
+              className="hidden md:block bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
             >
-              <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-medium rounded-2xl">
-                {role?.slice(0,2)}
-              </AvatarFallback>
-            </Avatar>
-          ) : (
-            <>
-              <LanguageSwitcher />
-              <ThemeToggle />
-              <Button
-                onClick={handleLogin}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                {t('login')}
-              </Button>
-            </>
-          )}
+              {t('cta.login')}
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 text-muted-foreground hover:text-primary"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
-        <Sheet>
-          <SheetTrigger asChild className="md:hidden">
-            <Button
-              variant="outline"
-              size="icon"
-              className="border-border hover:bg-accent"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="bg-background/95 backdrop-blur-md border-border/50"
-          >
-            <div className="grid gap-6 p-6">
-              <a
-                href="#"
-                className="text-2xl font-bold font-serif text-foreground"
-              >
-                {t('brandName')}
-              </a>
-              <div className="grid gap-4">
-                <div className="flex items-center gap-3">
-                  <LanguageSwitcher />
-                  <ThemeToggle />
-                </div>
-                <Button
-                  onClick={handleLogin}
-                  variant="ghost"
-                  className="justify-start text-muted-foreground hover:text-foreground"
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-border">
+            <nav className="flex flex-col space-y-4">
+              {/* Mobile CTA Button */}
+              <div className="pt-4 border-t border-border">
+                <button 
+                  onClick={handleLoginClick}
+                  className="w-full bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
                 >
-                  {t('login')}
-                </Button>
+                  {t('cta.login')}
+                </button>
               </div>
-            </div>
-          </SheetContent>
-        </Sheet>
+            </nav>
+          </div>
+        )}
       </div>
-    </motion.header>
+    </header>
   );
 };
 
