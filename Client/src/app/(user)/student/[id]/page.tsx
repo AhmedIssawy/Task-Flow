@@ -131,13 +131,25 @@ export default function StudentDashboardPage() {
               "text-muted-foreground text-lg",
               isRTL ? "text-right" : "text-left"
             )}>
+              {loadingStudent ? '...' : student?.email}
+            </p>
+            <p className={cn(
+              "text-muted-foreground text-lg",
+              isRTL ? "text-right" : "text-left"
+            )}>
+              {loadingStudent ? '...' : student?.universityId?.name}
+            </p>
+            <p className={cn(
+              "text-muted-foreground text-lg",
+              isRTL ? "text-right" : "text-left"
+            )}>
               Ready to tackle your goals today? You have 3 classes and 2 assignments due this week.
             </p>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {statsCards.map((stat, index) => (
             <Card key={index} className="bg-card border border-border rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer hover:scale-[1.02] active:scale-[0.98]">
               <CardContent className="p-6">
@@ -179,10 +191,9 @@ export default function StudentDashboardPage() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Today's Schedule */}
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="bg-card border border-border rounded-2xl shadow-xl">
             <CardHeader className="pb-4">
               <div className={cn(
@@ -240,9 +251,7 @@ export default function StudentDashboardPage() {
             </CardContent>
           </Card>
 
-          {/* Quick Actions & Recent Grades */}
           <div className="space-y-6">
-            {/* Quick Actions */}
             <Card className="bg-card border border-border rounded-2xl shadow-xl">
               <CardHeader className="pb-4">
                 <CardTitle className={cn(
@@ -284,7 +293,6 @@ export default function StudentDashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Recent Grades */}
             <Card className="bg-card border border-border rounded-2xl shadow-xl">
               <CardHeader className="pb-4">
                 <CardTitle className={cn(
@@ -319,7 +327,7 @@ export default function StudentDashboardPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
 
         {/* My Courses */}
         {courseData?.courses && courseData.courses.length > 0 && (

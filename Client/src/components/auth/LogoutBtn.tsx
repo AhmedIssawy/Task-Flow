@@ -7,6 +7,7 @@ import { useLogoutMutation } from '@/store/services/authApi'
 import { clearAuth } from '@/store/slices/authSlice';
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
+import { clearUser } from '@/store/slices/userSlice';
 
 export default function LogoutButton() {
   const [logout] = useLogoutMutation();
@@ -21,6 +22,7 @@ export default function LogoutButton() {
       toast.error('Failed to log out');
     } finally {
       dispatch(clearAuth());   // Clear local auth state
+      dispatch(clearUser());
       router.push('/login');   // Redirect to login
       toast.success('Logged out successfully');
     }
