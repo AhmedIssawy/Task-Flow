@@ -344,5 +344,91 @@
       "submit": "Sign In",
       "loggingIn": "Signing in..."
     }
+  },
+  "navbar": {
+    "brand": "TaskFlow",
+    "portal": "Student Portal",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "logout": "Logout",
+    "studentName": "Student Name",
+    "studentEmail": "student@university.edu"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "assignments": "Assignments",
+    "grades": "Grades",
+    "calendar": "Calendar",
+    "settings": "Settings",
+    "students": "Students",
+    "teachers": "Teachers",
+    "colleges": "Colleges",
+    "departments": "Departments",
+    "university": "University",
+    "admins": "Admins"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Configure your preferences",
+    "roles": {
+      "student": {
+        "title": "Student Settings",
+        "description": "Customize your learning experience",
+        "badge": "STUDENT"
+      },
+      "teacher": {
+        "title": "Teacher Settings",
+        "description": "Configure your teaching preferences",
+        "badge": "TEACHER"
+      },
+      "admin": {
+        "title": "Admin Settings",
+        "description": "Configure administrative preferences",
+        "badge": "ADMIN"
+      },
+      "superadmin": {
+        "title": "Super Admin Settings",
+        "description": "Manage system-wide configurations",
+        "badge": "SUPER ADMIN"
+      },
+      "default": {
+        "title": "Settings",
+        "description": "Configure your preferences",
+        "badge": "USER"
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "theme": {
+        "title": "Theme",
+        "description": "Choose your preferred theme"
+      },
+      "language": {
+        "title": "Language",
+        "description": "Select your preferred language"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": {
+        "title": "Email Notifications",
+        "description": "Receive updates via email"
+      },
+      "push": {
+        "title": "Push Notifications",
+        "description": "Get instant notifications"
+      },
+      "sms": {
+        "title": "SMS Notifications",
+        "description": "Receive text message alerts"
+      }
+    },
+    "actions": {
+      "save": "Save Settings"
+    },
+    "footer": {
+      "autoSave": "Settings are automatically saved and synced across your devices."
+    }
   }
 }

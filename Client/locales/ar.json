@@ -344,5 +344,91 @@
       "submit": "تسجيل الدخول",
       "loggingIn": "جاري تسجيل الدخول..."
     }
+  },
+  "navbar": {
+    "brand": "تاسك فلو",
+    "portal": "بوابة الطلاب",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج",
+    "studentName": "اسم الطالب",
+    "studentEmail": "student@university.edu"
+  },
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "courses": "المقررات",
+    "assignments": "الواجبات",
+    "grades": "الدرجات",
+    "calendar": "التقويم",
+    "settings": "الإعدادات",
+    "students": "الطلاب",
+    "teachers": "المعلمون",
+    "colleges": "الكليات",
+    "departments": "الأقسام",
+    "university": "الجامعة",
+    "admins": "المديرون"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "description": "تكوين تفضيلاتك",
+    "roles": {
+      "student": {
+        "title": "إعدادات الطالب",
+        "description": "تخصيص تجربة التعلم الخاصة بك",
+        "badge": "طالب"
+      },
+      "teacher": {
+        "title": "إعدادات المعلم",
+        "description": "تكوين تفضيلات التدريس الخاصة بك",
+        "badge": "معلم"
+      },
+      "admin": {
+        "title": "إعدادات المدير",
+        "description": "تكوين التفضيلات الإدارية",
+        "badge": "مدير"
+      },
+      "superadmin": {
+        "title": "إعدادات المدير العام",
+        "description": "إدارة التكوينات على مستوى النظام",
+        "badge": "مدير عام"
+      },
+      "default": {
+        "title": "الإعدادات",
+        "description": "تكوين تفضيلاتك",
+        "badge": "مستخدم"
+      }
+    },
+    "appearance": {
+      "title": "المظهر",
+      "theme": {
+        "title": "السمة",
+        "description": "اختر السمة المفضلة لديك"
+      },
+      "language": {
+        "title": "اللغة",
+        "description": "اختر لغتك المفضلة"
+      }
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "email": {
+        "title": "إشعارات البريد الإلكتروني",
+        "description": "تلقي التحديثات عبر البريد الإلكتروني"
+      },
+      "push": {
+        "title": "الإشعارات الفورية",
+        "description": "احصل على إشعارات فورية"
+      },
+      "sms": {
+        "title": "إشعارات الرسائل النصية",
+        "description": "تلقي تنبيهات الرسائل النصية"
+      }
+    },
+    "actions": {
+      "save": "حفظ الإعدادات"
+    },
+    "footer": {
+      "autoSave": "يتم حفظ الإعدادات تلقائياً ومزامنتها عبر أجهزتك."
+    }
   }
 }

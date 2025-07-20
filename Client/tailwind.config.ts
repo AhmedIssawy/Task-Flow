@@ -40,7 +40,14 @@ const config: Config = {
   },
   plugins: [
     // Add RTL support
-    function ({ addUtilities }: { addUtilities: (utilities: Record<string, Record<string, string>>) => void }) {
+    function ({ addUtilities, addVariant }: { 
+      addUtilities: (utilities: Record<string, Record<string, string>>) => void,
+      addVariant: (name: string, definition: string) => void 
+    }) {
+      // Add RTL variant
+      addVariant('rtl', '[dir="rtl"] &')
+      addVariant('ltr', '[dir="ltr"] &')
+      
       const newUtilities = {
         '.rtl-grid': {
           'direction': 'rtl',

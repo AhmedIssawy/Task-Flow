@@ -6,6 +6,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { navItemsData } from '@/constants/sideMenuData';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
+import { cn } from '@/lib/utils';
 
 interface UserLayoutProps {
   children: React.ReactNode;
@@ -13,6 +15,7 @@ interface UserLayoutProps {
 
 export default function UserLayout({ children }: UserLayoutProps) {
   const [, role, id] = usePathname().split('/');
+  const { isRTL } = useLanguage();
   console.log('UserLayout role:', role, 'id:', id);
 
   const getNavItems = navItemsData[role.replace(/-/g, '') as keyof typeof navItemsData];
@@ -22,20 +25,23 @@ export default function UserLayout({ children }: UserLayoutProps) {
 
   return (
     <UserAuthGuard>
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
-      {/* Fixed Navbar */}
-      <Navbar />
+      <div className="min-h-screen bg-background">
+        {/* Fixed Navbar */}
+        <Navbar />
 
-      <div className="flex pt-16">
-        {/* Sidebar */}
-        <SideMenu navItems={navItems} />
-        
-        {/* Content Area */}
-        <div className="flex-1 lg:ml-72">
-          {children}
+        <div className="flex pt-16">
+          {/* Sidebar */}
+          <SideMenu navItems={navItems} />
+          
+          {/* Content Area */}
+          <div className={cn(
+            "flex-1",
+            isRTL ? "lg:mr-72" : "lg:ml-72"
+          )}>
+            {children}
+          </div>
         </div>
       </div>
-    </div>
     </UserAuthGuard>
   );
 }
