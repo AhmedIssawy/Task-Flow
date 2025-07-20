@@ -327,3 +327,17 @@
     background: hsl(var(--foreground));
   }
 }
+
+/* RTL-specific switch component fixes */
+[dir="rtl"] [data-slot="switch-thumb"][data-state="checked"] {
+  transform: translateX(calc(-100% + 2px)) !important;
+}
+
+[dir="rtl"] [data-slot="switch-thumb"][data-state="unchecked"] {
+  transform: translateX(0) !important;
+}
+
+/* Ensure smooth transitions for RTL switches */
+[dir="rtl"] [data-slot="switch-thumb"] {
+  transition: transform 0.2s ease-in-out;
+}

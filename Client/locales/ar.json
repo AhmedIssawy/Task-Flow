@@ -335,7 +335,7 @@
       "subtitle": "سجل دخولك إلى حسابك",
       "brandName": "تاسك فلو",
       "userIdLabel": "معرف المستخدم",
-      "enterUserId": "أدخل معرف المستخ��م",
+      "enterUserId": "أدخل معرف المستخدم",
       "email": "عنوان البريد الإلكتروني",
       "password": "كلمة المرور",
       "enterPassword": "أدخل كلمة المرور",
@@ -370,7 +370,7 @@
   },
   "settings": {
     "title": "الإعدادات",
-    "description": "تكوين تف��يلاتك",
+    "description": "تكوين تفضيلاتك",
     "roles": {
       "student": {
         "title": "إعدادات الطالب",

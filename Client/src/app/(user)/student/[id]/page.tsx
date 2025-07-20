@@ -29,8 +29,8 @@ import { cn } from '@/lib/utils';
 export default function StudentDashboardPage() {
   const studentId = useAppSelector((state) => state.auth.mongoId);
   const { isRTL } = useLanguage();
-  const t = useTranslations('student.dashboard');
-  
+  const t = useTranslations('student.dashboard');//todo apply translations.
+
   console.log('Student ID from Redux:', studentId);
 
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
@@ -135,8 +135,8 @@ export default function StudentDashboardPage() {
             </p>
           </div>
         </div>
-      
-      {/* Stats Grid */}
+
+        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {statsCards.map((stat, index) => (
             <Card key={index} className="bg-card border border-border rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer hover:scale-[1.02] active:scale-[0.98]">
@@ -162,17 +162,17 @@ export default function StudentDashboardPage() {
                   <div className={cn(
                     "p-3 rounded-2xl transition-all duration-300",
                     stat.variant === 'primary' ? 'bg-primary/10' :
-                    stat.variant === 'success' ? 'bg-green-500/10' :
-                    stat.variant === 'warning' ? 'bg-amber-500/10' :
-                    'bg-muted/50',
+                      stat.variant === 'success' ? 'bg-green-500/10' :
+                        stat.variant === 'warning' ? 'bg-amber-500/10' :
+                          'bg-muted/50',
                     isRTL ? "ml-4" : "mr-4"
                   )}>
                     <stat.icon className={cn(
                       "w-6 h-6",
                       stat.variant === 'primary' ? 'text-primary' :
-                      stat.variant === 'success' ? 'text-green-600 dark:text-green-400' :
-                      stat.variant === 'warning' ? 'text-amber-600 dark:text-amber-400' :
-                      'text-muted-foreground'
+                        stat.variant === 'success' ? 'text-green-600 dark:text-green-400' :
+                          stat.variant === 'warning' ? 'text-amber-600 dark:text-amber-400' :
+                            'text-muted-foreground'
                     )} />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function StudentDashboardPage() {
           ))}
         </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Today's Schedule */}
           <Card className="bg-card border border-border rounded-2xl shadow-xl">
             <CardHeader className="pb-4">
