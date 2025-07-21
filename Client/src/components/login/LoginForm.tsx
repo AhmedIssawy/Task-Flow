@@ -15,6 +15,7 @@ import { Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
+import { setUser } from '@/store/slices/userSlice';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
@@ -47,6 +48,7 @@ export default function LoginForm() {
         setAuth({ id: data.id, mongoId: data._id, role: normalizedRole })
       );
 
+      dispatch(setUser({name: data.name, email: data.email}))
       router.push(redirectPath);
     } catch (err) {
       console.error('Login failed:', err);

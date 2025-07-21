@@ -8,6 +8,7 @@ import { collegeApi } from '@/store/services/collegeApi'
 import { departmentApi } from '@/store/services/departmentApi'
 import { teacherApi } from '@/store/services/teacherApi'
 import authReducer from '@/store/slices/authSlice'
+import userReducer from '@/store/slices/userSlice'
 
 
 // redux state persistence
@@ -19,9 +20,14 @@ const authPersistConfig = {
   whitelist: ['id', 'mongoId', 'role'],
 };
 
+const userPersistConfig = {
+  key: 'user',
+  storage,
+  whitelist: ['name', 'email']
+}
 
-const persistedAuthReducer = persistReducer(authPersistConfig, authReducer)
-
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
 
 
 export const store = configureStore({
@@ -33,6 +39,7 @@ export const store = configureStore({
     [departmentApi.reducerPath]: departmentApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     auth: persistedAuthReducer,
+    user: persistedUserReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

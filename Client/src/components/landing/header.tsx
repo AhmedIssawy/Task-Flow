@@ -1,10 +1,13 @@
-"use client";
+'use client';
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '@/store/hooks';
+import { getPathByRole } from '@/utils/roleRedirect';
+import UserAvatar from '../user/UserAvatar';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,28 +18,39 @@ const Header = () => {
     router.push('/login');
   };
 
+  const id = useAppSelector((state) => state.auth.id);
+  const role = useAppSelector((state) => state.auth.role);
+  const isLogged = !!id;
+  const name = useAppSelector((state) => state.user.name);
+  const userPath = getPathByRole(role, id);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border pt-4 pb-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-header">
           {/* Logo */}
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <span className="text-xl font-bold text-foreground font-primary">{t('logo.taskflow')}</span>
+            <span className="text-xl font-bold text-foreground font-primary">
+              {t('logo.taskflow')}
+            </span>
           </div>
 
-          {/* Always Visible Controls & Mobile Menu Button */}
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
-            {/* Theme Toggle and Language Switcher - Always Visible */}
-            <ThemeToggle />
-            <LanguageSwitcher />
+            {isLogged ? (
+              <UserAvatar name={name} onClick={() => router.push(userPath)} />
+            ) : (
+              <>
+                <ThemeToggle />
+                <LanguageSwitcher />
 
-            {/* Desktop CTA Button */}
-            <button 
-              onClick={handleLoginClick}
-              className="hidden md:block bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
-            >
-              {t('cta.login')}
-            </button>
+                <button
+                  onClick={handleLoginClick}
+                  className="hidden md:block bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
+                >
+                  {t('cta.login')}
+                </button>
+              </>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -54,7 +68,7 @@ const Header = () => {
             <nav className="flex flex-col space-y-4">
               {/* Mobile CTA Button */}
               <div className="pt-4 border-t border-border">
-                <button 
+                <button
                   onClick={handleLoginClick}
                   className="w-full bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
                 >
