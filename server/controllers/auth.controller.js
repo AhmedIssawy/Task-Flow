@@ -67,6 +67,27 @@ const login = asyncHandler(async (req, res) => {
   });
 });
 
+const authMe = asyncHandler(async (req, res) => {
+  const lang = req.cookies?.lang || "en";
+  const user = req.user;
+  let message = "User authenticated successfully";
+  if (lang === "ar") message = "تم التحقق من المستخدم بنجاح";
+
+  if (!user) {
+    let message = "Unauthorized!";
+    if (lang === "ar") message = "غير مصرح!";
+
+    return res.status(401).json({ message });
+  }
+
+  const { password: _, createdAt, updatedAt, ...response } = user?._doc;
+
+  res.status(200).json({
+    message,
+    data: response,
+  });
+});
+
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
@@ -84,4 +105,4 @@ const logout = asyncHandler(async (req, res) => {
   });
 });
 
-export { login, logout };
+export { login, logout, authMe };
