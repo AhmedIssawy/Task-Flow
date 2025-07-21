@@ -5,7 +5,7 @@ import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const collegeApi = createApi({
   reducerPath: 'collegeApi',
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQueryWithErrorHandling(),
   endpoints: (builder) => ({
     // GET /colleges/universityId?page=1&limit=40
     getCollegesPage: builder.query<College[], { universityId: string; page?: number; limit?: number }>({
