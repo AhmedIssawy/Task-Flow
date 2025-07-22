@@ -5,7 +5,7 @@ import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const teacherApi = createApi({
   reducerPath: 'teacherApi',
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQueryWithErrorHandling(),
   endpoints: (builder) => ({
     // GET /teachers?page=1
     getTeachersPage: builder.query<{ teachers: Teacher[]; total: number }, number | void>({

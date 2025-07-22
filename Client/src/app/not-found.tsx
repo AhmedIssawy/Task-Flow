@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Ghost, Home, ArrowLeft } from 'lucide-react';
-import { useAppSelector } from '@/store/hooks';
 import { getPathByRole } from '@/utils/roleRedirect';
 import { useMemo } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function NotFound() {
-  const { id, role } = useAppSelector((state) => state.auth);
+  const { id, role } = useAuth();
   
   // Determine the appropriate home path based on authentication status
   const homePath = useMemo(() => {

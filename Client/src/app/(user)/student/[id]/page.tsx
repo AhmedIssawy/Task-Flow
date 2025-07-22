@@ -20,14 +20,16 @@ import {
   BookOpen,
   Target
 } from 'lucide-react';
-import { useAppSelector } from '@/store/hooks';
 import { useTranslations } from 'next-intl';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/useAuth';
 
 
 export default function StudentDashboardPage() {
-  const studentId = useAppSelector((state) => state.auth.mongoId);
+  const studentId = useAuth().mongoId;
+  console.log('Student ID from useAuth:', useAuth());
+  
   const { isRTL } = useLanguage();
   const t = useTranslations('student.dashboard');//todo apply translations.
 

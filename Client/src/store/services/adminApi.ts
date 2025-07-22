@@ -4,7 +4,7 @@ import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const adminApi = createApi({
   reducerPath: 'adminApi',
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQueryWithErrorHandling(),
   tagTypes: ['Admin'],
   endpoints: (builder) => ({
     getAdminById: builder.query<Admin, string>({

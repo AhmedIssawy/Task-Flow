@@ -5,14 +5,14 @@ import { useGetTeacherByIdQuery } from '@/store/services/teacherApi';
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { useAppSelector } from '@/store/hooks';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import { useGetStudentsPageQuery } from '@/store/services/studentApi';
 import { studentColumns } from '@/constants/teacherTableData';
 import PaginationControls from '@/components/tables/PaginatedControls';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function TeacherDashboard() {
-  const id = useAppSelector((state) => state.auth.id);
+  const id = useAuth().id;
   const { data, isLoading, error } = useGetTeacherByIdQuery(id as string);
 
   const [page, setPage] = useState(1);

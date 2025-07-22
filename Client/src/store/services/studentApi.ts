@@ -4,7 +4,7 @@ import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const studentApi = createApi({
   reducerPath: 'studentApi',
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQueryWithErrorHandling(),
   tagTypes: ['Student'],
   endpoints: (builder) => ({
     // Create
