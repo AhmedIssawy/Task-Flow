@@ -2,27 +2,24 @@
 
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useDispatch } from 'react-redux';
-import { useLogoutMutation } from '@/store/services/authApi'
-import { clearAuth } from '@/store/slices/authSlice';
+import { authApi, useLogoutMutation } from '@/store/services/authApi'
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
-import { clearUser } from '@/store/slices/userSlice';
+import { useAppDispatch } from '@/store/hooks';
 
 export default function LogoutButton() {
   const [logout] = useLogoutMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      await logout().unwrap(); // Call backend
+      await logout().unwrap(); 
+      dispatch(authApi.util.resetApiState());
     } catch (err) {
       console.error('Logout failed:', err);
       toast.error('Failed to log out');
     } finally {
-      dispatch(clearAuth());   // Clear local auth state
-      dispatch(clearUser());
       router.push('/login');   // Redirect to login
       toast.success('Logged out successfully');
     }

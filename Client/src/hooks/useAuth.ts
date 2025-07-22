@@ -8,7 +8,7 @@ export const useAuth = () => {
     isLoading,
     isError,
     isLoggedIn: !!data,
-    role: data?.role,
+    role: data?.data?.role,
     id: data?.data?.id,
     mongoId: data?.data?._id,
   };

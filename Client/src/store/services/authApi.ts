@@ -8,7 +8,10 @@ export const authApi = createApi({
   ),
   endpoints: (builder) => ({
     getMe: builder.query<{ role: string; id: string }, void>({
-      query: () => '/auth/me',
+      query: () => ({
+        url: '/auth',
+        suppress401: true,
+      }),
     }),
 
     login: builder.mutation<

@@ -18,6 +18,8 @@ export const baseQueryWithErrorHandling = (
   return async (args, api, extraOptions) => {
     const result = await rawBaseQuery(args, api, extraOptions);
 
+    const suppress401 = typeof args === 'object' && 'suppress401' in args && args.suppress401;
+
     if (result.error) {
       const status = result.error.status;
       const message =
@@ -27,7 +29,7 @@ export const baseQueryWithErrorHandling = (
           : 'Something went wrong');
 
       if (typeof window !== 'undefined') {
-        if (status === 401) {
+        if (status === 401 && !suppress401) {
           api.dispatch(clearAuth());
           toast.error('Session expired. Please log in again.');
           setTimeout(() => {
@@ -36,7 +38,7 @@ export const baseQueryWithErrorHandling = (
         } else if (result.error.status === 'PARSING_ERROR') {
           console.error('Received invalid JSON (likely HTML):', result.error);
           toast.error('Unexpected server response (invalid JSON).');
-        } else {
+        } else if (!suppress401) {
           console.error(`[API Error ${status}]`, message);
           toast.error(message);
         }

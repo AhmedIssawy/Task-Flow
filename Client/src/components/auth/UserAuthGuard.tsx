@@ -1,15 +1,15 @@
 'use client';
 
-import { useAppSelector } from '@/store/hooks';
 import { ReactNode } from 'react';
 import Unauthorized from '@/components/auth/Unauthorized';
+import { useAuth } from '@/hooks/useAuth';
 
 interface UserAuthGuardProps {
   children: ReactNode;
 }
 
 export default function UserAuthGuard({ children }: UserAuthGuardProps) {
-  const { role } = useAppSelector((state) => state.auth);
+  const { role } = useAuth();
 
   if (!role) {
     return <Unauthorized />;

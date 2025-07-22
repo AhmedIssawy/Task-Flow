@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,17 +12,17 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Bell, User, GraduationCap } from 'lucide-react';
 import LogoutButton from '../auth/LogoutBtn';
-import { useAppSelector } from '@/store/hooks';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
 import { useTranslations } from 'next-intl';
 import UserAvatar from '../user/UserAvatar';
+import { useAuth } from '@/hooks/useAuth';
 
 export function Navbar() {
-  const name = useAppSelector((state) => state.user.name);
-  const email = useAppSelector((state) => state.user.email);
+  
+  const { name, email } = useAuth().user;
   const { isRTL } = useLanguage();
   const t = useTranslations('navbar');
 

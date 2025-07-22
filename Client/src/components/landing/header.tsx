@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from '@/store/hooks';
 import { getPathByRole } from '@/utils/roleRedirect';
 import UserAvatar from '../user/UserAvatar';
+import { useAuth } from '@/hooks/useAuth';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,10 +18,11 @@ const Header = () => {
     router.push('/login');
   };
 
-  const id = useAppSelector((state) => state.auth.id);
-  const role = useAppSelector((state) => state.auth.role);
-  const isLogged = !!id;
-  const name = useAppSelector((state) => state.user.name);
+  const userData = useAuth();
+  
+  const { isLoggedIn, role, id } = userData;
+
+  const name = userData.user?.name;
   const userPath = getPathByRole(role, id);
 
   return (
@@ -36,7 +37,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
-            {isLogged ? (
+            {isLoggedIn ? (
               <UserAvatar name={name} onClick={() => router.push(userPath)} />
             ) : (
               <>

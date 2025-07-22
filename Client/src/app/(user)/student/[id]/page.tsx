@@ -27,7 +27,9 @@ import { useAuth } from '@/hooks/useAuth';
 
 
 export default function StudentDashboardPage() {
-  const studentId = useAuth().id;
+  const studentId = useAuth().mongoId;
+  console.log('Student ID from useAuth:', useAuth());
+  
   const { isRTL } = useLanguage();
   const t = useTranslations('student.dashboard');//todo apply translations.
 
