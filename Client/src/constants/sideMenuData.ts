@@ -4,7 +4,6 @@ import {
   Calendar,
   ClipboardList,
   BarChart3,
-  BarChart,
   Settings,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -42,14 +41,12 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { labelKey: 'sidebar.departments', href: `/admin/${id}/departments`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.courses', href: `/admin/${id}/courses`, icon: ClipboardList, badge: '5' },
     { labelKey: 'sidebar.teachers', href: `/admin/${id}/teachers`, icon: Book, badge: '3' },
-    { labelKey: 'sidebar.students', href: `/admin/${id}/students`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.settings', href: `/admin/${id}/settings`, icon: Settings, badge: '' },
   ],
   
   superadmin: (id: string) => [
     { labelKey: 'sidebar.dashboard', href: `/super-admin/${id}`, icon: Home, badge: '' },
     { labelKey: 'sidebar.university', href: `/super-admin/${id}/universities`, icon: Book, badge: '3' },
-    { labelKey: 'sidebar.admins', href: `/super-admin/${id}/admins`, icon: BarChart, badge: 'New' },
     { labelKey: 'sidebar.colleges', href: `/super-admin/${id}/colleges`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.departments', href: `/super-admin/${id}/departments`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.courses', href: `/super-admin/${id}/courses`, icon: ClipboardList, badge: '5' },

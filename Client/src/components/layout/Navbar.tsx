@@ -9,8 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { Bell, User, GraduationCap } from 'lucide-react';
+import { User, GraduationCap } from 'lucide-react';
 import LogoutButton from '../auth/LogoutBtn';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
@@ -19,9 +18,10 @@ import { LanguageSwitcher } from '@/components/made/language-switcher';
 import { useTranslations } from 'next-intl';
 import UserAvatar from '../user/UserAvatar';
 import { useAuth } from '@/hooks/useAuth';
+import { UnifiedNotificationPopup } from '@/components/dashboard/UnifiedNotificationPopup';
 
 export function Navbar() {
-  
+
   const { name, email } = useAuth().user;
   const { isRTL } = useLanguage();
   const t = useTranslations('navbar');
@@ -34,17 +34,13 @@ export function Navbar() {
       )}
     >
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div
-          className={cn(
-            'flex items-center justify-between h-16',
-            isRTL ? 'flex-row-reverse' : 'flex-row'
-          )}
-        >
-          {/* Logo Section */}
+        {/* Main navbar container - RTL-aware layout */}
+        <div className="flex items-center h-16 w-full relative">
+          {/* Logo Section - positioned absolutely for precise control */}
           <div
             className={cn(
-              'flex items-center gap-3',
-              isRTL ? 'flex-row-reverse  lg:ml-0' : 'flex-row lg:mr-0'
+              'flex items-center gap-3 absolute',
+              isRTL ? 'right-0' : 'left-0'
             )}
           >
             <div className="p-2 rounded-2xl bg-primary shadow-lg">
@@ -70,11 +66,11 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Right Section: Theme + Language + Notifications + User Menu */}
+          {/* Controls Section - positioned absolutely for precise control */}
           <div
             className={cn(
-              'flex items-center gap-3',
-              isRTL ? 'flex-row-reverse' : 'flex-row'
+              'flex items-center gap-3 absolute flex-row',
+              isRTL ? 'left-0 ' : 'right-0 '
             )}
           >
             {/* Theme Toggle */}
@@ -84,22 +80,7 @@ export function Navbar() {
             <LanguageSwitcher />
 
             {/* Notifications */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-all duration-200"
-              title={t('notifications')}
-            >
-              <Bell className="h-5 w-5" />
-              <Badge
-                className={cn(
-                  'absolute h-5 w-5 p-0 text-xs bg-destructive hover:bg-destructive/90 rounded-full',
-                  isRTL ? '-top-1 -left-1' : '-top-1 -right-1'
-                )}
-              >
-                3
-              </Badge>
-            </Button>
+            <UnifiedNotificationPopup />
 
             {/* User Menu */}
             <DropdownMenu>
@@ -108,7 +89,7 @@ export function Navbar() {
                   variant="ghost"
                   className="relative h-10 w-10 rounded-2xl hover:bg-primary/10 transition-all duration-200"
                 >
-                  <UserAvatar name={name}/>
+                  <UserAvatar name={name} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
