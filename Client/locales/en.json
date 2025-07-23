@@ -334,8 +334,8 @@
     "popup": {
       "title": "Notifications",
       "subtitle": {
-        "hasNew": "new notification",
-        "hasNewPlural": "new notifications",
+        "hasNew": "{count, plural, one {# new notification} other {# new notifications}}",
+        "hasNewPlural": "{count} new notifications",
         "allCaughtUp": "All caught up!"
       },
       "markAllRead": "Mark all read",
@@ -362,24 +362,24 @@
       },
       "staticData": {
         "assignment": {
-          "title": "New Assignment Posted",
-          "message": "Mathematics Assignment #3 has been posted and is due next Friday."
+          "title": "New Math Assignment",
+          "message": "Complete exercises 1-15 in Chapter 3 by Friday"
         },
         "grade": {
-          "title": "Grade Released",
-          "message": "Your grade for Physics Quiz #2 is now available."
+          "title": "Science Project Graded",
+          "message": "Your science project has been graded. Score: 88/100"
         },
         "event": {
-          "title": "Upcoming Class",
-          "message": "Chemistry Lab session starts in 1 hour - Room 204."
+          "title": "Parent-Teacher Conference",
+          "message": "Scheduled for tomorrow at 2:00 PM in Room 301"
         },
         "system": {
           "title": "System Maintenance",
-          "message": "Scheduled maintenance tonight from 12AM to 2AM EST."
+          "message": "Scheduled maintenance on Saturday from 2-4 AM"
         },
         "reminder": {
           "title": "Library Book Due",
-          "message": "Return \"Advanced Calculus\" by tomorrow to avoid late fees."
+          "message": "Return 'Advanced Mathematics' by end of week"
         }
       }
     },

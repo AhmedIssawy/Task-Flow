@@ -260,65 +260,12 @@
   }
 
   /* Floating animation */
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  /* Pulse glow effect */
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      opacity: 0.5;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.05);
-    }
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  /* Notification-specific animations */
-  @keyframes slide-in-fade {
-    0% {
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .animate-slide-in-fade {
-    animation: slide-in-fade 0.4s ease-out forwards;
-  }
-
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
-  }
+ @media (prefers-reduced-motion: no-preference) {
+   .animate-float        { animation: float 3s ease-in-out infinite; }
+   .animate-pulse-glow   { animation: pulse-glow 2s ease-in-out infinite; }
+   .animate-slide-in-fade{ animation: slide-in-fade 0.4s ease-out forwards; }
+   .animate-fade-in      { animation: fade-in 0.3s ease-out; }
+}
 
   /* Enhanced scrollbar for notifications */
   .scrollbar-track-transparent::-webkit-scrollbar-track {

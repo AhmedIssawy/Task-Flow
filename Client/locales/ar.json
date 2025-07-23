@@ -334,8 +334,7 @@
     "popup": {
       "title": "الإشعارات",
       "subtitle": {
-        "hasNew": "إشعار جديد",
-        "hasNewPlural": "إشعارات جديدة",
+        "hasNew": "{count, plural, one {إشعار جديد} other {# إشعارات جديدة}}",
         "allCaughtUp": "لا توجد إشعارات جديدة!"
       },
       "markAllRead": "تحديد الكل كمقروء",
@@ -423,7 +422,7 @@
   },
   "sidebar": {
     "dashboard": "لوحة التحكم",
-    "courses": "المواد المقرره",
+    "courses": "المواد المقررة",
     "assignments": "الواجبات",
     "grades": "الدرجات",
     "calendar": "التقويم",

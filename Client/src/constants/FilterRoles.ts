@@ -2,8 +2,7 @@ import { RoleEnum } from '../store/slices/authSlice';
 
 // Type definitions for role filters
 export type Role = keyof typeof RoleEnum;
-export type Permission = string;
-export type AccessLevel = 'read' | 'write' | 'delete' | 'admin';
+export type Permission = typeof PERMISSIONS[keyof typeof PERMISSIONS];
 
 // Role hierarchy levels (lower number = higher privilege)
 export const ROLE_HIERARCHY: Record<Role, number> = {
@@ -363,13 +362,13 @@ export const roleUtils = {
     /**
      * Get all roles with lower privilege than the given role
      */
-    getLowerPrivilegeRoles: (role: Role): Role[] => {
+    getLowerPrivilegeRoles: (role: Role | null): Role[] => {
+        if (!role) return [];
         const currentLevel = ROLE_HIERARCHY[role];
         return Object.entries(ROLE_HIERARCHY)
             .filter(([_, level]) => level > currentLevel)
             .map(([roleName]) => roleName as Role);
     },
-
     /**
      * Check if a role can access a navigation item
      */
