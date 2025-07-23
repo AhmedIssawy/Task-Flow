@@ -59,24 +59,24 @@ export default function StudentCalendarPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.3)_1px,transparent_1px)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[size:25px_25px]"></div>
       </div>
 
-      <div className="relative z-10 flex-1 p-6">
+      <div className="relative z-10 flex-1 p-3 sm:p-4 lg:p-6">
         {/* Header */}
-        <div className="backdrop-blur-xl bg-background/80 border-white/10 dark:border-white/10 shadow-2xl rounded-3xl overflow-hidden p-8 relative mb-8">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full -translate-y-32 translate-x-32 animate-float"></div>
+        <div className="backdrop-blur-xl bg-background/80 border-white/10 dark:border-white/10 shadow-2xl rounded-2xl lg:rounded-3xl overflow-hidden p-4 sm:p-6 lg:p-8 relative mb-4 sm:mb-6 lg:mb-8">
+          <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-primary/10 rounded-full -translate-y-16 translate-x-16 sm:-translate-y-24 sm:translate-x-24 lg:-translate-y-32 lg:translate-x-32 animate-float"></div>
           <div className="relative z-10">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gradient">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-gradient">
               My Calendar
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
               Stay organized with your schedule and upcoming events
             </p>
           </div>
         </div>
 
 
-        <div className="relative backdrop-blur-xl bg-background/95 border border-border/30 rounded-3xl p-6 shadow-2xl shadow-primary/10">
+        <div className="relative backdrop-blur-xl bg-background/95 border border-border/30 rounded-2xl lg:rounded-3xl p-2 sm:p-4 lg:p-6 shadow-2xl shadow-primary/10">
           {/* Calendar container that masks the background grid */}
-          <div className="absolute inset-0 bg-background/80 rounded-3xl"></div>
+          <div className="absolute inset-0 bg-background/80 rounded-2xl lg:rounded-3xl"></div>
           <Calendar
             events={[
               {
@@ -95,51 +95,62 @@ export default function StudentCalendarPage() {
               },
             ]}
           >
-            <div className="relative z-10 h-dvh p-14 flex flex-col">
-              <div className="flex px-6 items-center gap-2 mb-6">
-                <CalendarViewTrigger
-                  className="aria-[current=true]:bg-accent"
-                  view="day"
-                >
-                  Day
-                </CalendarViewTrigger>
-                <CalendarViewTrigger
-                  view="week"
-                  className="aria-[current=true]:bg-accent"
-                >
-                  Week
-                </CalendarViewTrigger>
-                <CalendarViewTrigger
-                  view="month"
-                  className="aria-[current=true]:bg-accent"
-                >
-                  Month
-                </CalendarViewTrigger>
-                <CalendarViewTrigger
-                  view="year"
-                  className="aria-[current=true]:bg-accent"
-                >
-                  Year
-                </CalendarViewTrigger>
+            <div className="relative z-10 h-[calc(100vh-12rem)] sm:h-[calc(100vh-10rem)] lg:h-dvh p-2 sm:p-4 lg:p-14 flex flex-col">
+              <div className="flex flex-col sm:flex-row px-2 sm:px-4 lg:px-6 items-start sm:items-center gap-3 sm:gap-2 mb-4 sm:mb-6">
+                {/* View triggers - responsive layout */}
+                <div className="flex flex-wrap gap-1 sm:gap-2">
+                  <CalendarViewTrigger
+                    className="aria-[current=true]:bg-accent text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2"
+                    view="day"
+                  >
+                    Day
+                  </CalendarViewTrigger>
+                  <CalendarViewTrigger
+                    view="week"
+                    className="aria-[current=true]:bg-accent text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2"
+                  >
+                    Week
+                  </CalendarViewTrigger>
+                  <CalendarViewTrigger
+                    view="month"
+                    className="aria-[current=true]:bg-accent text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2"
+                  >
+                    Month
+                  </CalendarViewTrigger>
+                  <CalendarViewTrigger
+                    view="year"
+                    className="aria-[current=true]:bg-accent text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2"
+                  >
+                    Year
+                  </CalendarViewTrigger>
+                </div>
 
-                <span className="flex-1" />
+                <span className="hidden sm:flex sm:flex-1" />
 
-                <CalendarCurrentDate />
+                {/* Current date and navigation - responsive layout */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                  <CalendarCurrentDate />
 
-                <CalendarPrevTrigger>
-                  <ChevronLeft size={20} />
-                  <span className="sr-only">Previous</span>
-                </CalendarPrevTrigger>
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <CalendarNextTrigger className="p-1 sm:p-2 h-8 w-8 sm:h-10 sm:w-10">
+                      <ChevronRight size={16} className="sm:w-5 sm:h-5" />
+                      <span className="sr-only">Next</span>
+                    </CalendarNextTrigger>
+                   
 
-                <CalendarTodayTrigger>Today</CalendarTodayTrigger>
+                    <CalendarTodayTrigger className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2">
+                      Today
+                    </CalendarTodayTrigger>
 
-                <CalendarNextTrigger>
-                  <ChevronRight size={20} />
-                  <span className="sr-only">Next</span>
-                </CalendarNextTrigger>
+                     <CalendarPrevTrigger className="p-1 sm:p-2 h-8 w-8 sm:h-10 sm:w-10">
+                      <ChevronLeft size={16} className="sm:w-5 sm:h-5" />
+                      <span className="sr-only">Previous</span>
+                    </CalendarPrevTrigger>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex-1 px-6 overflow-hidden">
+              <div className="flex-1 px-2 sm:px-4 lg:px-6 overflow-hidden">
                 <CalendarDayView />
                 <CalendarWeekView />
                 <CalendarMonthView />

@@ -133,7 +133,7 @@ export function Navbar() {
                   <span className="font-primary">{t('profile')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-border/50" />
-                <DropdownMenuItem className="hover:bg-destructive/10 text-destructive rounded-xl transition-all duration-200 cursor-pointer">
+                <DropdownMenuItem className="hover:bg-destructive/10 text-destructive rounded-xl transition-all duration-200 cursor-pointer p-0">
                   <LogoutButton />
                 </DropdownMenuItem>
               </DropdownMenuContent>

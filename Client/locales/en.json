@@ -410,6 +410,11 @@
       "forgot": "Forgot password?",
       "submit": "Sign In",
       "loggingIn": "Signing in..."
+    },
+    "logout": {
+      "button": "Logout",
+      "success": "Logged out successfully",
+      "error": "Failed to log out"
     }
   },
   "navbar": {

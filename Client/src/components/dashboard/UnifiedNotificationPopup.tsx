@@ -192,10 +192,10 @@ export function UnifiedNotificationPopup() {
   const getSubtitleText = () => {
     if (unreadCount === 0) {
       return t('popup.subtitle.allCaughtUp');
-    } else if (unreadCount === 1) {
-      return `${unreadCount} ${t('popup.subtitle.hasNew')}`;
     } else {
-      return `${unreadCount} ${t('popup.subtitle.hasNewPlural')}`;
+      return t('popup.subtitle.hasNew', {
+        count: unreadCount
+      });
     }
   };
 

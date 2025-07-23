@@ -1,18 +1,7 @@
 'use client';
-
-import { StudentDashboardCard } from '@/components/dashboard/StudentDashboardCard';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import {
-  useGetStudentByIdQuery,
-  useGetStudentCoursesQuery,
+  useGetStudentByIdQuery
 } from '@/store/services/studentApi';
-import {
-  Book,
-  BarChart3,
-  CheckCircle,
-  Target
-} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
@@ -29,84 +18,7 @@ export default function StudentDashboardPage() {
   console.log('Student ID from Redux:', studentId);
 
   const { data: student, isLoading: loadingStudent } = useGetStudentByIdQuery(studentId ?? "");
-  const { data: courseData, isLoading: loadingCourses } = useGetStudentCoursesQuery(studentId ?? "");
 
-  const statsCards = [
-    {
-      title: "Active Courses",
-      value: courseData?.courses?.length || 0,
-      subtitle: "Currently enrolled",
-      icon: Book,
-      variant: "primary" as const,
-      change: "+2 this semester"
-    },
-    {
-      title: "Assignments Due",
-      value: "5",
-      subtitle: "This week",
-      icon: Target,
-      variant: "warning" as const,
-      change: "2 due tomorrow"
-    },
-    {
-      title: "Overall GPA",
-      value: "3.8",
-      subtitle: "Current semester",
-      icon: BarChart3,
-      variant: "success" as const,
-      change: "+0.2 from last semester"
-    },
-    {
-      title: "Completed Tasks",
-      value: "24",
-      subtitle: "This month",
-      icon: CheckCircle,
-      variant: "success" as const,
-      change: "12 this week"
-    }
-  ];
-
-  const todaySchedule = [
-    {
-      title: "Calculus Lecture",
-      subtitle: "8:00 AM - 9:00 AM • Room 101",
-      instructor: "Dr. Smith",
-      variant: "primary" as const
-    },
-    {
-      title: "English Literature Seminar",
-      subtitle: "10:00 AM - 11:00 AM • Room 205",
-      instructor: "Prof. Johnson",
-      variant: "default" as const
-    },
-    {
-      title: "Physics Lab",
-      subtitle: "1:00 PM - 3:00 PM • Lab 301",
-      instructor: "Dr. Wilson",
-      variant: "warning" as const
-    }
-  ];
-
-  const recentGrades = [
-    {
-      title: "Advanced Calculus - Midterm",
-      grade: "92%",
-      date: "Nov 15",
-      variant: "success" as const
-    },
-    {
-      title: "English Literature - Essay",
-      grade: "88%",
-      date: "Nov 12",
-      variant: "success" as const
-    },
-    {
-      title: "Physics - Lab Report",
-      grade: "85%",
-      date: "Nov 10",
-      variant: "primary" as const
-    }
-  ];
 
   return (
     <div className={`relative min-h-screen bg-gradient-to-br from-background via-background to-accent/20 overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
@@ -363,41 +275,6 @@ export default function StudentDashboardPage() {
             </Card>
           </div>
         </div> */}
-
-        {/* My Courses */}
-        {courseData?.courses && courseData.courses.length > 0 && (
-          <Card className="backdrop-blur-xl bg-background/80 border-white/10 dark:border-white/10 shadow-2xl rounded-3xl overflow-hidden">
-            <CardHeader>
-              <CardTitle className={cn(
-                "flex items-center gap-2 text-foreground font-primary",
-                isRTL ? "flex-row-reverse" : "flex-row"
-              )}>
-                <Book className="w-5 h-5 text-primary" />
-                My Courses
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {loadingCourses ? (
-                  Array.from({ length: 3 }).map((_, i) => (
-                    <Skeleton key={i} className="h-24 w-full rounded-2xl" />
-                  ))
-                ) : (
-                  courseData.courses.map((course) => (
-                    <div key={course._id} className="bg-muted/30 p-4 rounded-2xl hover:bg-primary/5 transition-all duration-200 cursor-pointer border border-border hover:border-primary/20">
-                      <StudentDashboardCard
-                        title={course.name}
-                        subtitle="Click to view details"
-                        variant="default"
-                        icon={Book}
-                      />
-                    </div>
-                  ))
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        )}
       </div>
     </div>
   );
