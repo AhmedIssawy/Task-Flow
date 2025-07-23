@@ -329,6 +329,73 @@
       }
     }
   },
+  "notifications": {
+    "title": "Notifications",
+    "popup": {
+      "title": "Notifications",
+      "subtitle": {
+        "hasNew": "new notification",
+        "hasNewPlural": "new notifications",
+        "allCaughtUp": "All caught up!"
+      },
+      "markAllRead": "Mark all read",
+      "viewAll": "View All Notifications",
+      "noNotifications": "No notifications",
+      "allCaughtUpMessage": "You're all caught up!",
+      "types": {
+        "assignment": "Assignment",
+        "grade": "Grade",
+        "event": "Event",
+        "system": "System",
+        "reminder": "Reminder"
+      },
+      "priority": {
+        "high": "High Priority",
+        "medium": "Medium Priority",
+        "low": "Low Priority"
+      },
+      "timeAgo": {
+        "minutes": "m ago",
+        "hours": "h ago",
+        "days": "d ago",
+        "prefix": ""
+      },
+      "staticData": {
+        "assignment": {
+          "title": "New Assignment Posted",
+          "message": "Mathematics Assignment #3 has been posted and is due next Friday."
+        },
+        "grade": {
+          "title": "Grade Released",
+          "message": "Your grade for Physics Quiz #2 is now available."
+        },
+        "event": {
+          "title": "Upcoming Class",
+          "message": "Chemistry Lab session starts in 1 hour - Room 204."
+        },
+        "system": {
+          "title": "System Maintenance",
+          "message": "Scheduled maintenance tonight from 12AM to 2AM EST."
+        },
+        "reminder": {
+          "title": "Library Book Due",
+          "message": "Return \"Advanced Calculus\" by tomorrow to avoid late fees."
+        }
+      }
+    },
+    "email": {
+      "title": "Email Notifications",
+      "description": "Receive updates via email"
+    },
+    "push": {
+      "title": "Push Notifications",
+      "description": "Get instant notifications"
+    },
+    "sms": {
+      "title": "SMS Notifications",
+      "description": "Receive text message alerts"
+    }
+  },
   "auth": {
     "login": {
       "title": "Welcome Back",
@@ -411,57 +478,6 @@
     },
     "notifications": {
       "title": "Notifications",
-      "popup": {
-        "title": "Notifications",
-        "subtitle": {
-          "hasNew": "new notification",
-          "hasNewPlural": "new notifications",
-          "allCaughtUp": "All caught up!"
-        },
-        "markAllRead": "Mark all read",
-        "viewAll": "View All Notifications",
-        "noNotifications": "No notifications",
-        "allCaughtUpMessage": "You're all caught up!",
-        "types": {
-          "assignment": "Assignment",
-          "grade": "Grade",
-          "event": "Event",
-          "system": "System",
-          "reminder": "Reminder"
-        },
-        "priority": {
-          "high": "High Priority",
-          "medium": "Medium Priority",
-          "low": "Low Priority"
-        },
-        "timeAgo": {
-          "minutes": "m ago",
-          "hours": "h ago",
-          "days": "d ago"
-        },
-        "staticData": {
-          "assignment": {
-            "title": "New Assignment Posted",
-            "message": "Mathematics Assignment #3 has been posted and is due next Friday."
-          },
-          "grade": {
-            "title": "Grade Released",
-            "message": "Your grade for Physics Quiz #2 is now available."
-          },
-          "event": {
-            "title": "Upcoming Class",
-            "message": "Chemistry Lab session starts in 1 hour - Room 204."
-          },
-          "system": {
-            "title": "System Maintenance",
-            "message": "Scheduled maintenance tonight from 12AM to 2AM EST."
-          },
-          "reminder": {
-            "title": "Library Book Due",
-            "message": "Return \"Advanced Calculus\" by tomorrow to avoid late fees."
-          }
-        }
-      },
       "email": {
         "title": "Email Notifications",
         "description": "Receive updates via email"

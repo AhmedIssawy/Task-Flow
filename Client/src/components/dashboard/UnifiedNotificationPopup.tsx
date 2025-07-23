@@ -8,15 +8,14 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Bell,
-  GraduationCap,
-  Calendar,
-  FileText,
-  AlertTriangle,
   CheckCircle,
   Clock,
+  FileText,
+  GraduationCap,
+  Calendar,
+  AlertTriangle,
   X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -95,13 +94,13 @@ const formatTimestamp = (timestamp: string, t: (key: string) => string, isRTL: b
 
   if (diffInHours < 1) {
     const minutes = Math.floor(diffInHours * 60);
-    return isRTL ? `منذ ${minutes} ${t('popup.timeAgo.minutes')}` : `${minutes}${t('popup.timeAgo.minutes')}`;
+    return isRTL ? `${t('popup.timeAgo.prefix')} ${minutes} ${t('popup.timeAgo.minutes')}` : `${minutes}${t('popup.timeAgo.minutes')}`;
   } else if (diffInHours < 24) {
     const hours = Math.floor(diffInHours);
-    return isRTL ? `منذ ${hours} ${t('popup.timeAgo.hours')}` : `${hours}${t('popup.timeAgo.hours')}`;
+    return isRTL ? `${t('popup.timeAgo.prefix')} ${hours} ${t('popup.timeAgo.hours')}` : `${hours}${t('popup.timeAgo.hours')}`;
   } else {
     const days = Math.floor(diffInHours / 24);
-    return isRTL ? `منذ ${days} ${t('popup.timeAgo.days')}` : `${days}${t('popup.timeAgo.days')}`;
+    return isRTL ? `${t('popup.timeAgo.prefix')} ${days} ${t('popup.timeAgo.days')}` : `${days}${t('popup.timeAgo.days')}`;
   }
 };
 
@@ -291,8 +290,28 @@ export function UnifiedNotificationPopup() {
         </div>
 
         {/* Enhanced Notifications List with smooth scrolling */}
-        <ScrollArea className="max-h-80 scroll-smooth">
-          <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border/30 hover:scrollbar-thumb-border/50">
+        <div className="max-h-80 overflow-hidden">
+          <div
+            className="max-h-80 overflow-y-auto overflow-x-hidden scroll-smooth p-2 space-y-1"
+            onWheel={(e) => {
+              e.stopPropagation();
+              const target = e.currentTarget;
+              const { scrollTop, scrollHeight, clientHeight } = target;
+
+              // Check if we're at the boundaries
+              const atTop = scrollTop === 0;
+              const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+              // Only allow scrolling within the container
+              if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+                e.preventDefault();
+              }
+            }}
+            style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(0,0,0,0.3) rgba(0,0,0,0.1)'
+            }}
+          >
             {notifications.length === 0 ? (
               <div className="p-8 text-center animate-fade-in">
                 <div className="w-16 h-16 bg-gradient-to-br from-muted/20 to-muted/40 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
@@ -306,7 +325,7 @@ export function UnifiedNotificationPopup() {
                 </p>
               </div>
             ) : (
-              <div className="p-2 space-y-1">
+              <div className="p-2 space-y-1 animate-fade-in">
                 {notifications.map((notification, index) => {
                   const Icon = getNotificationIcon(notification.type);
                   const colors = getNotificationColors(notification.type);
@@ -317,7 +336,7 @@ export function UnifiedNotificationPopup() {
                       className={cn(
                         'group relative p-3 mx-1 rounded-xl transition-all duration-300 cursor-pointer',
                         'hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transform-gpu',
-                        'border backdrop-blur-sm',
+                        'border backdrop-blur-sm scroll-mb-2',
                         !notification.isRead && [
                           colors.bg,
                           colors.border,
@@ -328,11 +347,12 @@ export function UnifiedNotificationPopup() {
                           'bg-muted/20 border-border/30 hover:bg-muted/40 hover:border-border/50',
                           'hover:shadow-md'
                         ],
-                        'animate-slide-in-fade'
+                        'animate-slide-in-fade opacity-0'
                       )}
                       style={{
-                        animationDelay: `${index * 50}ms`
-                      }}
+                        animationDelay: `${index * 100}ms`,
+                        animationFillMode: 'forwards'
+                      } as React.CSSProperties}
                       onClick={() => {
                         markAsRead(notification.id);
                         if (notification.actionUrl) {
@@ -345,7 +365,7 @@ export function UnifiedNotificationPopup() {
                         <div className={cn(
                           'absolute w-2.5 h-2.5 bg-primary rounded-full shadow-sm',
                           'animate-pulse-glow border border-primary/30',
-                          isRTL ? 'left-2 top-3' : 'right-2 top-3'
+                          isRTL ? 'left-2 bottom-3' : 'right-2 bottom-3'
                         )} />
                       )}
 
@@ -371,21 +391,6 @@ export function UnifiedNotificationPopup() {
                         'flex gap-3',
                         isRTL ? 'flex-row-reverse' : 'flex-row'
                       )}>
-                        {/* Enhanced Icon with better styling */}
-                        <div className={cn(
-                          'relative p-3 rounded-xl shrink-0 border backdrop-blur-sm shadow-sm',
-                          'transition-all duration-300 group-hover:scale-105',
-                          colors.iconBg,
-                          colors.border,
-                          colors.shadow
-                        )}>
-                          <Icon className={cn('w-4 h-4', colors.iconColor)} />
-                          <div className={cn(
-                            'absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent',
-                            'opacity-0 group-hover:opacity-100 transition-opacity duration-300'
-                          )} />
-                        </div>
-
                         {/* Enhanced Content */}
                         <div className="flex-1 min-w-0">
                           <div className={cn(
@@ -454,7 +459,7 @@ export function UnifiedNotificationPopup() {
               </div>
             )}
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Enhanced Footer */}
         {notifications.length > 0 && (
