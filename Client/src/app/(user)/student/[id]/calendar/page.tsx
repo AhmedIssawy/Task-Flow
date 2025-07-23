@@ -96,7 +96,7 @@ export default function StudentCalendarPage() {
             ]}
           >
             <div className="relative z-10 h-[calc(100vh-12rem)] sm:h-[calc(100vh-10rem)] lg:h-dvh p-2 sm:p-4 lg:p-14 flex flex-col">
-              <div className="flex flex-col sm:flex-row px-2 sm:px-4 lg:px-6 items-start sm:items-center gap-3 sm:gap-2 mb-4 sm:mb-6">
+              <div className="flex flex-col sm:flex-row px-2 sm:px-4 lg:px-6 items-center gap-3 sm:gap-2 mb-4 sm:mb-6">
                 {/* View triggers - responsive layout */}
                 <div className="flex flex-wrap gap-1 sm:gap-2">
                   <CalendarViewTrigger
@@ -128,7 +128,7 @@ export default function StudentCalendarPage() {
                 <span className="hidden sm:flex sm:flex-1" />
 
                 {/* Current date and navigation - responsive layout */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 w-auto">
                   <CalendarCurrentDate />
 
                   <div className="flex items-center gap-1 sm:gap-2">
@@ -136,13 +136,10 @@ export default function StudentCalendarPage() {
                       <ChevronRight size={16} className="sm:w-5 sm:h-5" />
                       <span className="sr-only">Next</span>
                     </CalendarNextTrigger>
-                   
-
                     <CalendarTodayTrigger className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-2">
                       Today
                     </CalendarTodayTrigger>
-
-                     <CalendarPrevTrigger className="p-1 sm:p-2 h-8 w-8 sm:h-10 sm:w-10">
+                    <CalendarPrevTrigger className="p-1 sm:p-2 h-8 w-8 sm:h-10 sm:w-10">
                       <ChevronLeft size={16} className="sm:w-5 sm:h-5" />
                       <span className="sr-only">Previous</span>
                     </CalendarPrevTrigger>
