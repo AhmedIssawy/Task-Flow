@@ -58,7 +58,8 @@ const studentSchema = new mongoose.Schema(
           required: true,
         },
         section: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Section",
           required: true,
         },
       },
