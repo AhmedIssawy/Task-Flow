@@ -2,6 +2,8 @@ import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { PopupActions } from '../admin/PopupActions';
+import { useLanguage } from '@/hooks/useLanguage';
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 interface Column<T> {
@@ -34,6 +36,7 @@ function TableBodyRenderer<T>({
   onEdit,
   onDelete,
 }: TableBodyRendererProps<T>) {
+  const { isRTL } = useLanguage();
   if (isLoading) {
     return (
       <TableBody>
@@ -135,7 +138,10 @@ function TableBodyRenderer<T>({
                     : (row as any)[col.accessor]}
                 </div>
                 {enableActions && (editHook || deleteHook) && (
-                  <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                  <div className={cn(
+                    "absolute top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10",
+                    isRTL ? "left-4" : "right-4"
+                  )}>
                     <PopupActions
                       item={row}
                       enableEdit={!!editHook}
