@@ -15,11 +15,17 @@ import {
 
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
+import { Button } from '@/components/ui/button';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
+  const [limit, setLimit] = useState(5);
+  const studentsQueryResult = useGetStudentsPageQuery({ page, limit });
   const totalPages: number = studentsQueryResult?.data?.totalPages || 0;
+
+  const toggleLimit = () => {
+    setLimit((prev) => (prev === 5 ? 10 : 5));
+  };
 
   return (
     <>
@@ -36,6 +42,13 @@ export default function AdminDashboard() {
           createHook={useCreateStudentMutation}
           createFields={adminStudentCreateFields}
         />
+
+        <div className="mt-4 text-center">
+          <Button variant="default" size="sm" onClick={toggleLimit}>
+            {limit === 5 ? 'Show more' : 'Show less'}
+          </Button>
+        </div>
+
         {totalPages && (
           <PaginationControls
             page={page}
