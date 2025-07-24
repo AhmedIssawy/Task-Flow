@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import attachSectionHooks from "./hooks/section.hook";
+import attachSectionHooks from "./hooks/section.hook.js";
 
 const sectionSchema = new Schema({
   level: {
@@ -48,6 +48,21 @@ const sectionSchema = new Schema({
   semester: {
     type: Schema.Types.ObjectId,
     ref: "Semester",
+    required: true,
+  },
+  universityId: {
+    type: Schema.Types.ObjectId,
+    ref: "University",
+    required: true,
+  },
+  collegeId: {
+    type: Schema.Types.ObjectId,
+    ref: "College",
+    required: true,
+  },
+  departmentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Department",
     required: true,
   },
   course: {

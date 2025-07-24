@@ -3,20 +3,18 @@ const getCurrentSemester = () => {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  let semester;
+  let duration;
   if (month >= 0 && month <= 4) {
-    semester = "Spring";
+    duration = "Spring";
   } else if (month >= 5 && month <= 8) {
-    semester = "Summer";
-  } else if (month >= 9 && month <= 11) {
-    semester = "Fall";
+    duration = "Summer";
   } else {
-    semester = null;
+    duration = "Fall";
   }
 
   return {
     year,
-    semester,
+    duration,
   };
 };
 

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import attachSemesterHooks from "./hooks/semester.hooks.js";
+
 const semesterSchema = new Schema({
   duration: {
     type: String,
@@ -12,7 +12,6 @@ const semesterSchema = new Schema({
   },
 });
 
-attachSemesterHooks(semesterSchema);
 
 const Semester = model("Semester", semesterSchema);
 export default Semester;
