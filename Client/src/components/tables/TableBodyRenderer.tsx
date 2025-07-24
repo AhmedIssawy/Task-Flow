@@ -37,7 +37,7 @@ function TableBodyRenderer<T>({
     return (
       <TableBody>
         <TableRow>
-          <TableCell colSpan={columns.length + (enableActions ? 1 : 0)} className="text-center py-12">
+          <TableCell colSpan={columns.length + (enableActions ? 1 : 0)} className="text-center py-12 border border-border/40">
             <div className="flex flex-col items-center space-y-4">
               <div className="relative">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -60,7 +60,7 @@ function TableBodyRenderer<T>({
         <TableRow>
           <TableCell
             colSpan={columns.length + (enableActions ? 1 : 0)}
-            className="text-center py-12"
+            className="text-center py-12 border border-border/40"
           >
             <div className="flex flex-col items-center space-y-4">
               <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
@@ -96,7 +96,7 @@ function TableBodyRenderer<T>({
         <TableRow>
           <TableCell
             colSpan={columns.length + (enableActions ? 1 : 0)}
-            className="text-center py-12"
+            className="text-center py-12 border border-border/40"
           >
             <div className="flex flex-col items-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-muted/30 flex items-center justify-center">
@@ -123,12 +123,12 @@ function TableBodyRenderer<T>({
         return (
           <TableRow
             key={i}
-            className="relative group hover:bg-gradient-to-r hover:from-muted/30 hover:to-transparent transition-all duration-200 border-b border-border/20"
+            className="relative group hover:bg-gradient-to-r hover:from-muted/30 hover:to-transparent transition-all duration-200 border-b border-border/40"
           >
             {columns.map((col, j) => (
               <TableCell
                 key={j}
-                className="py-4 px-6 first:ps-8 text-sm text-foreground/90 border-r border-border/20 last:border-r-0"
+                className="py-4 px-6 first:ps-8 text-sm text-foreground/90 border-r border-border/40 last:border-r-0"
               >
                 <div className="flex items-center space-x-2">
                   {typeof col.accessor === 'function'
@@ -138,7 +138,7 @@ function TableBodyRenderer<T>({
               </TableCell>
             ))}
             {enableActions && (editHook || deleteHook) && (
-              <TableCell className="py-4 px-6 last:pe-8 border-r border-border/20 last:border-r-0">
+              <TableCell className="py-4 px-6 last:pe-8">
                 <div className="flex items-center justify-end space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   {editHook && (
                     <Button
