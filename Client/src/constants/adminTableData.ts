@@ -29,8 +29,6 @@ export const adminStudentCreateFields = [
 
 
 
-
-
 export const adminTeachersTableData = [
   { label: 'Name', accessor: 'name' },
   { label: 'Email', accessor: 'email' },
