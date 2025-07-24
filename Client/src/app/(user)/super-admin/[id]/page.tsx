@@ -4,13 +4,11 @@ import {
 
 } from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
-import {
-  adminStudentsTableData,
-} from '@/constants/adminTableData';
 
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
-import { useDeleteAdminMutation, useGetPageOfAdminsQuery } from '@/store/services/adminApi';
+import { useCreateAdminMutation, useDeleteAdminMutation, useGetPageOfAdminsQuery, useUpdateAdminMutation } from '@/store/services/adminApi';
+import { adminAdminCreateFields, adminAdminEditFields, adminAdminsTableData } from '@/constants/superAdminTableData';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
@@ -23,10 +21,14 @@ export default function AdminDashboard() {
         <PaginatedTable
           queryResult={adminsQueryResult}
           dataKey="admins"
-          columns={adminStudentsTableData}
+          columns={adminAdminsTableData}
           className="mx-4"
           enableActions
           deleteHook={useDeleteAdminMutation}
+          editHook={useUpdateAdminMutation}
+          editableFields={adminAdminEditFields}
+          createHook={useCreateAdminMutation}
+          createFields={adminAdminCreateFields}
         />
         {totalPages > 0 && (
           <PaginationControls

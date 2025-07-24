@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useGetCollegesPageQuery } from '@/store/services/collegeApi';
+import { useCreateCollegeMutation, useGetCollegesPageQuery, useUpdateCollegeMutation } from '@/store/services/collegeApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import PaginationControls from '@/components/tables/PaginatedControls';
-import { adminCollegesTableData } from '@/constants/adminTableData';
+import { adminCollegeCreateFields, adminCollegeEditFields, adminCollegesTableData } from '@/constants/adminTableData';
 import type { College } from '@/store/types/college';
 
 const UNIVERSITY_ID = '685b0635a4b32e07ca4e97e6'; // TODO: replace with dynamic ID when ready
@@ -29,6 +29,11 @@ export default function AdminCollegesPage() {
         dataKey="colleges"
         columns={adminCollegesTableData}
         className="mx-4"
+        enableActions
+        createHook={useCreateCollegeMutation}
+        createFields={adminCollegeCreateFields}
+        editHook={useUpdateCollegeMutation}
+        editableFields={adminCollegeEditFields}
       />
       {totalPages > 0 && (
         <PaginationControls
