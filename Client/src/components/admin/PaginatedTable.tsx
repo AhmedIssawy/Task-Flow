@@ -27,7 +27,7 @@ export function PaginatedTable<T>({
   const { data, isLoading, error, refetch } = queryResult;
   const rows: T[] = Array.isArray(data) ? data : data?.[dataKey] || [];
   console.log(data, rows, dataKey);
-  
+
 
   const [itemToDelete, setItemToDelete] = useState<T | null>(null);
   const [itemToEdit, setItemToEdit] = useState<T | null>(null);
@@ -72,8 +72,8 @@ export function PaginatedTable<T>({
             </p>
           </div>
           {createHook && (
-            <Button 
-              onClick={openCreateModal} 
+            <Button
+              onClick={openCreateModal}
               className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl px-6 py-2.5"
             >
               <svg className="w-4 h-4 me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,28 +85,23 @@ export function PaginatedTable<T>({
         </div>
 
         {/* Modern Table Container with Glass Effect */}
-        <div className="relative backdrop-blur-xl bg-background/95 border border-border/30 rounded-2xl lg:rounded-3xl shadow-2xl shadow-primary/10 overflow-hidden">
+        <div className="relative backdrop-blur-xl bg-background/95 border border-border/90 rounded-2xl lg:rounded-3xl shadow-2xl shadow-primary/10 overflow-hidden">
           {/* Subtle background pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-          
+
           {/* Table Header with Enhanced Styling */}
-          <div className="relative border-b border-border/20 bg-gradient-to-r from-muted/50 to-muted/30 backdrop-blur-sm">
+          <div className="relative border-b border-border/70 bg-gradient-to-r from-muted/50 to-muted/30 backdrop-blur-sm">
             <Table>
               <TableHeader>
-                <TableRow className="hover:bg-transparent border-border/10">
+                <TableRow className="hover:bg-transparent border-border/70">
                   {columns.map((col, i) => (
-                    <TableHead 
-                      key={i} 
+                    <TableHead
+                      key={i}
                       className="text-foreground/90 font-semibold text-sm py-4 px-6 first:ps-8 last:pe-8"
                     >
                       {col.label}
                     </TableHead>
                   ))}
-                  {enableActions && (editHook || deleteHook) && (
-                    <TableHead className="text-foreground/90 font-semibold text-sm py-4 px-6 text-end">
-                      Actions
-                    </TableHead>
-                  )}
                 </TableRow>
               </TableHeader>
             </Table>

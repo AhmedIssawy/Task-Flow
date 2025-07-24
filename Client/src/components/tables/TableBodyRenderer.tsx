@@ -38,7 +38,7 @@ function TableBodyRenderer<T>({
     return (
       <TableBody>
         <TableRow>
-          <TableCell colSpan={columns.length + (enableActions ? 1 : 0)} className="text-center py-12 border border-border/40">
+          <TableCell colSpan={columns.length} className="text-center py-12 border border-border/70">
             <div className="flex flex-col items-center space-y-4">
               <div className="relative">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -60,8 +60,8 @@ function TableBodyRenderer<T>({
       <TableBody>
         <TableRow>
           <TableCell
-            colSpan={columns.length + (enableActions ? 1 : 0)}
-            className="text-center py-12 border border-border/40"
+            colSpan={columns.length}
+            className="text-center py-12 border border-border/70"
           >
             <div className="flex flex-col items-center space-y-4">
               <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
@@ -96,8 +96,8 @@ function TableBodyRenderer<T>({
       <TableBody>
         <TableRow>
           <TableCell
-            colSpan={columns.length + (enableActions ? 1 : 0)}
-            className="text-center py-12 border border-border/40"
+            colSpan={columns.length}
+            className="text-center py-12 border border-border/70"
           >
             <div className="flex flex-col items-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-muted/30 flex items-center justify-center">
@@ -119,38 +119,35 @@ function TableBodyRenderer<T>({
   return (
     <TableBody>
       {rows.map((row, i) => {
-        const handleEdit = () => onEdit(row);
-        const handleDelete = () => onDelete(row);
         return (
           <TableRow
             key={i}
-            className="relative group hover:bg-gradient-to-r hover:from-muted/30 hover:to-transparent transition-all duration-200 border-b border-border/40"
+            className="relative group hover:bg-gradient-to-r hover:from-muted/30 hover:to-transparent transition-all duration-200 border-b border-border/70"
           >
             {columns.map((col, j) => (
               <TableCell
                 key={j}
-                className="py-4 px-6 first:ps-8 text-sm text-foreground/90 border-r border-border/40 last:border-r-0"
+                className="py-4 px-6 first:ps-8 last:pe-12 text-sm text-foreground/90 border-r border-border/100 last:border-r-0"
               >
                 <div className="flex items-center space-x-2">
                   {typeof col.accessor === 'function'
                     ? col.accessor(row)
                     : (row as any)[col.accessor]}
                 </div>
+                {enableActions && (editHook || deleteHook) && (
+                  <div className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
+                    <PopupActions
+                      item={row}
+                      enableEdit={!!editHook}
+                      enableDelete={!!deleteHook}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                    />
+                  </div>
+                )}
               </TableCell>
             ))}
-            {enableActions && (editHook || deleteHook) && (
-              <TableCell className="py-4 px-6 last:pe-8">
-                <div className="flex items-center justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <PopupActions
-                    item={row}
-                    enableEdit={!!editHook}
-                    enableDelete={!!deleteHook}
-                    onEdit={onEdit}
-                    onDelete={onDelete}
-                  />
-                </div>
-              </TableCell>
-            )}
+
           </TableRow>
         );
       })}
