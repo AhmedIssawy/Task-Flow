@@ -43,7 +43,8 @@ const OurWork = () => {
       },
       cta: t('projects.education.cta')
     }
-  ];    return (
+  ];
+  return (
         <section id="ourwork" className="py-24 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
