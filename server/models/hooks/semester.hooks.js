@@ -1,4 +1,4 @@
-import getCurrentSemester from "../utils/getCurrentSemester.js";
+import getCurrentSemester from "../../utils/getCurrentSemester.js";
 
 export default function attachSemesterHooks(schema) {
   schema.pre("validate", function (next) {

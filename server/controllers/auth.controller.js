@@ -49,9 +49,15 @@ const login = asyncHandler(async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
+<<<<<<< HEAD
   res.cookie("__Security_access_token", token, {
+=======
+  res.cookie("__Secure-jwt", token, {
+>>>>>>> 36f0a8c03b8e15395fc22c7c1325675666dcb310
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    path: "/",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
