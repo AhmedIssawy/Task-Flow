@@ -31,7 +31,6 @@ export const adminTeacherCreateFields = [
   { label: 'Phone Number', accessor: 'phone' },
   { label: 'Address', accessor: 'address' },
   { label: 'Password', accessor: 'password' },
-  { label: 'Courses', accessor: 'courses' }, // assumed to be multi-select
   { label: 'University ID', accessor: 'universityId' },
   { label: 'College ID', accessor: 'collegeId' },
   { label: 'Department ID', accessor: 'departmentId' },
@@ -51,7 +50,6 @@ export const adminTeacherEditFields = [
   { label: 'Email', accessor: 'email' },
   { label: 'Phone Number', accessor: 'phone' },
   { label: 'Address', accessor: 'address' },
-  { label: 'Courses', accessor: 'courses' },
   {
     label: 'Language',
     accessor: 'lang',

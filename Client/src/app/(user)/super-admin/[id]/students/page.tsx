@@ -16,6 +16,7 @@ import {
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
 import { Button } from '@/components/ui/button';
+import CustomSelect from '@/components/dashboard/CustomSelect';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
@@ -43,7 +44,15 @@ export default function AdminDashboard() {
           createFields={adminStudentCreateFields}
         />
 
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center flex">
+          <span className="mr-auto">
+            Show
+            <CustomSelect
+              options={[{ value: 10 }, { value: 20 }, { value: 50 }, { value: 100 }]}
+              valueChangeAction={(value) => setLimit(Number(value))}
+            />
+            Items
+          </span>
           <Button variant="default" size="sm" onClick={toggleLimit}>
             {limit === 5 ? 'Show more' : 'Show less'}
           </Button>
