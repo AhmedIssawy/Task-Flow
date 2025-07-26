@@ -1,36 +1,64 @@
 'use client';
 
+import {
+  useGetStudentsPageQuery,
+  useDeleteStudentMutation,
+  useUpdateStudentMutation,
+  useCreateStudentMutation,
+} from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import {
-  adminTeacherCreateFields,
-  adminTeacherEditFields,
-  adminTeachersTableData,
+  adminStudentCreateFields,
+  adminStudentEditFields,
+  adminStudentsTableData,
 } from '@/constants/adminTableData';
 
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
-import { useCreateTeacherMutation, useDeleteTeacherMutation, useGetTeachersPageQuery, useUpdateTeacherMutation } from '@/store/services/teacherApi';
+import { Button } from '@/components/ui/button';
+import CustomSelect from '@/components/dashboard/CustomSelect';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const teachersQueryResult = useGetTeachersPageQuery(page);
-  const totalPages: number = teachersQueryResult?.data?.totalPages || 0;
+  const [limit, setLimit] = useState(5);
+  const studentsQueryResult = useGetStudentsPageQuery({ page, limit });
+  const totalPages: number = studentsQueryResult?.data?.totalPages || 0;
+
+  const toggleLimit = () => {
+    setLimit((prev) => (prev === 5 ? 10 : 5));
+  };
 
   return (
     <>
       <div className="w-full space-y-4 mt-4">
         <PaginatedTable
-          queryResult={teachersQueryResult}
-          dataKey="teachers"
-          columns={adminTeachersTableData}
+          queryResult={studentsQueryResult}
+          dataKey="students"
+          columns={adminStudentsTableData}
           className="mx-4"
           enableActions
-          deleteHook={useDeleteTeacherMutation}
-          editHook={useUpdateTeacherMutation}
-          editableFields={adminTeacherEditFields}
-          createHook={useCreateTeacherMutation}
-          createFields={adminTeacherCreateFields}
+          deleteHook={useDeleteStudentMutation}
+          editHook={useUpdateStudentMutation}
+          editableFields={adminStudentEditFields}
+          createHook={useCreateStudentMutation}
+          createFields={adminStudentCreateFields}
         />
+
+        <div className="mt-4 text-center space-y-6 mx-4 grid grid-cols-2 justify-items-start">
+          <span className="">
+            Show
+            <CustomSelect
+              options={[{value: 5}, { value: 10 }, { value: 20 }, { value: 50 }, { value: 100 }]}
+              valueChangeAction={(value) => setLimit(Number(value))}
+              value={limit.toString()}
+            />
+            Items
+          </span>
+          <Button variant="default" size="sm" onClick={toggleLimit}>
+            {limit === 5 ? 'Show more' : 'Show less'}
+          </Button>
+        </div>
+
         {totalPages > 0 && (
           <PaginationControls
             page={page}

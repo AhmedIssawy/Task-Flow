@@ -44,12 +44,13 @@ export default function AdminDashboard() {
           createFields={adminStudentCreateFields}
         />
 
-        <div className="mt-4 text-center flex">
-          <span className="mr-auto">
+        <div className="mt-4 text-center space-y-6 mx-4 grid grid-cols-2 justify-items-start">
+          <span className="">
             Show
             <CustomSelect
-              options={[{ value: 10 }, { value: 20 }, { value: 50 }, { value: 100 }]}
+              options={[{value: 5}, { value: 10 }, { value: 20 }, { value: 50 }, { value: 100 }]}
               valueChangeAction={(value) => setLimit(Number(value))}
+              value={limit.toString()}
             />
             Items
           </span>
@@ -58,7 +59,7 @@ export default function AdminDashboard() {
           </Button>
         </div>
 
-        {totalPages && (
+        {totalPages > 0 && (
           <PaginationControls
             page={page}
             totalPages={totalPages}
