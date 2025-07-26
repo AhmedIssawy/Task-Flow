@@ -23,7 +23,6 @@ const getCoursesPage = asyncHandler(async (req, res) => {
   res.status(200).json(courses);
 });
 
-
 const getCourseById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { courseId } = req.params;
@@ -41,7 +40,6 @@ const getCourseById = asyncHandler(async (req, res) => {
 
   res.status(200).json(course);
 });
-
 
 const createCourse = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
@@ -65,7 +63,6 @@ const createCourse = asyncHandler(async (req, res) => {
 
   res.status(201).json(newCourse);
 });
-
 
 const updateCourse = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
@@ -94,7 +91,6 @@ const updateCourse = asyncHandler(async (req, res) => {
 
   res.status(200).json(course);
 });
-
 
 const deleteCourse = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";

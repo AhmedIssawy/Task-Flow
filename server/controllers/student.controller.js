@@ -3,6 +3,7 @@ import Student from "../models/student.model.js";
 // libraries
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import sendResponse from "../utils/response.handler.js";
 
 import asyncHandler from "express-async-handler";
 
@@ -21,14 +22,17 @@ const createStudent = asyncHandler(async (req, res) => {
 
   const existingStudent = await Student.findOne({ email });
   if (existingStudent) {
-    let message = "Student already exists, please use a different email";
-    if (lang === "ar")
-      message = "الطالب موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-
-    return res.status(400).json({
-      message,
+    const errorMessage =
+      lang === "ar"
+        ? "الطالب موجود بالفعل، يرجى استخدام بريد إلكتروني مختلف"
+        : "Student already exists, please use a different email";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
     });
   }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const response = await Student.create({
@@ -40,17 +44,18 @@ const createStudent = asyncHandler(async (req, res) => {
     collegeId,
     departmentId,
     password: hashedPassword,
-    gender,
   });
 
   const { password: _, ...student } = response.toObject();
 
-  let message = "Student created successfully";
-  if (lang === "ar") message = "تم إنشاء الطالب بنجاح";
+  const successMessage =
+    lang === "ar" ? "تم إنشاء الطالب بنجاح" : "Student created successfully";
 
-  res.status(201).json({
-    message,
-    student,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: successMessage,
+    data: student,
   });
 });
 
@@ -67,13 +72,25 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
     .lean();
 
   if (!students || students.length === 0) {
-    let message = "No students found";
-    if (lang === "ar") message = "لم يتم العثور على طلاب";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على طلاب" : "No students found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json(students);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الطلاب بنجاح"
+      : "Students retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: students,
+  });
 });
 
 const getAllStudentsOfUniversity = asyncHandler(async (req, res) => {
@@ -86,13 +103,25 @@ const getAllStudentsOfUniversity = asyncHandler(async (req, res) => {
     .lean();
 
   if (!students || students.length === 0) {
-    let message = "No students found";
-    if (lang === "ar") message = "لم يتم العثور على طلاب";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على طلاب" : "No students found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json(students);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الطلاب بنجاح"
+      : "Students retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: students,
+  });
 });
 
 const getStudentsPage = asyncHandler(async (req, res) => {
@@ -113,16 +142,28 @@ const getStudentsPage = asyncHandler(async (req, res) => {
     .lean();
 
   if (!students || students.length === 0) {
-    let message = "No students found";
-    if (lang === "ar") message = "لم يتم العثور على طلاب";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على طلاب" : "No students found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json({
-    students,
-    totalPages,
-    currentPage: page,
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الطلاب بنجاح"
+      : "Students retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: {
+      students,
+      totalPages,
+      currentPage: page,
+    },
   });
 });
 
@@ -142,17 +183,27 @@ const getStudentById = asyncHandler(async (req, res) => {
     .lean();
 
   if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الطالب غير موجود" : "Student not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
   const { password: _, createdAt, updatedAt, ...response } = student;
 
-  res.status(200).json(response);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الطالب بنجاح"
+      : "Student retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: response,
+  });
 });
 
 const updateStudent = asyncHandler(async (req, res) => {
@@ -166,20 +217,22 @@ const updateStudent = asyncHandler(async (req, res) => {
   ).select("-password");
 
   if (!updatedStudent) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الطالب غير موجود" : "Student not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  let message = "Student updated successfully";
-  if (lang === "ar") message = "تم تحديث الطالب بنجاح";
-
-  res.status(200).json({
-    message,
-    student: updatedStudent,
+  const successMessage =
+    lang === "ar" ? "تم تحديث الطالب بنجاح" : "Student updated successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: updatedStudent,
   });
 });
 
@@ -187,30 +240,35 @@ const deleteStudent = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    let message = "Invalid student ID";
-    if (lang === "ar") message = "معرّف الطالب غير صالح";
-
-    return res.status(400).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "معرّف الطالب غير صالح" : "Invalid student ID";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
     });
   }
 
   const student = await Student.findByIdAndDelete(req.params.id);
 
   if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الطالب غير موجود" : "Student not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  let message = "Student has been removed permanently";
-  if (lang === "ar") message = "تم حذف الطالب نهائياً";
-
-  res.status(200).json({
-    message,
+  const successMessage =
+    lang === "ar"
+      ? "تم حذف الطالب نهائياً"
+      : "Student has been removed permanently";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
   });
 });
 
@@ -224,20 +282,24 @@ const getStudentCourses = asyncHandler(async (req, res) => {
     .lean();
 
   if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الطالب غير موجود" : "Student not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  let message = "Courses retrieved successfully";
-  if (lang === "ar") message = "تم استرداد المقررات بنجاح";
-
-  res.status(200).json({
-    courses: student.courses,
-    message,
+  const successMessage =
+    lang === "ar"
+      ? "تم استرداد المقررات بنجاح"
+      : "Courses retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: student.courses,
   });
 });
 
@@ -254,31 +316,34 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
     .lean();
 
   if (!student) {
-    let message = "Student not found";
-    if (lang === "ar") message = "الطالب غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الطالب غير موجود" : "Student not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
   const course = student.courses.find((c) => c._id.toString() === courseId);
 
   if (!course) {
-    let message = "Course not found";
-    if (lang === "ar") message = "المقرر غير موجود";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "المقرر غير موجود" : "Course not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  let message = "Course retrieved successfully";
-  if (lang === "ar") message = "تم استرداد المقرر بنجاح";
-
-  res.status(200).json({
-    course,
-    message,
+  const successMessage =
+    lang === "ar" ? "تم استرداد المقرر بنجاح" : "Course retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: course,
   });
 });
 

@@ -2,14 +2,14 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import sendResponse from "../utils/response.handler.js";
 // Models
 import Student from "../models/student.model.js";
 import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
 
 const login = asyncHandler(async (req, res) => {
-  let { id, password } = req.body;
-  const lang = req.cookies?.lang || "en";
+  let { id, password, lang = "en" } = req.body;
   let Model = null;
   if (id.startsWith("STU")) {
     Model = Student;
@@ -21,24 +21,27 @@ const login = asyncHandler(async (req, res) => {
 
   const result = await Model.findOne({ id }).lean();
   if (!result) {
-    let message = "Invalid id or password";
-    if (lang === "ar") message = "معرف أو كلمة مرور غير صحيحة";
-
-    return res.status(400).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "معرف أو كلمة مرور غير صحيحة" : "Invalid id or password";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
     });
   }
 
   const isMatch = await bcrypt.compare(password, result.password);
   if (!isMatch) {
-    let message = "Invalid id or password!";
-    if (lang === "ar") message = "معرف أو كلمة مرور غير صحيحة!";
-
-    return res.status(400).json({
-      message,
+    const errorMessage =
+      lang === "ar"
+        ? "معرف أو كلمة مرور غير صحيحة!"
+        : "Invalid id or password!";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
     });
   }
-  // console.log(result);
 
   const token = jwt.sign(
     { _id: String(result._id), id: result.id, role: result.role },
@@ -46,44 +49,58 @@ const login = asyncHandler(async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
-  res.cookie("__Security_access_token", token, {
+  res.cookie("jwt", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    path: "/",
-    sameSite: "strict",
-    priority: "high",
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+
+  res.cookie("lang", lang, {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
   const { password: _, createdAt, updatedAt, role, ...response } = result;
 
-  let message = "Login successfully";
-  if (lang === "ar") message = "تم تسجيل الدخول بنجاح";
+  const successMessage =
+    lang === "ar" ? "تم تسجيل الدخول بنجاح" : "Login successfully";
 
-  res.status(200).json({
-    message,
-    role: result.role,
-    data: response,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: {
+      role: result.role,
+      user: response,
+    },
   });
 });
 
 const authMe = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const user = req.user;
-  let message = "User authenticated successfully";
-  if (lang === "ar") message = "تم التحقق من المستخدم بنجاح";
 
   if (!user) {
-    let message = "Unauthorized!";
-    if (lang === "ar") message = "غير مصرح!";
-
-    return res.status(401).json({ message });
+    const errorMessage = lang === "ar" ? "غير مصرح!" : "Unauthorized!";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 401,
+      message: errorMessage,
+    });
   }
 
   const { password: _, createdAt, updatedAt, ...response } = user?._doc;
 
-  res.status(200).json({
-    message,
+  const successMessage =
+    lang === "ar"
+      ? "تم التحقق من المستخدم بنجاح"
+      : "User authenticated successfully";
+
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
     data: response,
   });
 });
@@ -91,17 +108,16 @@ const authMe = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
-  res.clearCookie("__Security_access_token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-  });
+  res.clearCookie("jwt");
+  res.clearCookie("lang");
 
-  let message = "Logout successfully";
-  if (lang === "ar") message = "تم تسجيل الخروج بنجاح";
+  const successMessage =
+    lang === "ar" ? "تم تسجيل الخروج بنجاح" : "Logout successfully";
 
-  res.status(200).json({
-    message,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
   });
 });
 
