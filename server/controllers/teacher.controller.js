@@ -11,7 +11,7 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
   const teachers = await Teacher.find()
     .select("-password")
     .populate("courses")
-    .skip((page - 1) * 40)
+    .skip((page - 1) * limit)
     .limit(limit)
     .lean();
 
