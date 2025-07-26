@@ -49,7 +49,7 @@ const login = asyncHandler(async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
-  res.cookie("jwt", token, {
+  res.cookie("__Security_access_token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 24 * 60 * 60 * 1000,
@@ -108,7 +108,7 @@ const authMe = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
-  res.clearCookie("jwt");
+  res.clearCookie("__Security_access_token");
   res.clearCookie("lang");
 
   const successMessage =
