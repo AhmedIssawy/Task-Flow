@@ -195,7 +195,7 @@ const EventGroup = ({
   hour: Date;
 }) => {
   return (
-    <div className="h-20 border-t last:border-b">
+    <div className="h-16 sm:h-20 border-t last:border-b">
       {events
         .filter((event) => isSameHour(event.start, hour))
         .map((event) => {
@@ -271,22 +271,23 @@ const CalendarWeekView = () => {
 
   return (
     <div className="flex flex-col relative overflow-auto h-full">
-      <div className="flex sticky top-0 bg-card z-10 border-b mb-3">
-        <div className="w-12"></div>
+      <div className="flex sticky top-0 bg-card z-10 border-b mb-2 sm:mb-3">
+        <div className="w-8 sm:w-10 lg:w-12"></div>
         {headerDays.map((date, i) => (
           <div
             key={date.toString()}
             className={cn(
-              'text-center flex-1 gap-1 pb-2 text-sm text-muted-foreground flex items-center justify-center',
+              'text-center flex-1 gap-0.5 sm:gap-1 pb-1 sm:pb-2 text-xs sm:text-sm text-muted-foreground flex flex-col sm:flex-row items-center justify-center',
               [0, 6].includes(i) && 'text-muted-foreground/50'
             )}
           >
-            {format(date, 'E', { locale })}
+            <span className="hidden sm:inline">{format(date, 'E', { locale })}</span>
+            <span className="sm:hidden">{format(date, 'EEEEE', { locale })}</span>
             <span
               className={cn(
-                'h-6 grid place-content-center',
+                'h-5 w-5 sm:h-6 sm:w-6 grid place-content-center text-xs sm:text-sm',
                 isToday(date) &&
-                  'bg-primary text-primary-foreground rounded-full size-6'
+                'bg-primary text-primary-foreground rounded-full'
               )}
             >
               {format(date, 'd')}
@@ -339,11 +340,12 @@ const CalendarMonthView = () => {
           <div
             key={day}
             className={cn(
-              'mb-2 text-right text-sm text-muted-foreground pr-2',
+              'mb-1 sm:mb-2 text-center sm:text-right text-xs sm:text-sm text-muted-foreground pr-1 sm:pr-2',
               [0, 6].includes(i) && 'text-muted-foreground/50'
             )}
           >
-            {day}
+            <span className="sm:hidden">{day.slice(0, 1)}</span>
+            <span className="hidden sm:inline">{day}</span>
           </div>
         ))}
       </div>
@@ -356,14 +358,14 @@ const CalendarMonthView = () => {
           return (
             <div
               className={cn(
-                'ring-1 p-2 text-sm text-muted-foreground ring-border overflow-auto',
+                'ring-1 p-1 sm:p-2 text-xs sm:text-sm text-muted-foreground ring-border overflow-auto',
                 !isSameMonth(date, _date) && 'text-muted-foreground/50'
               )}
               key={_date.toString()}
             >
               <span
                 className={cn(
-                  'size-6 grid place-items-center rounded-full mb-1 sticky top-0',
+                  'size-4 sm:size-6 grid place-items-center rounded-full mb-1 sticky top-0 text-xs sm:text-sm',
                   isToday(_date) && 'bg-primary text-primary-foreground'
                 )}
               >
@@ -374,7 +376,7 @@ const CalendarMonthView = () => {
                 return (
                   <div
                     key={event.id}
-                    className="px-1 rounded text-sm flex items-center gap-1"
+                    className="px-0.5 sm:px-1 rounded text-xs sm:text-sm flex items-center gap-0.5 sm:gap-1 mb-0.5"
                   >
                     <div
                       className={cn(
@@ -383,7 +385,7 @@ const CalendarMonthView = () => {
                       )}
                     ></div>
                     <span className="flex-1 truncate">{event.title}</span>
-                    <time className="tabular-nums text-muted-foreground/50 text-xs">
+                    <time className="hidden sm:inline tabular-nums text-muted-foreground/50 text-xs">
                       {format(event.start, 'HH:mm')}
                     </time>
                   </div>
@@ -415,37 +417,40 @@ const CalendarYearView = () => {
   if (view !== 'year') return null;
 
   return (
-    <div className="grid grid-cols-4 gap-10 overflow-auto h-full">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-10 overflow-auto h-full p-2">
       {months.map((days, i) => (
-        <div key={days[0].toString()}>
-          <span className="text-xl">{i + 1}</span>
+        <div key={days[0].toString()} className="min-w-0">
+          <span className="text-sm sm:text-lg lg:text-xl font-medium block mb-2 sm:mb-3">
+            {format(setMonth(date, i), 'MMM', { locale })}
+          </span>
 
-          <div className="grid grid-cols-7 gap-2 my-5">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1 lg:gap-2 mb-2 sm:mb-3 lg:mb-5">
             {weekDays.map((day) => (
               <div
                 key={day}
-                className="text-center text-xs text-muted-foreground"
+                className="text-center text-[10px] sm:text-xs text-muted-foreground"
               >
-                {day}
+                <span className="sm:hidden">{day.slice(0, 1)}</span>
+                <span className="hidden sm:inline">{day}</span>
               </div>
             ))}
           </div>
 
-          <div className="grid gap-x-2 text-center grid-cols-7 text-xs tabular-nums">
+          <div className="grid gap-x-0.5 sm:gap-x-1 lg:gap-x-2 text-center grid-cols-7 text-[10px] sm:text-xs tabular-nums">
             {days.map((_date) => {
               return (
                 <div
                   key={_date.toString()}
                   className={cn(
-                    getMonth(_date) !== i && 'text-muted-foreground'
+                    getMonth(_date) !== i && 'text-muted-foreground/50'
                   )}
                 >
                   <div
                     className={cn(
-                      'aspect-square grid place-content-center size-full tabular-nums',
+                      'aspect-square grid place-content-center size-full tabular-nums hover:bg-muted/50 rounded cursor-pointer transition-colors',
                       isSameDay(today, _date) &&
-                        getMonth(_date) === i &&
-                        'bg-primary text-primary-foreground rounded-full'
+                      getMonth(_date) === i &&
+                      'bg-primary text-primary-foreground rounded-full hover:bg-primary/90'
                     )}
                   >
                     {format(_date, 'd')}
@@ -582,24 +587,24 @@ const TimeTable = () => {
   const now = new Date();
 
   return (
-    <div className="pr-2 w-12">
+    <div className="pr-1 sm:pr-2 w-8 sm:w-10 lg:w-12">
       {Array.from(Array(25).keys()).map((hour) => {
         return (
           <div
-            className="text-right relative text-xs text-muted-foreground/50 h-20 last:h-0"
+            className="text-right relative text-xs text-muted-foreground/50 h-16 sm:h-20 last:h-0"
             key={hour}
           >
             {now.getHours() === hour && (
               <div
-                className="absolute z- left-full translate-x-2 w-dvw h-[2px] bg-red-500"
+                className="absolute z-10 left-full translate-x-1 sm:translate-x-2 w-dvw h-[2px] bg-red-500"
                 style={{
                   top: `${(now.getMinutes() / 60) * 100}%`,
                 }}
               >
-                <div className="size-2 rounded-full bg-red-500 absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                <div className="size-1.5 sm:size-2 rounded-full bg-red-500 absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2"></div>
               </div>
             )}
-            <p className="top-0 -translate-y-1/2">
+            <p className="top-0 -translate-y-1/2 text-[10px] sm:text-xs">
               {hour === 24 ? 0 : hour}:00
             </p>
           </div>

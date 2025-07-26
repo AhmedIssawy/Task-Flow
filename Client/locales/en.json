@@ -2,7 +2,7 @@
   "Landing": {
     "Header": {
       "logo": {
-        "taskflow": "taskflow"
+        "taskflow": "Taskflow"
       },
       "nav": {
         "features": "Features",
@@ -329,6 +329,73 @@
       }
     }
   },
+  "notifications": {
+    "title": "Notifications",
+    "popup": {
+      "title": "Notifications",
+      "subtitle": {
+        "hasNew": "{count, plural, one {# new notification} other {# new notifications}}",
+        "hasNewPlural": "{count} new notifications",
+        "allCaughtUp": "All caught up!"
+      },
+      "markAllRead": "Mark all read",
+      "viewAll": "View All Notifications",
+      "noNotifications": "No notifications",
+      "allCaughtUpMessage": "You're all caught up!",
+      "types": {
+        "assignment": "Assignment",
+        "grade": "Grade",
+        "event": "Event",
+        "system": "System",
+        "reminder": "Reminder"
+      },
+      "priority": {
+        "high": "High Priority",
+        "medium": "Medium Priority",
+        "low": "Low Priority"
+      },
+      "timeAgo": {
+        "minutes": "m ago",
+        "hours": "h ago",
+        "days": "d ago",
+        "prefix": ""
+      },
+      "staticData": {
+        "assignment": {
+          "title": "New Math Assignment",
+          "message": "Complete exercises 1-15 in Chapter 3 by Friday"
+        },
+        "grade": {
+          "title": "Science Project Graded",
+          "message": "Your science project has been graded. Score: 88/100"
+        },
+        "event": {
+          "title": "Parent-Teacher Conference",
+          "message": "Scheduled for tomorrow at 2:00 PM in Room 301"
+        },
+        "system": {
+          "title": "System Maintenance",
+          "message": "Scheduled maintenance on Saturday from 2-4 AM"
+        },
+        "reminder": {
+          "title": "Library Book Due",
+          "message": "Return 'Advanced Mathematics' by end of week"
+        }
+      }
+    },
+    "email": {
+      "title": "Email Notifications",
+      "description": "Receive updates via email"
+    },
+    "push": {
+      "title": "Push Notifications",
+      "description": "Get instant notifications"
+    },
+    "sms": {
+      "title": "SMS Notifications",
+      "description": "Receive text message alerts"
+    }
+  },
   "auth": {
     "login": {
       "title": "Welcome Back",
@@ -343,6 +410,11 @@
       "forgot": "Forgot password?",
       "submit": "Sign In",
       "loggingIn": "Signing in..."
+    },
+    "logout": {
+      "button": "Logout",
+      "success": "Logged out successfully",
+      "error": "Failed to log out"
     }
   },
   "navbar": {

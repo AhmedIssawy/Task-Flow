@@ -1,7 +1,7 @@
 export const adminStudentsTableData = [
   { label: 'Name', accessor: 'name' },
   { label: 'Email', accessor: 'email' },
-  { label: 'Student ID', accessor: 'id' },
+  { label: 'ID', accessor: 'id' },
   { label: 'University', accessor: (row: any) => row.universityId?.name },
 ];
 
@@ -60,6 +60,7 @@ export const adminTeacherEditFields = [
     ],
   },
 ];
+
 
 export const adminTeachersTableData = [
   { label: 'Name', accessor: 'name' },
