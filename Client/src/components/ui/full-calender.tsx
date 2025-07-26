@@ -510,10 +510,6 @@ const CalendarPrevTrigger = forwardRef<
 >(({ children, onClick, ...props }, ref) => {
   const { date, setDate, view, enableHotkeys } = useCalendar();
 
-  useHotkeys('ArrowLeft', () => prev(), {
-    enabled: enableHotkeys,
-  });
-
   const prev = useCallback(() => {
     if (view === 'day') {
       setDate(subDays(date, 1));
