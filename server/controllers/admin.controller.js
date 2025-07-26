@@ -39,12 +39,12 @@ const getAdminById = asyncHandler(async (req, res) => {
 
 const getPageOfAdmins = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { page = 1 } = req.query;
+  const { page = 1, limit = 40 } = req.query;
 
   const admins = await Admin.find()
     .select("-password")
-    .skip((page - 1) * 40)
-    .limit(40)
+    .skip((page - 1) * limit)
+    .limit(limit)
     .lean();
 
   if (!admins || admins.length === 0) {
