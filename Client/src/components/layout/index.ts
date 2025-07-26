@@ -1,3 +1,3 @@
-export { StudentLayout } from './StudentLayout/StudentLayout'
-export { Navbar } from './Navbar'
-export { SideMenu } from './SideMenu'
+export { StudentLayout } from '@/components/layout/StudentLayout/StudentLayout'
+export { Navbar } from '@/components/layout/Navbar'
+export { SideMenu } from '@/components/layout/SideMenu'

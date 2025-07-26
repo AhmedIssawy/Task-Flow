@@ -43,4 +43,8 @@ next-env.d.ts
 
 .gemini/*
 .github/*
-.qodo
+.qodo/*
+.kiro/*
+.history/*
+.serena/*
+.*

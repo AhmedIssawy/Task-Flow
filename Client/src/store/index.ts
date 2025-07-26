@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { authApi } from './services/authApi'
-import { studentApi } from './services/studentApi'
-import { adminApi } from './services/adminApi'
-import { collegeApi } from './services/collegeApi'
-import { departmentApi } from './services/departmentApi'
-import { teacherApi } from './services/teacherApi'
-import authReducer from './slices/authSlice'
+import { authApi } from '@/store/services/authApi'
+import { studentApi } from '@/store/services/studentApi'
+import { adminApi } from '@/store/services/adminApi'
+import { collegeApi } from '@/store/services/collegeApi'
+import { departmentApi } from '@/store/services/departmentApi'
+import { teacherApi } from '@/store/services/teacherApi'
+import authReducer from '@/store/slices/authSlice'
+import userReducer from '@/store/slices/userSlice'
 
 
 // redux state persistence
@@ -19,9 +20,14 @@ const authPersistConfig = {
   whitelist: ['id', 'mongoId', 'role'],
 };
 
+const userPersistConfig = {
+  key: 'user',
+  storage,
+  whitelist: ['name', 'email']
+}
 
-const persistedAuthReducer = persistReducer(authPersistConfig, authReducer)
-
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
 
 
 export const store = configureStore({
@@ -33,6 +39,7 @@ export const store = configureStore({
     [departmentApi.reducerPath]: departmentApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     auth: persistedAuthReducer,
+    user: persistedUserReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

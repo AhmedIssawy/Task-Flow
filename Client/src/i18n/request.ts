@@ -1,23 +1,22 @@
 import { getRequestConfig } from 'next-intl/server';
+import { getServerLocale, DEFAULT_LOCALE } from '@/lib/i18n';
 
-// Can be imported from a shared config
-const locales = ['en', 'ar'];
-
-export default getRequestConfig(async ({ locale }) => {
-    // Use default locale if none provided
-    const validLocale = locale && locales.includes(locale) ? locale : 'en';
+export default getRequestConfig(async () => {
+    // Get locale from cookies instead of URL parameters
+    const locale = await getServerLocale();
 
     try {
-        const messages = (await import(`../../locales/${validLocale}.json`)).default;
+        const messages = (await import(`../../locales/${locale}.json`)).default;
         return {
-            locale: validLocale,
+            locale,
             messages
         };
-    } catch {
-        // Fallback to English
-        const fallbackMessages = (await import(`../../locales/en.json`)).default;
+    } catch (error) {
+        console.warn(`Failed to load messages for locale ${locale}, falling back to default:`, error);
+        // Fallback to default locale messages
+        const fallbackMessages = (await import(`../../locales/${DEFAULT_LOCALE}.json`)).default;
         return {
-            locale: 'en',
+            locale: DEFAULT_LOCALE,
             messages: fallbackMessages
         };
     }

@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Ghost, Home, ArrowLeft } from 'lucide-react';
-import { useAppSelector } from '@/store/hooks';
 import { getPathByRole } from '@/utils/roleRedirect';
 import { useMemo } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function NotFound() {
-  const { id, role } = useAppSelector((state) => state.auth);
+  const { id, role } = useAuth();
   
   // Determine the appropriate home path based on authentication status
   const homePath = useMemo(() => {
@@ -49,7 +49,8 @@ export default function NotFound() {
               404 - Page Not Found
             </h1>
             <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved. 
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Oops! The page you're looking for doesn't exist or has been moved. 
               {isLoggedIn ? " Don&apos;t worry, you can return to your dashboard." : " Don&apos;t worry, you can return to the homepage."}
             </p>
           </div>

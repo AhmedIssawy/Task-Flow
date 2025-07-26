@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import type { Student, PaginatedStudentsResponse, Course, CourseDetails, Grade, Assignment, Calendar as calendar } from '../types/student'
+import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const studentApi = createApi({
   reducerPath: 'studentApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
-    credentials: 'include',
-  }),
+  baseQuery: baseQueryWithErrorHandling(),
   tagTypes: ['Student'],
   endpoints: (builder) => ({
     // Create

@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { Department } from '../types/department';
+import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const departmentApi = createApi({
   reducerPath: 'departmentApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    credentials: 'include',
-  }),
+  baseQuery: baseQueryWithErrorHandling(),
   endpoints: (builder) => ({
     // GET /departments/:collegeId?page=1&limit=40
     getDepartmentsPage: builder.query<Department[], {universityId: string, collegeId: string; page?: number; limit?: number }>({
