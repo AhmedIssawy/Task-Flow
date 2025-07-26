@@ -15,18 +15,7 @@ export default function PaginationControls({
   className
 }: PaginationControlsProps) {
   return (
-    <div className={cn("flex items-center justify-between p-4", className)}>
-      {/* Page Information */}
-      <div className="flex items-center space-x-2 text-md text-muted-foreground">
-        <span className="hidden sm:inline">Showing page</span>
-        <span className="font-medium text-foreground">{page}</span>
-        <span>of</span>
-        <span className="font-medium text-foreground">{totalPages}</span>
-        <span className="hidden sm:inline">pages</span>
-      </div>
-
-      {/* Navigation Controls */}
-      <div className="flex items-center space-x-2">
+      <div className={cn("flex items-center space-x-2", className)}>
         <Button
           variant="outline"
           size="sm"
@@ -88,6 +77,5 @@ export default function PaginationControls({
           </svg>
         </Button>
       </div>
-    </div>
   );
 }

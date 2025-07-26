@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { useGetDepartmentsPageQuery } from '@/store/services/departmentApi';
+import {
+  useCreateDepartmentMutation,
+  useDeleteDepartmentMutation,
+  useGetDepartmentsPageQuery,
+  useUpdateDepartmentMutation,
+} from '@/store/services/departmentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
-import { adminDepartmentsTableData } from '@/constants/adminTableData';
+import {
+  adminDepartmentCreateFields,
+  adminDepartmentEditFields,
+  adminDepartmentsTableData,
+} from '@/constants/adminTableData';
 import PaginationControls from '@/components/tables/PaginatedControls';
 
 export default function DepartmentsPage() {
@@ -32,6 +41,12 @@ export default function DepartmentsPage() {
         dataKey="departments"
         columns={adminDepartmentsTableData}
         className="mx-4"
+        enableActions
+        deleteHook={useDeleteDepartmentMutation}
+        createHook={useCreateDepartmentMutation}
+        createFields={adminDepartmentCreateFields}
+        editHook={useUpdateDepartmentMutation}
+        editableFields={adminDepartmentEditFields}
       />
       {totalPages > 0 && (
         <PaginationControls

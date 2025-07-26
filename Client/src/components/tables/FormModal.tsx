@@ -46,13 +46,11 @@ export default function FormModal({
   const [formData, setFormData] = useState<Record<string, any>>(initialData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    setFormData((prev) => {
-      const prevStr = JSON.stringify(prev);
-      const nextStr = JSON.stringify(initialData);
-      return prevStr === nextStr ? prev : initialData;
-    });
-  }, [initialData]);
+ useEffect(() => {
+  if (isOpen) {
+    setFormData(initialData);
+  }
+}, [isOpen]);
 
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
