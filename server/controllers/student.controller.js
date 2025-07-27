@@ -127,8 +127,12 @@ const getAllStudentsOfUniversity = asyncHandler(async (req, res) => {
 const getStudentsPage = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { page = 1, limit = 40 } = req.query;
-  const totalStudents = await Student.countDocuments();
-  const totalPages = Math.ceil(totalStudents / limit);
+
+  const currentPage = parseInt(page);
+  const pageLimit = parseInt(limit);
+
+  const totalStudents = await Student.estimatedDocumentCount();
+  const totalPages = Math.ceil(totalStudents / pageLimit);
 
   const students = await Student.find()
     .select("-createdAt -updatedAt -courses")
@@ -136,8 +140,8 @@ const getStudentsPage = asyncHandler(async (req, res) => {
       path: "universityId",
       select: "name",
     })
-    .skip((page - 1) * limit)
-    .limit(limit)
+    .skip((currentPage - 1) * pageLimit)
+    .limit(pageLimit)
     .sort({ _id: -1 })
     .lean();
 
@@ -151,18 +155,30 @@ const getStudentsPage = asyncHandler(async (req, res) => {
     });
   }
 
+  const hasNextPage = currentPage < totalPages;
+  const hasPrevPage = currentPage > 1;
+
   const successMessage =
     lang === "ar"
       ? "تم العثور على الطلاب بنجاح"
       : "Students retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
     message: successMessage,
     data: {
       students,
-      totalPages,
-      currentPage: page,
+      pagination: {
+        currentPage,
+        totalPages,
+        totalCount: totalStudents,
+        limit: pageLimit,
+        hasNextPage,
+        hasPrevPage,
+        nextPage: hasNextPage ? currentPage + 1 : null,
+        prevPage: hasPrevPage ? currentPage - 1 : null,
+      },
     },
   });
 });
