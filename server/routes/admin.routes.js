@@ -2,6 +2,7 @@ import { Router } from "express";
 // Middlewares
 import authinticate from "../middlewares/auth/authintication.middleware.js";
 import authorize from "../middlewares/auth/authorization.middleware.js";
+
 import { createAdmin } from "../controllers/admin.controller.js";
 import {
   getAdminById,
@@ -27,10 +28,14 @@ import {
   updateCollege,
   createCollege,
 } from "../controllers/college.controller.js";
+
 import {
-  validateObjectId,
-  validateStudentUpdateData,
-} from "../middlewares/validation.middleware.js";
+  createSection,
+  getPageOfSections,
+  deleteSection,
+  getSectionById,
+  updateSection,
+} from "../controllers/section.controller.js";
 
 const router = Router();
 
@@ -62,6 +67,19 @@ router
   .patch(authinticate, authorize(["admin", "super-admin"]), updateCollege);
 
 router
+  .route(
+    "/university/:universityId/college/:collegeId/department/:departmentId/section"
+  )
+  .get(authinticate, authorize(["admin", "super-admin"]), getPageOfSections)
+  .post(authinticate, authorize(["admin", "super-admin"]), createSection);
+
+router
+  .route("/section/:sectionId")
+  .get(authinticate, getSectionById)
+  .patch(authinticate, authorize(["admin", "super-admin"]), updateSection)
+  .delete(authinticate, authorize(["admin", "super-admin"]), deleteSection);
+
+router
   .route("/:id")
   .get(authinticate, authorize(["super-admin"]), getAdminById);
 
@@ -72,11 +90,7 @@ router
 
 router
   .route("/student/:id")
-  .patch(
-    authinticate,
-    authorize(["admin", "super-admin"]),
-    updateStudent
-  )
+  .patch(authinticate, authorize(["admin", "super-admin"]), updateStudent)
   .delete(authinticate, authorize(["admin", "super-admin"]), deleteStudent);
 
 export default router;

@@ -1,40 +1,57 @@
 import Department from "../models/department.model.js";
 import asyncHandler from "express-async-handler";
+import sendResponse from "../utils/response.handler.js";
 
 const createDepartment = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const {
-    name,
-    description,
-    phone,
-    email,
-    location,
-    establishedYear,
-  } = req.body;
+  const { name, description, phone, email, location, establishedYear } =
+    req.body;
 
   const { collegeId, universityId } = req.params;
- 
-  if (!name || !description || !phone || !email || !location || !collegeId || !universityId || !establishedYear) {
-    let message = "All fields are required";
-    if (lang === "ar") message = "جميع الحقول مطلوبة";
-    
-    return res.status(400).json({ message });
+
+  if (
+    !name ||
+    !description ||
+    !phone ||
+    !email ||
+    !location ||
+    !collegeId ||
+    !universityId ||
+    !establishedYear
+  ) {
+    const errorMessage =
+      lang === "ar" ? "جميع الحقول مطلوبة" : "All fields are required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const existingByName = await Department.findOne({ name, collegeId });
   if (existingByName) {
-    let message = "Department already exists in this college";
-    if (lang === "ar") message = "القسم موجود بالفعل في هذه الكلية";
-    
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar"
+        ? "القسم موجود بالفعل في هذه الكلية"
+        : "Department already exists in this college";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const existingByEmail = await Department.findOne({ email });
   if (existingByEmail) {
-    let message = "Email is already in use";
-    if (lang === "ar") message = "البريد الإلكتروني مستخدم بالفعل";
-    
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar"
+        ? "البريد الإلكتروني مستخدم بالفعل"
+        : "Email is already in use";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const department = await Department.create({
@@ -48,12 +65,14 @@ const createDepartment = asyncHandler(async (req, res) => {
     establishedYear,
   });
 
-  let message = "Department created successfully";
-  if (lang === "ar") message = "تم إنشاء القسم بنجاح";
+  const successMessage =
+    lang === "ar" ? "تم إنشاء القسم بنجاح" : "Department created successfully";
 
-  res.status(201).json({
-    message,
-    department,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: successMessage,
+    data: department,
   });
 });
 
@@ -63,10 +82,13 @@ const getDepartmentsPage = asyncHandler(async (req, res) => {
   const { page = 1, limit = 40 } = req.query;
 
   if (!collegeId) {
-    let message = "College ID is required";
-    if (lang === "ar") message = "معرف الكلية مطلوب";
-
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar" ? "معرف الكلية مطلوب" : "College ID is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const departments = await Department.find({ collegeId })
@@ -77,13 +99,25 @@ const getDepartmentsPage = asyncHandler(async (req, res) => {
     .lean();
 
   if (!departments || departments.length === 0) {
-    let message = "No departments found";
-    if (lang === "ar") message = "لم يتم العثور على أقسام";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على أقسام" : "No departments found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json(departments);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الأقسام بنجاح"
+      : "Departments retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: departments,
+  });
 });
 
 const updateDepartment = asyncHandler(async (req, res) => {
@@ -91,10 +125,13 @@ const updateDepartment = asyncHandler(async (req, res) => {
   const { id, ...updateData } = req.body;
 
   if (!id) {
-    let message = "Department ID is required";
-    if (lang === "ar") message = "معرف القسم مطلوب";
-
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar" ? "معرف القسم مطلوب" : "Department ID is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const department = await Department.findByIdAndUpdate(id, updateData, {
@@ -103,18 +140,22 @@ const updateDepartment = asyncHandler(async (req, res) => {
   });
 
   if (!department) {
-    let message = "Department not found";
-    if (lang === "ar") message = "القسم غير موجود";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "القسم غير موجود" : "Department not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  let message = "Department updated successfully";
-  if (lang === "ar") message = "تم تحديث القسم بنجاح";
-
-  res.status(200).json({
-    message,
-    department,
+  const successMessage =
+    lang === "ar" ? "تم تحديث القسم بنجاح" : "Department updated successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: department,
   });
 });
 
@@ -123,18 +164,30 @@ const getDepartmentById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const department = await Department.findById(id).populate({
-    path: "collegeId", 
-    select: "name address", 
+    path: "collegeId",
+    select: "name address",
   });
 
   if (!department) {
-    let message = "Department not found";
-    if (lang === "ar") message = "القسم غير موجود";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "القسم غير موجود" : "Department not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json(department);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على القسم بنجاح"
+      : "Department retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: department,
+  });
 });
 
 const deleteDepartment = asyncHandler(async (req, res) => {
@@ -144,16 +197,22 @@ const deleteDepartment = asyncHandler(async (req, res) => {
   const department = await Department.findByIdAndDelete(id);
 
   if (!department) {
-    let message = "Department not found";
-    if (lang === "ar") message = "القسم غير موجود";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "القسم غير موجود" : "Department not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  let message = "Department deleted successfully";
-  if (lang === "ar") message = "تم حذف القسم بنجاح";
-
-  res.status(200).json({ message });
+  const successMessage =
+    lang === "ar" ? "تم حذف القسم بنجاح" : "Department deleted successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+  });
 });
 
 export {

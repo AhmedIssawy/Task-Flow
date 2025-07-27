@@ -1,51 +1,101 @@
 import College from "../models/college.model.js";
 import asyncHandler from "express-async-handler";
+import sendResponse from "../utils/response.handler.js";
 
 const getCollegesPage = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { page = 1, limit = 40 } = req.query;
   const { universityId } = req.params;
 
-  const colleges = await College.find({ universityId })
-    .select("-createdAt -updatedAt")
-    .limit(limit)
-    .skip((page - 1) * limit)
-    .sort({ _id: -1 })
-    .lean();
+  const pageNum = parseInt(page);
+  const limitNum = parseInt(limit);
+  const skip = (pageNum - 1) * limitNum;
+
+  const [colleges, totalEstimate] = await Promise.all([
+    College.find({ universityId })
+      .select("-createdAt -updatedAt")
+      .limit(limitNum)
+      .skip(skip)
+      .sort({ _id: -1 })
+      .lean(),
+    College.estimatedDocumentCount({ universityId })
+  ]);
 
   if (!colleges || colleges.length === 0) {
-    let message = "No colleges found";
-    if (lang === "ar") message = "لم يتم العثور على كليات";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على كليات" : "No colleges found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  res.status(200).json(colleges);
+  const totalPages = Math.ceil(totalEstimate / limitNum);
+  const hasNextPage = pageNum < totalPages;
+  const hasPrevPage = pageNum > 1;
+
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الكليات بنجاح"
+      : "Colleges retrieved successfully";
+  
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: {
+      colleges,
+      pagination: {
+        currentPage: pageNum,
+        totalPages,
+        totalEstimate,
+        limit: limitNum,
+        hasNextPage,
+        hasPrevPage
+      }
+    },
+  });
 });
 
 const getCollegeById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { universityId, collegeId } = req.params;
-  
+
   if (!collegeId) {
-    let message = "College ID is required";
-    if (lang === "ar") message = "معرف الكلية مطلوب";
-    
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar" ? "معرف الكلية مطلوب" : "College ID is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
-  
-  const college = await College.findOne({_id: collegeId, universityId})
+
+  const college = await College.findOne({ _id: collegeId, universityId })
     .select("-createdAt -updatedAt")
     .lean();
-    
+
   if (!college) {
-    let message = "College not found";
-    if (lang === "ar") message = "الكلية غير موجودة";
-    
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "الكلية غير موجودة" : "College not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
-  
-  res.status(200).json(college);
+
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الكلية بنجاح"
+      : "College retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: college,
+  });
 });
 
 const updateCollege = asyncHandler(async (req, res) => {
@@ -53,10 +103,13 @@ const updateCollege = asyncHandler(async (req, res) => {
   const { id, ...updateData } = req.body;
 
   if (!id) {
-    let message = "College ID is required";
-    if (lang === "ar") message = "معرف الكلية مطلوب";
-    
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar" ? "معرف الكلية مطلوب" : "College ID is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const college = await College.findByIdAndUpdate(id, updateData, {
@@ -65,18 +118,22 @@ const updateCollege = asyncHandler(async (req, res) => {
   });
 
   if (!college) {
-    let message = "College not found";
-    if (lang === "ar") message = "الكلية غير موجودة";
-    
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "الكلية غير موجودة" : "College not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  let message = "College updated successfully";
-  if (lang === "ar") message = "تم تحديث الكلية بنجاح";
-
-  res.status(200).json({
-    message,
-    college,
+  const successMessage =
+    lang === "ar" ? "تم تحديث الكلية بنجاح" : "College updated successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: college,
   });
 });
 
@@ -95,16 +152,19 @@ const createCollege = asyncHandler(async (req, res) => {
     universityId,
   } = req.body;
 
-  // Check if College with same email exists
   const existingCollege = await College.findOne({ email });
   if (existingCollege) {
-    let message = "College already exists, please use a different email";
-    if (lang === "ar") message = "الكلية موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-    
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar"
+        ? "الكلية موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف"
+        : "College already exists, please use a different email";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
-  // Create College
   const college = await College.create({
     name,
     address,
@@ -118,12 +178,14 @@ const createCollege = asyncHandler(async (req, res) => {
     universityId,
   });
 
-  let message = "College created successfully";
-  if (lang === "ar") message = "تم إنشاء الكلية بنجاح";
+  const successMessage =
+    lang === "ar" ? "تم إنشاء الكلية بنجاح" : "College created successfully";
 
-  res.status(201).json({
-    message,
-    college,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: successMessage,
+    data: college,
   });
 });
 
