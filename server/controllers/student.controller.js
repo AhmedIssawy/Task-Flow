@@ -277,7 +277,10 @@ const getStudentCourses = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const student = await Student.findById(id)
-    .populate("courses")
+    .populate([
+      { path: "courses.course" },
+      { path: "courses.section" },
+    ])
     .select("courses")
     .lean();
 
@@ -295,13 +298,15 @@ const getStudentCourses = asyncHandler(async (req, res) => {
     lang === "ar"
       ? "تم استرداد المقررات بنجاح"
       : "Courses retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
     message: successMessage,
-    data: student.courses,
+    data: student.courses, // contains course & section populated
   });
 });
+
 
 const getStudentCourseById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";

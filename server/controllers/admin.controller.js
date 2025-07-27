@@ -41,11 +41,26 @@ const getPageOfAdmins = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { page = 1, limit = 40 } = req.query;
 
-  const admins = await Admin.find()
-    .select("-password")
-    .skip((page - 1) * limit)
-    .limit(limit)
-    .lean();
+  const pageNumber = parseInt(page);
+  const limitNumber = parseInt(limit);
+  const skip = (pageNumber - 1) * limitNumber;
+
+  const [admins, totalCount] = await Promise.all([
+    Admin.find()
+      .select("-password")
+      .populate([
+        { path: "collegeId", select: "name _id id" },
+        { path: "universityId", select: "name _id id" },
+      ])
+      .skip(skip)
+      .limit(limitNumber)
+      .lean(),
+    Admin.estimatedDocumentCount()
+  ]);
+
+  const totalPages = Math.ceil(totalCount / limitNumber);
+  const hasNextPage = pageNumber < totalPages;
+  const hasPrevPage = pageNumber > 1;
 
   if (!admins || admins.length === 0) {
     const errorMessage =
@@ -68,7 +83,16 @@ const getPageOfAdmins = asyncHandler(async (req, res) => {
     message: successMessage,
     data: {
       admins,
-      total: admins.length,
+      pagination: {
+        currentPage: pageNumber,
+        totalPages,
+        totalCount,
+        limit: limitNumber,
+        hasNextPage,
+        hasPrevPage,
+        nextPage: hasNextPage ? pageNumber + 1 : null,
+        prevPage: hasPrevPage ? pageNumber - 1 : null,
+      },
     },
   });
 });
