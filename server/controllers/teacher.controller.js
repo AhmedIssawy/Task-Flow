@@ -42,8 +42,11 @@ const getTeacherById = asyncHandler(async (req, res) => {
   const { teacherId } = req.params;
 
   const teacher = await Teacher.findOne({ id: teacherId })
-    .select("-password")
-    .populate("courses");
+    .select("-password") // exclude password
+    .populate({
+      path: "courses",
+      select: "-teachers", // exclude teachers field from each course
+    });
 
   if (!teacher) {
     const errorMessage =
@@ -59,6 +62,7 @@ const getTeacherById = asyncHandler(async (req, res) => {
     lang === "ar"
       ? "تم العثور على المعلم بنجاح"
       : "Teacher retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
@@ -66,6 +70,7 @@ const getTeacherById = asyncHandler(async (req, res) => {
     data: teacher,
   });
 });
+
 
 const createTeacher = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
