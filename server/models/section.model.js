@@ -70,6 +70,12 @@ const sectionSchema = new Schema({
     ref: "Course",
     required: true,
   },
+  lectures: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Lecture",
+    },
+  ],
   teachers: [
     {
       type: Schema.Types.ObjectId,

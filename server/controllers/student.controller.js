@@ -277,10 +277,7 @@ const getStudentCourses = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const student = await Student.findById(id)
-    .populate([
-      { path: "courses.course" },
-      { path: "courses.section" },
-    ])
+    .populate([{ path: "courses.course" }, { path: "courses.section" }])
     .select("courses")
     .lean();
 
@@ -307,16 +304,24 @@ const getStudentCourses = asyncHandler(async (req, res) => {
   });
 });
 
-
 const getStudentCourseById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { id, courseId } = req.params;
 
   const student = await Student.findById(id)
-    .populate({
-      path: "courses",
-      populate: { path: "teachers", select: "-password" },
-    })
+    .populate([
+      {
+        path: "courses.course",
+        select: "-teachers",
+      },
+      {
+        path: "courses.section",
+        populate: {
+          path: "teachers",
+          select: "-password -__v",
+        },
+      },
+    ])
     .select("courses")
     .lean();
 
@@ -330,9 +335,11 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
     });
   }
 
-  const course = student.courses.find((c) => c._id.toString() === courseId);
+  const courseEntry = student.courses.find(
+    (c) => c.course && c.course._id?.toString() === courseId
+  );
 
-  if (!course) {
+  if (!courseEntry) {
     const errorMessage =
       lang === "ar" ? "المقرر غير موجود" : "Course not found";
     return sendResponse(res, {
@@ -344,11 +351,12 @@ const getStudentCourseById = asyncHandler(async (req, res) => {
 
   const successMessage =
     lang === "ar" ? "تم استرداد المقرر بنجاح" : "Course retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
     message: successMessage,
-    data: course,
+    data: courseEntry,
   });
 });
 
