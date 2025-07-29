@@ -26,7 +26,7 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
       success: false,
       statusCode: 404,
       message,
-    });
+    }); 
   }
 
   const pagination = {
