@@ -22,7 +22,7 @@ export default function AdminDashboard() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const studentsQueryResult = useGetStudentsPageQuery({ page, limit });
-  const totalPages: number = studentsQueryResult?.data?.totalPages || 0;
+  const totalPages: number = studentsQueryResult?.data?.pagination?.totalPages || 0;
 
 
   return (

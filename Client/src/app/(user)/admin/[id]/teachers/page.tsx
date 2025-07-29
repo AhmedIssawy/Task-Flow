@@ -1,25 +1,24 @@
 'use client';
 
-import {
-  useDeleteStudentMutation,
-  useUpdateStudentMutation,
-  useCreateStudentMutation,
-} from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 import {
-  adminStudentCreateFields,
-  adminStudentEditFields,
+  adminTeacherCreateFields,
+  adminTeacherEditFields,
   adminTeachersTableData,
 } from '@/constants/adminTableData';
 
 import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
-import { useGetTeachersPageQuery } from '@/store/services/teacherApi';
+import { useCreateTeacherMutation, useDeleteTeacherMutation, useGetTeachersPageQuery, useUpdateTeacherMutation } from '@/store/services/teacherApi';
+import CustomSelect from '@/components/dashboard/CustomSelect';
+import { Button } from '@/components/ui/button';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const teachersQueryResult = useGetTeachersPageQuery( page );
-  const totalPages: number = teachersQueryResult?.data?.totalPages || 0;
+  const [limit, setLimit] = useState(5);
+  const teachersQueryResult = useGetTeachersPageQuery({page, limit});
+  const totalPages: number = teachersQueryResult?.data?.pagination?.totalPages || 0;
+
 
   return (
     <>
@@ -30,20 +29,55 @@ export default function AdminDashboard() {
           columns={adminTeachersTableData}
           className="mx-4"
           enableActions
-          deleteHook={useDeleteStudentMutation}
-          editHook={useUpdateStudentMutation}
-          editableFields={adminStudentEditFields}
-          createHook={useCreateStudentMutation}
-          createFields={adminStudentCreateFields}
+          deleteHook={useDeleteTeacherMutation}
+          editHook={useUpdateTeacherMutation}
+          editableFields={adminTeacherEditFields}
+          createHook={useCreateTeacherMutation}
+          createFields={adminTeacherCreateFields}
         />
-        {totalPages > 0 && (
-          <PaginationControls
-            page={page}
-            totalPages={totalPages}
-            setPage={setPage}
-            className="mx-4"
-          />
-        )}
+        <div className="mt-4 text-center space-y-6 mx-4 flex justify-between items-center flex-wrap">
+          <span className="">
+            Show
+            <CustomSelect
+              options={[
+                { value: 5 },
+                { value: 10 },
+                { value: 20 },
+                { value: 50 },
+                { value: 100 },
+              ]}
+              valueChangeAction={(value) => setLimit(Number(value))}
+              value={limit.toString()}
+            />
+            Items
+          </span>
+          <span className="inline-flex gap-2">
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => setLimit((prev) => prev + 5)}
+            >
+              {'Show more'}
+            </Button>
+            {limit > 5 && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setLimit((prev) => prev - 5)}
+              >
+                Show less
+              </Button>
+            )}
+          </span>
+          {totalPages > 0 && (
+            <PaginationControls
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+              className="mx-4"
+            />
+          )}
+        </div>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import type { Student, PaginatedStudentsResponse, Course, CourseDetails, Grade, Assignment, Calendar as calendar } from '../types/student'
+import type { Student, PaginatedStudentsResponse, Course, CourseDetails, Grade, Assignment, Calendar as calendar, StudentApiResponse } from '../types/student'
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const studentApi = createApi({
@@ -21,6 +21,7 @@ export const studentApi = createApi({
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 40 }) =>
         `/students?page=${page}&limit=${limit}`,
+      transformResponse: (response: StudentApiResponse) => response,
       providesTags: ['Student'],
     }),
 

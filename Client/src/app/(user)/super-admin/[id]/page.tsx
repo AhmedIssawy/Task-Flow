@@ -13,7 +13,7 @@ import { adminAdminCreateFields, adminAdminEditFields, adminAdminsTableData } fr
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
   const adminsQueryResult = useGetPageOfAdminsQuery(page);
-  const totalPages: number = adminsQueryResult?.data?.totalPages || 0;
+  const totalPages: number = adminsQueryResult?.data?.pagination?.totalPages || 0;
 
   return (
     <>

@@ -19,7 +19,7 @@ export default function AdminCollegesPage() {
     limit,
   });
 
-  const totalPages: number = collegesQueryResult?.data?.totalPages || 0;
+  const totalPages: number = collegesQueryResult?.data?.pagination?.totalPages || 0;
   console.log('Colleges Query Result:', collegesQueryResult.data);
 
   return (

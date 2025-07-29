@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Teacher } from '../types/teacher';
+import { Teacher, PaginatedTeacherResponse } from '../types/teacher';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 
@@ -8,8 +8,8 @@ export const teacherApi = createApi({
   baseQuery: baseQueryWithErrorHandling(),
   endpoints: (builder) => ({
     // GET /teachers?page=1
-    getTeachersPage: builder.query<{ teachers: Teacher[]; total: number }, number | void>({
-      query: (page = 1) => `/teachers?page=${page}`,
+    getTeachersPage: builder.query<PaginatedTeacherResponse, { page?: number; limit?: number }>({
+      query: ({page = 1, limit = 40}) => `/teachers?page=${page}&limit=${limit}`,
     }),
 
     // GET /teachers/:teacherId

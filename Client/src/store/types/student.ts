@@ -6,6 +6,28 @@ export interface Student {
   courses?: Course[]
 }
 
+export interface Pagination {
+  currentPage: number
+  totalPages: number
+  totalCount: number
+  limit: number
+  hasNextPage: boolean
+  hasPrevPage: boolean
+  nextPage: number | null
+  prevPage: number | null
+}
+
+export interface PaginatedStudentsResponse {
+  students: Student[]
+  pagination: Pagination
+}
+
+export interface StudentApiResponse {
+  success: boolean
+  message: string
+  data: PaginatedStudentsResponse
+}
+
 export interface Course {
   _id: string
   name: string
@@ -19,12 +41,6 @@ export interface CourseDetails extends Course {
   }[]
 }
 
-export interface PaginatedStudentsResponse {
-  students: Student[]
-  totalPages: number
-  currentPage: number
-  totalCount: number
-}
 
 //todo needs update after endpoints
 

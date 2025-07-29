@@ -20,7 +20,7 @@ export default function DepartmentsPage() {
     limit: 10,
   });
 
-  const totalPages: number = departmentsQuery?.data?.totalPages || 0;
+  const totalPages: number = departmentsQuery?.data?.pagination?.totalPages || 0;
 
   return (
     <div className="w-full mt-4 space-y-4">

@@ -15,3 +15,10 @@ export interface Teacher {
   departmentId: string;
   collegeId: string;
 }
+
+export interface PaginatedTeacherResponse {
+  students: Teacher[]
+  totalPages: number
+  currentPage: number
+  totalCount: number
+}
