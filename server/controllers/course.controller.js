@@ -1,36 +1,53 @@
-import Course from "../models/course.model";
+import Course from "../models/course.model.js";
 import asyncHandler from "express-async-handler";
 import sendResponse from "../utils/response.handler.js";
+import mongoose from "mongoose";
 
 const getCoursesPage = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { page = 1, limit = 40 } = req.query;
-  const { departmentId } = req.params;
+  const {
+    page = 1,
+    limit = 40,
+    universityId,
+    collegeId,
+    departmentId,
+  } = req.query;
+
+  console.log("Query:", req.query);
 
   const pageNum = parseInt(page);
   const limitNum = parseInt(limit);
   const skip = (pageNum - 1) * limitNum;
 
-  const courses = await Course.find({ departmentId })
-    .select("-createdAt -updatedAt")
+  const filter = {
+    departmentId: new mongoose.Types.ObjectId(departmentId),
+    collegeId: new mongoose.Types.ObjectId(collegeId),
+    universityId: new mongoose.Types.ObjectId(universityId),
+  };
+
+  const courses = await Course.find(filter)
+    .select("-createdAt -updatedAt -collegeId -departmentId -universityId")
+    .populate("teachers", "name _id")
     .limit(limitNum)
     .skip(skip)
     .sort({ _id: -1 })
     .lean();
 
-  const totalCourses = await Course.estimatedDocumentCount({ departmentId });
+  const totalCourses = await Course.countDocuments(filter);
   const totalPages = Math.ceil(totalCourses / limitNum);
 
   if (!courses || courses.length === 0) {
-    const errorMessage = lang === "ar" ? "لم يتم العثور على مقررات" : "No courses found";
+    const message =
+      lang === "ar" ? "لم يتم العثور على مقررات" : "No courses found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
-      message: errorMessage,
+      message,
     });
   }
 
-  const successMessage = lang === "ar" ? "تم جلب المقررات بنجاح" : "Courses retrieved successfully";
+  const successMessage =
+    lang === "ar" ? "تم جلب المقررات بنجاح" : "Courses retrieved successfully";
 
   return sendResponse(res, {
     success: true,
@@ -59,7 +76,8 @@ const getCourseById = asyncHandler(async (req, res) => {
     .lean();
 
   if (!course) {
-    const errorMessage = lang === "ar" ? "المقرر غير موجود" : "Course not found";
+    const errorMessage =
+      lang === "ar" ? "المقرر غير موجود" : "Course not found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
@@ -67,7 +85,8 @@ const getCourseById = asyncHandler(async (req, res) => {
     });
   }
 
-  const successMessage = lang === "ar" ? "تم جلب المقرر بنجاح" : "Course retrieved successfully";
+  const successMessage =
+    lang === "ar" ? "تم جلب المقرر بنجاح" : "Course retrieved successfully";
 
   return sendResponse(res, {
     success: true,
@@ -82,7 +101,10 @@ const createCourse = asyncHandler(async (req, res) => {
   const { name, code, departmentId, description } = req.body;
 
   if (!name || !code || !departmentId) {
-    const errorMessage = lang === "ar" ? "الاسم، الرمز، ومعرف القسم مطلوبون" : "Name, code, and department ID are required";
+    const errorMessage =
+      lang === "ar"
+        ? "الاسم، الرمز، ومعرف القسم مطلوبون"
+        : "Name, code, and department ID are required";
     return sendResponse(res, {
       success: false,
       statusCode: 400,
@@ -99,7 +121,8 @@ const createCourse = asyncHandler(async (req, res) => {
 
   await newCourse.save();
 
-  const successMessage = lang === "ar" ? "تم إنشاء المقرر بنجاح" : "Course created successfully";
+  const successMessage =
+    lang === "ar" ? "تم إنشاء المقرر بنجاح" : "Course created successfully";
 
   return sendResponse(res, {
     success: true,
@@ -115,7 +138,8 @@ const updateCourse = asyncHandler(async (req, res) => {
   const { name, code, description } = req.body;
 
   if (!courseId) {
-    const errorMessage = lang === "ar" ? "معرف المقرر مطلوب" : "Course ID is required";
+    const errorMessage =
+      lang === "ar" ? "معرف المقرر مطلوب" : "Course ID is required";
     return sendResponse(res, {
       success: false,
       statusCode: 400,
@@ -130,7 +154,8 @@ const updateCourse = asyncHandler(async (req, res) => {
   );
 
   if (!course) {
-    const errorMessage = lang === "ar" ? "المقرر غير موجود" : "Course not found";
+    const errorMessage =
+      lang === "ar" ? "المقرر غير موجود" : "Course not found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
@@ -138,7 +163,8 @@ const updateCourse = asyncHandler(async (req, res) => {
     });
   }
 
-  const successMessage = lang === "ar" ? "تم تحديث المقرر بنجاح" : "Course updated successfully";
+  const successMessage =
+    lang === "ar" ? "تم تحديث المقرر بنجاح" : "Course updated successfully";
 
   return sendResponse(res, {
     success: true,
@@ -153,7 +179,8 @@ const deleteCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
   if (!courseId) {
-    const errorMessage = lang === "ar" ? "معرف المقرر مطلوب" : "Course ID is required";
+    const errorMessage =
+      lang === "ar" ? "معرف المقرر مطلوب" : "Course ID is required";
     return sendResponse(res, {
       success: false,
       statusCode: 400,
@@ -164,7 +191,8 @@ const deleteCourse = asyncHandler(async (req, res) => {
   const course = await Course.findByIdAndDelete(courseId);
 
   if (!course) {
-    const errorMessage = lang === "ar" ? "المقرر غير موجود" : "Course not found";
+    const errorMessage =
+      lang === "ar" ? "المقرر غير موجود" : "Course not found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
@@ -172,7 +200,8 @@ const deleteCourse = asyncHandler(async (req, res) => {
     });
   }
 
-  const successMessage = lang === "ar" ? "تم حذف المقرر بنجاح" : "Course deleted successfully";
+  const successMessage =
+    lang === "ar" ? "تم حذف المقرر بنجاح" : "Course deleted successfully";
 
   return sendResponse(res, {
     success: true,
