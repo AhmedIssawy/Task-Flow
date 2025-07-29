@@ -50,7 +50,7 @@ const studentSchema = new mongoose.Schema(
       ref: "Department",
       required: true,
     },
-    courses: [
+    courses: [ //Review
       {
         course: {
           type: mongoose.Schema.Types.ObjectId,
@@ -58,7 +58,8 @@ const studentSchema = new mongoose.Schema(
           required: true,
         },
         section: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Section",
           required: true,
         },
       },

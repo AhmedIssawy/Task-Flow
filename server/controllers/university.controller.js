@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Student from "../models/student.model.js";
 import University from "../models/university.model.js";
+import sendResponse from "../utils/response.handler.js";
 
 const createUniversity = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
@@ -19,12 +20,14 @@ const createUniversity = asyncHandler(async (req, res) => {
   // Check for duplicate email
   const existing = await University.findOne({ email });
   if (existing) {
-    let message = "University already exists, please use a different email";
-    if (lang === "ar")
-      message = "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف";
-
-    return res.status(400).json({
-      message,
+    const errorMessage =
+      lang === "ar"
+        ? "الجامعة موجودة بالفعل، يرجى استخدام بريد إلكتروني مختلف"
+        : "University already exists, please use a different email";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
     });
   }
 
@@ -41,12 +44,16 @@ const createUniversity = asyncHandler(async (req, res) => {
     logo,
   });
 
-  let message = "University created successfully";
-  if (lang === "ar") message = "تم إنشاء الجامعة بنجاح";
+  const successMessage =
+    lang === "ar"
+      ? "تم إنشاء الجامعة بنجاح"
+      : "University created successfully";
 
-  return res.status(201).json({
-    message,
-    university,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: successMessage,
+    data: university,
   });
 });
 
@@ -59,15 +66,25 @@ const getUniversityById = asyncHandler(async (req, res) => {
     .lean();
 
   if (!university) {
-    let message = "University not found";
-    if (lang === "ar") message = "الجامعة غير موجودة";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "الجامعة غير موجودة" : "University not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  res.status(200).json(university);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الجامعة بنجاح"
+      : "University retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: university,
+  });
 });
 
 const getUniversitiesPage = asyncHandler(async (req, res) => {
@@ -81,15 +98,25 @@ const getUniversitiesPage = asyncHandler(async (req, res) => {
     .lean();
 
   if (!universities || universities.length === 0) {
-    let message = "No universities found";
-    if (lang === "ar") message = "لم يتم العثور على جامعات";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على جامعات" : "No universities found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  res.status(200).json(universities);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الجامعات بنجاح"
+      : "Universities retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: universities,
+  });
 });
 
 const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
@@ -104,15 +131,25 @@ const getStudentsPageOfUniversity = asyncHandler(async (req, res) => {
     .lean();
 
   if (!students || students.length === 0) {
-    let message = "No students found";
-    if (lang === "ar") message = "لم يتم العثور على طلاب";
-
-    return res.status(404).json({
-      message,
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على طلاب" : "No students found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  res.status(200).json(students);
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على الطلاب بنجاح"
+      : "Students retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: students,
+  });
 });
 
 const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
@@ -132,23 +169,32 @@ const getTeachersPageOfUniversity = asyncHandler(async (req, res) => {
     .lean();
 
   if (!university || !university.teachers || university.teachers.length === 0) {
-    let message = "No teachers found";
-    if (lang === "ar") message = "لم يتم العثور على معلمين";
-
-    return res.status(404).json({
-      message,
-      total: 0,
-      teachers: [],
+    const errorMessage =
+      lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
     });
   }
 
-  res.status(200).json({
-    total: university.teachers.length,
-    teachers: university.teachers,
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على المعلمين بنجاح"
+      : "Teachers retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: {
+      total: university.teachers.length,
+      teachers: university.teachers,
+    },
   });
 });
 
 const updateUniversity = asyncHandler(async (req, res) => {
+  //its patch req not put recap later
   const lang = req.cookies?.lang || "en";
   const {
     id,
@@ -164,10 +210,13 @@ const updateUniversity = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (!id) {
-    let message = "University ID is required";
-    if (lang === "ar") message = "معرف الجامعة مطلوب";
-
-    return res.status(400).json({ message });
+    const errorMessage =
+      lang === "ar" ? "معرف الجامعة مطلوب" : "University ID is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
   }
 
   const updateData = {};
@@ -187,22 +236,27 @@ const updateUniversity = asyncHandler(async (req, res) => {
   });
 
   if (!university) {
-    let message = "University not found";
-    if (lang === "ar") message = "الجامعة غير موجودة";
-
-    return res.status(404).json({ message });
+    const errorMessage =
+      lang === "ar" ? "الجامعة غير موجودة" : "University not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
   }
 
-  let message = "University updated successfully";
-  if (lang === "ar") message = "تم تحديث الجامعة بنجاح";
+  const successMessage =
+    lang === "ar"
+      ? "تم تحديث الجامعة بنجاح"
+      : "University updated successfully";
 
-  res.status(200).json({
-    message,
-    university,
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: university,
   });
 });
-
-
 
 export {
   createUniversity,

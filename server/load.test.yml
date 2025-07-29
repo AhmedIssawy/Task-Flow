@@ -1,0 +1,19 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 10       
+      arrivalRate: 100
+    - duration: 10       
+      arrivalRate: 200
+    - duration: 10        
+      arrivalRate: 400
+    - duration: 10        
+      arrivalRate: 800
+    - duration: 10        
+      arrivalRate: 200
+scenarios:
+  - flow:
+      - get:
+          url: "/auth"
+          headers:
+            Cookie: "__Security_access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODU5N2JhYTZkMmE1NjZiYjZkMjQwYTIiLCJpZCI6IkFETUlOLTE3NTA2OTQ4MjYwNjYiLCJyb2xlIjoic3VwZXItYWRtaW4iLCJpYXQiOjE3NTM2MDk3MzMsImV4cCI6MTc1NjIwMTczM30.iqCHca0L_FePkd_K0V_DVlvzk22Cy2fRaihYAHuLSpQ"
