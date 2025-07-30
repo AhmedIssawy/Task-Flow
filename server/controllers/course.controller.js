@@ -24,7 +24,7 @@ const getCoursesPage = asyncHandler(async (req, res) => {
       message: errorMessage,
     });
   }
-  
+
   const pageNum = parseInt(page);
   const limitNum = parseInt(limit);
   const skip = (pageNum - 1) * limitNum;
