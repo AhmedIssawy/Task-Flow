@@ -82,7 +82,8 @@ const getCourseById = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
   const course = await Course.findOne({ _id: courseId })
-    .select("-createdAt -updatedAt")
+    .select("-createdAt -updatedAt -collegeId -departmentId -universityId")
+    .populate("teachers", "name _id")
     .lean();
 
   if (!course) {
