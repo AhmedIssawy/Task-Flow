@@ -1,3 +1,5 @@
+import { Pagination } from "./common";
+
 export interface Course {
   _id: string
   name: string
@@ -12,16 +14,6 @@ export interface Course {
   students?: string[]
 }
 
-export interface Pagination {
-  currentPage: number
-  totalPages: number
-  totalCourses: number
-  limit: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-  nextPage: number | null
-  prevPage: number | null
-}
 
 export interface PaginatedCoursesResponse {
   courses: Course[]

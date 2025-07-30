@@ -21,7 +21,7 @@ export const studentApi = createApi({
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
       query: ({ page = 1, limit = 40 }) =>
         `/students?page=${page}&limit=${limit}`,
-      transformResponse: (response: StudentApiResponse) => response,
+      transformResponse: (response: StudentApiResponse) => response.data,
       providesTags: ['Student'],
     }),
 

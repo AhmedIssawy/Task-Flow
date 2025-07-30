@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Admin, PaginatedAdmins } from '../types/admin';
+import { Admin, AdminApiResponse, PaginatedAdminsResponse } from '../types/admin';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const adminApi = createApi({
@@ -12,10 +12,12 @@ export const adminApi = createApi({
       providesTags: (result, error, id) => [{ type: 'Admin', id }],
     }),
 
-    getPageOfAdmins: builder.query<PaginatedAdmins, number | void>({
-      query: (page = 1) => `/admin?page=${page}`,
+    getPageOfAdmins: builder.query<PaginatedAdminsResponse, { page?: number; limit?: number }>({
+      query: ({ page = 1, limit = 40 }) => `/admins?page=${page}&limit=${limit}`,
+      transformResponse: (response: AdminApiResponse) => response.data,
       providesTags: ['Admin'],
     }),
+
 
     createAdmin: builder.mutation<Admin, { name: string; password: string }>({
       query: (admin) => ({

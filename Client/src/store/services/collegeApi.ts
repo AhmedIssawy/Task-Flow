@@ -1,17 +1,19 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { College } from '../types/college';
+import { College, CollegeApiResponse, PaginatedCollegesResponse } from '../types/college';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 
 export const collegeApi = createApi({
   reducerPath: 'collegeApi',
   baseQuery: baseQueryWithErrorHandling(),
+  tagTypes: ['College'],
   endpoints: (builder) => ({
     // GET /colleges/universityId?page=1&limit=40
-    getCollegesPage: builder.query<College[], { universityId: string; page?: number; limit?: number }>({
-      query: ({ universityId, page = 1, limit = 40 }) =>
-        `/universities/${universityId}/colleges?page=${page}&limit=${limit}`,
-      
+    getCollegesPage: builder.query<PaginatedCollegesResponse, { page?: number; limit?: number }>({
+      query: ({ page = 1, limit = 40 }) =>
+      `/colleges?page=${page}&limit=${limit}`,
+      transformResponse: (response: CollegeApiResponse) => response.data,
+      providesTags: ['College'],
     }),
 
     // GET /colleges/universityId/collegeId

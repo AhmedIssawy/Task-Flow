@@ -25,7 +25,9 @@ export function PaginatedTable<T>({
 }: PaginatedTableProps<T>) {
 
   const { data, isLoading, error, refetch } = queryResult;
-  const rows: T[] = Array.isArray(data) ? data?.data : data?.data?.[dataKey] || [];
+  console.log("this is the table data" + data);
+  
+  const rows: T[] = Array.isArray(data) ? data : data?.[dataKey] || [];
   console.log(data, rows, dataKey);
 
 
