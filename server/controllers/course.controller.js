@@ -13,7 +13,17 @@ const getCoursesPage = asyncHandler(async (req, res) => {
     departmentId,
   } = req.query;
 
-  console.log("Query:", req.query);
+  if (!universityId || !collegeId || !departmentId) {
+    const errorMessage =
+      lang === "ar"
+        ? "معرف الجامعة، الكلية، والقسم مطلوبون"
+        : "University ID, college ID, and department ID are required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
+  }
 
   const pageNum = parseInt(page);
   const limitNum = parseInt(limit);
@@ -72,7 +82,8 @@ const getCourseById = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
   const course = await Course.findOne({ _id: courseId })
-    .select("-createdAt -updatedAt")
+    .select("-createdAt -updatedAt -collegeId -departmentId -universityId")
+    .populate("teachers", "name _id")
     .lean();
 
   if (!course) {
@@ -98,9 +109,10 @@ const getCourseById = asyncHandler(async (req, res) => {
 
 const createCourse = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { name, code, departmentId, description } = req.body;
+  const { name, code, departmentId, description, universityId, collegeId } =
+    req.body;
 
-  if (!name || !code || !departmentId) {
+  if (!name || !code || !departmentId || !universityId || !collegeId) {
     const errorMessage =
       lang === "ar"
         ? "الاسم، الرمز، ومعرف القسم مطلوبون"
@@ -116,6 +128,8 @@ const createCourse = asyncHandler(async (req, res) => {
     name,
     code,
     departmentId,
+    universityId,
+    collegeId,
     description,
   });
 

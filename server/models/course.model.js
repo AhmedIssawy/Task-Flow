@@ -37,6 +37,21 @@ const courseSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    collegeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "College",
+      required: true,
+    },
+    departmentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
+    universityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "University",
+      required: true,
+    },
   },
   {
     timestamps: true,

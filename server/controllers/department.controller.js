@@ -91,12 +91,21 @@ const getDepartmentsPage = asyncHandler(async (req, res) => {
     });
   }
 
-  const departments = await Department.find({ collegeId })
+  const pageNum = parseInt(page);
+  const limitNum = parseInt(limit);
+  const skip = (pageNum - 1) * limitNum;
+
+  const filter = { collegeId: new mongoose.Types.ObjectId(collegeId) };
+
+  const departments = await Department.find(filter)
     .select("-createdAt -updatedAt")
-    .limit(limit)
-    .skip((page - 1) * limit)
+    .limit(limitNum)
+    .skip(skip)
     .sort({ _id: -1 })
     .lean();
+
+  const totalDepartments = await Department.countDocuments(filter);
+  const totalPages = Math.ceil(totalDepartments / limitNum);
 
   if (!departments || departments.length === 0) {
     const errorMessage =
@@ -112,11 +121,24 @@ const getDepartmentsPage = asyncHandler(async (req, res) => {
     lang === "ar"
       ? "تم العثور على الأقسام بنجاح"
       : "Departments retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
     message: successMessage,
-    data: departments,
+    data: {
+      departments,
+      pagination: {
+        currentPage: pageNum,
+        totalPages,
+        totalDepartments,
+        limit: limitNum,
+        hasNextPage: pageNum < totalPages,
+        hasPrevPage: pageNum > 1,
+        nextPage: pageNum < totalPages ? pageNum + 1 : null,
+        prevPage: pageNum > 1 ? pageNum - 1 : null,
+      },
+    },
   });
 });
 
