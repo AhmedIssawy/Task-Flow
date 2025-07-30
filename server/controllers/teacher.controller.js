@@ -6,36 +6,55 @@ import sendResponse from "../utils/response.handler.js";
 
 const getPageOfTeachers = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
-  const { page = 1, limit = 40 } = req.query;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 40;
+
+  const totalCount = await Teacher.estimatedDocumentCount();
+  const totalPages = Math.ceil(totalCount / limit);
+  const skip = (page - 1) * limit;
 
   const teachers = await Teacher.find()
     .select("-password")
     .populate("courses")
-    .skip((page - 1) * limit)
+    .skip(skip)
     .limit(limit)
     .lean();
 
   if (!teachers || teachers.length === 0) {
-    const errorMessage =
-      lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
+    const message = lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
-      message: errorMessage,
-    });
+      message,
+    }); 
   }
 
-  const successMessage =
-    lang === "ar"
-      ? "تم العثور على المعلمين بنجاح"
-      : "Teachers retrieved successfully";
+  const pagination = {
+    currentPage: page,
+    totalPages,
+    totalCount,
+    limit,
+    hasNextPage: page < totalPages,
+    hasPrevPage: page > 1,
+    nextPage: page < totalPages ? page + 1 : null,
+    prevPage: page > 1 ? page - 1 : null,
+  };
+
+  const message = lang === "ar"
+    ? "تم العثور على المعلمين بنجاح"
+    : "Teachers retrieved successfully";
+
   return sendResponse(res, {
     success: true,
     statusCode: 200,
-    message: successMessage,
-    data: { teachers, total: teachers.length },
+    message,
+    data: {
+      teachers,
+      pagination,
+    },
   });
 });
+
 
 const getTeacherById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";

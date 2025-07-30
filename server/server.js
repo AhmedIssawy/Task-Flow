@@ -14,6 +14,7 @@ import teacherRoutes from "./routes/teacher.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import departmentsRoutes from "./routes/department.routes.js";
 import collegesRoutes from "./routes/college.routes.js";
+import courseRoutes from "./routes/course.routes.js";
 
 // Middlewares
 import detectLanguage from "./middlewares/user preferences/language.preference.js";
@@ -33,12 +34,14 @@ app.use(
 );
 app.use(detectLanguage());
 
+
 connectDB();
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/universities", universityRoutes);
 app.use("/api/teachers", teacherRoutes);
+app.use("/api/courses", courseRoutes)
 app.use("/api", collegesRoutes);
 app.use("/api", departmentsRoutes);
 app.use("/auth", authRoutes);

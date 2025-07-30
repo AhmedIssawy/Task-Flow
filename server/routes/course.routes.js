@@ -13,5 +13,7 @@ const router = Router();
 
 router
   .route("/")
-  .get(getCoursesPage)
+  .get(authenticate, getCoursesPage)
   .post(authenticate, authorize(["admin", "super-admin"]), createCourse);
+
+export default router;
