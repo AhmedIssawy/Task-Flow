@@ -54,12 +54,27 @@ const createSection = AsyncHandler(async (req, res) => {
 const getPageOfSections = AsyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { universityId, collegeId, departmentId } = req.params;
+  const { page = 1, limit = 40, course } = req.query;
 
-  const sections = await Section.find({
-    universityId,
-    collegeId,
-    departmentId,
-  }).lean();
+  const pageNumber = parseInt(page, 10);
+  const limitNumber = parseInt(limit, 10);
+
+  // Build dynamic query
+  const query = {};
+  if (universityId) query.universityId = universityId;
+  if (collegeId) query.collegeId = collegeId;
+  if (departmentId) query.departmentId = departmentId;
+  if (course) query.course = course;
+
+  const totalCount = await Section.countDocuments(query);
+  const totalPages = Math.ceil(totalCount / limitNumber);
+  const hasNextPage = pageNumber < totalPages;
+  const hasPrevPage = pageNumber > 1;  
+
+  const sections = await Section.find(query)
+    .skip((pageNumber - 1) * limitNumber)
+    .limit(limitNumber)
+    .lean();
 
   if (!sections || sections.length === 0) {
     const errorMessage =
@@ -80,9 +95,22 @@ const getPageOfSections = AsyncHandler(async (req, res) => {
     success: true,
     statusCode: 200,
     message: successMessage,
-    data: sections,
+    data: {
+      sections,
+      pagination: {
+        currentPage: pageNumber,
+        totalPages,
+        totalCount,
+        limit: limitNumber,
+        hasNextPage,
+        hasPrevPage,
+        nextPage: hasNextPage ? pageNumber + 1 : null,
+        prevPage: hasPrevPage ? pageNumber - 1 : null,
+      },
+    },
   });
 });
+
 
 const getSectionById = AsyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
