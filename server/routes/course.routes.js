@@ -16,4 +16,6 @@ router
   .get(authenticate, getCoursesPage)
   .post(authenticate, authorize(["admin", "super-admin"]), createCourse);
 
+router.route("/:courseId").get(authenticate, getCourseById);
+
 export default router;
