@@ -3,6 +3,8 @@
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '../ui/button'
 import { Course } from '@/store/types/courses'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 
 interface CourseCardProps {
   course: Course
@@ -11,8 +13,11 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course, onEdit, onDelete }: CourseCardProps) {
+  const pathname = usePathname();
   return (
+    
     <Card className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out">
+      <Link href={`${pathname}/${course._id}`} className="block">
       <CardHeader>
         <CardTitle>{course.name}</CardTitle>
       </CardHeader>
@@ -25,6 +30,7 @@ export default function CourseCard({ course, onEdit, onDelete }: CourseCardProps
         <Button size="sm" variant="outline" onClick={onEdit}>Edit</Button>
         <Button size="sm" variant="destructive" onClick={onDelete}>Delete</Button>
       </CardFooter>
+      </Link>
     </Card>
   )
 }
