@@ -8,6 +8,7 @@ import { collegeApi } from '@/store/services/collegeApi'
 import { departmentApi } from '@/store/services/departmentApi'
 import { teacherApi } from '@/store/services/teacherApi'
 import { courseApi } from '@/store/services/courseApi'
+import { sectionApi} from '@/store/services/sectionApi'
 import authReducer from '@/store/slices/authSlice'
 import userReducer from '@/store/slices/userSlice'
 
@@ -40,6 +41,7 @@ export const store = configureStore({
     [departmentApi.reducerPath]: departmentApi.reducer,
     [teacherApi.reducerPath]: teacherApi.reducer,
     [courseApi.reducerPath]: courseApi.reducer,
+    [sectionApi.reducerPath]: sectionApi.reducer,
     auth: persistedAuthReducer,
     user: persistedUserReducer,
   },
@@ -55,7 +57,8 @@ export const store = configureStore({
       .concat(collegeApi.middleware)
       .concat(departmentApi.middleware)
       .concat(teacherApi.middleware)
-      .concat(courseApi.middleware),
+      .concat(courseApi.middleware)
+      .concat(sectionApi.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 })
 

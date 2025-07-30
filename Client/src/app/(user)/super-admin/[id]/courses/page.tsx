@@ -95,6 +95,9 @@ export default function CoursesPage() {
               setModalOpen(true);
             }}
             onDelete={() => handleDelete(course._id)}
+            universityId={universityId}
+            collegeId={collegeId}
+            departmentId={departmentId}
           />
         ))}
       </div>
