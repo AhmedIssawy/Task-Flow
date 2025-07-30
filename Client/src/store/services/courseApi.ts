@@ -8,9 +8,9 @@ export const courseApi = createApi({
   tagTypes: ['Course'],
   endpoints: (builder) => ({
     
-    getCoursesPage: builder.query<PaginatedCoursesResponse, { departmentId: string; page?: number; limit?: number }>({
-      query: ({departmentId, page = 1, limit = 40 }) =>
-        `/courses?departmentId=${departmentId}page=${page}&limit=${limit}`,
+    getCoursesPage: builder.query<PaginatedCoursesResponse, { departmentId: string; collegeId: string; universityId:string; page?: number; limit?: number }>({
+      query: ({departmentId, collegeId, universityId, page = 1, limit = 40 }) =>
+        `/courses?departmentId=${departmentId}&collegeId=${collegeId}&universityId=${universityId}&page=${page}&limit=${limit}`,
       transformResponse: (res: ApiResponse<PaginatedCoursesResponse>) => res.data,
       providesTags: ['Course'],
     }),

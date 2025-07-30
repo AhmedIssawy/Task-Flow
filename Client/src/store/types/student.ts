@@ -1,4 +1,5 @@
 import { Pagination } from "./common";
+import { Course } from "./courses";
 
 export interface Student {
   _id: string
@@ -20,18 +21,14 @@ export interface StudentApiResponse {
   data: PaginatedStudentsResponse
 }
 
-export interface Course {
-  _id: string
-  name: string
-}
 
-export interface CourseDetails extends Course {
-  teachers: {
-    _id: string
-    name: string
-    email: string
-  }[]
-}
+// export interface CourseDetails extends Course {
+//   teachers: {
+//     _id: string
+//     name: string
+//     email: string
+//   }[]
+// }
 
 
 //todo needs update after endpoints

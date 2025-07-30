@@ -1,51 +1,73 @@
-'use client'
+'use client';
 
-import { useGetCoursesPageQuery, useCreateCourseMutation, useUpdateCourseMutation, useDeleteCourseMutation } from '@/store/services/courseApi'
-import { useState } from 'react'
-import CourseCard from '@/components/user/CourseCard'
-import CourseFormModal from '@/components/user/CourseFormModal'
-import { Button } from '@/components/ui/button'
-import { Loader2 } from 'lucide-react'
-import { toast } from 'sonner'
+import {
+  useGetCoursesPageQuery,
+  useCreateCourseMutation,
+  useUpdateCourseMutation,
+  useDeleteCourseMutation,
+} from '@/store/services/courseApi';
+import { useState } from 'react';
+import CourseCard from '@/components/user/CourseCard';
+import CourseFormModal from '@/components/user/CourseFormModal';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { Course } from '@/store/types/courses';
 
 export default function CoursesPage() {
-  const departmentId = "685bd15728a896bea985cf47"
-  const [page, setPage] = useState(1)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [editingCourse, setEditingCourse] = useState(null)
+  const departmentId = '685bd15728a896bea985cf47';
+  const collegeId = '685b113ccce35d1be7fb42d6';
+  const universityId = '685b0635a4b32e07ca4e97e6';
+  const [page, setPage] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
-  const { data, isLoading } = useGetCoursesPageQuery({ departmentId, page })
-  const [createCourse] = useCreateCourseMutation()
-  const [updateCourse] = useUpdateCourseMutation()
-  const [deleteCourse] = useDeleteCourseMutation()
+  const { data, isLoading } = useGetCoursesPageQuery({
+    departmentId,
+    collegeId,
+    universityId,
+    page,
+    limit: 5,
+  });
+  const [createCourse] = useCreateCourseMutation();
+  const [updateCourse] = useUpdateCourseMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
 
-  const handleCreateOrEdit = async (course: any) => {
+  const handleCreateOrEdit = async (course: Partial<Course>) => {
     try {
       if (editingCourse) {
-        await updateCourse({ courseId: editingCourse._id, updates: course }).unwrap()
-        toast.success('Course updated successfully')
-    } else {
-        await createCourse({ ...course, departmentId }).unwrap()
-        toast.success('Course created successfully')
+        await updateCourse({
+          courseId: editingCourse._id,
+          updates: course,
+        }).unwrap();
+        toast.success('Course updated successfully');
+      } else {
+        await createCourse({ ...course, departmentId }).unwrap();
+        toast.success('Course created successfully');
       }
     } catch {
-      toast.error('An error occurred while submitting the course')
+      toast.error('An error occurred while submitting the course');
     } finally {
-      setModalOpen(false)
-      setEditingCourse(null)
+      setModalOpen(false);
+      setEditingCourse(null);
     }
-  }
+  };
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteCourse(id).unwrap()
-      toast.success('Course deleted successfully')
+      await deleteCourse(id).unwrap();
+      toast.success('Course deleted successfully');
     } catch {
-      toast.error('An error occurred while deleting the course')
+      toast.error('An error occurred while deleting the course');
     }
-  }
+  };
 
-  if (isLoading) return <div className="p-8"><Loader2 className="animate-spin" /></div>
+  if (isLoading)
+    return (
+      <div className="p-8">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
 
   return (
     <div className="p-6 space-y-6">
@@ -60,8 +82,8 @@ export default function CoursesPage() {
             key={course._id}
             course={course}
             onEdit={() => {
-              setEditingCourse(course)
-              setModalOpen(true)
+              setEditingCourse(course);
+              setModalOpen(true);
             }}
             onDelete={() => handleDelete(course._id)}
           />
@@ -88,13 +110,13 @@ export default function CoursesPage() {
       <CourseFormModal
         open={modalOpen}
         onClose={() => {
-          setModalOpen(false)
-          setEditingCourse(null)
+          setModalOpen(false);
+          setEditingCourse(null);
         }}
         onSubmit={handleCreateOrEdit}
         initialData={editingCourse || {}}
         isEditing={!!editingCourse}
       />
     </div>
-  )
+  );
 }
