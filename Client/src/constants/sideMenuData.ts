@@ -24,8 +24,9 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { labelKey: 'sidebar.assignments', href: `/student/${id}/assignment`, icon: ClipboardList, badge: '5' },
     { labelKey: 'sidebar.grades', href: `/student/${id}/grades`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.calendar', href: `/student/${id}/calendar`, icon: Calendar, badge: '' },
-    { labelKey: 'sidebar.settings', href: `/student/${id}/settings`, icon: Settings, badge: '' },
     { labelKey: 'sidebar.sections', href: `/student/${id}/sections`, icon: ClipboardList, badge: '' },
+    { labelKey: 'sidebar.settings', href: `/student/${id}/settings`, icon: Settings, badge: '' },
+    
   ],
 
   teacher: (id: string) => [

@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface UserAvatarContentProps {
-     name: string | null;
-     onClick?: ()=> void;
+  name: string | null;
+  onClick?: () => void;
 }
 
 export default function UserAvatar({ name, onClick }: UserAvatarContentProps) {
