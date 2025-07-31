@@ -16,8 +16,9 @@ export default function TeacherDashboard() {
   const { data, isLoading, error } = useGetTeacherByIdQuery(id as string);
 
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
-  const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
+  const studentsQueryResult = useGetStudentsPageQuery({ page, limit });
   const totalPages: number = studentsQueryResult?.data?.pagination?.totalPages || 1;
 
   if (isLoading) {
@@ -98,6 +99,10 @@ export default function TeacherDashboard() {
           page={page}
           totalPages={totalPages}
           setPage={setPage}
+          limit={limit}
+          setLimit={setLimit}
+          showLimitControls={true}
+          showMoreLessControls={true}
         />
       </div>
 
