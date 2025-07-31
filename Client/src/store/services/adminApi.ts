@@ -13,7 +13,7 @@ export const adminApi = createApi({
     }),
 
     getPageOfAdmins: builder.query<PaginatedAdminsResponse, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 40 }) => `/admins?page=${page}&limit=${limit}`,
+      query: ({ page = 1, limit = 40 }) => `/admin?page=${page}&limit=${limit}`,
       transformResponse: (response: AdminApiResponse) => response.data,
       providesTags: ['Admin'],
     }),

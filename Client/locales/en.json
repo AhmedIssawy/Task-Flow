@@ -438,7 +438,8 @@
     "colleges": "Colleges",
     "departments": "Departments",
     "university": "University",
-    "admins": "Admins"
+    "admins": "Admins",
+    "sections": "Sections"
   },
   "settings": {
     "title": "Settings",

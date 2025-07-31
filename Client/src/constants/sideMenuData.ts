@@ -25,13 +25,14 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { labelKey: 'sidebar.grades', href: `/student/${id}/grades`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.calendar', href: `/student/${id}/calendar`, icon: Calendar, badge: '' },
     { labelKey: 'sidebar.settings', href: `/student/${id}/settings`, icon: Settings, badge: '' },
+    { labelKey: 'sidebar.sections', href: `/student/${id}/sections`, icon: ClipboardList, badge: '' },
   ],
 
   teacher: (id: string) => [
     { labelKey: 'sidebar.dashboard', href: `/teacher/${id}`, icon: Home, badge: '' },
     { labelKey: 'sidebar.courses', href: `/teacher/${id}/courses`, icon: Book, badge: '3' },
     { labelKey: 'sidebar.assignments', href: `/teacher/${id}/assignments`, icon: ClipboardList, badge: '5' },
-    { labelKey: 'sidebar.students', href: `/teacher/${id}/students`, icon: BarChart3, badge: 'New' },
+    { labelKey: 'sidebar.sections', href: `/teacher/${id}/sections`, icon: ClipboardList, badge: '' },
     { labelKey: 'sidebar.settings', href: `/teacher/${id}/settings`, icon: Settings, badge: '' },
   ],
 
@@ -46,7 +47,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
   
   superadmin: (id: string) => [
     { labelKey: 'sidebar.dashboard', href: `/super-admin/${id}`, icon: Home, badge: '' },
-    { labelKey: 'sidebar.university', href: `/super-admin/${id}/universities`, icon: Book, badge: '3' },
+    { labelKey: 'sidebar.university', href: `/super-admin/${id}/university`, icon: Book, badge: '3' },
     { labelKey: 'sidebar.colleges', href: `/super-admin/${id}/colleges`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.departments', href: `/super-admin/${id}/departments`, icon: BarChart3, badge: 'New' },
     { labelKey: 'sidebar.courses', href: `/super-admin/${id}/courses`, icon: ClipboardList, badge: '5' },
