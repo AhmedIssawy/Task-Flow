@@ -11,7 +11,6 @@ const Testimonials = () => {
             name: t('testimonials.sarah.name'),
             role: t('testimonials.sarah.role'),
             company: t('testimonials.sarah.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.sarah.content'),
             highlight: t('testimonials.sarah.highlight')
@@ -20,7 +19,6 @@ const Testimonials = () => {
             name: t('testimonials.michael.name'),
             role: t('testimonials.michael.role'),
             company: t('testimonials.michael.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.michael.content'),
             highlight: t('testimonials.michael.highlight')
@@ -29,7 +27,6 @@ const Testimonials = () => {
             name: t('testimonials.emily.name'),
             role: t('testimonials.emily.role'),
             company: t('testimonials.emily.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.emily.content'),
             highlight: t('testimonials.emily.highlight')
@@ -38,7 +35,6 @@ const Testimonials = () => {
             name: t('testimonials.david.name'),
             role: t('testimonials.david.role'),
             company: t('testimonials.david.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.david.content'),
             highlight: t('testimonials.david.highlight')
@@ -47,7 +43,6 @@ const Testimonials = () => {
             name: t('testimonials.lisa.name'),
             role: t('testimonials.lisa.role'),
             company: t('testimonials.lisa.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.lisa.content'),
             highlight: t('testimonials.lisa.highlight')
@@ -56,7 +51,6 @@ const Testimonials = () => {
             name: t('testimonials.alex.name'),
             role: t('testimonials.alex.role'),
             company: t('testimonials.alex.company'),
-            avatar: "/api/placeholder/80/80",
             rating: 5,
             content: t('testimonials.alex.content'),
             highlight: t('testimonials.alex.highlight')

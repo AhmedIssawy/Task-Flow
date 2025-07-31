@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export default function StudentAssignmentsPage() {
-  const { data, isLoading, error } = useGetStudentAssignmentsQuery("68272391943893d5e5a21e9a")//todo replace with dynamic student ID
+  const { data, isLoading, error } = useGetStudentAssignmentsQuery("68233b9dde86d8476c2b7ff3")//todo replace with dynamic student ID
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-background via-background to-accent/20 overflow-hidden">
