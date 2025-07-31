@@ -1,6 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import type { Student, PaginatedStudentsResponse, Course, CourseDetails, Grade, Assignment, Calendar as calendar } from '../types/student'
+import type { Student, PaginatedStudentsResponse, Grade, Assignment, Calendar as calendar, StudentApiResponse } from '../types/student'
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
+import { Course } from '../types/courses';
 
 export const studentApi = createApi({
   reducerPath: 'studentApi',
@@ -19,8 +20,9 @@ export const studentApi = createApi({
 
     // Get All (paginated)
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 40 }) =>
+      query: ({ page = 1, limit = 20 }) =>
         `/students?page=${page}&limit=${limit}`,
+      transformResponse: (response: StudentApiResponse) => response.data,
       providesTags: ['Student'],
     }),
 
@@ -33,7 +35,7 @@ export const studentApi = createApi({
 
     // Get University Students (all)
     getAllStudentsOfUniversity: builder.query<Student[], string>({
-      query: (universityId) => `/students/university/${universityId}/all`,
+      query: (universityId) => `/students/university/${universityId}`,
       providesTags: ['Student'],
     }),
 
@@ -68,7 +70,7 @@ export const studentApi = createApi({
     }),
 
     // Get specific course with teachers populated
-    getStudentCourseById: builder.query<{ course: CourseDetails }, { id: string; courseId: string }>({
+    getStudentCourseById: builder.query<{ course: Partial<Course> }, { id: string; courseId: string }>({
       query: ({ id, courseId }) => `/students/${id}/courses/${courseId}`,
     }),
 

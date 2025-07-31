@@ -1,3 +1,6 @@
+import { Course } from './courses';
+import { Pagination } from './common';
+
 export interface Teacher {
   _id: string;
   id: string;
@@ -5,13 +8,21 @@ export interface Teacher {
   email: string;
   phone: string;
   address: string;
-  role: 'teacher';
-  courses: {
-    _id: string;
-    name: string;
-    [key: string]: unknown;
-  }[];
+  role: 'doctor' | 'assistant' | string;
+  createdAt: string;
+  updatedAt: string;
   universityId: string;
-  departmentId: string;
-  collegeId: string;
+  collegeId?: string;
+  departmentId?: string;
+  courses: Course[];
+}
+export interface PaginatedTeachersResponse {
+  teachers: Teacher[];
+  pagination: Pagination;
+}
+
+export interface TeachersApiResponse {
+  success: boolean
+  message: string
+  data: PaginatedTeachersResponse
 }

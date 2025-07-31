@@ -28,11 +28,11 @@ export default function LoginForm() {
     e.preventDefault();
     setErrorMessage('');
     try {
-      const { role, data } = await login({ id: userId, password }).unwrap();
+      const { data } = await login({ id: userId, password }).unwrap();
       console.log("login data", data);
+      const role = data.role;
 
-
-      const redirectPath = getPathByRole(role, data.id);
+      const redirectPath = getPathByRole(role, data?.user?.id);
       const normalizedRole = normalizeRole(role);
 
       if (!normalizedRole) {

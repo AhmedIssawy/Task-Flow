@@ -1,54 +1,122 @@
-// 'use client'
+'use client';
 
+import {
+  useGetCoursesPageQuery,
+  useCreateCourseMutation,
+  useUpdateCourseMutation,
+  useDeleteCourseMutation,
+} from '@/store/services/courseApi';
+import { useState } from 'react';
+import CourseCard from '@/components/user/CourseCard';
+import CourseFormModal from '@/components/user/CourseFormModal';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { Course } from '@/store/types/courses';
 
-// import { useGetStudentsPageQuery } from "@/store/services/studentApi";
-// import { useState } from "react";
+export default function CoursesPage() {
+  const departmentId = '685bd15728a896bea985cf47';
+  const collegeId = '685b113ccce35d1be7fb42d6';
+  const universityId = '685b0635a4b32e07ca4e97e6';
+  const [page, setPage] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
-// const CoursesPage = () => {
-//   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-//   const [assignModalOpen, setAssignModalOpen] = useState(false);
+  const { data, isLoading } = useGetCoursesPageQuery({
+    departmentId,
+    collegeId,
+    universityId,
+    page,
+    limit: 5,
+  });
+  const [createCourse] = useCreateCourseMutation();
+  const [updateCourse] = useUpdateCourseMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
 
-//   const { data: allStudents, isLoading } = useGetStudentsPageQuery();
+  const handleCreateOrEdit = async (course: Partial<Course>) => {
+    try {
+      if (editingCourse) {
+        await updateCourse({
+          courseId: editingCourse._id,
+          updates: course,
+        }).unwrap();
+        toast.success('Course updated successfully');
+      } else {
+        await createCourse({ ...course, departmentId }).unwrap();
+        toast.success('Course created successfully');
+      }
+    } catch {
+      toast.error('An error occurred while submitting the course');
+    } finally {
+      setModalOpen(false);
+      setEditingCourse(null);
+    }
+  };
 
-//   const studentsList =
-//     allStudents?.map((s) => ({
-//       id: s._id,
-//       label: `${s.name} (${s.email})`,
-//     })) || [];
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteCourse(id).unwrap();
+      toast.success('Course deleted successfully');
+    } catch {
+      toast.error('An error occurred while deleting the course');
+    }
+  };
 
-//   const handleAssign = (studentIds: string[]) => {
-//     if (!selectedCourse) return;
-//     useGetStudentsPageQuery(); // your mutation
-//   };
+  if (isLoading)
+    return (
+      <div className="p-8">
+        <Loader2 className="animate-spin" />
+      </div>
+    );
 
-//   return (
-//     <>
-//       <PaginatedTable<Course>
-//         queryHook={useGetCoursesPageQuery}
-//         dataKey="courses"
-//         ...
-//         enableActions
-//         extraActions={(course) => (
-//           <Button
-//             onClick={() => {
-//               setSelectedCourse(course);
-//               setAssignModalOpen(true);
-//             }}
-//           >
-//             Assign Students
-//           </Button>
-//         )}
-//       />
+  return (
+    <div className="p-6 space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-semibold">Courses</h2>
+        <Button onClick={() => setModalOpen(true)}>+ Add Course</Button>
+      </div>
 
-//       <AssignModal
-//         isOpen={assignModalOpen}
-//         onClose={() => setAssignModalOpen(false)}
-//         title="Assign Students"
-//         description={`Assign students to ${selectedCourse?.name}`}
-//         items={studentsList}
-//         defaultSelectedIds={selectedCourse?.studentIds ?? []}
-//         onSubmit={handleAssign}
-//       />
-//     </>
-//   );
-// };
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data?.courses.map((course) => (
+          <CourseCard
+            key={course._id}
+            course={course}
+            onEdit={() => {
+              setEditingCourse(course);
+              setModalOpen(true);
+            }}
+            onDelete={() => handleDelete(course._id)}
+          />
+        ))}
+      </div>
+
+      <div className="flex justify-between mt-4">
+        <Button
+          variant="outline"
+          disabled={!data?.pagination.hasPrevPage}
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          disabled={!data?.pagination.hasNextPage}
+          onClick={() => setPage((p) => p + 1)}
+        >
+          Next
+        </Button>
+      </div>
+
+      <CourseFormModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setEditingCourse(null);
+        }}
+        onSubmit={handleCreateOrEdit}
+        initialData={editingCourse || {}}
+        isEditing={!!editingCourse}
+      />
+    </div>
+  );
+}

@@ -16,9 +16,9 @@ export default function TeacherDashboard() {
   const { data, isLoading, error } = useGetTeacherByIdQuery(id as string);
 
   const [page, setPage] = useState(1);
-  
+
   const studentsQueryResult = useGetStudentsPageQuery({ page, limit: 10 });
-  const totalPages: number = studentsQueryResult?.data?.totalPages || 1;
+  const totalPages: number = studentsQueryResult?.data?.pagination?.totalPages || 1;
 
   if (isLoading) {
     return (
@@ -36,7 +36,7 @@ export default function TeacherDashboard() {
     );
   }
 
-  const { name, email, role, courses, departmentId, collegeId } = data;
+  const { name, email, role, courses = [], departmentId, collegeId } = data;
 
   return (
     <div className="flex-1 p-6">
@@ -60,11 +60,11 @@ export default function TeacherDashboard() {
       </Card>
 
       <h2 className="text-xl font-semibold mb-3">Courses You Teach</h2>
-      {courses?.length === 0 ? (
+      {!courses || courses.length === 0 ? (
         <div className="text-muted-foreground">No assigned courses yet.</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {courses.map((course) => (
+          {courses?.map((course) => (
             <Card
               key={course._id}
               className="hover:shadow-md transition-shadow"
@@ -98,7 +98,7 @@ export default function TeacherDashboard() {
           page={page}
           totalPages={totalPages}
           setPage={setPage}
-          />
+        />
       </div>
 
     </div>

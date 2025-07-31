@@ -1,3 +1,6 @@
+import { Pagination } from "./common";
+import { Course } from "./courses";
+
 export interface Student {
   _id: string
   name: string
@@ -6,25 +9,27 @@ export interface Student {
   courses?: Course[]
 }
 
-export interface Course {
-  _id: string
-  name: string
-}
-
-export interface CourseDetails extends Course {
-  teachers: {
-    _id: string
-    name: string
-    email: string
-  }[]
-}
 
 export interface PaginatedStudentsResponse {
   students: Student[]
-  totalPages: number
-  currentPage: number
-  totalCount: number
+  pagination: Pagination
 }
+
+export interface StudentApiResponse {
+  success: boolean
+  message: string
+  data: PaginatedStudentsResponse
+}
+
+
+// export interface CourseDetails extends Course {
+//   teachers: {
+//     _id: string
+//     name: string
+//     email: string
+//   }[]
+// }
+
 
 //todo needs update after endpoints
 

@@ -1,15 +1,21 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Department } from '../types/department';
+import { Department, PaginatedDepartmentsResponse } from '../types/department';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const departmentApi = createApi({
   reducerPath: 'departmentApi',
   baseQuery: baseQueryWithErrorHandling(),
+  tagTypes: ['Department'],
   endpoints: (builder) => ({
     // GET /departments/:collegeId?page=1&limit=40
-    getDepartmentsPage: builder.query<Department[], {universityId: string, collegeId: string; page?: number; limit?: number }>({
-      query: ({ universityId, collegeId, page = 1, limit = 20 }) =>
-    `/universities/${universityId}/colleges/${collegeId}/departments?page=${page}&limit=${limit}`,
+    getDepartmentsPage: builder.query<
+      PaginatedDepartmentsResponse,
+      { universityId: string; collegeId: string; page?: number; limit?: number }
+    >({
+      query: ({ universityId, collegeId, page = 1, limit = 40 }) =>
+        `/universities/${universityId}/colleges/${collegeId}/departments?page=${page}&limit=${limit}`,
+      // transformResponse: (response: DepartmentApiResponse) => response.data,
+      providesTags: ['Department'],
     }),
 
     // GET /departments/:id
@@ -34,7 +40,10 @@ export const departmentApi = createApi({
     }),
 
     // PATCH /departments
-    updateDepartment: builder.mutation<Department, Partial<Department> & { id: string }>({
+    updateDepartment: builder.mutation<
+      Department,
+      Partial<Department> & { id: string }
+    >({
       query: ({ id, ...rest }) => ({
         url: `/departments`,
         method: 'PATCH',

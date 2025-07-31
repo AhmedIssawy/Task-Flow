@@ -17,17 +17,12 @@ import { useState } from 'react';
 import PaginationControls from '@/components/tables/PaginatedControls';
 import { Button } from '@/components/ui/button';
 import CustomSelect from '@/components/dashboard/CustomSelect';
-import { set } from 'date-fns';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const studentsQueryResult = useGetStudentsPageQuery({ page, limit });
-  const totalPages: number = studentsQueryResult?.data?.totalPages || 0;
-
-  const toggleLimit = () => {
-    setLimit((prev) => (prev === 5 ? 10 : 5));
-  };
+  const totalPages: number = studentsQueryResult?.data?.pagination?.totalPages || 0;
 
   return (
     <>

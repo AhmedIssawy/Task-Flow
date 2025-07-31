@@ -18,8 +18,9 @@ import { useGetTeachersPageQuery } from '@/store/services/teacherApi';
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const teachersQueryResult = useGetTeachersPageQuery( page );
-  const totalPages: number = teachersQueryResult?.data?.totalPages || 0;
+  const [limit, setLimit] = useState(5);
+  const teachersQueryResult = useGetTeachersPageQuery( {page, limit} );
+  const totalPages: number = teachersQueryResult?.data?.pagination?.totalPages || 0;
 
   return (
     <>
