@@ -6,10 +6,11 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { NavItem } from '@/constants/sideMenuData';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, XIcon } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslations } from 'next-intl';
+import { useHotkeyContext } from '@/providers/HotkeyProvider';
 
 interface SideNavContentProps {
   navItems: NavItem[];
@@ -20,6 +21,7 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
   const pathname = usePathname();
   const { isRTL } = useLanguage();
   const t = useTranslations();
+  const { currentSidebarIndex } = useHotkeyContext();
   
   return (
     <div className={cn(
@@ -29,8 +31,9 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
       {/* Navigation */}
       <ScrollArea className="flex-1 px-4 py-8">
         <nav className="space-y-3">
-          {navItems.map(({ labelKey, href, icon: Icon, badge }) => {
+          {navItems.map(({ labelKey, href, icon: Icon, badge }, index) => {
             const isActive = pathname.endsWith(href);
+            const isKeyboardFocused = currentSidebarIndex === index;
             const translatedLabel = t(labelKey);
             return (
               <Link
@@ -42,6 +45,7 @@ export function SideNavContent({ navItems, onItemClick }: SideNavContentProps) {
                   isActive
                     ? 'bg-primary text-primary-foreground shadow-lg border border-primary/20'
                     : 'text-muted-foreground hover:text-primary hover:bg-primary/10 hover:shadow-md hover:border hover:border-primary/20 border border-transparent',
+                  isKeyboardFocused && !isActive && 'ring-2 ring-primary/50 bg-primary/5 border-primary/30',
                   isRTL ? 'flex-row-reverse' : 'flex-row'
                 )}
               >

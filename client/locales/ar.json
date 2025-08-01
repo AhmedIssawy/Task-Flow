@@ -502,5 +502,24 @@
     "footer": {
       "autoSave": "يتم حفظ الإعدادات تلقائياً ومزامنتها عبر أجهزتك."
     }
+  },
+  "hotkeys": {
+    "toggleTheme": "تبديل المظهر",
+    "toggleLanguage": "تغيير اللغة",
+    "logout": "تسجيل الخروج",
+    "closeModal": "إغلاق النافذة",
+    "submitForm": "إرسال النموذج",
+    "commandPalette": "لوحة الأوامر",
+    "help": "إظهار المساعدة",
+    "navigation": "التنقل",
+    "actions": "الإجراءات",
+    "ui": "واجهة المستخدم",
+    "searchCommands": "البحث في الأوامر...",
+    "noResults": "لم يتم العثور على أوامر",
+    "categories": {
+      "navigation": "التنقل",
+      "action": "الإجراءات",
+      "ui": "الواجهة"
+    }
   }
 }

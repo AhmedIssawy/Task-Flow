@@ -503,5 +503,24 @@
     "footer": {
       "autoSave": "Settings are automatically saved and synced across your devices."
     }
+  },
+  "hotkeys": {
+    "toggleTheme": "Toggle Theme",
+    "toggleLanguage": "Switch Language",
+    "logout": "Logout",
+    "closeModal": "Close Modal",
+    "submitForm": "Submit Form",
+    "commandPalette": "Command Palette",
+    "help": "Show Help",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "ui": "User Interface",
+    "searchCommands": "Search commands...",
+    "noResults": "No commands found",
+    "categories": {
+      "navigation": "Navigation",
+      "action": "Actions", 
+      "ui": "Interface"
+    }
   }
 }
