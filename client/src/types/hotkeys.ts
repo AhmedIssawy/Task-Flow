@@ -4,7 +4,7 @@
 
 import type { LucideIcon } from 'lucide-react';
 
-export type Role = 'student' | 'teacher' | 'admin' | 'superadmin';
+export type Role = 'student' | 'teacher' | 'admin' | 'super-admin';
 
 export interface HotkeyDefinition {
   key: string;

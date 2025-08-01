@@ -59,7 +59,7 @@ export const ROLE_NAVIGATION: Record<Role, NavigationHotkey[]> = {
     { key: 'ctrl+alt+6', description: 'Go to Settings', href: '/admin/{id}/settings', labelKey: 'sidebar.settings', icon: Settings, number: 6 },
   ],
   
-  superadmin: [
+  'super-admin': [
     { key: 'ctrl+alt+1', description: 'Go to Dashboard', href: '/super-admin/{id}', labelKey: 'sidebar.dashboard', icon: Home, number: 1 },
     { key: 'ctrl+alt+2', description: 'Go to University', href: '/super-admin/{id}/university', labelKey: 'sidebar.university', icon: University, number: 2 },
     { key: 'ctrl+alt+3', description: 'Go to Colleges', href: '/super-admin/{id}/colleges', labelKey: 'sidebar.colleges', icon: Building2, number: 3 },

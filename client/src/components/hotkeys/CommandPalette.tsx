@@ -6,23 +6,19 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, Command, HelpCircle, Keyboard } from 'lucide-react';
+import { Search, Command, Keyboard } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 
 import { CommandSearch } from './CommandSearch';
-import { HelpModal } from './HelpModal';
 import { useHotkeyContext } from '@/providers/HotkeyProvider';
 
 export function CommandPalette() {
   const { isCommandPaletteOpen, closeCommandPalette } = useHotkeyContext();
   const { isRTL } = useLanguage();
   const t = useTranslations();
-  const [activeTab, setActiveTab] = useState('search');
 
   // Close on escape key
   useEffect(() => {
@@ -75,50 +71,16 @@ export function CommandPalette() {
           </Badge>
         </div>
 
-        {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className={cn(
-            "grid w-full grid-cols-2 bg-muted/30 border-b border-border/50 rounded-none h-auto p-1",
-            isRTL ? "direction-rtl" : "direction-ltr"
-          )}>
-            <TabsTrigger 
-              value="search" 
-              className={cn(
-                "flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm rounded-md py-2",
-                isRTL ? "flex-row-reverse" : "flex-row"
-              )}
-            >
-              <Search className="h-4 w-4" />
-              <span className="text-sm">{t('hotkeys.categories.navigation')}</span>
-            </TabsTrigger>
-            <TabsTrigger 
-              value="help" 
-              className={cn(
-                "flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm rounded-md py-2",
-                isRTL ? "flex-row-reverse" : "flex-row"
-              )}
-            >
-              <HelpCircle className="h-4 w-4" />
-              <span className="text-sm">{t('hotkeys.help')}</span>
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="search" className="mt-0 p-0">
-            <CommandSearch />
-          </TabsContent>
-
-          <TabsContent value="help" className="mt-0 p-0">
-            <HelpModal />
-          </TabsContent>
-        </Tabs>
+        {/* Main Content */}
+        <CommandSearch />
 
         {/* Footer */}
         <div className={cn(
-          "flex items-center justify-between px-4 py-2 bg-muted/20 border-t border-border/50 text-xs text-muted-foreground",
+          "flex items-center justify-between px-4 py-3 bg-muted/50 border-t border-border/50 text-xs text-muted-foreground overflow-hidden",
           isRTL ? "flex-row-reverse" : "flex-row"
         )}>
           <div className={cn(
-            "flex items-center gap-4",
+            "flex items-center gap-4 flex-wrap",
             isRTL ? "flex-row-reverse" : "flex-row"
           )}>
             <div className={cn(
@@ -127,29 +89,29 @@ export function CommandPalette() {
             )}>
               <Keyboard className="h-3 w-3" />
               <span>↑↓</span>
-              <span>Navigate</span>
+              <span className="hidden sm:inline">Navigate</span>
             </div>
             <div className={cn(
               "flex items-center gap-1",
               isRTL ? "flex-row-reverse" : "flex-row"
             )}>
-              <kbd className="px-1.5 py-0.5 text-xs bg-muted border border-border/50 rounded">Enter</kbd>
-              <span>Execute</span>
+              <kbd className="px-1.5 py-0.5 text-xs bg-background/80 border border-border/50 rounded shadow-sm">Enter</kbd>
+              <span className="hidden sm:inline">Execute</span>
             </div>
             <div className={cn(
               "flex items-center gap-1",
               isRTL ? "flex-row-reverse" : "flex-row"
             )}>
-              <kbd className="px-1.5 py-0.5 text-xs bg-muted border border-border/50 rounded">Esc</kbd>
-              <span>Close</span>
+              <kbd className="px-1.5 py-0.5 text-xs bg-background/80 border border-border/50 rounded shadow-sm">Esc</kbd>
+              <span className="hidden sm:inline">Close</span>
             </div>
           </div>
           <div className={cn(
-            "flex items-center gap-1",
+            "flex items-center gap-1 text-xs opacity-75",
             isRTL ? "flex-row-reverse" : "flex-row"
           )}>
-            <span>Tab</span>
-            <span>Switch</span>
+            <span className="hidden md:inline">Quick</span>
+            <span>Commands</span>
           </div>
         </div>
       </DialogContent>

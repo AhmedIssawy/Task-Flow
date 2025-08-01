@@ -4,6 +4,7 @@ import UserAuthGuard from '@/components/auth/UserAuthGuard';
 import { SideMenu } from '@/components/layout';
 import { Navbar } from '@/components/layout/Navbar';
 import { CommandPalette } from '@/components/hotkeys/CommandPalette';
+import { HotkeyHelper } from '@/components/hotkeys/HotkeyHelper';
 import { navItemsData } from '@/constants/sideMenuData';
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
@@ -44,6 +45,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
         </div>
       </div>
       <CommandPalette />
+      <HotkeyHelper />
     </UserAuthGuard>
   );
 }
