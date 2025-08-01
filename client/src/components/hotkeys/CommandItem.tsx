@@ -39,71 +39,103 @@ export function CommandItem({ command, isSelected, onClick, dataIndex }: Command
       data-index={dataIndex}
       onClick={onClick}
       className={cn(
-        "group flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200",
-        "hover:bg-muted/50 active:scale-[0.98]",
-        isSelected && "bg-primary/10 border border-primary/20 shadow-sm",
+        "group relative flex items-center gap-4 px-4 py-3.5 rounded-xl cursor-pointer",
+        "transition-all duration-300 ease-out",
+        "hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10",
+        "hover:shadow-lg hover:shadow-primary/5 hover:scale-[1.02]",
+        "active:scale-[0.98] active:transition-transform active:duration-100",
+        isSelected && [
+          "bg-gradient-to-r from-primary/10 to-primary/15",
+          "border border-primary/25 shadow-lg shadow-primary/10",
+          "ring-1 ring-primary/20"
+        ],
         isRTL ? "flex-row-reverse" : "flex-row"
       )}
     >
-      {/* Icon */}
+      {/* Background Glow Effect */}
+      {isSelected && (
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl blur-sm -z-10" />
+      )}
+
+      {/* Enhanced Icon */}
       <div className={cn(
-        "flex-shrink-0 p-1.5 rounded-md transition-colors",
+        "relative flex-shrink-0 p-2.5 rounded-xl transition-all duration-300",
         isSelected 
-          ? "bg-primary/20 text-primary" 
-          : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
+          ? "bg-primary/15 text-primary shadow-lg shadow-primary/20" 
+          : "bg-muted/50 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary group-hover:shadow-md"
       )}>
+        {/* Icon Glow */}
+        {isSelected && (
+          <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md -z-10" />
+        )}
         {command.icon ? (
-          <command.icon className="h-4 w-4" />
+          <command.icon className="h-5 w-5 relative z-10" />
         ) : (
-          <Command className="h-4 w-4" />
+          <Command className="h-5 w-5 relative z-10" />
         )}
       </div>
 
-      {/* Content */}
+      {/* Enhanced Content */}
       <div className={cn(
-        "flex-1 min-w-0",
+        "flex-1 min-w-0 space-y-1 overflow-hidden",
         isRTL ? "text-right" : "text-left"
       )}>
         <div className={cn(
-          "flex items-center gap-2 mb-1",
+          "flex items-center gap-3 min-w-0",
           isRTL ? "flex-row-reverse justify-end" : "flex-row justify-start"
         )}>
-          <h4 className="text-sm font-medium text-foreground truncate">
+          <h4 className={cn(
+            "text-base font-semibold truncate transition-colors duration-200 min-w-0 flex-1",
+            isSelected ? "text-foreground" : "text-foreground/90 group-hover:text-foreground"
+          )}>
             {command.title}
           </h4>
           <Badge 
             variant="outline" 
             className={cn(
-              "text-xs px-1.5 py-0.5 flex-shrink-0",
-              getCategoryColor(command.category)
+              "text-xs px-2 py-1 flex-shrink-0 font-medium border transition-all duration-200",
+              getCategoryColor(command.category),
+              isSelected && "shadow-sm"
             )}
           >
             {command.category}
           </Badge>
         </div>
-        <p className="text-xs text-muted-foreground truncate">
+        <p className={cn(
+          "text-sm truncate transition-colors duration-200 overflow-hidden",
+          isSelected ? "text-muted-foreground" : "text-muted-foreground/80 group-hover:text-muted-foreground"
+        )}>
           {command.description}
         </p>
       </div>
 
-      {/* Hotkey & Arrow */}
+      {/* Enhanced Hotkey & Arrow */}
       <div className={cn(
-        "flex items-center gap-2 flex-shrink-0",
+        "flex items-center gap-3 flex-shrink-0",
         isRTL ? "flex-row-reverse" : "flex-row"
       )}>
-        <Badge 
-          variant="secondary" 
-          className={cn(
-            "text-xs font-mono px-2 py-1 bg-muted/50 border border-border/50",
-            isSelected && "bg-primary/20 border-primary/30"
+        <div className="relative">
+          <Badge 
+            variant="secondary" 
+            className={cn(
+              "text-xs font-mono px-3 py-1.5 font-semibold transition-all duration-200",
+              "bg-background/60 border border-border/50 shadow-sm",
+              isSelected && "bg-primary/15 border-primary/30 text-primary shadow-md",
+              "group-hover:shadow-md group-hover:scale-105"
+            )}
+          >
+            {command.hotkey}
+          </Badge>
+          {isSelected && (
+            <div className="absolute inset-0 bg-primary/10 rounded-md blur-sm -z-10" />
           )}
-        >
-          {command.hotkey}
-        </Badge>
+        </div>
         <ArrowRight className={cn(
-          "h-3 w-3 text-muted-foreground transition-transform group-hover:translate-x-0.5",
-          isSelected && "text-primary",
-          isRTL && "rotate-180 group-hover:-translate-x-0.5"
+          "h-4 w-4 transition-all duration-300",
+          isSelected 
+            ? "text-primary translate-x-1" 
+            : "text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-1",
+          isRTL && "rotate-180 group-hover:-translate-x-1"
         )} />
       </div>
     </div>

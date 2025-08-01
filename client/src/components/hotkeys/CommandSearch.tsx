@@ -114,74 +114,102 @@ export function CommandSearch() {
   };
 
   return (
-    <div className="flex flex-col h-96">
-      {/* Search Input */}
+    <div className="flex flex-col h-[500px] overflow-hidden">
+      {/* Enhanced Search Input */}
       <div className={cn(
-        "flex items-center gap-3 px-4 py-3 border-b border-border/50",
+        "flex items-center gap-4 px-6 py-4 bg-gradient-to-r from-muted/20 to-muted/30",
         isRTL ? "flex-row-reverse" : "flex-row"
       )}>
-        <Search className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+        <div className="relative">
+          <Search className="h-5 w-5 text-primary/70" />
+          <div className="absolute inset-0 bg-primary/10 rounded-full blur-sm -z-10"></div>
+        </div>
         <Input
           ref={searchInputRef}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder={t('hotkeys.searchCommands')}
           className={cn(
-            "border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-sm",
+            "border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0",
+            "text-base placeholder:text-muted-foreground/60 font-medium",
+            "transition-all duration-200",
             isRTL ? "text-right" : "text-left"
           )}
         />
       </div>
 
-      {/* Results */}
-      <ScrollArea className="flex-1" ref={listRef}>
-        {filteredCommands.length === 0 ? (
-          <div className={cn(
-            "flex flex-col items-center justify-center py-8 text-center",
-            isRTL ? "text-right" : "text-left"
-          )}>
-            <Search className="h-8 w-8 text-muted-foreground mb-2" />
-            <p className="text-sm text-muted-foreground">
-              {t('hotkeys.noResults')}
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Try a different search term
-            </p>
-          </div>
-        ) : (
-          <div className="p-2">
-            {Object.entries(groupedCommands).map(([category, commands]) => (
-              <div key={category} className="mb-4 last:mb-0">
-                {/* Category Header */}
-                <div className={cn(
-                  "flex items-center gap-2 px-2 py-1 mb-2",
-                  isRTL ? "flex-row-reverse" : "flex-row"
-                )}>
-                  <Badge variant="secondary" className="text-xs">
-                    {t(`hotkeys.categories.${category}`)}
-                  </Badge>
-                  <div className="flex-1 h-px bg-border/50" />
-                </div>
-
-                {/* Commands in Category */}
-                <div className="space-y-1">
-                  {commands.map((command, index) => {
-                    const globalIndex = filteredCommands.findIndex(c => c.id === command.id);
-                    return (
-                      <CommandItem
-                        key={command.id}
-                        command={command}
-                        isSelected={globalIndex === selectedIndex}
-                        onClick={() => handleCommandClick(command.id)}
-                        dataIndex={globalIndex}
-                      />
-                    );
-                  })}
+      {/* Enhanced Results with Smooth Scrolling */}
+      <ScrollArea 
+        className="flex-1 px-2 overflow-hidden" 
+        ref={listRef}
+        style={{
+          scrollBehavior: 'smooth',
+          scrollbarWidth: 'thin',
+        }}
+      >
+        <div className="py-2">
+          {filteredCommands.length === 0 ? (
+            <div className={cn(
+              "flex flex-col items-center justify-center py-12 text-center",
+              isRTL ? "text-right" : "text-left"
+            )}>
+              <div className="relative mb-4">
+                <div className="absolute inset-0 bg-muted/30 rounded-full blur-lg"></div>
+                <div className="relative p-4 rounded-full bg-muted/20 border border-border/30">
+                  <Search className="h-8 w-8 text-muted-foreground/60" />
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+              <h3 className="text-lg font-semibold text-foreground mb-2">
+                {t('hotkeys.noResults')}
+              </h3>
+              <p className="text-sm text-muted-foreground max-w-xs">
+                Try searching for commands like "dashboard", "settings", or "theme"
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {Object.entries(groupedCommands).map(([category, commands]) => (
+                <div key={category} className="space-y-3">
+                  {/* Enhanced Category Header */}
+                  <div className={cn(
+                    "flex items-center gap-3 px-4 py-2",
+                    isRTL ? "flex-row-reverse" : "flex-row"
+                  )}>
+                    <div className="relative">
+                      <Badge 
+                        variant="secondary" 
+                        className="text-xs font-semibold px-3 py-1.5 bg-primary/10 text-primary border-primary/20"
+                      >
+                        {t(`hotkeys.categories.${category}`)}
+                      </Badge>
+                      <div className="absolute inset-0 bg-primary/5 rounded-full blur-sm -z-10"></div>
+                    </div>
+                    <div className="flex-1 h-px bg-gradient-to-r from-border/50 to-transparent" />
+                    <span className="text-xs text-muted-foreground/60 font-medium">
+                      {commands.length} {commands.length === 1 ? 'command' : 'commands'}
+                    </span>
+                  </div>
+
+                  {/* Enhanced Commands Grid */}
+                  <div className="space-y-2 px-2">
+                    {commands.map((command, index) => {
+                      const globalIndex = filteredCommands.findIndex(c => c.id === command.id);
+                      return (
+                        <CommandItem
+                          key={command.id}
+                          command={command}
+                          isSelected={globalIndex === selectedIndex}
+                          onClick={() => handleCommandClick(command.id)}
+                          dataIndex={globalIndex}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </ScrollArea>
     </div>
   );

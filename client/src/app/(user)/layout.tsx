@@ -20,7 +20,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
   const { isRTL } = useLanguage();
   console.log('UserLayout role:', role, 'id:', id);
 
-  const getNavItems = navItemsData[role.replace(/-/g, '') as keyof typeof navItemsData];
+  const getNavItems = navItemsData[role as keyof typeof navItemsData];
   const navItems = useMemo(() => {
     return getNavItems ? getNavItems(id) : [];
   }, [getNavItems, id]);

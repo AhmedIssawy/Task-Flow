@@ -94,7 +94,7 @@ function TableBodyRenderer<T>({
     );
   }
 
-  if (rows.length === 0) {
+  if (!rows || !Array.isArray(rows) || rows.length === 0) {
     return (
       <TableBody>
         <TableRow>
@@ -121,7 +121,7 @@ function TableBodyRenderer<T>({
 
   return (
     <TableBody>
-      {rows.map((row, i) => {
+      {(rows || []).map((row, i) => {
         return (
           <TableRow
             key={i}
