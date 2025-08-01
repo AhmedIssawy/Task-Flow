@@ -19,6 +19,7 @@ import { useTranslations } from 'next-intl';
 import UserAvatar from '../user/UserAvatar';
 import { useAuth } from '@/hooks/useAuth';
 import { UnifiedNotificationPopup } from '@/components/dashboard/UnifiedNotificationPopup';
+import { HotkeyButton } from '@/components/hotkeys/HotkeyButton';
 
 export function Navbar() {
 
@@ -74,10 +75,14 @@ export function Navbar() {
             )}
           >
             {/* Theme Toggle */}
-            <ThemeToggle />
+            <ThemeToggle data-theme-toggle />
 
             {/* Language Switcher */}
-            <LanguageSwitcher />
+            <LanguageSwitcher data-language-toggle />
+
+            {/* Hotkey Buttons */}
+            <HotkeyButton variant="command" />
+            <HotkeyButton variant="help" />
 
             {/* Notifications */}
             <UnifiedNotificationPopup />

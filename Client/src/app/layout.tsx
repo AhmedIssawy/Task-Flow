@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import { Toaster } from 'sonner';
 
 import ReduxProvider from '@/providers/ReduxProvider';
+import { HotkeyProvider } from '@/components/hotkeys/HotkeyProvider';
 import { getServerLocale, getLocaleDirection, type Locale } from '@/lib/i18n';
 
 export const metadata: Metadata = {
@@ -50,7 +51,9 @@ export default async function RootLayout({
         >
           <ReduxProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              {children}
+              <HotkeyProvider>
+                {children}
+              </HotkeyProvider>
             </NextIntlClientProvider>
           </ReduxProvider>
         </ThemeProvider>
