@@ -1,6 +1,7 @@
 import Department from "../models/department.model.js";
 import asyncHandler from "express-async-handler";
 import sendResponse from "../utils/response.handler.js";
+import mongoose from "mongoose";
 
 const createDepartment = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
