@@ -6,12 +6,12 @@ export const adminAdminsTableData = [
 ];
 
 export const adminAdminCreateFields = [
-  { label: 'Name', accessor: 'name' },
-  { label: 'Password', accessor: 'password' },
-  { label: 'University ID', accessor: 'universityId' },
-  { label: 'College ID', accessor: 'collegeId' },
+  { label: 'Name', key: 'name' },
+  { label: 'Password', key: 'password' },
+  { label: 'University ID', key: 'universityId' },
+  { label: 'College ID', key: 'collegeId' },
 ];
 
 export const adminAdminEditFields = [
-  { label: 'Name', accessor: 'name' },
+  { label: 'Name', key: 'name' },
 ];

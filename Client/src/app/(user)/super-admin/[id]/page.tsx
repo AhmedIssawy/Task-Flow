@@ -12,7 +12,8 @@ import { adminAdminCreateFields, adminAdminEditFields, adminAdminsTableData } fr
 
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
-  const adminsQueryResult = useGetPageOfAdminsQuery(page);
+  const [limit, setLimit] = useState(5);
+  const adminsQueryResult = useGetPageOfAdminsQuery({ page, limit });
   const totalPages: number = adminsQueryResult?.data?.pagination?.totalPages || 0;
 
   return (
@@ -30,14 +31,17 @@ export default function AdminDashboard() {
           createHook={useCreateAdminMutation}
           createFields={adminAdminCreateFields}
         />
-        {totalPages > 0 && (
-          <PaginationControls
-            page={page}
-            totalPages={totalPages}
-            setPage={setPage}
-            className="mx-4"
-          />
-        )}
+
+        <PaginationControls
+          page={page}
+          totalPages={totalPages}
+          setPage={setPage}
+          limit={limit}
+          setLimit={setLimit}
+          showLimitControls={true}
+          showMoreLessControls={true}
+          className="mx-4"
+        />
       </div>
     </>
   );

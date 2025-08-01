@@ -19,7 +19,7 @@ import { useGetTeachersPageQuery } from '@/store/services/teacherApi';
 export default function AdminDashboard() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const teachersQueryResult = useGetTeachersPageQuery( {page, limit} );
+  const teachersQueryResult = useGetTeachersPageQuery({ page, limit });
   const totalPages: number = teachersQueryResult?.data?.pagination?.totalPages || 0;
 
   return (
@@ -37,14 +37,17 @@ export default function AdminDashboard() {
           createHook={useCreateStudentMutation}
           createFields={adminStudentCreateFields}
         />
-        {totalPages > 0 && (
-          <PaginationControls
-            page={page}
-            totalPages={totalPages}
-            setPage={setPage}
-            className="mx-4"
-          />
-        )}
+
+        <PaginationControls
+          page={page}
+          totalPages={totalPages}
+          setPage={setPage}
+          limit={limit}
+          setLimit={setLimit}
+          showLimitControls={true}
+          showMoreLessControls={true}
+          className="mx-4"
+        />
       </div>
     </>
   );
