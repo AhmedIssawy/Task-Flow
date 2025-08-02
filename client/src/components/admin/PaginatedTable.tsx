@@ -10,6 +10,7 @@ import DeleteModal from '../tables/DeleteModal';
 import TableBodyRenderer from '../tables/TableBodyRenderer';
 import type { PaginatedTableProps } from '@/constants/tableTypes';
 import FormModal from '../tables/FormModal';
+import { ComponentErrorBoundary } from '@/components/error';
 
 export function PaginatedTable<T>({
   queryResult,
@@ -63,7 +64,7 @@ export function PaginatedTable<T>({
   };
 
   return (
-    <>
+    <ComponentErrorBoundary componentName="PaginatedTable">
       <div className={cn("space-y-6", className)}>
         {/* Header with Create Button */}
         <div className="flex items-center justify-between">
@@ -178,6 +179,6 @@ export function PaginatedTable<T>({
           editFn!({ _id: (itemToEdit as any)._id, ...data }).unwrap?.()
         }
       />
-    </>
+    </ComponentErrorBoundary>
   );
 }

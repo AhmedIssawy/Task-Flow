@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import ReduxProvider from '@/providers/ReduxProvider';
 import { HotkeyProvider } from '@/providers/HotkeyProvider';
 import { getServerLocale, getLocaleDirection, type Locale } from '@/lib/i18n';
+import { AppErrorBoundary } from '@/components/error';
 
 export const metadata: Metadata = {
   title: 'Task Flow - Streamline Your Workflow',
@@ -43,21 +44,23 @@ export default async function RootLayout({
     >
       
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ReduxProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <HotkeyProvider>
-                {children}
-              </HotkeyProvider>
-            </NextIntlClientProvider>
-          </ReduxProvider>
-        </ThemeProvider>
-        <Toaster richColors position="bottom-left" closeButton />
+        <AppErrorBoundary>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ReduxProvider>
+              <NextIntlClientProvider locale={locale} messages={messages}>
+                <HotkeyProvider>
+                  {children}
+                </HotkeyProvider>
+              </NextIntlClientProvider>
+            </ReduxProvider>
+          </ThemeProvider>
+          <Toaster richColors position="bottom-left" closeButton />
+        </AppErrorBoundary>
       </body>
     </html>
   );
