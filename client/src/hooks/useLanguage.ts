@@ -37,17 +37,45 @@ export function useLanguage() {
     };
   }, []);
 
-  // Monitor cookie changes for cross-tab synchronization
+  // 🔥 OPTIMIZED: Replace polling with event-driven cross-tab sync
   useEffect(() => {
-    const monitorCookieChanges = () => {
+    // Handle storage events for cross-tab synchronization
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'locale-sync' && event.newValue) {
+        const newLocale = event.newValue;
+        if (isValidLocale(newLocale) && newLocale !== currentLocale) {
+          setCurrentLocale(newLocale);
+        }
+      }
+    };
+
+    // Handle focus events to check for external cookie changes
+    const handleFocus = () => {
       const cookieLocale = getCurrentLocale();
       if (cookieLocale !== currentLocale) {
         setCurrentLocale(cookieLocale);
       }
     };
 
-    const intervalId = setInterval(monitorCookieChanges, 1000);
-    return () => clearInterval(intervalId);
+    // Handle visibility change for better performance
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        const cookieLocale = getCurrentLocale();
+        if (cookieLocale !== currentLocale) {
+          setCurrentLocale(cookieLocale);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [currentLocale]);
 
   const switchLanguage = (newLocale: string) => {
@@ -59,6 +87,15 @@ export function useLanguage() {
       // - HTML attribute updates
       // - Event dispatching for component updates
       setLocale(newLocale);
+
+      // 🔥 NEW: Trigger cross-tab sync via localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('locale-sync', newLocale);
+        // Remove the sync item after a short delay to avoid memory buildup
+        setTimeout(() => {
+          localStorage.removeItem('locale-sync');
+        }, 1000);
+      }
 
       // Update local state immediately for visual feedback
       setCurrentLocale(newLocale);
