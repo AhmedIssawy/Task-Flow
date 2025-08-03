@@ -85,7 +85,7 @@ export const sectionApi = createApi({
       string
     >({
       query: (sectionId) => ({
-        url: `/section/${sectionId}`,
+        url: `admin/section/${sectionId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Section'],

@@ -75,7 +75,6 @@ export default function CreateSectionModal({
             setForm({ ...form, schedule: updatedSchedule })
           }
         />
-        {/* You can extend this form to allow schedule editing, teachers, students */}
 
         <Button onClick={handleSubmit}>Create Section</Button>
       </DialogContent>
