@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Department, DepartmentApiResponse, PaginatedDepartmentsResponse } from '../types/department';
+import { Department, PaginatedDepartmentsResponse } from '../types/department';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
 
 export const departmentApi = createApi({

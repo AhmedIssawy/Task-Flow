@@ -9,9 +9,9 @@ export const collegeApi = createApi({
   tagTypes: ['College'],
   endpoints: (builder) => ({
     // GET /colleges/universityId?page=1&limit=40
-    getCollegesPage: builder.query<PaginatedCollegesResponse, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 40 }) =>
-      `/colleges?page=${page}&limit=${limit}`,
+    getCollegesPage: builder.query<PaginatedCollegesResponse, { universityId: string; page?: number; limit?: number }>({
+      query: ({ universityId, page = 1, limit = 40 }) =>
+      `/universities/${universityId}/colleges?page=${page}&limit=${limit}`,
       transformResponse: (response: CollegeApiResponse) => response.data,
       providesTags: ['College'],
     }),

@@ -21,12 +21,13 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
     .lean();
 
   if (!teachers || teachers.length === 0) {
-    const message = lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
+    const message =
+      lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
     return sendResponse(res, {
       success: false,
       statusCode: 404,
       message,
-    }); 
+    });
   }
 
   const pagination = {
@@ -40,9 +41,10 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
     prevPage: page > 1 ? page - 1 : null,
   };
 
-  const message = lang === "ar"
-    ? "تم العثور على المعلمين بنجاح"
-    : "Teachers retrieved successfully";
+  const message =
+    lang === "ar"
+      ? "تم العثور على المعلمين بنجاح"
+      : "Teachers retrieved successfully";
 
   return sendResponse(res, {
     success: true,
@@ -55,17 +57,29 @@ const getPageOfTeachers = asyncHandler(async (req, res) => {
   });
 });
 
-
 const getTeacherById = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
   const { teacherId } = req.params;
 
   const teacher = await Teacher.findOne({ id: teacherId })
-    .select("-password") // exclude password
-    .populate({
-      path: "courses",
-      select: "-teachers", // exclude teachers field from each course
-    });
+    .select("-password")
+    .populate([
+      {
+        path: "departmentId",
+      },
+      {
+        path: "collegeId",
+      },
+      {
+        path: "universityId",
+        select: "name _id "
+      },
+      {
+        path: "courses",
+        select: "name _id",
+      },
+    ])
+    .lean();
 
   if (!teacher) {
     const errorMessage =
@@ -89,7 +103,6 @@ const getTeacherById = asyncHandler(async (req, res) => {
     data: teacher,
   });
 });
-
 
 const createTeacher = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";

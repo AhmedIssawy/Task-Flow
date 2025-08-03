@@ -11,7 +11,7 @@ const UNIVERSITY_ID = '685b0635a4b32e07ca4e97e6'; // TODO: replace with dynamic 
 
 export default function AdminCollegesPage() {
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const [limit, setLimit] = useState(5);
 
   const collegesQueryResult = useGetCollegesPageQuery({
     universityId: UNIVERSITY_ID,
@@ -35,14 +35,17 @@ export default function AdminCollegesPage() {
         editHook={useUpdateCollegeMutation}
         editableFields={adminCollegeEditFields}
       />
-      {totalPages > 0 && (
-        <PaginationControls
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-          className="mx-4"
-        />
-      )}
+
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+        showLimitControls={true}
+        showMoreLessControls={true}
+        className="mx-4"
+      />
     </div>
   );
 }

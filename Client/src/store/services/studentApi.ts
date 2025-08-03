@@ -20,7 +20,7 @@ export const studentApi = createApi({
 
     // Get All (paginated)
     getStudentsPage: builder.query<PaginatedStudentsResponse, { page?: number; limit?: number }>({
-      query: ({ page = 1, limit = 40 }) =>
+      query: ({ page = 1, limit = 20 }) =>
         `/students?page=${page}&limit=${limit}`,
       transformResponse: (response: StudentApiResponse) => response.data,
       providesTags: ['Student'],
@@ -35,7 +35,7 @@ export const studentApi = createApi({
 
     // Get University Students (all)
     getAllStudentsOfUniversity: builder.query<Student[], string>({
-      query: (universityId) => `/students/university/${universityId}/all`,
+      query: (universityId) => `/students/university/${universityId}`,
       providesTags: ['Student'],
     }),
 

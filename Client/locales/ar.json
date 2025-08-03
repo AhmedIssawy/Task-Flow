@@ -437,7 +437,8 @@
     "colleges": "الكليات",
     "departments": "الأقسام",
     "university": "الجامعة",
-    "admins": "المديرون"
+    "admins": "المديرون",
+    "sections": "الأقسام"
   },
   "settings": {
     "title": "الإعدادات",

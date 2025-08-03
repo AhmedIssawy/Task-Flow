@@ -17,6 +17,7 @@ import PaginationControls from '@/components/tables/PaginatedControls';
 
 export default function DepartmentsPage() {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   // Hardcoded for now — replace with dynamic values later
   const universityId = '685b0635a4b32e07ca4e97e6'; //todo replace with dynamic student ID
@@ -26,7 +27,7 @@ export default function DepartmentsPage() {
     universityId,
     collegeId,
     page,
-    limit: 10,
+    limit,
   });
 
   const totalPages: number = departmentsQuery?.data?.pagination?.totalPages || 0;
@@ -48,14 +49,17 @@ export default function DepartmentsPage() {
         editHook={useUpdateDepartmentMutation}
         editableFields={adminDepartmentEditFields}
       />
-      {totalPages > 0 && (
-        <PaginationControls
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-          className="mx-4"
-        />
-      )}
+
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        setPage={setPage}
+        limit={limit}
+        setLimit={setLimit}
+        showLimitControls={true}
+        showMoreLessControls={true}
+        className="mx-4"
+      />
     </div>
   );
 }
