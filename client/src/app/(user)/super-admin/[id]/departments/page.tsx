@@ -29,16 +29,14 @@ export default function DepartmentsPage() {
     page,
     limit,
   });
+console.log('DepartmentsPage departmentsQuery:', departmentsQuery);
 
   const totalPages: number = departmentsQuery?.data?.pagination?.totalPages || 0;
 
   return (
     <div className="w-full mt-4 space-y-4">
-      <PaginatedTable
-        queryResult={{
-          ...departmentsQuery,
-          data: { departments: departmentsQuery.data },
-        }}
+       <PaginatedTable
+        queryResult={departmentsQuery}
         dataKey="departments"
         columns={adminDepartmentsTableData}
         className="mx-4"

@@ -36,7 +36,9 @@ export function DepartmentSelect({
     return <Skeleton className="h-10 w-full rounded-md" />;
   }
 
-  const departments = data?.data || [];
+  const departments = data?.data?.departments || [];
+  console.log('DepartmentSelect departments:', departments);
+  
 
   return (
     <div className="max-w-fit">
@@ -45,7 +47,7 @@ export function DepartmentSelect({
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
-            {departments.map((dept) => (
+            {departments?.map((dept) => (
               <SelectItem key={dept._id} value={dept._id}>
                 {dept.name}
               </SelectItem>

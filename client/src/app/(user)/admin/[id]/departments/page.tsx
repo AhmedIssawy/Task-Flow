@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { useCreateDepartmentMutation, useDeleteDepartmentMutation, useGetDepartmentsPageQuery, useUpdateDepartmentMutation } from '@/store/services/departmentApi';
+import {
+  useCreateDepartmentMutation,
+  useDeleteDepartmentMutation,
+  useGetDepartmentsPageQuery,
+  useUpdateDepartmentMutation,
+} from '@/store/services/departmentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
-import { adminDepartmentCreateFields, adminDepartmentEditFields, adminDepartmentsTableData } from '@/constants/adminTableData';
+import {
+  adminDepartmentCreateFields,
+  adminDepartmentEditFields,
+  adminDepartmentsTableData,
+} from '@/constants/adminTableData';
 import PaginationControls from '@/components/tables/PaginatedControls';
 
 export default function DepartmentsPage() {
@@ -21,15 +30,13 @@ export default function DepartmentsPage() {
     limit,
   });
 
-  const totalPages: number = departmentsQuery?.data?.pagination?.totalPages || 0;
+  const totalPages: number =
+    departmentsQuery?.data?.pagination?.totalPages || 0;
 
   return (
     <div className="w-full mt-4 space-y-4">
       <PaginatedTable
-        queryResult={{
-          ...departmentsQuery,
-          data: { departments: departmentsQuery.data },
-        }}
+        queryResult={departmentsQuery}
         dataKey="departments"
         columns={adminDepartmentsTableData}
         className="mx-4"

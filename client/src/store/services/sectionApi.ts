@@ -23,19 +23,28 @@ export const sectionApi = createApi({
         course?: string;
       }
     >({
-      query: ({ universityId, collegeId, departmentId, page = 1, limit = 40, course }) => {
+      query: ({
+        universityId,
+        collegeId,
+        departmentId,
+        page = 1,
+        limit = 40,
+        course,
+      }) => {
         let base = `/admin/university/${universityId}/college/${collegeId}/department/${departmentId}/section?page=${page}&limit=${limit}`;
         if (course) base += `&course=${course}`;
         return base;
       },
-      transformResponse: (response: SectionApiResponse) => response.data as PaginatedSectionsResponse,
+      transformResponse: (response: SectionApiResponse) =>
+        response.data as PaginatedSectionsResponse,
       providesTags: ['Section'],
     }),
 
     // GET /api/sections/:sectionId
     getSectionById: builder.query<Section, { sectionId: string }>({
       query: ({ sectionId }) => `/sections/${sectionId}`,
-      transformResponse: (response: SectionApiResponse) => response.data as Section,
+      transformResponse: (response: SectionApiResponse) =>
+        response.data as Section,
     }),
 
     // POST /api/universities/:universityId/colleges/:collegeId/departments/:departmentId/sections
@@ -49,9 +58,10 @@ export const sectionApi = createApi({
       }
     >({
       query: ({ universityId, collegeId, departmentId, payload }) => ({
-        url: `/universities/${universityId}/colleges/${collegeId}/departments/${departmentId}/sections`,
+        url: `/admin/university/${universityId}/college/${collegeId}/department/${departmentId}/section`,
         method: 'POST',
         body: payload,
+        
       }),
       invalidatesTags: ['Section'],
     }),
@@ -70,9 +80,12 @@ export const sectionApi = createApi({
     }),
 
     // DELETE /api/sections/:sectionId
-    deleteSection: builder.mutation<{ success: boolean; message: string }, string>({
+    deleteSection: builder.mutation<
+      { success: boolean; message: string },
+      string
+    >({
       query: (sectionId) => ({
-        url: `/sections/${sectionId}`,
+        url: `admin/section/${sectionId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Section'],

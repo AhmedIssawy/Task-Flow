@@ -1,15 +1,21 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useUpdateSectionMutation } from '@/store/services/sectionApi';
+import {
+  useUpdateSectionMutation,
+  useDeleteSectionMutation,
+} from '@/store/services/sectionApi';
 import { Section } from '@/store/types/section';
 import { Badge } from '@/components/ui/badge';
 import AddStudentModal from '../admin/AddStudentModal';
 import { useState } from 'react';
+import EditSectionModal from './EditSectionModal';
 
 export default function SectionCard({ section }: { section: Section }) {
   const [updateSection] = useUpdateSectionMutation();
-  const [open, setOpen] = useState(false);
+  const [deleteSection] = useDeleteSectionMutation();
+  const [addStudentOpen, setAddStudentOpen] = useState(false);
+  const [editSectionOpen, setEditSectionOpen] = useState(false);
 
   const removeStudent = (studentId: string) => {
     const updated = section.students.filter((s: any) =>
@@ -18,7 +24,11 @@ export default function SectionCard({ section }: { section: Section }) {
     updateSection({ sectionId: section._id, updates: { students: updated } });
   };
 
-  console.log('Section Card:', section);
+  const handleDelete = async () => {
+    if (confirm('Are you sure you want to delete this section?')) {
+      await deleteSection(section._id);
+    }
+  };
 
   return (
     <div className="p-4 border rounded-xl shadow-md space-y-4">
@@ -26,6 +36,11 @@ export default function SectionCard({ section }: { section: Section }) {
         {section.code} - Level {section.level}
       </h3>
       <p>Capacity: {section.capacity}</p>
+      <Button variant="destructive" size="sm" onClick={handleDelete} className='mr-2'>
+        Delete
+      </Button>
+      <Button size="sm" onClick={() => setEditSectionOpen(true)}>Edit</Button>
+      
       <div className="flex flex-wrap gap-2 mt-2">
         {section.schedule.map((slot) => (
           <div
@@ -53,11 +68,11 @@ export default function SectionCard({ section }: { section: Section }) {
         </div>
       </div>
 
-      <Button onClick={() => setOpen(true)}>Add Student</Button>
+      <Button onClick={() => setAddStudentOpen(true)}>Add Student</Button>
 
       <AddStudentModal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={addStudentOpen}
+        onClose={() => setAddStudentOpen(false)}
         section={section}
         onAddStudent={(studentId) => {
           const updated = [
@@ -71,6 +86,17 @@ export default function SectionCard({ section }: { section: Section }) {
             updates: { students: updated },
           });
         }}
+      />
+      <EditSectionModal
+        open={editSectionOpen}
+        onClose={() => setEditSectionOpen(false)}
+        section={section}
+        onSave={(updates) =>
+          updateSection({
+            sectionId: section._id,
+            updates,
+          })
+        }
       />
     </div>
   );
