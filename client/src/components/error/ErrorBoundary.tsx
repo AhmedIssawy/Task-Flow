@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Component, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
@@ -10,6 +11,7 @@ interface Props {
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
   showHomeButton?: boolean;
   level?: 'page' | 'component' | 'app';
+  onNavigateHome?: () => void;
 }
 
 interface State {
@@ -25,16 +27,15 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+    return { hasError: true, error, errorInfo: undefined };
   }
-
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error(`[${this.props.level || 'Unknown'} Error Boundary]:`, error);
     console.error('Error Info:', errorInfo);
-    
+
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
-    
+
     // Store error info for debugging
     this.setState({ errorInfo });
   }
@@ -48,7 +49,12 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleGoHome = () => {
-    window.location.href = '/';
+    if (this.props.onNavigateHome) {
+      this.props.onNavigateHome();
+    } else {
+      // Fallback to window.location if no navigation handler is provided
+      window.location.href = '/';
+    }
   };
 
   render() {
@@ -143,3 +149,17 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+// Wrapper component that provides Next.js router functionality
+export function ErrorBoundaryWithRouter(props: Omit<Props, 'onNavigateHome'>) {
+  const router = useRouter();
+
+  const handleNavigateHome = () => {
+    router.push('/');
+  };
+
+  return <ErrorBoundary {...props} onNavigateHome={handleNavigateHome} />;
+}
+
+// Export the wrapper as default to maintain backward compatibility
+export default ErrorBoundaryWithRouter;

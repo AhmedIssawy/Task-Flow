@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, useRef } from 'react';
 import {
   getCurrentLocale,
   setLocale,
@@ -13,6 +13,7 @@ import {
 export function useLanguage() {
   const [currentLocale, setCurrentLocale] = useState<Locale>(() => getCurrentLocale());
   const [isPending, startTransition] = useTransition();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Available locales with enhanced information
   const availableLocales = getSupportedLocales().map(code => ({
@@ -75,6 +76,9 @@ export function useLanguage() {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('focus', handleFocus);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, [currentLocale]);
 
@@ -90,10 +94,16 @@ export function useLanguage() {
 
       // 🔥 NEW: Trigger cross-tab sync via localStorage
       if (typeof window !== 'undefined') {
+        // Clear any existing timeout
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
         localStorage.setItem('locale-sync', newLocale);
         // Remove the sync item after a short delay to avoid memory buildup
-        setTimeout(() => {
+        timeoutRef.current = setTimeout(() => {
           localStorage.removeItem('locale-sync');
+          timeoutRef.current = null;
         }, 1000);
       }
 

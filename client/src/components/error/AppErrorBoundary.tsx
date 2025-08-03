@@ -19,9 +19,8 @@ export function AppErrorBoundary({ children }: AppErrorBoundaryProps) {
           componentStack: errorInfo.componentStack,
           timestamp: new Date().toISOString(),
           userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
-          url: typeof window !== 'undefined' ? window.location.href : 'unknown'
+          url: typeof window !== 'undefined' ? window.location.pathname : 'unknown'
         });
-
         // Critical errors should be reported immediately
         // Example: Send to error monitoring service
         // errorReportingService.captureException(error, {
