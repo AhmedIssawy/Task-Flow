@@ -15,7 +15,7 @@ export interface NavItem {
   badge?: string
 }
 
-type Role = 'student' | 'teacher' | 'admin' | 'superadmin'
+type Role = 'student' | 'teacher' | 'admin' | 'super-admin'
 
 export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
   student: (id: string) => [
@@ -26,7 +26,7 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { labelKey: 'sidebar.calendar', href: `/student/${id}/calendar`, icon: Calendar, badge: '' },
     { labelKey: 'sidebar.sections', href: `/student/${id}/sections`, icon: ClipboardList, badge: '' },
     { labelKey: 'sidebar.settings', href: `/student/${id}/settings`, icon: Settings, badge: '' },
-    
+
   ],
 
   teacher: (id: string) => [
@@ -45,8 +45,8 @@ export const navItemsData: Record<Role, (id: string) => NavItem[]> = {
     { labelKey: 'sidebar.teachers', href: `/admin/${id}/teachers`, icon: Book, badge: '3' },
     { labelKey: 'sidebar.settings', href: `/admin/${id}/settings`, icon: Settings, badge: '' },
   ],
-  
-  superadmin: (id: string) => [
+
+  'super-admin': (id: string) => [
     { labelKey: 'sidebar.dashboard', href: `/super-admin/${id}`, icon: Home, badge: '' },
     { labelKey: 'sidebar.university', href: `/super-admin/${id}/university`, icon: Book, badge: '3' },
     { labelKey: 'sidebar.colleges', href: `/super-admin/${id}/colleges`, icon: BarChart3, badge: 'New' },
