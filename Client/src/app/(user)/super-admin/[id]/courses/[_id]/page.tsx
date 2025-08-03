@@ -4,6 +4,9 @@
 import { useGetSectionsPageQuery } from '@/store/services/sectionApi';
 import { useGetCourseByIdQuery } from '@/store/services/courseApi';
 import  SectionCard  from '@/components/user/SectionCard';
+import CreateSectionModal from '@/components/user/CreateSectionModal';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface PageProps {
   params: { _id: string };
@@ -16,6 +19,7 @@ interface PageProps {
 
 export default function CoursePage({ params, searchParams }: PageProps) {
   const { _id: courseId } = params;
+  const [open, setOpen] = useState(false);
   const { universityId, collegeId, departmentId } = searchParams;
   const { data: course } = useGetCourseByIdQuery(courseId);
   const { data: sectionsData } = useGetSectionsPageQuery({
@@ -31,11 +35,22 @@ export default function CoursePage({ params, searchParams }: PageProps) {
       <h1 className="text-3xl font-bold mb-1">{course?.name}</h1>
       <p className="text-muted-foreground mb-1 text-sm">Hours: {course?.hours}</p>
     </div>
+    <Button onClick={() => setOpen(true)}>+ Add Section</Button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sectionsData?.sections.map((section) => (
           <SectionCard key={section._id} section={section} />
         ))}
       </div>
+
+      {/* Create Section Modal */}
+      <CreateSectionModal
+        open={open}
+        onClose={() => setOpen(false)}
+        courseId={params._id}
+        universityId={searchParams.universityId}
+        collegeId={searchParams.collegeId}
+        departmentId={searchParams.departmentId}
+      />
     </div>
   );
 }
