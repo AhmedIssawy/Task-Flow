@@ -36,7 +36,7 @@ export function DepartmentSelect({
     return <Skeleton className="h-10 w-full rounded-md" />;
   }
 
-  const departments = data?.data?.departments || [];
+  const departments = data?.departments || [];
   console.log('DepartmentSelect departments:', departments);
   
 

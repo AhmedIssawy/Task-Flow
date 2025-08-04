@@ -40,7 +40,7 @@ export default async function RootLayout({
       dir={direction}
       suppressHydrationWarning
     >
-      
+
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
