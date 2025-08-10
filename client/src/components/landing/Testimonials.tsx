@@ -144,21 +144,6 @@ const Testimonials = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Bottom CTA */}
-                <div className="text-center mt-16">
-                    <div className="bg-card border border-border rounded-2xl p-8 max-w-2xl mx-auto">
-                        <h3 className="text-2xl font-bold text-foreground font-primary mb-4">
-                            {t('cta.title')}
-                        </h3>
-                        <p className="text-muted-foreground mb-6">
-                            {t('cta.subtitle')}
-                        </p>
-                        <button className="bg-primary text-primary-foreground px-8 py-4 rounded-xl hover:opacity-90 transition-opacity shadow-xl font-medium text-lg">
-                            {t('cta.button')}
-                        </button>
-                    </div>
-                </div>
             </div>
         </section>
     );
