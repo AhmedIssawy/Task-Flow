@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
@@ -19,36 +19,41 @@ const Header = () => {
   };
 
   const userData = useAuth();
-  
+
   const { isLoggedIn, role, id } = userData;
 
   const name = userData.user?.name;
   const userPath = getPathByRole(role, id);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border pt-4 pb-4">
+    <header className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-header">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <span className="text-xl font-bold text-foreground font-primary">
+          <div className="flex items-center gap-3 rtl:space-x-reverse">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
+              <Sparkles size={20} className="text-white" />
+            </div>
+            <span className="text-2xl font-bold text-foreground font-primary">
               {t('logo.taskflow')}
             </span>
           </div>
-
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-4 rtl:space-x-reverse">
             {isLoggedIn ? (
               <UserAvatar name={name} onClick={() => router.push(userPath)} />
             ) : (
               <>
-                <ThemeToggle />
-                <LanguageSwitcher />
+                <div className="hidden md:flex items-center gap-3">
+                  <ThemeToggle />
+                  <LanguageSwitcher />
+                </div>
 
                 <button
                   onClick={handleLoginClick}
-                  className="hidden md:block bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
+                  className="hidden md:flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl hover:opacity-90 transition-all shadow-lg hover:shadow-xl font-semibold"
                 >
-                  {t('cta.login')}
+                  <span>{t('cta.login')}</span>
                 </button>
               </>
             )}
@@ -56,29 +61,12 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-muted-foreground hover:text-primary"
+              className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col space-y-4">
-              {/* Mobile CTA Button */}
-              <div className="pt-4 border-t border-border">
-                <button
-                  onClick={handleLoginClick}
-                  className="w-full bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-md"
-                >
-                  {t('cta.login')}
-                </button>
-              </div>
-            </nav>
-          </div>
-        )}
       </div>
     </header>
   );
