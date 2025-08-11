@@ -1,0 +1,60 @@
+{
+  "[project]/src/components/landing/HeroSection.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/HeroSection.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_500e7359._.js",
+      "static/chunks/src_components_landing_HeroSection_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Ourwork.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Ourwork.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_df525458._.js",
+      "static/chunks/src_components_landing_Ourwork_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Features.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Features.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_3c618578._.js",
+      "static/chunks/src_components_landing_Features_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Footer.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Footer.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_bda7c060._.js",
+      "static/chunks/src_components_landing_Footer_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Testimonials.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Testimonials.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_d726828c._.js",
+      "static/chunks/src_components_landing_Testimonials_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Header.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Header.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_next_headers_aad9fe04.js",
+      "static/chunks/node_modules_e1049e3b._.js",
+      "static/chunks/src_64f009b1._.js",
+      "static/chunks/src_components_landing_Header_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Benefits.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Benefits.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_21e3d39f._.js",
+      "static/chunks/src_components_landing_Benefits_tsx_7d473de3._.js"
+    ]
+  },
+  "[project]/src/components/landing/Analytics.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/landing/Analytics.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/_78b17243._.js",
+      "static/chunks/src_components_landing_Analytics_tsx_7d473de3._.js"
+    ]
+  }
+}
