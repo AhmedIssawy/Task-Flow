@@ -15,6 +15,7 @@ import adminRoutes from "./routes/admin.routes.js";
 import departmentsRoutes from "./routes/department.routes.js";
 import collegesRoutes from "./routes/college.routes.js";
 import courseRoutes from "./routes/course.routes.js";
+import eventRoutes from "./routes/event.routes.js"; // Import event routes
 
 // Middlewares
 import detectLanguage from "./middlewares/user preferences/language.preference.js";
@@ -60,6 +61,7 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api", collegesRoutes);
 app.use("/api", departmentsRoutes);
+app.use("/api/events", eventRoutes); // Use event routes
 app.use("/auth", authRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {

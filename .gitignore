@@ -21,7 +21,7 @@ out/
 # Operating System
 .DS_Store
 Thumbs.db
-
+QWEN.md
 # Logs
 *.log
 npm-debug.log*
