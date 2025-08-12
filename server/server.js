@@ -26,14 +26,30 @@ const { PORT } = process.env;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// V-- التعديل الجديد والمهم هنا --V
+// أنشئ قائمة بالعناوين المسموح بها
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:3000",
+  "http://192.168.56.1:3000", // هذا هو عنوان الواجهة الأمامية عند التشغيل على الهاتف
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: function (origin, callback) {
+      // اسمح بالطلبات التي لا تحتوي على origin (مثل Postman) أو الموجودة في القائمة البيضاء
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
-app.use(detectLanguage());
+// ^-- نهاية التعديل --^
 
+app.use(detectLanguage());
 
 connectDB();
 
@@ -41,11 +57,11 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/universities", universityRoutes);
 app.use("/api/teachers", teacherRoutes);
-app.use("/api/courses", courseRoutes)
+app.use("/api/courses", courseRoutes);
 app.use("/api", collegesRoutes);
 app.use("/api", departmentsRoutes);
 app.use("/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server is running on port ${PORT} and accessible on your local network.`);
 });
