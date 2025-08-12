@@ -13,6 +13,7 @@ import { Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageSwitcher } from '@/components/made/language-switcher';
+import { useMobile } from '@/hooks/useMobile';
 
 export default function LoginForm() {
   const [userId, setUserId] = useState('');
@@ -23,6 +24,7 @@ export default function LoginForm() {
   const router = useRouter();
   const t = useTranslations('auth.login');
   const { isRTL } = useLanguage();
+  const { isMobile, isMobilePlatform } = useMobile();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,13 +55,11 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 sm:px-6 lg:px-8 relative">
+    <div className={`min-h-screen bg-background flex items-center justify-center px-4 sm:px-6 lg:px-8 relative ${isMobilePlatform ? 'mobile-safe-content' : ''}`}>
 
-
-
-      <div className="p-8 h-full flex flex-col justify-center">
-        <div className="w-full max-w-lg">
-          <div className="bg-card rounded-2xl shadow-xl border border-border" style={{ width: '480px', minHeight: '600px' }}>
+      <div className={`${isMobile ? 'p-4 w-full' : 'p-8'} h-full flex flex-col justify-center`}>
+        <div className="w-full max-w-lg mx-auto">
+          <div className={`bg-card rounded-2xl shadow-xl border border-border ${isMobile ? 'w-full min-h-[500px]' : ''}`} style={!isMobile ? { width: '480px', minHeight: '600px' } : {}}>
 
             {/* Header */}
             <div className="text-center mb-8">
@@ -103,10 +103,11 @@ export default function LoginForm() {
                     required
                     dir={isRTL ? 'rtl' : 'ltr'}
                     className={cn(
-                      "h-12 rounded-md border-border bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200",
+                      `${isMobile ? 'h-14' : 'h-12'} rounded-md border-border bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200`,
                       "focus:ring-2 focus:ring-primary/20 focus:border-primary",
                       isRTL ? 'text-right pr-12 pl-4' : 'text-left pl-12 pr-4',
-                      errorMessage && 'border-destructive focus:border-destructive focus:ring-destructive/20'
+                      errorMessage && 'border-destructive focus:border-destructive focus:ring-destructive/20',
+                      isMobilePlatform && 'mobile-touch-target'
                     )}
                   />
                   <User
@@ -135,10 +136,11 @@ export default function LoginForm() {
                     required
                     dir={isRTL ? 'rtl' : 'ltr'}
                     className={cn(
-                      "h-12 rounded-md border-border bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200",
+                      `${isMobile ? 'h-14' : 'h-12'} rounded-md border-border bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200`,
                       "focus:ring-2 focus:ring-primary/20 focus:border-primary",
                       isRTL ? 'text-right pr-12 pl-12' : 'text-left pl-12 pr-12',
-                      errorMessage && 'border-destructive focus:border-destructive focus:ring-destructive/20'
+                      errorMessage && 'border-destructive focus:border-destructive focus:ring-destructive/20',
+                      isMobilePlatform && 'mobile-touch-target'
                     )}
                   />
                   <Lock
@@ -180,10 +182,11 @@ export default function LoginForm() {
                 type="submit"
                 disabled={isLoading || !userId.trim() || !password.trim()}
                 className={cn(
-                  "w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-base rounded-xl",
+                  `w-full ${isMobile ? 'h-14' : 'h-12'} bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-base rounded-xl`,
                   "shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5",
                   "disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-lg",
-                  "focus:ring-2 focus:ring-primary/20 focus:ring-offset-2"
+                  "focus:ring-2 focus:ring-primary/20 focus:ring-offset-2",
+                  isMobilePlatform && 'mobile-touch-target'
                 )}
               >
                 {isLoading ? (

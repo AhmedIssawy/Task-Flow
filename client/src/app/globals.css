@@ -1,4 +1,29 @@
 @import "tailwindcss";
+
+/* Mobile Safe Area Support */
+.mobile-safe-header {
+  padding-top: env(safe-area-inset-top);
+}
+
+.mobile-safe-content {
+  padding-top: calc(5rem + env(safe-area-inset-top)); /* 5rem = h-20 header height */
+}
+
+.mobile-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Mobile-specific enhancements */
+@media (max-width: 768px) {
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-spacing {
+    padding: 1rem;
+  }
+}
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -364,4 +389,60 @@
 
 [dir="rtl"] .rtl\:data-\[state\=unchecked\]\:translate-x-0 {
   transform: translateX(0) !important;
+}
+
+/* Mobile-specific styles */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Mobile keyboard behavior */
+@media (max-width: 768px) {
+  /* Auto-scroll forms into view when keyboard appears */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    scroll-margin-top: 100px;
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent zoom on input focus */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+  
+  /* Improve touch targets */
+  button,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+}
+
+/* Capacitor status bar handling */
+.capacitor-status-bar-safe-area {
+  padding-top: var(--ion-safe-area-top, 0);
 }

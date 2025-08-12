@@ -1,0 +1,86 @@
+{
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": 90472,
+    "files": [
+      "static/chunks/472.2c08b965bd9148e2.js"
+    ]
+  },
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": 99341,
+    "files": [
+      "static/chunks/9341.8181fde8cccea77c.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Analytics": {
+    "id": 13381,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/1498.6f9f9246c7800452.js",
+      "static/chunks/3381.9c11472b9df79b6c.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Benefits": {
+    "id": 76738,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/1498.6f9f9246c7800452.js",
+      "static/chunks/6738.d9440c9ca57dd6cb.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Features": {
+    "id": 56145,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/6594.c4bb89203185d3ee.js",
+      "static/chunks/6145.435b818de468687f.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Footer": {
+    "id": 16434,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/3124.0ebd5438d7ff816a.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Header": {
+    "id": 4091,
+    "files": [
+      "static/chunks/5198-fc66bbfeeced0f9c.js",
+      "static/chunks/4277-9f638e4633d45612.js",
+      "static/chunks/59-f8ecdd5b10f4f3bb.js",
+      "static/chunks/5222-b7d025d0f1a2ca50.js",
+      "static/chunks/9449-a2cbca0615f9232f.js",
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/4486-1e8677cdf2d470a9.js",
+      "static/chunks/4091.797e6a2596362667.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/HeroSection": {
+    "id": 77940,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/2110.581303ebad8a28c5.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Ourwork": {
+    "id": 75202,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/6594.c4bb89203185d3ee.js",
+      "static/chunks/5202.2e13633250f5e79c.js"
+    ]
+  },
+  "app\\landing.tsx -> @/components/landing/Testimonials": {
+    "id": 54909,
+    "files": [
+      "static/chunks/6453-e23b4e5b785852d0.js",
+      "static/chunks/3045.fe602466b3ff1414.js"
+    ]
+  },
+  "lib\\i18n.ts -> next/headers": {
+    "id": 66593,
+    "files": [
+      "static/chunks/1355.432ef721e614d28d.js"
+    ]
+  }
+}

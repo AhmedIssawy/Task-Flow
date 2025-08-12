@@ -1,0 +1,13 @@
+{
+	"appId": "com.taskflow.app",
+	"appName": "Task Flow",
+	"webDir": ".next",
+	"server": {
+		"androidScheme": "http",
+		"url": "http://192.168.56.1:3000",
+		"cleartext": true
+	},
+	"android": {
+		"allowMixedContent": true
+	}
+}

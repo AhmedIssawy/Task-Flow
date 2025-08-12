@@ -6,9 +6,10 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { toast } from 'sonner';
 import { clearAuth } from '@/store/slices/authSlice';
+import { getApiUrl } from './api';
 
 export const baseQueryWithErrorHandling = (
-  baseUrl: string = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+  baseUrl: string = getApiUrl()
 ): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
   const rawBaseQuery = fetchBaseQuery({
     baseUrl,
