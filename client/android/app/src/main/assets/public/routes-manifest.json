@@ -1,1 +1,287 @@
-{"version":3,"caseSensitive":false,"basePath":"","rewrites":{"beforeFiles":[],"afterFiles":[{"source":"/login","destination":"/auth/login","regex":"^\\/login(?:\\/)?$","check":true}],"fallback":[]},"redirects":[{"source":"/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/","destination":"/:file","permanent":true,"internal":true,"missing":[{"type":"header","key":"x-nextjs-data"}],"regex":"^(?:\\/((?!\\.well-known(?:\\/.*)?)(?:[^/]+\\/)*[^/]+\\.\\w+))\\/$"},{"source":"/:notfile((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)","destination":"/:notfile/","permanent":true,"internal":true,"regex":"^(?:\\/((?!\\.well-known(?:\\/.*)?)(?:[^/]+\\/)*[^/\\.]+))$"}],"headers":[]}
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:file((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+)/",
+      "destination": "/:file",
+      "internal": true,
+      "missing": [
+        {
+          "type": "header",
+          "key": "x-nextjs-data"
+        }
+      ],
+      "statusCode": 308,
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\\.\\w+))/$"
+    },
+    {
+      "source": "/:notfile((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+)",
+      "destination": "/:notfile/",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?!\\.well-known(?:/.*)?)(?:[^/]+/)*[^/\\.]+))$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [
+      {
+        "source": "/login",
+        "destination": "/auth/login",
+        "regex": "^/login(?:/)?$"
+      }
+    ],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/admin/[id]",
+      "regex": "^/admin/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/admin/[id]/colleges",
+      "regex": "^/admin/([^/]+?)/colleges(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)/colleges(?:/)?$"
+    },
+    {
+      "page": "/admin/[id]/courses",
+      "regex": "^/admin/([^/]+?)/courses(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)/courses(?:/)?$"
+    },
+    {
+      "page": "/admin/[id]/departments",
+      "regex": "^/admin/([^/]+?)/departments(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)/departments(?:/)?$"
+    },
+    {
+      "page": "/admin/[id]/students",
+      "regex": "^/admin/([^/]+?)/students(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)/students(?:/)?$"
+    },
+    {
+      "page": "/admin/[id]/teachers",
+      "regex": "^/admin/([^/]+?)/teachers(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/admin/(?<nxtPid>[^/]+?)/teachers(?:/)?$"
+    },
+    {
+      "page": "/student/[id]",
+      "regex": "^/student/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/student/[id]/assignment",
+      "regex": "^/student/([^/]+?)/assignment(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)/assignment(?:/)?$"
+    },
+    {
+      "page": "/student/[id]/calendar",
+      "regex": "^/student/([^/]+?)/calendar(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)/calendar(?:/)?$"
+    },
+    {
+      "page": "/student/[id]/courses",
+      "regex": "^/student/([^/]+?)/courses(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)/courses(?:/)?$"
+    },
+    {
+      "page": "/student/[id]/grades",
+      "regex": "^/student/([^/]+?)/grades(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)/grades(?:/)?$"
+    },
+    {
+      "page": "/student/[id]/sections",
+      "regex": "^/student/([^/]+?)/sections(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/student/(?<nxtPid>[^/]+?)/sections(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]",
+      "regex": "^/super\\-admin/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/colleges",
+      "regex": "^/super\\-admin/([^/]+?)/colleges(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/colleges(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/courses",
+      "regex": "^/super\\-admin/([^/]+?)/courses(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/courses(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/courses/[_id]",
+      "regex": "^/super\\-admin/([^/]+?)/courses/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid",
+        "nxtP_id": "nxtP_id"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/courses/(?<nxtP_id>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/departments",
+      "regex": "^/super\\-admin/([^/]+?)/departments(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/departments(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/students",
+      "regex": "^/super\\-admin/([^/]+?)/students(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/students(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/teachers",
+      "regex": "^/super\\-admin/([^/]+?)/teachers(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/teachers(?:/)?$"
+    },
+    {
+      "page": "/super-admin/[id]/university",
+      "regex": "^/super\\-admin/([^/]+?)/university(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/super\\-admin/(?<nxtPid>[^/]+?)/university(?:/)?$"
+    },
+    {
+      "page": "/teacher/[id]",
+      "regex": "^/teacher/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/teacher/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/teacher/[id]/assignments",
+      "regex": "^/teacher/([^/]+?)/assignments(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/teacher/(?<nxtPid>[^/]+?)/assignments(?:/)?$"
+    },
+    {
+      "page": "/teacher/[id]/courses",
+      "regex": "^/teacher/([^/]+?)/courses(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/teacher/(?<nxtPid>[^/]+?)/courses(?:/)?$"
+    },
+    {
+      "page": "/teacher/[id]/sections",
+      "regex": "^/teacher/([^/]+?)/sections(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/teacher/(?<nxtPid>[^/]+?)/sections(?:/)?$"
+    },
+    {
+      "page": "/[role]/[id]/settings",
+      "regex": "^/([^/]+?)/([^/]+?)/settings(?:/)?$",
+      "routeKeys": {
+        "nxtProle": "nxtProle",
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/(?<nxtProle>[^/]+?)/(?<nxtPid>[^/]+?)/settings(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/auth/login",
+      "regex": "^/auth/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/login(?:/)?$"
+    },
+    {
+      "page": "/protected-redirect",
+      "regex": "^/protected\\-redirect(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/protected\\-redirect(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

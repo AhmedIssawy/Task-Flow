@@ -2,12 +2,14 @@
 import React from 'react';
 import { ArrowRight, Play, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useMobile } from '@/hooks/useMobile';
 
 const HeroSection = () => {
   const t = useTranslations('Landing.Hero');
+  const { isMobile, isMobilePlatform } = useMobile();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className={`relative ${isMobile ? 'min-h-[90vh]' : 'min-h-screen'} flex items-center justify-center overflow-hidden`}>
       {/* Dynamic Background with Glassmorphism */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
@@ -26,27 +28,27 @@ const HeroSection = () => {
             
 
             {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-primary leading-[0.9]">
+            <div className={`space-y-6 ${isMobile ? 'px-4' : ''}`}>
+              <h1 className={`${isMobile ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'} font-bold font-primary leading-[0.9]`}>
                 <span className="text-foreground">{t('title')}</span>
                 <span className="text-gradient block mt-2">{t('subtitle')}</span>
               </h1>
-              <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+              <p className={`${isMobile ? 'text-lg' : 'text-xl sm:text-2xl'} text-muted-foreground max-w-2xl leading-relaxed`}>
                 {t('description')}
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-              <button className="group relative bg-primary text-primary-foreground px-10 py-5 rounded-2xl hover:opacity-90 transition-all shadow-2xl hover:shadow-3xl flex items-center font-semibold text-lg overflow-hidden">
+            <div className={`flex flex-col ${isMobile ? 'gap-4' : 'sm:flex-row gap-6'} items-center pt-4 ${isMobile ? 'px-4' : ''}`}>
+              <button className={`group relative bg-primary text-primary-foreground ${isMobile ? 'w-full px-8 py-4 text-base' : 'px-10 py-5 text-lg'} rounded-2xl hover:opacity-90 transition-all shadow-2xl hover:shadow-3xl flex items-center justify-center font-semibold overflow-hidden ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <span className="relative z-10">{t('cta.primary')}</span>
-                <ArrowRight size={24} className="ml-3 rtl:ml-0 rtl:mr-3 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform relative z-10" />
+                <ArrowRight size={isMobile ? 20 : 24} className="ml-3 rtl:ml-0 rtl:mr-3 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform relative z-10" />
               </button>
 
-              <button className="group flex items-center px-8 py-5 text-muted-foreground hover:text-primary transition-all font-semibold text-lg hover-lift">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4 group-hover:bg-primary/20 transition-colors">
-                  <Play size={20} className="ml-1 group-hover:scale-110 transition-transform" />
+              <button className={`group flex items-center ${isMobile ? 'w-full justify-center px-6 py-4 text-base' : 'px-8 py-5 text-lg'} text-muted-foreground hover:text-primary transition-all font-semibold hover-lift ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
+                <div className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} bg-primary/10 rounded-full flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4 group-hover:bg-primary/20 transition-colors`}>
+                  <Play size={isMobile ? 16 : 20} className="ml-1 group-hover:scale-110 transition-transform" />
                 </div>
                 {t('cta.secondary')}
               </button>
@@ -70,9 +72,9 @@ const HeroSection = () => {
           </div>
 
           {/* Right Column - Visual */}
-          <div className="relative">
+          <div className={`relative ${isMobile ? 'mt-8 px-4' : ''}`}>
             {/* Main Glass Card */}
-            <div className="relative glass-effect rounded-3xl p-8 shadow-3xl border border-white/20">
+            <div className={`relative glass-effect rounded-3xl ${isMobile ? 'p-6' : 'p-8'} shadow-3xl border border-white/20`}>
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">

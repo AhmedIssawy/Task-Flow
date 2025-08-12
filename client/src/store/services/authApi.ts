@@ -1,10 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithErrorHandling } from '@/lib/baseQueryWithErrorHandling';
+import { getAuthApiUrl } from '@/lib/api';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: baseQueryWithErrorHandling(
-    process.env.NEXT_PUBLIC_API_URL_AUTH || 'http://localhost:5000'
+    getAuthApiUrl()
   ),
   endpoints: (builder) => ({
     getMe: builder.query<{ role: string; id: string }, void>({
