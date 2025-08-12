@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Task Flow',
   webDir: '.next',
   server: {
-    androidScheme: 'https',
+    androidScheme: 'http', // <-- هذا هو التعديل
     url: 'http://192.168.56.1:3000',
     cleartext: true
   },
