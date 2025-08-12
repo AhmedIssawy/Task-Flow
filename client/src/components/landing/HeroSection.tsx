@@ -3,10 +3,16 @@ import React from 'react';
 import { ArrowRight, Play, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMobile } from '@/hooks/useMobile';
+import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {
   const t = useTranslations('Landing.Hero');
   const { isMobile, isMobilePlatform } = useMobile();
+  const router = useRouter();
+
+  const handleStartTrialClick = () => {
+    router.push('/auth/login');
+  };
 
   return (
     <section className={`relative ${isMobile ? 'min-h-[90vh]' : 'min-h-screen'} flex items-center justify-center overflow-hidden`}>
@@ -40,7 +46,9 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className={`flex flex-col ${isMobile ? 'gap-4' : 'sm:flex-row gap-6'} items-center pt-4 ${isMobile ? 'px-4' : ''}`}>
-              <button className={`group relative bg-primary text-primary-foreground ${isMobile ? 'w-full px-8 py-4 text-base' : 'px-10 py-5 text-lg'} rounded-2xl hover:opacity-90 transition-all shadow-2xl hover:shadow-3xl flex items-center justify-center font-semibold overflow-hidden ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
+              <button 
+                onClick={handleStartTrialClick}
+                className={`group relative bg-primary text-primary-foreground ${isMobile ? 'w-full px-8 py-4 text-base' : 'px-10 py-5 text-lg'} rounded-2xl hover:opacity-90 transition-all shadow-2xl hover:shadow-3xl flex items-center justify-center font-semibold overflow-hidden ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <span className="relative z-10">{t('cta.primary')}</span>
                 <ArrowRight size={isMobile ? 20 : 24} className="ml-3 rtl:ml-0 rtl:mr-3 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform relative z-10" />

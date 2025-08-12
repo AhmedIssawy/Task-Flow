@@ -77,6 +77,44 @@ const Header = () => {
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
+            <div className="px-4 py-6 space-y-4">
+              {!isLoggedIn ? (
+                <>
+                  {/* Mobile Theme and Language Controls */}
+                  <div className="flex items-center justify-center gap-4 pb-4 border-b border-white/10">
+                    <ThemeToggle />
+                    <LanguageSwitcher />
+                  </div>
+                  
+                  {/* Mobile Login Button */}
+                  <button
+                    onClick={() => {
+                      handleLoginClick();
+                      setIsMenuOpen(false);
+                    }}
+                    className={`w-full bg-primary text-primary-foreground px-6 py-4 rounded-xl hover:opacity-90 transition-all shadow-lg font-semibold text-center ${isMobile ? 'mobile-touch-target' : ''}`}
+                  >
+                    {t('cta.login')}
+                  </button>
+                </>
+              ) : (
+                <div className="text-center">
+                  <UserAvatar 
+                    name={name} 
+                    onClick={() => {
+                      router.push(userPath);
+                      setIsMenuOpen(false);
+                    }} 
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
