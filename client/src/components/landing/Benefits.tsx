@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { TrendingUp, Clock, Target, Smile } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -57,7 +56,7 @@ const Benefits = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
                 <div className="text-center max-w-4xl mx-auto mb-20">
-                    
+
 
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-primary mb-8 leading-tight">
                         <span className="text-foreground">{t('title')}</span>
@@ -214,7 +213,7 @@ const Benefits = () => {
                     </div>
                 </div>
 
-                
+
             </div>
         </section>
     );

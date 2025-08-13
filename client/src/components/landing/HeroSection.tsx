@@ -1,21 +1,13 @@
-"use client";
 import React from 'react';
-import { ArrowRight, Play, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useMobile } from '@/hooks/useMobile';
-import { useRouter } from 'next/navigation';
+import { HeroSectionClient } from './HeroSectionClient';
 
 const HeroSection = () => {
   const t = useTranslations('Landing.Hero');
-  const { isMobile, isMobilePlatform } = useMobile();
-  const router = useRouter();
-
-  const handleStartTrialClick = () => {
-    router.push('/auth/login');
-  };
 
   return (
-    <section className={`relative ${isMobile ? 'min-h-[90vh]' : 'min-h-screen'} flex items-center justify-center overflow-hidden`}>
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Dynamic Background with Glassmorphism */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
@@ -31,36 +23,19 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Content */}
           <div className="space-y-8 text-center lg:text-left">
-            
-
             {/* Main Heading */}
-            <div className={`space-y-6 ${isMobile ? 'px-4' : ''}`}>
-              <h1 className={`${isMobile ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'} font-bold font-primary leading-[0.9]`}>
+            <div className="space-y-6 px-4 md:px-0">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold font-primary leading-[0.9]">
                 <span className="text-foreground">{t('title')}</span>
                 <span className="text-gradient block mt-2">{t('subtitle')}</span>
               </h1>
-              <p className={`${isMobile ? 'text-lg' : 'text-xl sm:text-2xl'} text-muted-foreground max-w-2xl leading-relaxed`}>
+              <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
                 {t('description')}
               </p>
             </div>
 
-            {/* CTA Buttons */}
-            <div className={`flex flex-col ${isMobile ? 'gap-4' : 'sm:flex-row gap-6'} items-center pt-4 ${isMobile ? 'px-4' : ''}`}>
-              <button 
-                onClick={handleStartTrialClick}
-                className={`group relative bg-primary text-primary-foreground ${isMobile ? 'w-full px-8 py-4 text-base' : 'px-10 py-5 text-lg'} rounded-2xl hover:opacity-90 transition-all shadow-2xl hover:shadow-3xl flex items-center justify-center font-semibold overflow-hidden ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span className="relative z-10">{t('cta.primary')}</span>
-                <ArrowRight size={isMobile ? 20 : 24} className="ml-3 rtl:ml-0 rtl:mr-3 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform relative z-10" />
-              </button>
-
-              <button className={`group flex items-center ${isMobile ? 'w-full justify-center px-6 py-4 text-base' : 'px-8 py-5 text-lg'} text-muted-foreground hover:text-primary transition-all font-semibold hover-lift ${isMobilePlatform ? 'mobile-touch-target' : ''}`}>
-                <div className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} bg-primary/10 rounded-full flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4 group-hover:bg-primary/20 transition-colors`}>
-                  <Play size={isMobile ? 16 : 20} className="ml-1 group-hover:scale-110 transition-transform" />
-                </div>
-                {t('cta.secondary')}
-              </button>
-            </div>
+            {/* CTA Buttons - Client Component for interactivity */}
+            <HeroSectionClient />
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-8 pt-12 max-w-lg mx-auto lg:mx-0">
@@ -80,9 +55,9 @@ const HeroSection = () => {
           </div>
 
           {/* Right Column - Visual */}
-          <div className={`relative ${isMobile ? 'mt-8 px-4' : ''}`}>
+          <div className="relative mt-8 px-4 md:px-0">
             {/* Main Glass Card */}
-            <div className={`relative glass-effect rounded-3xl ${isMobile ? 'p-6' : 'p-8'} shadow-3xl border border-white/20`}>
+            <div className="relative glass-effect rounded-3xl p-6 md:p-8 shadow-3xl border border-white/20">
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">

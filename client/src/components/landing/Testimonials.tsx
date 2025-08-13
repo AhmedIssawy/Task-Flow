@@ -1,11 +1,10 @@
-"use client";
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 const Testimonials = () => {
     const t = useTranslations('Landing.Testimonials');
-    
+
     const testimonials = [
         {
             name: t('testimonials.sarah.name'),

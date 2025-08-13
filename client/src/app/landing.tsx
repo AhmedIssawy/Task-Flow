@@ -1,27 +1,18 @@
-"use client";
-import dynamic from "next/dynamic";
-import { getPlatformClasses } from "@/lib/mobile";
-
-const Header = dynamic(() => import("@/components/landing/Header"), { ssr: false });
-const HeroSection = dynamic(() => import("@/components/landing/HeroSection"), { ssr: false });
-const Features = dynamic(() => import("@/components/landing/Features"), { ssr: false });
-const Benefits = dynamic(() => import("@/components/landing/Benefits"), { ssr: false });
-const Analytics = dynamic(() => import("@/components/landing/Analytics"), { ssr: false });
-const OurWork = dynamic(() => import("@/components/landing/Ourwork"), { ssr: false });
-const Testimonials = dynamic(() => import("@/components/landing/Testimonials"), { ssr: false });
-const Footer = dynamic(() => import("@/components/landing/Footer"), { ssr: false });
+// Server component for static generation - remove "use client" directive
+import Header from "@/components/landing/Header";
+import HeroSection from "@/components/landing/HeroSection";
+import Features from "@/components/landing/Features";
+import Benefits from "@/components/landing/Benefits";
+import Analytics from "@/components/landing/Analytics";
+import OurWork from "@/components/landing/Ourwork";
+import Testimonials from "@/components/landing/Testimonials";
+import Footer from "@/components/landing/Footer";
 
 const LandingPage = () => {
-  // Platform-specific spacing for main content
-  const mainClasses = getPlatformClasses(
-    'flex-grow mobile-safe-content', // Mobile: uses safe area spacing
-    'flex-grow mt-20' // Web: uses fixed margin-top
-  );
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className={mainClasses}>
+      <main className="flex-grow">
         <div className="w-full">
           <HeroSection />
           <Features />

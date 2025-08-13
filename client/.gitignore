@@ -35,7 +35,8 @@ yarn-error.log*
 
 # vercel
 .vercel
-
+android/*
+android
 # typescript
 *.tsbuildinfo
 next-env.d.ts

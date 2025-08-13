@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { ExternalLink, Github, Play, Users, Calendar, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
