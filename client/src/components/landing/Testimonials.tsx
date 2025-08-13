@@ -79,8 +79,8 @@ const Testimonials = () => {
 
                 {/* Stats Section */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                    {stats.map((stat, index) => (
-                        <div key={index} className="text-center">
+                    {stats.map((stat) => (
+                        <div key={`${stat.label}-${stat.value}`} className="text-center">
                             <div className="text-3xl lg:text-4xl font-bold text-primary mb-2 font-primary">
                                 {stat.value}
                             </div>
@@ -93,23 +93,24 @@ const Testimonials = () => {
 
                 {/* Testimonials Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {testimonials.map((testimonial, index) => (
+                    {testimonials.map((testimonial) => (
                         <div
-                            key={index}
+                            key={`${testimonial.name}-${testimonial.company}`}
                             className="group bg-card border border-border rounded-2xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
                         >
                             {/* Quote Icon */}
                             <div className="absolute -top-3 -left-3 w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                                <Quote size={16} className="text-primary-foreground" />
+                                <Quote size={16} className="text-primary-foreground" aria-hidden="true" />
                             </div>
 
                             {/* Rating */}
                             <div className="flex items-center space-x-1 mb-4">
                                 {[...Array(testimonial.rating)].map((_, starIndex) => (
                                     <Star
-                                        key={starIndex}
+                                        key={`${testimonial.name}-star-${starIndex}`}
                                         size={16}
                                         className="text-yellow-500 fill-current"
+                                        aria-hidden="true"
                                     />
                                 ))}
                             </div>

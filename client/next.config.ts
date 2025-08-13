@@ -15,10 +15,14 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Optimize for static generation
+  // Create standalone Node.js server bundle for deployment
   output: 'standalone',
+  // Include i18n locale files in standalone build
+  outputFileTracing: true,
   experimental: {
-    optimizePackageImports: ['lucide-react', 'next-intl'],
+    // Only include proven-safe packages for import optimization
+    // lucide-react confirmed safe, next-intl removed due to potential compatibility issues
+    optimizePackageImports: ['lucide-react'],
   },
   async rewrites() {
     return [

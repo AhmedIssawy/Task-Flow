@@ -73,7 +73,7 @@ const Benefits = () => {
                         {benefits.map((benefit, index) => {
                             const IconComponent = benefit.icon;
                             return (
-                                <div key={index} className="group relative">
+                                <div key={benefit.title} className="group relative">
                                     {/* Connecting Line */}
                                     {index < benefits.length - 1 && (
                                         <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-primary/30 to-transparent"></div>

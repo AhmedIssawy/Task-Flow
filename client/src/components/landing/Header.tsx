@@ -1,10 +1,10 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { HeaderClient } from './HeaderClient';
 
-const Header = () => {
-  const t = useTranslations('Landing.Header');
+const Header = async () => {
+  const t = await getTranslations('Landing.Header');
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/10 backdrop-blur-xl">
