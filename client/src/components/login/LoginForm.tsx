@@ -12,7 +12,7 @@ import { normalizeRole } from '@/utils/role';
 import { Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { LanguageSwitcher } from '@/components/made/language-switcher';
+import { LanguageSwitcher } from '@/components/user/global/language-switcher';
 import { useMobile } from '@/hooks/useMobile';
 
 export default function LoginForm() {
@@ -75,11 +75,11 @@ export default function LoginForm() {
                   <ThemeToggle />
                   <LanguageSwitcher />
                 </div>
-                
+
               </div>
-                <span className="text-3xl font-bold text-primary font-primary ml-2 rtl:ml-0 rtl:mr-2">
-                  {t('brandName')}
-                </span>
+              <span className="text-3xl font-bold text-primary font-primary ml-2 rtl:ml-0 rtl:mr-2">
+                {t('brandName')}
+              </span>
               <p className="text-muted-foreground text-sm">
                 {t('subtitle')}
               </p>
@@ -203,7 +203,7 @@ export default function LoginForm() {
               </Button>
             </form>
 
-            
+
           </div>
         </div>
       </div>

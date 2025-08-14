@@ -4,12 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { LanguageSwitcher } from '@/components/made/language-switcher';
-import { 
-  Settings, 
-  Palette, 
-  Globe, 
-  Bell, 
+import { LanguageSwitcher } from '@/components/user/global/language-switcher';
+import {
+  Settings,
+  Palette,
+  Globe,
+  Bell,
   Monitor,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -40,24 +40,24 @@ export default function UniversalSettingsPage() {
         {/* Additional accent orb */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-cyan-400/15 to-blue-600/15 dark:from-primary/15 dark:to-accent/15 rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
-      
+
       {/* Floating geometric shapes - Enhanced for light/dark mode */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Primary floating circles */}
         <div className="absolute top-1/4 ltr:right-1/4 rtl:left-1/4 w-6 h-6 bg-blue-500/40 dark:bg-primary/30 rounded-full animate-bounce shadow-lg"></div>
         <div className="absolute bottom-1/3 ltr:left-1/3 rtl:right-1/3 w-4 h-4 bg-purple-500/40 dark:bg-secondary/30 rounded-full animate-bounce delay-500 shadow-lg"></div>
         <div className="absolute top-2/3 ltr:right-1/3 rtl:left-1/3 w-5 h-5 bg-pink-500/40 dark:bg-accent/30 rounded-full animate-bounce delay-1000 shadow-lg"></div>
-        
+
         {/* Additional geometric shapes */}
         <div className="absolute top-1/6 ltr:left-1/6 rtl:right-1/6 w-3 h-3 bg-cyan-500/35 dark:bg-primary/25 rounded-full animate-pulse delay-300"></div>
         <div className="absolute bottom-1/6 ltr:right-1/6 rtl:left-1/6 w-4 h-4 bg-indigo-500/35 dark:bg-secondary/25 rounded-full animate-pulse delay-700"></div>
         <div className="absolute top-1/2 ltr:left-1/5 rtl:right-1/5 w-2 h-2 bg-violet-500/40 dark:bg-accent/25 rounded-full animate-bounce delay-1200"></div>
-        
+
         {/* Diamond shapes */}
         <div className="absolute top-3/4 ltr:left-2/3 rtl:right-2/3 w-3 h-3 bg-emerald-500/30 dark:bg-primary/20 transform rotate-45 animate-pulse delay-800"></div>
         <div className="absolute bottom-1/2 ltr:right-1/5 rtl:left-1/5 w-2 h-2 bg-orange-500/35 dark:bg-secondary/20 transform rotate-45 animate-bounce delay-1500"></div>
       </div>
-      
+
       {/* Grid pattern overlay - Enhanced for light/dark mode */}
       <div className="absolute inset-0 opacity-40 dark:opacity-25">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.2)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -135,7 +135,7 @@ export default function UniversalSettingsPage() {
                     <p className="text-sm text-muted-foreground">{t('notifications.email.description')}</p>
                   </div>
                 </div>
-                <Switch 
+                <Switch
                   checked={notifications.email}
                   onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, email: checked }))}
                 />
@@ -152,7 +152,7 @@ export default function UniversalSettingsPage() {
                     <p className="text-sm text-muted-foreground">{t('notifications.push.description')}</p>
                   </div>
                 </div>
-                <Switch 
+                <Switch
                   checked={notifications.push}
                   onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, push: checked }))}
                 />
@@ -169,7 +169,7 @@ export default function UniversalSettingsPage() {
                     <p className="text-sm text-muted-foreground">{t('notifications.sms.description')}</p>
                   </div>
                 </div>
-                <Switch 
+                <Switch
                   checked={notifications.sms}
                   onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, sms: checked }))}
                 />

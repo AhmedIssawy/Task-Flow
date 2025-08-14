@@ -1,4 +1,4 @@
-import Landing from '@/app/landing';
+import Landing from '@/app/landing/page';
 
 // Enable ISR - rebuild every 60 seconds for fresh content
 export const revalidate = 60;

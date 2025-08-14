@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { LanguageSwitcher } from '@/components/made/language-switcher';
+import { LanguageSwitcher } from '@/components/user/global/language-switcher';
 import { useTranslations } from 'next-intl';
 import { getPathByRole } from '@/utils/roleRedirect';
 import UserAvatar from '../user/UserAvatar';
