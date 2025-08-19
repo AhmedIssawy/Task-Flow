@@ -1,8 +1,4 @@
 'use client';
-
-import {
-
-} from '@/store/services/studentApi';
 import { PaginatedTable } from '@/components/admin/PaginatedTable';
 
 import { useState } from 'react';

@@ -1,5 +1,5 @@
-"use client";
 import React from 'react';
+import Image from 'next/image';
 import { ExternalLink, Github, Play, Users, Calendar, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -112,11 +112,11 @@ const OurWork = () => {
                             >
                                 {/* Project Image */}
                                 <div className="relative h-64 overflow-hidden">
-                                    <image
+                                    <Image
                                         src={project.image}
                                         alt={`${project.title} - Luca Bravo on Unsplash`}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                        style={{ width: '100%', height: '256px' }}
+                                        fill
+                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
 
                                     {/* Overlay */}

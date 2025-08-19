@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { Calendar, Users, BarChart3, Zap, Shield, Globe, ArrowUpRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -88,7 +87,7 @@ const Features = () => {
               <div
                 key={index}
                 className={`group glass-effect rounded-3xl p-8 hover:shadow-3xl transition-all duration-500 hover:-translate-y-2 border border-white/10 relative overflow-hidden ${isLarge ? 'md:col-span-2 md:row-span-2' :
-                    isMedium ? 'md:row-span-2' : ''
+                  isMedium ? 'md:row-span-2' : ''
                   }`}
                 style={{
                   background: `linear-gradient(135deg, ${feature.color.split(' ')[1]} 0%, transparent 100%)`

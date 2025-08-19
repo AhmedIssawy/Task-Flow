@@ -14,7 +14,7 @@ import LogoutButton from '../auth/LogoutBtn';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { LanguageSwitcher } from '@/components/made/language-switcher';
+import { LanguageSwitcher } from '@/components/user/global/language-switcher';
 import { useTranslations } from 'next-intl';
 import UserAvatar from '../user/UserAvatar';
 import { useAuth } from '@/hooks/useAuth';

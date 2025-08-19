@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { TrendingUp, BarChart3, PieChart, Activity, Zap, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -53,7 +52,7 @@ const Analytics = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
                 <div className="text-center max-w-4xl mx-auto mb-20">
-                    
+
 
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold font-primary mb-8 leading-tight">
                         <span className="text-foreground">{t('title')}</span>
@@ -66,11 +65,11 @@ const Analytics = () => {
 
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                    {metrics.map((metric, index) => {
+                    {metrics.map((metric) => {
                         const IconComponent = metric.icon;
                         return (
                             <div
-                                key={index}
+                                key={metric.label}
                                 className="group relative glass-effect rounded-3xl p-8 hover:shadow-3xl transition-all duration-500 hover:-translate-y-2 border border-white/10 text-center overflow-hidden"
                             >
                                 {/* Background Gradient */}
@@ -127,7 +126,7 @@ const Analytics = () => {
                                 {/* Simulated Chart Lines */}
                                 <div className="flex items-end justify-between h-32 gap-2">
                                     {[65, 45, 78, 52, 89, 67, 94, 73, 86, 91, 77, 95].map((height, i) => (
-                                        <div key={i} className="flex-1 flex flex-col justify-end">
+                                        <div key={`chart-bar-${i}-${height}`} className="flex-1 flex flex-col justify-end">
                                             <div
                                                 className="bg-gradient-to-t from-primary to-primary/60 rounded-t-lg transition-all duration-1000 hover:from-accent hover:to-accent/60"
                                                 style={{ height: `${height}%` }}
