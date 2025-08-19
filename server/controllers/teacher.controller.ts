@@ -1,0 +1,226 @@
+// @ts-nocheck
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
+import Teacher from "../models/teacher.model.js";
+import University from "../models/university.model.js";
+import sendResponse from "../utils/response.handler.js";
+import { Language } from "../types/common/index.js";
+
+const getPageOfTeachers = asyncHandler(async (req: Request, res: Response) => {
+  const lang: Language = (req.cookies?.lang as Language) || "en";
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 40;
+  const totalCount = await Teacher.estimatedDocumentCount();
+  const totalPages = Math.ceil(totalCount / limit);
+  const skip = (page - 1) * limit;
+  const teachers = await Teacher.find()
+    .select("-password")
+    .populate("courses")
+    .skip(skip)
+    .limit(limit)
+    .lean();
+  if (!teachers || teachers.length === 0) {
+    const message =
+      lang === "ar" ? "لم يتم العثور على معلمين" : "No teachers found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message,
+    });
+  }
+  const pagination = {
+    currentPage: page,
+    totalPages,
+    totalCount,
+    limit,
+    hasNextPage: page < totalPages,
+    hasPrevPage: page > 1,
+    nextPage: page < totalPages ? page + 1 : null,
+    prevPage: page > 1 ? page - 1 : null,
+  };
+  const message =
+    lang === "ar"
+      ? "تم العثور على المعلمين بنجاح"
+      : "Teachers retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message,
+    data: {
+      teachers,
+      pagination,
+    },
+  });
+});
+const getTeacherById = asyncHandler(async (req: Request, res: Response) => {
+  const lang: Language = (req.cookies?.lang as Language) || "en";
+  const { teacherId } = req.params;
+  const teacher = await Teacher.findOne({ id: teacherId })
+    .select("-password")
+    .populate([
+      {
+        path: "departmentId",
+      },
+      {
+        path: "collegeId",
+      },
+      {
+        path: "universityId",
+        select: "name _id "
+      },
+      {
+        path: "courses",
+        select: "name _id",
+      },
+    ])
+    .lean();
+  if (!teacher) {
+    const errorMessage =
+      lang === "ar" ? "المعلم غير موجود" : "Teacher not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
+  }
+  const successMessage =
+    lang === "ar"
+      ? "تم العثور على المعلم بنجاح"
+      : "Teacher retrieved successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: teacher,
+  });
+});
+const createTeacher = asyncHandler(async (req: Request, res: Response) => {
+  const lang: Language = (req.cookies?.lang as Language) || "en";
+  const {
+    name,
+    email,
+    courses = [],
+    phone,
+    address,
+    password,
+    universityId,
+    departmentId,
+    collegeId,
+    role = "teacher",
+  } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const teacher = await Teacher.create({
+    name,
+    email,
+    courses,
+    phone,
+    address,
+    password: hashedPassword,
+    universityId,
+    departmentId,
+    collegeId,
+    role,
+  });
+  const { password: _password, ...response } = teacher.toObject();
+  const successMessage =
+    lang === "ar" ? "تم إنشاء المعلم بنجاح" : "Teacher created successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 201,
+    message: successMessage,
+    data: response,
+  });
+});
+const updateTeacher = asyncHandler(async (req: Request, res: Response) => {
+  const lang: Language = (req.cookies?.lang as Language) || "en";
+  const { _id, name, email, courses, phone, address, password, role } =
+    req.body;
+  const { id } = req.params;
+  if (!id && !_id) {
+    const errorMessage =
+      lang === "ar"
+        ? "معرف المعلم 'id' أو '_id' مطلوب"
+        : "Teacher 'id' or '_id' is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
+  }
+  const updateData = {};
+  if (name) updateData.name = name;
+  if (email) updateData.email = email;
+  if (courses) updateData.courses = courses;
+  if (phone) updateData.phone = phone;
+  if (address) updateData.address = address;
+  if (role) updateData.role = role;
+  if (password) updateData.password = await bcrypt.hash(password, 10);
+  const teacher = id
+    ? await Teacher.findOneAndUpdate({ id }, updateData, { new: true })
+    : await Teacher.findByIdAndUpdate(_id, updateData, { new: true });
+  if (!teacher) {
+    const errorMessage =
+      lang === "ar" ? "المعلم غير موجود" : "Teacher not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
+  }
+  const {
+    password: _password,
+    phone: _phone,
+    ...response
+  } = teacher.toObject();
+  const successMessage =
+    lang === "ar" ? "تم تحديث المعلم بنجاح" : "Teacher updated successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+    data: response,
+  });
+});
+const deleteTeacher = asyncHandler(async (req: Request, res: Response) => {
+  const lang: Language = (req.cookies?.lang as Language) || "en";
+  const { id } = req.params;
+  const { _id = "" } = req.body;
+  if (!id && !_id) {
+    const errorMessage =
+      lang === "ar"
+        ? "معرف المعلم 'id' أو '_id' مطلوب"
+        : "Teacher 'id' or '_id' is required";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 400,
+      message: errorMessage,
+    });
+  }
+  const teacher = id
+    ? await Teacher.findOneAndDelete({ id })
+    : await Teacher.findByIdAndDelete(_id);
+  if (!teacher) {
+    const errorMessage =
+      lang === "ar" ? "المعلم غير موجود" : "Teacher not found";
+    return sendResponse(res, {
+      success: false,
+      statusCode: 404,
+      message: errorMessage,
+    });
+  }
+  const successMessage =
+    lang === "ar" ? "تم حذف المعلم بنجاح" : "Teacher deleted successfully";
+  return sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: successMessage,
+  });
+});
+export {
+  getPageOfTeachers,
+  getTeacherById,
+  createTeacher,
+  updateTeacher,
+  deleteTeacher,
+};
