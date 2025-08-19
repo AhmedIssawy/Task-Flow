@@ -27,17 +27,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// V-- التعديل الجديد والمهم هنا --V
-// أنشئ قائمة بالعناوين المسموح بها
 const allowedOrigins = [
   process.env.CLIENT_URL || "http://localhost:3000",
-  "http://192.168.56.1:3000", // هذا هو عنوان الواجهة الأمامية عند التشغيل على الهاتف
+  "http://192.168.56.1:3000", 
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // اسمح بالطلبات التي لا تحتوي على origin (مثل Postman) أو الموجودة في القائمة البيضاء
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
@@ -47,7 +44,6 @@ app.use(
     credentials: true,
   })
 );
-// ^-- نهاية التعديل --^
 
 app.use(detectLanguage());
 
