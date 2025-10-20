@@ -21,7 +21,7 @@ import detectLanguage from "./middlewares/user preferences/language.preference.j
 
 const app = express();
 
-const { PORT } = process.env;
+const { PORT, CLIENT_URL } = process.env;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: CLIENT_URL,
     credentials: true,
   })
 );
