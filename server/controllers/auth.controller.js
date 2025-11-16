@@ -8,6 +8,17 @@ import Student from "../models/student.model.js";
 import Admin from "../models/admin.model.js";
 import Teacher from "../models/teacher.model.js";
 
+// Helper function to detect production environment
+const isProductionEnvironment = (req) => {
+  return process.env.NODE_ENV === "production" || 
+         process.env.VERCEL || 
+         process.env.RAILWAY_ENVIRONMENT ||
+         req.get('host')?.includes('vercel.app') ||
+         req.get('host')?.includes('railway.app') ||
+         req.get('host')?.includes('herokuapp.com') ||
+         req.get('host')?.includes('render.com');
+};
+
 const login = asyncHandler(async (req, res) => {
   let { id, password, lang = "en" } = req.body;
   let Model = null;
@@ -49,18 +60,20 @@ const login = asyncHandler(async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
+  const isProduction = isProductionEnvironment(req);
+
   res.cookie("__Security_access_token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true, // Always use secure in production environments
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
   res.cookie("lang", lang, {
     httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
     maxAge: 24 * 60 * 60 * 1000,
   });
@@ -111,18 +124,19 @@ const authMe = asyncHandler(async (req, res) => {
 
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
+  const isProduction = isProductionEnvironment(req);
 
   res.clearCookie("__Security_access_token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   });
   
   res.clearCookie("lang", {
     httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
   });
 
