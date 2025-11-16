@@ -1,10 +1,14 @@
+import "dotenv/config";
+
 const detectLanguage = () => {
   return (req, res, next) => {
     const lang = req.cookies?.lang || req.headers["lang"] || "en";
     if (!req.cookies?.lang) {
       res.cookie("lang", lang, {
         httpOnly: false,
-        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        path: "/",
         maxAge: 24 * 60 * 60 * 365 * 1000, // 1 year
       });
     }

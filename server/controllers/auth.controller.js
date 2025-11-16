@@ -52,7 +52,7 @@ const login = asyncHandler(async (req, res) => {
   res.cookie("__Security_access_token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     path: "/",
     maxAge: 24 * 60 * 60 * 1000,
   });
@@ -60,6 +60,8 @@ const login = asyncHandler(async (req, res) => {
   res.cookie("lang", lang, {
     httpOnly: false,
     secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
     maxAge: 24 * 60 * 60 * 1000,
   });
 
@@ -110,8 +112,19 @@ const authMe = asyncHandler(async (req, res) => {
 const logout = asyncHandler(async (req, res) => {
   const lang = req.cookies?.lang || "en";
 
-  res.clearCookie("__Security_access_token");
-  res.clearCookie("lang");
+  res.clearCookie("__Security_access_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  });
+  
+  res.clearCookie("lang", {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    path: "/",
+  });
 
   const successMessage =
     lang === "ar" ? "تم تسجيل الخروج بنجاح" : "Logout successfully";
