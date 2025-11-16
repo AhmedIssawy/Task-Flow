@@ -1,11 +1,12 @@
-import { Capacitor } from '@capacitor/core';
-
 /**
- * Check if the app is running on a native mobile platform
- * @returns true if running on Android/iOS, false if running on web
+ * Check if the app is running on a mobile screen size
+ * @returns true if screen width is less than 768px, false otherwise
  */
 export const isMobilePlatform = (): boolean => {
-  return Capacitor.isNativePlatform();
+  if (typeof window === 'undefined') {
+    return false; // Default to false during SSR
+  }
+  return window.innerWidth < 768;
 };
 
 /**
@@ -28,7 +29,7 @@ export const getPlatformClasses = (
 
 /**
  * Hook to get mobile platform status (client-side only)
- * @returns boolean indicating if running on mobile
+ * @returns boolean indicating if running on mobile screen size
  */
 export const useMobilePlatform = (): boolean => {
   if (typeof window === 'undefined') {

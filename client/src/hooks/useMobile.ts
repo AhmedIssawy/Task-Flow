@@ -1,21 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Capacitor } from '@capacitor/core';
 
 /**
- * Hook to detect mobile platform and screen size
+ * Hook to detect mobile screen size
  * @returns Object with mobile detection states
  */
 export const useMobile = () => {
-  const [isMobilePlatform, setIsMobilePlatform] = useState(false);
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if running on Capacitor (native mobile)
-    setIsMobilePlatform(Capacitor.isNativePlatform());
-
     // Check screen size for mobile breakpoint
     const checkScreenSize = () => {
       setIsMobileScreen(window.innerWidth < 768);
@@ -34,10 +29,10 @@ export const useMobile = () => {
   }, []);
 
   return {
-    isMobilePlatform,
+    isMobilePlatform: isMobileScreen,
     isMobileScreen,
-    isMobile: isMobilePlatform || isMobileScreen,
+    isMobile: isMobileScreen,
     isLoaded,
-    platform: Capacitor.getPlatform(),
+    platform: 'web',
   };
 };
